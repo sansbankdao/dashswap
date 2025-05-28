@@ -1,26 +1,26 @@
 ---
-import '../styles/global.scss';
+import '../styles/global.scss'
 
 // Base domain URL without trailing slash
-const domainBaseURL = 'https://devidev.io';
-const ogImageUrl    = 'https://devidev.io/img/meta.png';
+const domainBaseURL = 'https://dashswap.xyz'
+const ogImageUrl    = 'https://dashswap.xyz/poster.webp'
 
 // Website publisher & region
-const authorPublisher   = 'Dejan Vi.';
-const geoRegion         = 'DE-BY';
+const authorPublisher   = 'DashSwap by Sansbank'
+const geoRegion         = 'en_US'
 
 // SEO title, description and keywords
-const seoTitle          = 'devi|dev|io | Dejan Vi. | Full Stack Developer';
-const seoDescription    = 'Passionate web developer focused on creating clean, efficient, and scalable web applications with a modern tech stack. Specialized in Angular, TypeScript, and Supabase.';
-const seoKeywords       = 'Full Stack Developer, Dejan Vi, Munich, Papersend, Qivi, TECHPOINT, Angular, Typescript, Supabase';
+const seoTitle          = 'devi|dev|io | Dejan Vi. | Full Stack Developer'
+const seoDescription    = 'Passionate web developer focused on creating clean, efficient, and scalable web applications with a modern tech stack. Specialized in Angular, TypeScript, and Supabase.'
+const seoKeywords       = 'Full Stack Developer, Dejan Vi, Munich, Papersend, Qivi, TECHPOINT, Angular, Typescript, Supabase'
 
 // Twitter card data
 const twitter = {
     title:          seoTitle,
     description:    seoDescription,
     image:          ogImageUrl,
-    site:           '@devidev_io',
-    creator:        '@devidev_io'
+    site:           '@0xShomari',
+    creator:        '@0xShomari'
 };
 
 // Open graph data
@@ -34,7 +34,7 @@ const openGraph = {
     siteName:       'devi|dev|io'
 };
 
-// Dublin core
+// Dublin core8
 const dublinCore = {
     title:          'devi|dev|io',
     creator:        authorPublisher,
@@ -130,6 +130,8 @@ const dublinCore = {
 
     <body class="min-h-[100vh] flex items-center justify-center p-4">
         <slot />
+        <!-- Simple Analytics - 100% privacy-first analytics -->
+		<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     </body>
 
 </html>
