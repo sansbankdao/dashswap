@@ -1,8 +1,9 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config'
 
-import tailwind from '@astrojs/tailwind';
-import compress from 'astro-compress';
-import sitemap from '@astrojs/sitemap';
+import vue from '@astrojs/vue'
+import tailwind from '@astrojs/tailwind'
+import compress from 'astro-compress'
+import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
     output: 'static',
@@ -13,6 +14,7 @@ export default defineConfig({
     prefetch: false,
 
     integrations: [
+        vue(),
         tailwind(),
         sitemap(),
         compress({
@@ -41,4 +43,4 @@ export default defineConfig({
             }
         })
     ]
-});
+})

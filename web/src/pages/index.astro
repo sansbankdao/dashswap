@@ -43,16 +43,18 @@ import ContentLink from '../components/ContentLink.astro'
                     <input type="radio" id="tab4" name="tabs" class="tab-radio" />
                     <input type="radio" id="tab5" name="tabs" class="tab-radio" />
                     <input type="radio" id="tab6" name="tabs" class="tab-radio" />
+                    <input type="radio" id="tab7" name="tabs" class="tab-radio" />
 
                     <!-- Start: Tab bar -->
                     <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
 
-                        <ContentLink contentId="tab1" contentName="SWAP" />
-                        <ContentLink contentId="tab2" contentName="ASSETS" />
-                        <ContentLink contentId="tab3" contentName="READ ME" />
-                        <ContentLink contentId="tab4" contentName="swap.jsx" />
-                        <ContentLink contentId="tab5" contentName="swap.py" />
-                        <ContentLink contentId="tab6" contentName="Need help?" />
+                        <ContentLink contentId="tab1" contentName="READ ME" />
+                        <ContentLink contentId="tab2" contentName="SWAP" />
+                        <ContentLink contentId="tab3" contentName="PAY" />
+                        <ContentLink contentId="tab4" contentName="ASSETS" />
+                        <ContentLink contentId="tab5" contentName="swap.jsx" />
+                        <ContentLink contentId="tab6" contentName="swap.py" />
+                        <ContentLink contentId="tab7" contentName="Need help?" />
 
                     </div>
                     <!-- End: Tab bar -->
@@ -65,7 +67,7 @@ import ContentLink from '../components/ContentLink.astro'
                         </div>
 
                         <div id="content2" class="tab-content">
-                            <ContentAssets />
+                            <ContentAbout />
                         </div>
 
                         <div id="content3" class="tab-content">
@@ -73,7 +75,7 @@ import ContentLink from '../components/ContentLink.astro'
                         </div>
 
                         <div id="content4" class="tab-content">
-                            <ContentCode />
+                            <ContentAssets />
                         </div>
 
                         <div id="content5" class="tab-content">
@@ -81,6 +83,10 @@ import ContentLink from '../components/ContentLink.astro'
                         </div>
 
                         <div id="content6" class="tab-content">
+                            <ContentCode />
+                        </div>
+
+                        <div id="content7" class="tab-content">
                             <ContentAbout />
                         </div>
 
@@ -172,6 +178,14 @@ import ContentLink from '../components/ContentLink.astro'
         @apply block opacity-100;
     }
     #tab6:checked ~ .flex .tab-link:nth-child(6) {
+        @apply border-b-2 border-b-primary;
+    }
+
+    /* When tab7 is checked, show content7 and highlight its tab */
+    #tab7:checked ~ * #content7 {
+        @apply block opacity-100;
+    }
+    #tab7:checked ~ .flex .tab-link:nth-child(7) {
         @apply border-b-2 border-b-primary;
     }
 

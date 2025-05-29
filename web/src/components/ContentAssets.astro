@@ -1,4 +1,6 @@
 ---
+import SubMenu from './assets/SubMenu.vue'
+
 interface Project {
     name: string;
     description: string;
@@ -12,21 +14,21 @@ interface Project {
 
 const projects: Project[] = [{
     name: 'DASH',
-    description: 'Papersend is the free alternative to DocSend for secure document sharing, tracking, and Data Rooms. Customize branding, control access, and protect your documents.',
+    description: 'An OG blockchain on a mission to empower financial freedom by means of a pure digital cash economy.',
     link: {
-        url: 'https://papersend.io/',
+        url: '/asset/DASH',
     }
 }, {
     name: 'DUSD',
-    description: 'Qivi is an all-in-one application designed to streamline business operations, enhance productivity, and maximize success. Data security is a priority.',
+    description: 'Dash USD is a stablecoin pegged to the US Dollar—where financial responsibility meets innovation.',
     link: {
-        url: 'https://qivi.io/'
+        url: '/assets/DUSD'
     }
 }, {
     name: 'SANS',
-    description: 'TECHPOINT is a local IT service provider based in the Starnberg district and the Fünfseenland region, specializing in delivering reliable and modern IT solutions.',
+    description: 'Community-driven accelerator guiding Builders and Creators abilities to a sustainable financial future.',
     link: {
-        url: 'https://techpoint.de/'
+        url: '/asset/XnogFyDJwqWPjRq8hqPeKwmsGnYCLaoas8'
     }
 }];
 ---
@@ -36,6 +38,10 @@ const projects: Project[] = [{
     <!-- <h2 class="text-2xl font-bold text-white mb-4">Latest Projects</h2> -->
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        SUBMENU HERE
+        <SubMenu />
+        END HERE
 
         {projects.map(project =>
 
@@ -63,7 +69,7 @@ const projects: Project[] = [{
                                 hover:text-primary
                                 hover:border-primary
                             ">
-                            {project.link.buttonLabel || 'Open Project Website'}
+                            {project.link.buttonLabel || 'View Asset Details'}
                         </a>
                     : null
                 }
