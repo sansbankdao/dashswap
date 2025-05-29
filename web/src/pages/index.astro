@@ -4,10 +4,14 @@ import Layout from '../layouts/Layout.astro'
 import Profile from '../components/Profile.astro'
 import Contact from '../components/Contact.astro'
 
-import ContentAbout from '../components/ContentAbout.astro'
 import ContentAssets from '../components/ContentAssets.astro'
-import ContentCode from '../components/ContentCode.astro'
+import ContentBackend from '../components/ContentBackend.astro'
+import ContentFrontend from '../components/ContentFrontend.astro'
+import ContentHelp from '../components/ContentHelp.astro'
 import ContentLink from '../components/ContentLink.astro'
+import ContentPay from '../components/ContentPay.astro'
+import ContentReadme from '../components/ContentReadme.astro'
+import ContentSwap from '../components/ContentSwap.astro'
 ---
 
 <Layout>
@@ -63,15 +67,15 @@ import ContentLink from '../components/ContentLink.astro'
                     <div class="p-6 flex-grow overflow-y-auto bg-black">
 
                         <div id="content1" class="tab-content">
-                            <ContentAbout />
+                            <ContentReadme />
                         </div>
 
                         <div id="content2" class="tab-content">
-                            <ContentAbout />
+                            <ContentSwap />
                         </div>
 
                         <div id="content3" class="tab-content">
-                            <ContentAbout />
+                            <ContentPay />
                         </div>
 
                         <div id="content4" class="tab-content">
@@ -79,15 +83,15 @@ import ContentLink from '../components/ContentLink.astro'
                         </div>
 
                         <div id="content5" class="tab-content">
-                            <ContentCode />
+                            <ContentFrontend />
                         </div>
 
                         <div id="content6" class="tab-content">
-                            <ContentCode />
+                            <ContentBackend />
                         </div>
 
                         <div id="content7" class="tab-content">
-                            <ContentAbout />
+                            <ContentHelp />
                         </div>
 
                     </div>

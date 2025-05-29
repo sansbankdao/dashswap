@@ -87,11 +87,19 @@ const contact = (type: ContactType): string => {
 `;
 ---
 
-<Code
-    code={code}
-    lang="js"
-    wrap={true}
-/>
+<div class="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
+
+    <h1>
+        Front-end Integrations
+    </h1>
+
+    <Code
+        code={code}
+        lang="js"
+        wrap={true}
+    />
+
+</div>
 
 <style is:global>
 
