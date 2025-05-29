@@ -1,5 +1,5 @@
 ---
-import SocialIcon from './SocialIcon.astro';
+import SocialIcon from './SocialIcon.astro'
 
 interface Social {
     icon: 'github' | 'linkedIn' | 'twitter' | 'email' | 'xing';
@@ -7,27 +7,33 @@ interface Social {
     title?: string;
 }
 
-const socials: Social[] = [{
-    icon: 'github',
-    link: 'https://github.com/devidevio',
-    title: 'View GitHub Profile'
-}, {
-    icon: 'twitter',
-    link: 'https://x.com/devidev_io',
-    title: 'View Twitter Profile'
-}, {
-    icon: 'linkedIn',
-    link: 'https://www.linkedin.com/in/dejan-vi',
-    title: 'View LinkedIn Profile'
-}, {
-    icon: 'xing',
-    link: 'https://www.xing.com/profile/Dejan_Vintonjiv',
-    title: 'View Xing Profile'
-}, {
-    icon: 'email',
-    link: 'mailto:hi@devidev.io',
-    title: 'Send Email'
-}];
+const socials: Social[] = [
+    {
+        icon: 'github',
+        link: 'https://github.com/nyusternie/dashswap',
+        title: 'DashSwap Source Code'
+    },
+    {
+        icon: 'twitter',
+        link: 'https://x.com/0xShomari',
+        title: 'View X/Twitter Profile'
+    },
+    {
+        icon: 'email',
+        link: 'mailto:hello@dashswap.xyz',
+        title: 'Contact Support'
+    },
+    {
+        icon: 'xing',
+        link: '#',
+        title: 'View LinkedIn Profile'
+    },
+    {
+        icon: 'xing',
+        link: '#',
+        title: 'View Xing Profile'
+    },
+]
 
 ---
 
