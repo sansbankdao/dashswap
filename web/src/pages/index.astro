@@ -35,44 +35,24 @@ import ContentProjects from '../components/ContentProjects.astro'
                 <div class="tab-controls">
 
                     <input
-                        type="radio"
-                        id="tab1"
-                        name="tabs"
-                        class="tab-radio"
+                        type="radio" id="tab1" name="tabs" class="tab-radio"
                         checked
                     />
-
-                    <input
-                        type="radio"
-                        id="tab2"
-                        name="tabs"
-                        class="tab-radio"
-                    />
-
-                    <input
-                        type="radio"
-                        id="tab3"
-                        name="tabs"
-                        class="tab-radio"
-                    />
+                    <input type="radio" id="tab2" name="tabs" class="tab-radio" />
+                    <input type="radio" id="tab3" name="tabs" class="tab-radio" />
+                    <input type="radio" id="tab4" name="tabs" class="tab-radio" />
+                    <input type="radio" id="tab5" name="tabs" class="tab-radio" />
+                    <input type="radio" id="tab6" name="tabs" class="tab-radio" />
 
                     <!-- Start: Tab bar -->
                     <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
 
-                        <ContentLink
-                            contentId="tab1"
-                            contentName="Assets"
-                        />
-
-                        <ContentLink
-                            contentId="tab2"
-                            contentName="README.md"
-                        />
-
-                        <ContentLink
-                            contentId="tab3"
-                            contentName="swap.ts"
-                        />
+                        <ContentLink contentId="tab1" contentName="SWAP" />
+                        <ContentLink contentId="tab2" contentName="ASSETS" />
+                        <ContentLink contentId="tab3" contentName="READ ME" />
+                        <ContentLink contentId="tab4" contentName="swap.jsx" />
+                        <ContentLink contentId="tab5" contentName="swap.py" />
+                        <ContentLink contentId="tab6" contentName="Need help?" />
 
                     </div>
                     <!-- End: Tab bar -->
@@ -81,15 +61,27 @@ import ContentProjects from '../components/ContentProjects.astro'
                     <div class="p-6 flex-grow overflow-y-auto bg-black">
 
                         <div id="content1" class="tab-content">
-                            <ContentProjects />
-                        </div>
-
-                        <div id="content2" class="tab-content">
                             <ContentAbout />
                         </div>
 
+                        <div id="content2" class="tab-content">
+                            <ContentProjects />
+                        </div>
+
                         <div id="content3" class="tab-content">
+                            <ContentAbout />
+                        </div>
+
+                        <div id="content4" class="tab-content">
                             <ContentCode />
+                        </div>
+
+                        <div id="content5" class="tab-content">
+                            <ContentCode />
+                        </div>
+
+                        <div id="content6" class="tab-content">
+                            <ContentAbout />
                         </div>
 
                     </div>
@@ -139,7 +131,6 @@ import ContentProjects from '../components/ContentProjects.astro'
     #tab1:checked ~ * #content1 {
         @apply block opacity-100;
     }
-
     #tab1:checked ~ .flex .tab-link:nth-child(1) {
         @apply border-b-2 border-b-primary;
     }
@@ -148,17 +139,39 @@ import ContentProjects from '../components/ContentProjects.astro'
     #tab2:checked ~ * #content2 {
         @apply block opacity-100;
     }
-
     #tab2:checked ~ .flex .tab-link:nth-child(2) {
         @apply border-b-2 border-b-primary;
     }
 
-    /* When tab3 is checked, show content2 and highlight its tab */
+    /* When tab3 is checked, show content3 and highlight its tab */
     #tab3:checked ~ * #content3 {
         @apply block opacity-100;
     }
-
     #tab3:checked ~ .flex .tab-link:nth-child(3) {
+        @apply border-b-2 border-b-primary;
+    }
+
+    /* When tab4 is checked, show content4 and highlight its tab */
+    #tab4:checked ~ * #content4 {
+        @apply block opacity-100;
+    }
+    #tab4:checked ~ .flex .tab-link:nth-child(4) {
+        @apply border-b-2 border-b-primary;
+    }
+
+    /* When tab5 is checked, show content5 and highlight its tab */
+    #tab5:checked ~ * #content5 {
+        @apply block opacity-100;
+    }
+    #tab5:checked ~ .flex .tab-link:nth-child(5) {
+        @apply border-b-2 border-b-primary;
+    }
+
+    /* When tab6 is checked, show content6 and highlight its tab */
+    #tab6:checked ~ * #content6 {
+        @apply block opacity-100;
+    }
+    #tab6:checked ~ .flex .tab-link:nth-child(6) {
         @apply border-b-2 border-b-primary;
     }
 
