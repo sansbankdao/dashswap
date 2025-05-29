@@ -40,9 +40,9 @@
 import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
 
 const projects = [
-    { name: 'Token Launcher', initials: 'GA', href: '#', members: 16, bgColor: 'bg-pink-600' },
-    { name: 'Airdrops!', initials: 'CD', href: '#', members: 12, bgColor: 'bg-purple-600' },
-    { name: 'TBD #1', initials: 'T', href: '#', members: 16, bgColor: 'bg-yellow-500' },
-    { name: 'TBD #2', initials: 'RC', href: '#', members: 8, bgColor: 'bg-green-500' },
+    { name: 'Now Trending', initials: 'GA', href: '#', members: 16, bgColor: 'bg-pink-600' },
+    { name: 'New & Noteworthy', initials: 'CD', href: '#', members: 12, bgColor: 'bg-purple-600' },
+    { name: 'Token Launcher', initials: 'T', href: '#', members: 16, bgColor: 'bg-yellow-500' },
+    { name: 'Airdrops!', initials: 'RC', href: '#', members: 8, bgColor: 'bg-green-500' },
 ]
 </script>
