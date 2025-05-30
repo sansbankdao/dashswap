@@ -1,5 +1,5 @@
 <template>
-    <main class="flex flex-col gap-4">
+    <main class="w-full flex flex-col gap-4">
         <section class="grid grid-cols-2 gap-3">
             <h2 class="col-span-2 text-2xl font-medium">
                 I Want ↴
