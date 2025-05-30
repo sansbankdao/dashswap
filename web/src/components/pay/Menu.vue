@@ -5,39 +5,39 @@
                 Send a Payment In ↴
             </h2>
 
-            <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-yellow-700 rounded-lg shadow bg-gradient-to-b from-yellow-500 to-yellow-300">
+            <div @click="isShowingNexa = false; isShowingAvas = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-yellow-800 font-medium whitespace-nowrap">
-                        Nexa
+                    <h2 class="text-2xl sm:text-3xl text-lime-900 font-medium whitespace-nowrap">
+                        Tether
                     </h2>
 
-                    <h3 class="text-sm sm:text-base text-yellow-600 font-medium">
-                        NEXA
+                    <h3 class="text-sm sm:text-base text-lime-700 font-medium">
+                        USDT
                     </h3>
                 </div>
             </div>
 
-            <div @click="isShowingNexa = false; isShowingAvas = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-green-800 rounded-lg shadow bg-gradient-to-b from-green-600 to-green-400">
+            <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-purple-900 rounded-lg shadow bg-gradient-to-b from-purple-800 to-purple-600">
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-green-900 font-medium whitespace-nowrap">
-                        Bitcoin Cash
+                    <h2 class="text-2xl sm:text-3xl text-purple-100 font-medium whitespace-nowrap">
+                        Solana
                     </h2>
 
-                    <h3 class="text-sm sm:text-base text-green-700 font-medium">
-                        BCH
+                    <h3 class="text-sm sm:text-base text-purple-50 font-medium">
+                        SOL
                     </h3>
                 </div>
             </div>
 
             <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-purple-900 rounded-lg shadow bg-gradient-to-b from-purple-800 to-purple-600">
+                <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-yellow-700 rounded-lg shadow bg-gradient-to-b from-yellow-500 to-yellow-300">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-purple-100 font-medium whitespace-nowrap">
-                            Solana
+                        <h2 class="text-sm sm:text-lg text-yellow-800 font-medium whitespace-nowrap">
+                            Nexa
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-purple-50 font-medium">
-                            SOL
+                        <h3 class="text-xs sm:text-sm text-yellow-600 font-medium">
+                            NEXA
                         </h3>
                     </div>
                 </div>
@@ -54,14 +54,14 @@
                     </div>
                 </div>
 
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
+                <div @click="isShowingAvas = false; isShowingNexa = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-green-800 rounded-lg shadow bg-gradient-to-b from-green-600 to-green-400">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-lime-900 font-medium whitespace-nowrap">
-                            Tether
+                        <h2 class="text-sm sm:text-lg text-green-900 font-medium whitespace-nowrap">
+                            Bitcoin Cash
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-lime-700 font-medium">
-                            USDT
+                        <h3 class="text-xs sm:text-sm text-green-700 font-medium">
+                            BCH
                         </h3>
                     </div>
                 </div>
