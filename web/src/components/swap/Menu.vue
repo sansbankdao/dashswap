@@ -89,7 +89,7 @@
         <section v-if="isShowingSans || isShowingDash" class="grid grid-cols-2 gap-y-2">
             <div class="col-span-2 pb-3 flex justify-center">
                 <span class="text-sm text-sky-700 font-medium tracking-widest">
-                    1.00 $AVAS = 1,337.88 $NEXA
+                    1.00 $SANS = 1,337.88 $DASH
                 </span>
             </div>
 
@@ -187,8 +187,8 @@ const isShowingDash = ref(false)
 const makeSwap = async () => {
     const msg = `Are you sure you want to continue with this Swap:
 
-        ↪ You are sending ( 1.00 ) $AVAS
-        ↪ You are receiving ( ~1,337.88 ) $NEXA
+        ↪ You are sending ( 1.00 ) $SANS
+        ↪ You are receiving ( ~1,337.88 ) $DASH
     `
     if (confirm(msg)) {
         alert('done!')
