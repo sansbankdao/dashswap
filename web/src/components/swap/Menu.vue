@@ -89,7 +89,7 @@
         <section v-if="isShowingSans || isShowingDash" class="grid grid-cols-2 gap-y-2">
             <div class="col-span-2 pb-3 flex justify-center">
                 <span class="text-sm text-sky-700 font-medium tracking-widest">
-                    1.00 $SANS = 1,337.88 $DASH
+                    1.00 $SANS = 0.1337 $DASH
                 </span>
             </div>
 
