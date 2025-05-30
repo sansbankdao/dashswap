@@ -30,14 +30,14 @@
             </div>
 
             <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-700 rounded-lg shadow bg-gradient-to-b from-rose-600 to-rose-400">
+                <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-purple-900 rounded-lg shadow bg-gradient-to-b from-purple-800 to-purple-600">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-rose-100 font-medium whitespace-nowrap">
-                            Avalanche
+                        <h2 class="text-sm sm:text-lg text-purple-100 font-medium whitespace-nowrap">
+                            Solana
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-rose-50 font-medium">
-                            AVAX
+                        <h3 class="text-xs sm:text-sm text-purple-50 font-medium">
+                            SOL
                         </h3>
                     </div>
                 </div>
