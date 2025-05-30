@@ -5,38 +5,38 @@
                 I Want ↴
             </h2>
 
-            <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-indigo-700 rounded-lg shadow bg-gradient-to-b from-indigo-500 to-indigo-300">
+            <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-sky-700 rounded-lg shadow bg-gradient-to-b from-sky-500 to-sky-300">
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-indigo-900 font-medium whitespace-nowrap">
+                    <h2 class="text-2xl sm:text-3xl text-sky-900 font-medium whitespace-nowrap">
                         Dash
                     </h2>
 
-                    <h3 class="text-sm sm:text-base text-indigo-700 font-medium">
+                    <h3 class="text-sm sm:text-base text-sky-700 font-medium">
                         DASH
                     </h3>
                 </div>
             </div>
 
-            <div @click="isShowingDash = false; isShowingSans = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-green-500 rounded-lg shadow bg-gradient-to-b from-green-400 to-green-200">
+            <div @click="isShowingDash = false; isShowingSans = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-green-900 font-medium whitespace-nowrap">
-                        Sansbank Cash
+                    <h2 class="text-2xl sm:text-3xl text-lime-900 font-medium whitespace-nowrap">
+                        Dash USD
                     </h2>
 
-                    <h3 class="text-sm sm:text-base text-green-700 font-medium">
-                        SANS
+                    <h3 class="text-sm sm:text-base text-lime-700 font-medium">
+                        DUSD
                     </h3>
                 </div>
             </div>
 
             <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-green-800 rounded-lg shadow bg-gradient-to-b from-green-600 to-green-400">
+                <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-800 rounded-lg shadow bg-gradient-to-b from-rose-600 to-rose-400">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-green-900 font-medium whitespace-nowrap">
+                        <h2 class="text-sm sm:text-lg text-rose-100 font-medium whitespace-nowrap">
                             Popular Token
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-green-700 font-medium">
+                        <h3 class="text-xs sm:text-sm text-rose-50 font-medium">
                             POP
                         </h3>
                     </div>
@@ -54,14 +54,14 @@
                     </div>
                 </div>
 
-                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
+                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-yellow-500 rounded-lg shadow bg-gradient-to-b from-yellow-400 to-yellow-200">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-lime-900 font-medium whitespace-nowrap">
-                            Dash USD
+                        <h2 class="text-sm sm:text-lg text-yellow-900 font-medium whitespace-nowrap">
+                            Sansbank Cash
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-lime-700 font-medium">
-                            DUSD
+                        <h3 class="text-xs sm:text-sm text-yellow-700 font-medium">
+                            SANS
                         </h3>
                     </div>
                 </div>
