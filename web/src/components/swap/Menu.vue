@@ -2,7 +2,7 @@
     <main class="w-full flex flex-col gap-4">
         <section class="grid grid-cols-2 gap-3">
             <h2 class="col-span-2 text-2xl font-medium">
-                I Want ↴
+                I Want to Receive ↴
             </h2>
 
             <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-sky-700 rounded-lg shadow bg-gradient-to-b from-sky-500 to-sky-300">
@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-800 rounded-lg shadow bg-gradient-to-b from-rose-600 to-rose-400">
+                <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-900 rounded-lg shadow bg-gradient-to-b from-rose-700 to-rose-500">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-rose-100 font-medium whitespace-nowrap">
                             Popular Token
@@ -42,13 +42,13 @@
                     </div>
                 </div>
 
-                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-indigo-500 rounded-lg shadow bg-gradient-to-b from-indigo-400 to-indigo-200">
+                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-violet-400 rounded-lg shadow bg-gradient-to-b from-violet-300 to-violet-100">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-indigo-900 font-medium whitespace-nowrap">
+                        <h2 class="text-sm sm:text-lg text-violet-900 font-medium whitespace-nowrap">
                             Famous Token
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-indigo-700 font-medium">
+                        <h3 class="text-xs sm:text-sm text-violet-700 font-medium">
                             FAME
                         </h3>
                     </div>

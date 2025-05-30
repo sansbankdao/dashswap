@@ -1,8 +1,8 @@
 <template>
-    <main class="flex flex-col gap-4">
+    <main class="w-full flex flex-col gap-4">
         <section class="grid grid-cols-2 gap-3">
             <h2 class="col-span-2 text-2xl font-medium">
-                I Want ↴
+                Send a Payment In ↴
             </h2>
 
             <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-yellow-700 rounded-lg shadow bg-gradient-to-b from-yellow-500 to-yellow-300">
@@ -17,39 +17,39 @@
                 </div>
             </div>
 
-            <div @click="isShowingNexa = false; isShowingAvas = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-rose-500 rounded-lg shadow bg-gradient-to-b from-rose-400 to-rose-200">
+            <div @click="isShowingNexa = false; isShowingAvas = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-green-800 rounded-lg shadow bg-gradient-to-b from-green-600 to-green-400">
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-rose-900 font-medium whitespace-nowrap">
-                        Ava's Cash
+                    <h2 class="text-2xl sm:text-3xl text-green-900 font-medium whitespace-nowrap">
+                        Bitcoin Cash
                     </h2>
 
-                    <h3 class="text-sm sm:text-base text-rose-700 font-medium">
-                        AVAS
+                    <h3 class="text-sm sm:text-base text-green-700 font-medium">
+                        BCH
                     </h3>
                 </div>
             </div>
 
             <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-green-800 rounded-lg shadow bg-gradient-to-b from-green-600 to-green-400">
+                <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-700 rounded-lg shadow bg-gradient-to-b from-rose-600 to-rose-400">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-green-900 font-medium whitespace-nowrap">
-                            Bitcoin Cash
+                        <h2 class="text-sm sm:text-lg text-rose-100 font-medium whitespace-nowrap">
+                            Avalanche
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-green-700 font-medium">
-                            BCH
+                        <h3 class="text-xs sm:text-sm text-rose-50 font-medium">
+                            AVAX
                         </h3>
                     </div>
                 </div>
 
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-indigo-500 rounded-lg shadow bg-gradient-to-b from-indigo-400 to-indigo-200">
+                <div @click="isShowingAvas = false; isShowingNexa = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-stone-500 rounded-lg shadow bg-gradient-to-b from-stone-400 to-stone-200">
                     <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-indigo-900 font-medium whitespace-nowrap">
-                            Dash
+                        <h2 class="text-sm sm:text-lg text-stone-900 font-medium whitespace-nowrap">
+                            Bitcoin Lightning
                         </h2>
 
-                        <h3 class="text-xs sm:text-sm text-indigo-700 font-medium">
-                            DASH
+                        <h3 class="text-xs sm:text-sm text-stone-700 font-medium">
+                            BTC LN
                         </h3>
                     </div>
                 </div>
