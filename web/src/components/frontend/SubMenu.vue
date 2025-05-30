@@ -1,8 +1,8 @@
 <template>
     <div class="w-full">
-        <h2 class="text-sm font-medium text-slate-200">
-            Front-end / Frameworks Integration Menu
-        </h2>
+        <h3 class="pl-2 text-xs font-medium text-slate-300 uppercase">
+            Front-end &amp; Frameworks Menu
+        </h3>
 
         <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
             <li v-for="project in projects" :key="project.name" class="col-span-1 flex rounded-md shadow-sm">
