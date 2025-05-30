@@ -5,72 +5,72 @@
                 I Want ↴
             </h2>
 
-            <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-yellow-700 rounded-lg shadow bg-gradient-to-b from-yellow-500 to-yellow-300">
+            <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-indigo-700 rounded-lg shadow bg-gradient-to-b from-indigo-500 to-indigo-300">
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-yellow-800 font-medium whitespace-nowrap">
-                        Nexa
+                    <h2 class="text-2xl sm:text-3xl text-indigo-900 font-medium whitespace-nowrap">
+                        Dash
                     </h2>
 
-                    <h3 class="text-sm sm:text-base text-yellow-600 font-medium">
-                        NEXA
+                    <h3 class="text-sm sm:text-base text-indigo-700 font-medium">
+                        DASH
                     </h3>
                 </div>
             </div>
 
-            <div @click="isShowingNexa = false; isShowingAvas = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-rose-500 rounded-lg shadow bg-gradient-to-b from-rose-400 to-rose-200">
+            <div @click="isShowingDash = false; isShowingSans = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-green-500 rounded-lg shadow bg-gradient-to-b from-green-400 to-green-200">
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-rose-900 font-medium whitespace-nowrap">
-                        Ava's Cash
+                    <h2 class="text-2xl sm:text-3xl text-green-900 font-medium whitespace-nowrap">
+                        Sansbank Cash
                     </h2>
 
-                    <h3 class="text-sm sm:text-base text-rose-700 font-medium">
-                        AVAS
+                    <h3 class="text-sm sm:text-base text-green-700 font-medium">
+                        SANS
                     </h3>
                 </div>
             </div>
 
             <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-green-800 rounded-lg shadow bg-gradient-to-b from-green-600 to-green-400">
+                <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-green-800 rounded-lg shadow bg-gradient-to-b from-green-600 to-green-400">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-green-900 font-medium whitespace-nowrap">
-                            Bitcoin Cash
+                            Popular Token
                         </h2>
 
                         <h3 class="text-xs sm:text-sm text-green-700 font-medium">
-                            BCH
+                            POP
                         </h3>
                     </div>
                 </div>
 
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-indigo-500 rounded-lg shadow bg-gradient-to-b from-indigo-400 to-indigo-200">
+                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-indigo-500 rounded-lg shadow bg-gradient-to-b from-indigo-400 to-indigo-200">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-indigo-900 font-medium whitespace-nowrap">
-                            Dash
+                            Famous Token
                         </h2>
 
                         <h3 class="text-xs sm:text-sm text-indigo-700 font-medium">
-                            DASH
+                            FAME
                         </h3>
                     </div>
                 </div>
 
-                <div @click="isShowingAvas = false; isShowingNexa = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
+                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-lime-900 font-medium whitespace-nowrap">
-                            Tether
+                            Dash USD
                         </h2>
 
                         <h3 class="text-xs sm:text-sm text-lime-700 font-medium">
-                            USDT
+                            DUSD
                         </h3>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div v-if="!isShowingAvas && !isShowingNexa" class="mx-10 my-3 border-t border-gray-300" />
+        <div v-if="!isShowingSans && !isShowingDash" class="mx-10 my-3 border-t border-gray-300" />
 
-        <section v-if="!isShowingAvas && !isShowingNexa" class="-mt-3 flex flex-col gap-3">
+        <section v-if="!isShowingSans && !isShowingDash" class="-mt-3 flex flex-col gap-3">
             <p class="px-3 text-xs sm:text-sm text-gray-500">
                 Don't see your asset listed above?
                 Not a problem.
@@ -86,7 +86,7 @@
             />
         </section>
 
-        <section v-if="isShowingAvas || isShowingNexa" class="grid grid-cols-2 gap-y-2">
+        <section v-if="isShowingSans || isShowingDash" class="grid grid-cols-2 gap-y-2">
             <div class="col-span-2 pb-3 flex justify-center">
                 <span class="text-sm text-sky-700 font-medium tracking-widest">
                     1.00 $AVAS = 1,337.88 $NEXA
@@ -153,8 +153,8 @@
                 </svg>
             </h4>
             <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm cursor-default">
-                {{ isShowingAvas ? '0.01% - 1.0%' : '' }}
-                {{ isShowingNexa ? '2.9%' : '' }}
+                {{ isShowingSans ? '0.01% - 1.0%' : '' }}
+                {{ isShowingDash ? '2.9%' : '' }}
             </h4>
 
             <h4 class="w-fit pr-3 py-1 flex items-center gap-1 text-xs sm:text-sm cursor-help">
@@ -181,8 +181,8 @@ import { ref } from 'vue'
 
 const search = ref(null)
 
-const isShowingAvas = ref(false)
-const isShowingNexa = ref(false)
+const isShowingSans = ref(false)
+const isShowingDash = ref(false)
 
 const makeSwap = async () => {
     const msg = `Are you sure you want to continue with this Swap:
