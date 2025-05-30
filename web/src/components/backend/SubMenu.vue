@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <h3 class="pl-2 text-xs font-medium text-slate-300 uppercase">
-            Front-end Frameworks Menu
+            Back-end Frameworks Menu
         </h3>
 
         <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
@@ -48,32 +48,32 @@ import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
 
 const projects = [
     {
-        name: 'Astro',
-        initials: 'A',
+        name: 'TypeScript | Node.js',
+        initials: 'TN',
         href: '#',
         members: 8,
         trades: 808,
         bgColor: 'bg-green-500'
     },
     {
-        name: 'React | Next.js',
-        initials: 'RN',
+        name: 'Python | Django',
+        initials: 'PD',
         href: '#',
         members: 16,
         trades: 1606,
         bgColor: 'bg-pink-600'
     },
     {
-        name: 'Svelte | SvelteKit',
-        initials: 'SS',
+        name: 'PHP | Laravel',
+        initials: 'PL',
         href: '#',
         members: 6,
         trades: 660,
         bgColor: 'bg-yellow-500'
     },
     {
-        name: 'Vue.js | Nuxt',
-        initials: 'VN',
+        name: 'Rust | XXX',
+        initials: 'RX',
         href: '#',
         members: 12,
         trades: 1202,
