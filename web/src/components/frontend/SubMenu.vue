@@ -56,7 +56,7 @@ const projects = [
         bgColor: 'bg-green-500'
     },
     {
-        name: 'React / Next.js',
+        name: 'React | Next.js',
         initials: 'RN',
         href: '#',
         members: 16,
@@ -64,7 +64,7 @@ const projects = [
         bgColor: 'bg-pink-600'
     },
     {
-        name: 'Svelte / SvelteKit',
+        name: 'Svelte | SvelteKit',
         initials: 'SS',
         href: '#',
         members: 6,
@@ -72,7 +72,7 @@ const projects = [
         bgColor: 'bg-yellow-500'
     },
     {
-        name: 'Vue.js / Nuxt',
+        name: 'Vue.js | Nuxt',
         initials: 'VN',
         href: '#',
         members: 12,
