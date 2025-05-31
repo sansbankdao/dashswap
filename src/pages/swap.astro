@@ -1,9 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
-import Profile from '../components/Profile.astro'
-import Contact from '../components/Contact.astro'
-
 import ContentAssets from '../components/ContentAssets.astro'
 import ContentBackend from '../components/ContentBackend.astro'
 import ContentFrontend from '../components/ContentFrontend.astro'
@@ -15,88 +12,33 @@ import ContentSwap from '../components/ContentSwap.astro'
 ---
 
 <Layout>
+    <main class="tab-controls">
+        <input type="radio" id="tab1" name="tabs" class="tab-radio" />
+        <input type="radio" id="tab2" name="tabs" class="tab-radio" checked />
+        <input type="radio" id="tab3" name="tabs" class="tab-radio" />
+        <input type="radio" id="tab4" name="tabs" class="tab-radio" />
+        <input type="radio" id="tab5" name="tabs" class="tab-radio" />
+        <input type="radio" id="tab6" name="tabs" class="tab-radio" />
+        <input type="radio" id="tab7" name="tabs" class="tab-radio" />
 
-    <!-- Start: Left / upper card -->
-    <div class="px-8 md:px-6 pt-6 pb-6 lg:pb-16 xl:pb-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
-
-        <Profile />
-
-        <Contact />
-
-    </div>
-    <!-- End: Left / upper card -->
-
-    <!-- Start: Right / lower card (yes 4/5 instead of 3/5) -->
-    <div class="w-full md:w-4/5 p-0">
-
-        <!-- Start: Inner wrapper -->
-        <div class="min-h-full h-[90vh] flex flex-col overflow-y-scroll">
-
-            <!-- Use hidden radio buttons to control the tabs -->
-            <div class="tab-controls">
-
-                <input type="radio" id="tab1" name="tabs" class="tab-radio" />
-                <input type="radio" id="tab2" name="tabs" class="tab-radio" checked />
-                <input type="radio" id="tab3" name="tabs" class="tab-radio" />
-                <input type="radio" id="tab4" name="tabs" class="tab-radio" />
-                <input type="radio" id="tab5" name="tabs" class="tab-radio" />
-                <input type="radio" id="tab6" name="tabs" class="tab-radio" />
-                <input type="radio" id="tab7" name="tabs" class="tab-radio" />
-
-                <!-- Start: Tab bar -->
-                <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
-
-                    <ContentLink contentId="tab1" contentName="READ ME" />
-                    <ContentLink contentId="tab2" contentName="SWAP" />
-                    <ContentLink contentId="tab3" contentName="PAY" />
-                    <ContentLink contentId="tab4" contentName="ASSETS" />
-                    <ContentLink contentId="tab5" contentName="swap.jsx" />
-                    <ContentLink contentId="tab6" contentName="swap.py" />
-                    <ContentLink contentId="tab7" contentName="Need help?" />
-
-                </div>
-                <!-- End: Tab bar -->
-
-                <!-- Start: Tab content -->
-                <div class="p-6 flex-grow overflow-y-auto bg-black">
-
-                    <div id="content1" class="tab-content">
-                        <ContentReadme />
-                    </div>
-
-                    <div id="content2" class="tab-content">
-                        <ContentSwap />
-                    </div>
-
-                    <div id="content3" class="tab-content">
-                        <ContentPay />
-                    </div>
-
-                    <div id="content4" class="tab-content">
-                        <ContentAssets />
-                    </div>
-
-                    <div id="content5" class="tab-content">
-                        <ContentFrontend />
-                    </div>
-
-                    <div id="content6" class="tab-content">
-                        <ContentBackend />
-                    </div>
-
-                    <div id="content7" class="tab-content">
-                        <ContentHelp />
-                    </div>
-
-                </div>
-                <!-- End: Tab content -->
-
-            </div>
-
+        <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
+            <ContentLink contentId="tab1" contentName="Read Me" />
+            <ContentLink contentId="tab2" contentName="Swap" />
+            <ContentLink contentId="tab3" contentName="Pay" />
+            <ContentLink contentId="tab4" contentName="Assets" />
+            <ContentLink contentId="tab5" contentName="swap.jsx" />
+            <ContentLink contentId="tab6" contentName="swap.py" />
+            <ContentLink contentId="tab7" contentName="Need help?" />
         </div>
-        <!-- End: Inner wrapper -->
 
-    </div>
-    <!-- End: Right / lower card -->
-
+        <div class="p-6 flex-grow overflow-y-auto bg-black">
+            <div id="content1" class="tab-content"><ContentReadme /></div>
+            <div id="content2" class="tab-content"><ContentSwap /></div>
+            <div id="content3" class="tab-content"><ContentPay /></div>
+            <div id="content4" class="tab-content"><ContentAssets /></div>
+            <div id="content5" class="tab-content"><ContentFrontend /></div>
+            <div id="content6" class="tab-content"><ContentBackend /></div>
+            <div id="content7" class="tab-content"><ContentHelp /></div>
+        </div>
+    </main>
 </Layout>

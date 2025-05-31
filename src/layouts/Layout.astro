@@ -1,6 +1,9 @@
 ---
 import '../styles/global.scss'
 
+import Profile from '../components/Profile.astro'
+import Contact from '../components/Contact.astro'
+
 // Base domain URL without trailing slash
 const domainBaseURL = 'https://dashswap.xyz'
 const ogImageUrl    = 'https://dashswap.xyz/poster.webp'
@@ -130,15 +133,24 @@ const dublinCore = {
 
     <body class="min-h-[100vh] flex items-center justify-center p-4">
 
-        <!-- Start: Main Wrapper -->
         <main class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl relative bg-black mb-12 md:mb-4 lg:mb-20 xl:mb-4">
+            <div class="px-8 md:px-6 pt-6 pb-6 lg:pb-16 xl:pb-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
+                <Profile />
+                <Contact />
+            </div>
 
-            <slot />
+            <div class="w-full md:w-4/5 p-0">
+                <div class="min-h-full h-[90vh] flex flex-col overflow-y-scroll">
+
+<!-- Dynamic Content SLOT Begins Here-->
+                    <slot />
+<!-- Dynamic Content SLOT Ends Here-->
+
+                </div>
+            </div>
 
         </main>
-        <!-- End: Main Wrapper -->
 
-        <!-- Credits -->
         <div class="fixed md:absolute bottom-0 left-0 right-0 w-full text-center bg-black pt-2 pb-2 lg:pb-5 xl:pb-2">
             ⟡˙⋆ built with ❤️ by <a href="https://sansbank.org" target="_blank" title="Sansbank DAO" class="text-rose-300 hover:text-rose-400">
                 Sansbank DAO
