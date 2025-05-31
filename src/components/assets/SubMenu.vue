@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h2 class="text-sm font-medium text-gray-500">
-            Assets Menu
-        </h2>
+    <div class="w-full">
+        <h3 class="pl-2 text-xs font-medium text-slate-300 uppercase">
+            $TOKEN Assets Menu
+        </h3>
 
         <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
             <li v-for="project in projects" :key="project.name" class="col-span-1 flex rounded-md shadow-sm">
@@ -16,7 +16,7 @@
                             {{ project.name }}
                         </a>
 
-                        <p class="text-gray-500">
+                        <p class="text-gray-500 text-xs">
                             {{ project.members }} Members
                         </p>
                     </div>
