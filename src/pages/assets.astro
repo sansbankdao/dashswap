@@ -2,18 +2,12 @@
 import Layout from '../layouts/Layout.astro'
 
 import ContentAssets from '../components/ContentAssets.astro'
-import ContentBackend from '../components/ContentBackend.astro'
-import ContentFrontend from '../components/ContentFrontend.astro'
-import ContentHelp from '../components/ContentHelp.astro'
 import ContentLink from '../components/ContentLink.astro'
-import ContentPay from '../components/ContentPay.astro'
-import ContentReadme from '../components/ContentReadme.astro'
-import ContentSwap from '../components/ContentSwap.astro'
 ---
 
 <Layout>
     <main class="tab-controls">
-        <input type="radio" id="tab2" name="tabs" class="tab-radio" checked />
+        <input type="radio" id="tab4" name="tabs" class="tab-radio" checked />
 
         <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
             <ContentLink contentId="tab1" contentName="Read Me" contentUrl="/" />
@@ -26,7 +20,7 @@ import ContentSwap from '../components/ContentSwap.astro'
         </div>
 
         <div class="p-6 flex-grow overflow-y-auto bg-black">
-            <ContentSwap />
+            <ContentAssets />
         </div>
     </main>
 </Layout>
