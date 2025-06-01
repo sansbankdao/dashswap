@@ -37,20 +37,32 @@ import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/vue/24/outline'
 
 const faqs = [
     {
-        question: `Is this platform non-custodial?`,
-        answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+        question: `Is this platform 100% non-custodial?`,
+        answer: `Yes! All wallets are client-side and retain 100% control of ALL private keys used to manage assets.`,
     },
     {
         question: `How much does it cost for $TOKEN swaps?`,
-        answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+        answer: `Token swaps incur a flat fee of 0.3% (or 30 basis points) for each swap.`,
+    },
+    {
+        question: `How much does it cost for NFT swaps?`,
+        answer: `NFT swaps are 100% FREE for all assets listed on the platform.`,
+    },
+    {
+        question: `How does Community Moderation work?`,
+        answer: `70% of the User's Escrow is paid out to Reports on a rolling scale (based on time of report).`,
     },
     {
         question: `How much does it cost to use a Paymaster?`,
-        answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+        answer: `NA`,
     },
     {
         question: `Why are there no annoying ads everywhere?`,
-        answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+        answer: `NA`,
+    },
+    {
+        question: `How do I become a Liquidity Provider?`,
+        answer: `NA`,
     },
 ]
 </script>
