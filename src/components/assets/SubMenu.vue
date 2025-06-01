@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <h3 class="pl-2 text-xs font-medium text-slate-300 uppercase">
-            $TOKEN Assets Menu
+            Asset Gallery Menu
         </h3>
 
         <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
