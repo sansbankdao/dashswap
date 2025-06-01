@@ -48,6 +48,9 @@ const faqs = [
         question: `How much does it cost to use a Paymaster?`,
         answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
     },
-    // More questions...
+    {
+        question: `Why are there no annoying ads everywhere?`,
+        answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+    },
 ]
 </script>
