@@ -2,54 +2,50 @@
 import SocialIcon from './SocialIcon.astro'
 
 interface Social {
-    icon: 'github' | 'linkedIn' | 'twitter' | 'email' | 'xing';
+    icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'trollbox';
     link: string;
     title?: string;
 }
 
 const socials: Social[] = [
     {
-        icon: 'github',
-        link: 'https://github.com/nyusternie/dashswap',
-        title: 'DashSwap Source Code'
+        icon: 'gallery',
+        link: '/gallery',
+        title: 'Open Gallery View'
     },
     {
-        icon: 'twitter',
-        link: 'https://x.com/0xShomari',
-        title: 'View X/Twitter Profile'
+        icon: 'profile',
+        link: '/profile',
+        title: 'Open My Profile'
     },
     {
-        icon: 'email',
-        link: 'mailto:hello@dashswap.xyz',
-        title: 'Contact Support'
+        icon: 'trollbox',
+        link: '/trollbox',
+        title: 'Enter Trollbox'
     },
     {
-        icon: 'xing',
-        link: '#',
-        title: 'View LinkedIn Profile'
+        icon: 'leaderboard',
+        link: '/leaderboard',
+        title: 'View Leaderboard'
     },
     {
-        icon: 'xing',
-        link: '#',
-        title: 'View Xing Profile'
+        icon: 'help',
+        link: '/help',
+        title: 'Get Help & Support'
     },
 ]
 
 ---
 
-<!-- Start: Social Links -->
 <div class="flex flex-wrap gap-3 mt-6 justify-between">
 
     {socials.map(social =>
         <a
             href={social.link}
-            target="_blank"
             title={social.title}
-            rel="noopener noreferrer"
             class="flex items-center justify-center w-10 h-10 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
             <SocialIcon icon={social.icon} />
         </a>
     )}
 
 </div>
-<!-- End: Social Links -->
