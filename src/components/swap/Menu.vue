@@ -57,7 +57,7 @@
                 <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-yellow-500 rounded-lg shadow bg-gradient-to-b from-yellow-400 to-yellow-200">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-yellow-900 font-medium whitespace-nowrap">
-                            Sansbank Cash
+                            Sansfiat
                         </h2>
 
                         <h3 class="text-xs sm:text-sm text-yellow-700 font-medium">
