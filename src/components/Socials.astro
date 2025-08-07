@@ -2,7 +2,7 @@
 import SocialIcon from './SocialIcon.astro'
 
 interface Social {
-    icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'trollbox' | 'miniapps';
+    icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'trollbox' | 'wallet';
     link: string;
     title?: string;
 }
@@ -14,9 +14,9 @@ const socials: Social[] = [
         title: 'Open Gallery View'
     },
     {
-        icon: 'miniapps',
-        link: '/miniapps',
-        title: 'Open Mini Apps'
+        icon: 'wallet',
+        link: '/wallet',
+        title: 'Open Wallet'
     },
     {
         icon: 'trollbox',
