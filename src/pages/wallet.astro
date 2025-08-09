@@ -4,86 +4,49 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <script>
-console.log('LET US DO SOMETHING!!')
-
+/* Import modules. */
 import init, {
     WasmSdkBuilder,
     identity_fetch,
     prefetch_trusted_quorums_testnet,
-} from '../libs/dashcore/wasm_sdk.js'
-// console.log('INIT', init)
-// console.log('WASM-SDK-BUILDER', WasmSdkBuilder)
+} from '../libs/dash/wasm_sdk.js'
 
-// Initialize WASM module
+const MAINNET_IP_ADDRESS = ''
+const MAINNET_PORT = ''
+const TESTNET_IP_ADDRESS = '52.12.176.90'
+const TESTNET_PORT = '1443'
+const ACTIVE_NETWORK = 'testnet'
+
+/* Initialize WASM module. */
 await init()
 
-// Create SDK instance
+/* Initialize transport handler. */
 const transport = {
-    url: 'https://52.12.176.90:1443/', // testnet
-    network: 'testnet'
+    url: `https://${TESTNET_IP_ADDRESS}:${TESTNET_PORT}`,
+    network: ACTIVE_NETWORK
 }
-console.log('TRANSPORT', transport)
+// console.log('TRANSPORT', transport)
 
 /* Pre-fretch trusted (TESTNET) quorums. */
 await prefetch_trusted_quorums_testnet()
 
-// const sdk = await WasmSdk.new(transport, true); // true = enable proofs
-const sdk = await WasmSdkBuilder.new_testnet_trusted().build()
-console.log('SDK', sdk)
+/* Initialize SDK. */
+const sdk = await WasmSdkBuilder
+    .new_testnet_trusted()
+    .build()
+// console.log('SDK', sdk)
 
-// Example query
-// const identity = await sdk.get_identity("GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec")
-const identity = await identity_fetch(sdk, '35SD29sWhmKEeQt1h87B2yXQVvBPDhevUYeubpAwGEow')
+// FIXME FOR DEV PURPOSES ONLY
+const identityid = '35SD29sWhmKEeQt1h87B2yXQVvBPDhevUYeubpAwGEow'
+
+// FIXME FOR DEV PURPOSES ONLY
+const identity = await identity_fetch(sdk, identityid)
+    .catch(err => {
+        console.error(err)
+        console.error('HANDLE NOT FOUND!!')
+    })
 console.log('IDENTITY', identity)
-
-/* Import modules. */
-// import { Wallet, EVENTS } from '@dashevo/wallet-lib'
-// import dashcore from '@dashevo/dashcore-lib'
-
-// const SEED_PHRASE = 'bless solar hero neutral swap ensure soda among eye point rapid body'
-// // const SEED_PHRASE = 'pool hazard length junior embody hamster wife sponsor kind grab sniff style ten gospel rain income tribe parent solid frog smooth nation ketchup wild'
-// console.log('\nSEED_PHRASE', SEED_PHRASE)
-
-// const wallet = new Wallet({
-//     mnemonic: SEED_PHRASE,
-// })
-
-// // We can dump our initialization parameters
-// const mnemonic = wallet.exportWallet()
-// console.log('\nMNEMONIC', mnemonic)
-
-// // Hook on headers and TX sync progress events
-// wallet.on(EVENTS.HEADERS_SYNC_PROGRESS, (progressInfo) => {
-//     const {
-//         confirmedProgress,
-//         totalProgress,
-//         confirmedSyncedCount,
-//         totalSyncedCount,
-//         totalCount
-//     } = progressInfo;
-//     console.log('H-sync.', confirmedProgress, totalProgress)
-// })
-
-// wallet.on(EVENTS.TRANSACTIONS_SYNC_PROGRESS, (progressInfo) => {
-//     const {
-//         progress,
-//         syncedBlocksCount,
-//         totalBlocksCount,
-//         transactionsCount
-//     } = progressInfo;
-//     console.log('T-sync.', progress)
-// })
-
-// wallet.getAccount().then((account) => {
-//     // We easily can get a new address to fund
-//     const { address } = account.getUnusedAddress()
-//     console.log(`\nAddress: ${address}`)
-
-//     // At this point, account has fetch all UTXOs if they exists
-//     const balance = account.getTotalBalance()
-//     console.log(`\nBalance: ${balance}`)
-
-// })
+console.log('IDENTITY (balance)', identity.balance)
 </script>
 
 <Layout>
