@@ -172,7 +172,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 // import numeral from 'numeral'
 
 /* Initialize stores. */
@@ -195,10 +195,10 @@ const makeSwap = async () => {
     }
 }
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+onMounted(() => {
+    console.log('Mounted!')
+    // Now it's safe to perform setup operations.
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
