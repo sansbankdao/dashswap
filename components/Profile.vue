@@ -1,0 +1,53 @@
+<template>
+    <div class="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
+
+        <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+
+            <img
+                src="@/assets/profile.png"
+                class="w-24 h-24 rounded-xl object-cover border-2 border-primary mx-auto sm:mx-0"
+                alt="Profile Photo"
+            />
+
+            <div>
+
+                <h1 class="text-2xl font-extrabold mb-1 inline-block relative text-slate-200">
+                    {{profile.name}}
+                </h1>
+
+                <p class="text-sm mb-2 text-slate-200">
+                    {{profile.title}}
+                </p>
+
+                <p class="flex items-center justify-center sm:justify-start text-sm text-gray-400">
+                    <svg class="-mt-0.5 inline mr-2"fill=none height=14 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 viewBox="0 0 24 24"width=14 xmlns=http://www.w3.org/2000/svg><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx=12 cy=10 r=3></circle></svg>
+                    {{profile.location}}
+                </p>
+
+            </div>
+
+        </div>
+
+        <p class="text-sm leading-relaxed mt-4 text-gray-400">
+            {{profile.description}}
+        </p>
+
+    </div>
+</template>
+
+<script setup lang="ts">
+// import { Picture } from 'astro:assets';
+// import ProfilePicture from '../assets/profile.png';
+
+const profile = ref({
+    name: 'Guest User',
+    title: 'click here to sign-in',
+    location: '192.168.1.1 (localhost)',
+    description: `
+    Welcome back Guest!
+
+    Let's get you signed-in and have your assets loaded on to your dashboard.
+    `
+})
+
+</script>

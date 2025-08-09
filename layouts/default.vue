@@ -1,9 +1,10 @@
 <template>
-    <main class="min-h-[100vh] flex items-center justify-center p-4">
+    <main class="min-h-[100vh] flex items-center justify-center p-4 bg-violet-950">
 
         <section class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl relative bg-black mb-12 md:mb-4 lg:mb-20 xl:mb-4">
             <div class="px-8 md:px-6 pt-6 pb-6 lg:pb-16 xl:pb-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
                 <Profile />
+                in between
                 <Contact />
             </div>
 
@@ -19,11 +20,17 @@
 
         </section>
 
-        <footer class="fixed md:absolute bottom-0 left-0 right-0 w-full text-center bg-black pt-2 pb-2 lg:pb-5 xl:pb-2">
-            ⟡˙⋆ built with ❤️ by <a href="https://sansbank.org" target="_blank" title="Sansbank DAO" class="text-rose-300 hover:text-rose-400">
-                Sansbank DAO
-            </a>
-            for the DASH community ⋆˙⟡
+        <footer class="fixed md:absolute bottom-0 left-0 right-0 w-full flex justify-center bg-black pt-2 pb-2 lg:pb-5 xl:pb-2">
+            <span class="text-slate-300 text-center text-sm tracking-wider">
+                ⟡˙⋆ built with
+                <svg class="inline size-5 text-rose-400" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="m9.653 16.915-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001l-.002-.001Z"></path>
+                </svg>
+                by <a href="https://sansbank.org" target="_blank" title="Sansbank DAO" class="text-rose-400 hover:text-rose-500">
+                    Sansbank
+                </a>
+                for the DASH Evolution ⋆˙⟡
+            </span>
         </footer>
     </main>
 </template>

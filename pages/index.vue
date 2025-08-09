@@ -1,13 +1,19 @@
 <template>
-    <main>
-        <section>
-            <h1 class="text-5xl font-bold italic">
-                DashSwap LAYOUT
-            </h1>
+    <main class="tab-controls">
+        <input type="radio" id="tab1" name="tabs" class="tab-radio" checked />
 
-            <p class="text-2xl text-sky-400">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis similique quis repellendus doloribus alias repudiandae! Explicabo aut praesentium illo vitae doloribus adipisci fuga velit officia? Sapiente repellat natus voluptatem autem?
-            </p>
-        </section>
+        <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
+            <ContentLink contentId="tab1" contentName="Read Me" contentUrl="/" />
+            <ContentLink contentId="tab2" contentName="Gallery" contentUrl="/gallery" />
+            <ContentLink contentId="tab3" contentName="Swap" contentUrl="/swap" />
+            <ContentLink contentId="tab4" contentName="Pay" contentUrl="/pay" />
+            <ContentLink contentId="tab5" contentName="swap.jsx" contentUrl="/frontend" />
+            <ContentLink contentId="tab6" contentName="swap.py" contentUrl="/backend" />
+            <ContentLink contentId="tab7" contentName="Need help?" contentUrl="/help" />
+        </div>
+
+        <div class="p-6 flex-grow overflow-y-auto bg-black">
+            <ContentReadme />
+        </div>
     </main>
 </template>
