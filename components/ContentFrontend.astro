@@ -1,0 +1,101 @@
+---
+import { Code } from 'astro:components'
+import SubMenu from './frontend/SubMenu.vue'
+
+const code = `/* Front-end Integration for React/Next.js */
+import { swap, type OrderType } from 'dashswap'
+
+interface Order {
+    orderid: string;
+    baseAsset: string;
+    quoteAsset: string;
+    notes: string[];
+};
+
+interface Provider {
+    providerid: string;
+};
+
+// type OrderType = 'buy' | 'sell';
+
+const mySwap: Order = {
+    devOps: [
+        'Cloudflare',
+        'Docker'
+    ],
+    frontend: [
+        'Astro',
+        'JavaScript',
+        'TypeScript',
+        'WordPress'
+    ],
+}
+
+// Developer profile
+const me: Developer = {
+    name: 'Dejan Vi.',
+    skills: [
+        ...techStack.devOps,
+        ...techStack.backend,
+        ...techStack.frontend
+    ],
+    interests: [
+        'Open Source',
+        'Security',
+        'Privacy',
+        'Performance',
+        'Self-Hosting',
+        'Networking'
+    ]
+};
+
+// Order function
+const order = (type: OrderType): string => {
+    switch (type) {
+        case 'buy':
+            return 'https://github.com/devidevio';
+        case 'sell':
+            return 'https://x.com/devidev_io';
+        default:
+            return 'Send fax.';
+    }
+}
+`
+---
+
+<div class="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
+
+    <SubMenu />
+
+    <Code
+        code={code}
+        lang="js"
+        wrap={true}
+    />
+
+</div>
+
+<style is:global>
+
+    /* Custom styling for code block line numbers */
+    pre.astro-code {
+        @apply bg-transparent !important;
+    }
+
+    pre.astro-code code {
+        @apply block;
+        counter-reset: step;
+        counter-increment: step 0;
+    }
+
+    pre.astro-code code .line {
+        @apply relative;
+    }
+
+    pre.astro-code code .line::before {
+        content: counter(step);
+        counter-increment: step;
+        @apply text-gray-600 pr-2;
+    }
+
+</style>

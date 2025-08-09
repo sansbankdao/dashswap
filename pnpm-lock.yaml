@@ -29,6 +29,9 @@ importers:
       nuxt:
         specifier: 4.0.3
         version: 4.0.3(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@types/node@24.2.1)(@vue/compiler-sfc@3.5.18)(db0@0.3.2)(ioredis@5.7.0)(magicast@0.3.5)(rollup@4.46.2)(terser@5.43.1)(typescript@5.9.2)(vite@7.1.1(@types/node@24.2.1)(jiti@2.5.1)(terser@5.43.1)(yaml@2.8.1))(yaml@2.8.1)
+      simple-analytics-vue:
+        specifier: ^3.0.3
+        version: 3.0.3(vue@3.5.18(typescript@5.9.2))
       uuid:
         specifier: 11.1.0
         version: 11.1.0
@@ -3705,6 +3708,11 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  simple-analytics-vue@3.0.3:
+    resolution: {integrity: sha512-TWGbk/vQT0QAgPN29G5Orkz+SeAN/k4LH4hKBdKB3oYpYOKHBuIKq8yHw2bD3viF+5tyzXoxo3fc+BJEUIHEaA==}
+    peerDependencies:
+      vue: ^3.0.0
 
   simple-git@3.28.0:
     resolution: {integrity: sha512-Rs/vQRwsn1ILH1oBUy8NucJlXmnnLeLCfcvbSehkPzbv3wwoFWIdtfd6Ndo6ZPhlPsCZ60CPI4rxurnwAa+a2w==}
@@ -8434,6 +8442,10 @@ snapshots:
       side-channel-weakmap: 1.0.2
 
   signal-exit@4.1.0: {}
+
+  simple-analytics-vue@3.0.3(vue@3.5.18(typescript@5.9.2)):
+    dependencies:
+      vue: 3.5.18(typescript@5.9.2)
 
   simple-git@3.28.0:
     dependencies:
