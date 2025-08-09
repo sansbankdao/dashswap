@@ -1,16 +1,6 @@
 <template>
-    <main class="tab-controls">
-        <input type="radio" id="tab1" name="tabs" class="tab-radio" checked />
-
-        <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
-            <ContentLink contentId="tab1" contentName="Read Me" contentUrl="/" />
-            <ContentLink contentId="tab2" contentName="Gallery" contentUrl="/gallery" />
-            <ContentLink contentId="tab3" contentName="Swap" contentUrl="/swap" />
-            <ContentLink contentId="tab4" contentName="Pay" contentUrl="/pay" />
-            <ContentLink contentId="tab5" contentName="swap.jsx" contentUrl="/frontend" />
-            <ContentLink contentId="tab6" contentName="swap.py" contentUrl="/backend" />
-            <ContentLink contentId="tab7" contentName="Need help?" contentUrl="/help" />
-        </div>
+    <main class="">
+        <NavMenu />
 
         <div class="p-6 flex-grow overflow-y-auto bg-black">
             <ContentReadme />
