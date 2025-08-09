@@ -2,7 +2,7 @@
     <main class="w-full flex flex-col gap-4">
         <section class="grid grid-cols-2 gap-3">
             <h2 class="col-span-2 text-2xl font-medium">
-                THIS WALLET WILL BE GLORIOUS-4!!
+                THIS WALLET WILL BE GLORIOUS-5!!
             </h2>
         </section>
     </main>
