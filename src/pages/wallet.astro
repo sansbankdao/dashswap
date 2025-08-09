@@ -1,52 +1,53 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
+import Dashboard from '../components/wallet/Dashboard.vue'
 ---
 
 <script>
-/* Import modules. */
-import init, {
-    WasmSdkBuilder,
-    identity_fetch,
-    prefetch_trusted_quorums_testnet,
-} from '../libs/dash/wasm_sdk.js'
+// /* Import modules. */
+// import init, {
+//     WasmSdkBuilder,
+//     identity_fetch,
+//     prefetch_trusted_quorums_testnet,
+// } from '../libs/dash/wasm_sdk.js'
 
-const MAINNET_IP_ADDRESS = ''
-const MAINNET_PORT = ''
-const TESTNET_IP_ADDRESS = '52.12.176.90'
-const TESTNET_PORT = '1443'
-const ACTIVE_NETWORK = 'testnet'
+// const MAINNET_IP_ADDRESS = ''
+// const MAINNET_PORT = ''
+// const TESTNET_IP_ADDRESS = '52.12.176.90'
+// const TESTNET_PORT = '1443'
+// const ACTIVE_NETWORK = 'testnet'
 
-/* Initialize WASM module. */
-await init()
+// /* Initialize WASM module. */
+// await init()
 
-/* Initialize transport handler. */
-const transport = {
-    url: `https://${TESTNET_IP_ADDRESS}:${TESTNET_PORT}`,
-    network: ACTIVE_NETWORK
-}
-// console.log('TRANSPORT', transport)
+// /* Initialize transport handler. */
+// const transport = {
+//     url: `https://${TESTNET_IP_ADDRESS}:${TESTNET_PORT}`,
+//     network: ACTIVE_NETWORK
+// }
+// // console.log('TRANSPORT', transport)
 
-/* Pre-fretch trusted (TESTNET) quorums. */
-await prefetch_trusted_quorums_testnet()
+// /* Pre-fretch trusted (TESTNET) quorums. */
+// await prefetch_trusted_quorums_testnet()
 
-/* Initialize SDK. */
-const sdk = await WasmSdkBuilder
-    .new_testnet_trusted()
-    .build()
-// console.log('SDK', sdk)
+// /* Initialize SDK. */
+// const sdk = await WasmSdkBuilder
+//     .new_testnet_trusted()
+//     .build()
+// // console.log('SDK', sdk)
 
-// FIXME FOR DEV PURPOSES ONLY
-const identityid = '35SD29sWhmKEeQt1h87B2yXQVvBPDhevUYeubpAwGEow'
+// // FIXME FOR DEV PURPOSES ONLY
+// const identityid = '35SD29sWhmKEeQt1h87B2yXQVvBPDhevUYeubpAwGEow'
 
-// FIXME FOR DEV PURPOSES ONLY
-const identity = await identity_fetch(sdk, identityid)
-    .catch(err => {
-        console.error(err)
-        console.error('HANDLE NOT FOUND!!')
-    })
-console.log('IDENTITY', identity)
-console.log('IDENTITY (balance)', identity.balance)
+// // FIXME FOR DEV PURPOSES ONLY
+// const identity = await identity_fetch(sdk, identityid)
+//     .catch(err => {
+//         console.error(err)
+//         console.error('HANDLE NOT FOUND!!')
+//     })
+// console.log('IDENTITY', identity)
+// console.log('IDENTITY (balance)', identity.balance)
 </script>
 
 <Layout>
@@ -59,6 +60,7 @@ console.log('IDENTITY (balance)', identity.balance)
 
             <p>
                 [ IMPORT WALLET HERE ]
+                <Dashboard client:load />
             </p>
         </div>
 
