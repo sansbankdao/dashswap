@@ -2,7 +2,7 @@
     <main class="w-full flex flex-col gap-4">
         <section class="grid grid-cols-2 gap-3">
             <h2 class="col-span-2 text-2xl font-medium">
-                THIS WALLET WILL BE GLORIOUS!!
+                THIS WALLET WILL BE GLORIOUS-TOO!!
             </h2>
         </section>
     </main>
@@ -12,11 +12,11 @@
 import { onMounted, ref } from 'vue'
 // import numeral from 'numeral'
 console.log('BEFORE IMPORT')
-import init, {
-    WasmSdkBuilder,
-    identity_fetch,
-    prefetch_trusted_quorums_testnet,
-} from '../../libs/dash/wasm_sdk.js'
+// import init, {
+//     WasmSdkBuilder,
+//     identity_fetch,
+//     prefetch_trusted_quorums_testnet,
+// } from '../../libs/dash/wasm_sdk.js'
 console.log('AFTER IMPORT')
 /* Initialize stores. */
 // import { useSystemStore } from '@/stores/system'
