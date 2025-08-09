@@ -1,7 +1,7 @@
 {
   "name": "dashswap.xyz",
   "type": "module",
-  "version": "25.8.7",
+  "version": "25.8.9",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -12,11 +12,11 @@
     "@astrojs/sitemap": "3.2.1",
     "@astrojs/tailwind": "5.1.4",
     "@astrojs/vue": "5.1.0",
+    "@ethersproject/hdnode": "5.8.0",
     "@headlessui/vue": "1.7.23",
     "@heroicons/vue": "2.2.0",
     "astro": "5.4.2",
     "astro-compress": "2.3.6",
-    "dash": "5.0.1",
     "moment": "2.30.1",
     "numeral": "2.0.6",
     "sass": "1.85.1",
