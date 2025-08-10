@@ -14,13 +14,12 @@
 <script setup lang="ts">
 // import { onMounted, ref } from 'vue'
 // import numeral from 'numeral'
-console.log('BEFORE IMPORT')
 import init, {
     WasmSdkBuilder,
     identity_fetch,
     prefetch_trusted_quorums_testnet,
 } from '../../libs/dash/wasm_sdk.js'
-console.log('AFTER IMPORT')
+
 /* Initialize stores. */
 // import { useSystemStore } from '@/stores/system'
 // const System = useSystemStore()
