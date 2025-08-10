@@ -1,8 +1,4 @@
----
-import Socials from './Socials.astro'
----
-
-<div>
+<template>
 
     <!-- Start: Terminal -->
     <div class="mt-6 bg-black rounded-lg p-4 border border-gray-600 text-xs">
@@ -27,4 +23,4 @@ import Socials from './Socials.astro'
     <Socials />
     <!-- End: Social Links -->
 
-</div>
+</template>

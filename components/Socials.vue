@@ -1,5 +1,17 @@
----
-import SocialIcon from './SocialIcon.astro'
+<template>
+    <main class="flex flex-wrap gap-3 mt-6 justify-between">
+        <a v-for="social of socials"
+            :key="social.title"
+            :href="social.link"
+            :title="social.title"
+            class="flex items-center justify-center w-10 h-10 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            <SocialIcon :icon="social.icon" />
+        </a>
+    </main>
+</template>
+
+<script setup lang="ts">
+// import SocialIcon from './SocialIcon.astro'
 
 interface Social {
     icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'trollbox' | 'wallet';
@@ -7,7 +19,7 @@ interface Social {
     title?: string;
 }
 
-const socials: Social[] = [
+const socials: Social[] = ref([
     {
         icon: 'gallery',
         link: '/gallery',
@@ -38,19 +50,5 @@ const socials: Social[] = [
         link: '/help',
         title: 'Get Help & Support'
     },
-]
-
----
-
-<div class="flex flex-wrap gap-3 mt-6 justify-between">
-
-    {socials.map(social =>
-        <a
-            href={social.link}
-            title={social.title}
-            class="flex items-center justify-center w-10 h-10 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <SocialIcon icon={social.icon} />
-        </a>
-    )}
-
-</div>
+])
+</script>

@@ -41,9 +41,12 @@ import { ChevronDownIcon } from '@heroicons/vue/16/solid'
 import { BuildingOfficeIcon, CreditCardIcon, UserIcon, UsersIcon } from '@heroicons/vue/20/solid'
 
 const tabs = [
-    { name: 'README', href: '/', icon: UserIcon, current: false },
+    { name: 'Read Me', href: '/', icon: UserIcon, current: false },
     { name: 'Gallery', href: '/gallery', icon: BuildingOfficeIcon, current: false },
     { name: 'Swap', href: '/swap', icon: UsersIcon, current: true },
     { name: 'Pay', href: '/pay', icon: CreditCardIcon, current: false },
+    { name: 'swap.jsx', href: '/frontend', icon: CreditCardIcon, current: false },
+    { name: 'swap.py', href: '/backend', icon: CreditCardIcon, current: false },
+    { name: 'Need help?', href: '/pay', icon: CreditCardIcon, current: false },
 ]
 </script>
