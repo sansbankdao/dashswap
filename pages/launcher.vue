@@ -1,3 +1,3 @@
 <template>
-    <Launcher />
+    <LauncherCreator />
 </template>

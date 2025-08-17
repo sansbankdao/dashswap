@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 
 /* Import (browser) clipboard manager. */
-import './system/clipboard.ts'
+// import './system/clipboard.ts'
 
 /* Initialize constants. */
 const UPDATE_TICKER_INTERVAL = 30000 // 30 seconds
