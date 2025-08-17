@@ -16,7 +16,7 @@
 
         <div class="hidden sm:block">
             <div class="border-b border-slate-200">
-                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                <nav class="pl-3 -mb-px flex space-x-8" aria-label="Tabs">
                     <a
                         v-for="tab in tabs"
                         :key="tab.name"
@@ -38,7 +38,15 @@
 
 <script setup lang="ts">
 import { ChevronDownIcon } from '@heroicons/vue/16/solid'
-import { BuildingOfficeIcon, CreditCardIcon, UserIcon, UsersIcon } from '@heroicons/vue/20/solid'
+import {
+    ArrowsRightLeftIcon,
+    BookOpenIcon,
+    CreditCardIcon,
+    InformationCircleIcon,
+    RectangleGroupIcon,
+    SparklesIcon,
+    Square3Stack3DIcon,
+} from '@heroicons/vue/20/solid'
 
 const route = useRoute()
 console.log('NAV ROUTE', route)
@@ -46,12 +54,12 @@ const path = route.path.slice(1)
 console.log('NAV PATH', path)
 
 const tabs = [
-    { name: 'Read Me', href: '/', icon: UserIcon, current: path === '' ? true : false },
-    { name: 'Gallery', href: '/gallery', icon: BuildingOfficeIcon, current: path === 'gallery' ? true : false },
-    { name: 'Swap', href: '/swap', icon: UsersIcon, current: path === 'swap' ? true : false },
+    { name: 'Read Me', href: '/', icon: BookOpenIcon, current: path === '' ? true : false },
+    { name: 'Gallery', href: '/gallery', icon: RectangleGroupIcon, current: path === 'gallery' ? true : false },
+    { name: 'Swap', href: '/swap', icon: ArrowsRightLeftIcon, current: path === 'swap' ? true : false },
     { name: 'Pay', href: '/pay', icon: CreditCardIcon, current: path === 'pay' ? true : false },
-    { name: 'swap.jsx', href: '/frontend', icon: CreditCardIcon, current: path === 'frontend' ? true : false },
-    { name: 'swap.py', href: '/backend', icon: CreditCardIcon, current: path === 'backend' ? true : false },
-    { name: 'Need help?', href: '/help', icon: CreditCardIcon, current: path === 'help' ? true : false },
+    { name: 'swap.jsx', href: '/frontend', icon: SparklesIcon, current: path === 'frontend' ? true : false },
+    { name: 'swap.py', href: '/backend', icon: Square3Stack3DIcon, current: path === 'backend' ? true : false },
+    { name: 'Need help?', href: '/help', icon: InformationCircleIcon, current: path === 'help' ? true : false },
 ]
 </script>

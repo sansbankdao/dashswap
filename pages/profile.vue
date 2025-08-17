@@ -1,9 +1,13 @@
 <template>
-    <h1 class="text-sky-200 text-4xl">
-        PROFILE
-    </h1>
+    <section class="p-5">
+        <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
+            My Profile
+        </h1>
 
-    <p class="text-sky-300 text-xl">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique numquam modi labore corporis illo harum repudiandae reiciendis, dignissimos culpa animi. Iste ipsum doloribus sint doloremque nihil! Rerum aspernatur libero dolores.
-    </p>
+        <p class="text-sky-400 text-xl tracking-wider">
+            Chat in real-time with you frens and foes about "financial advice".
+        </p>
+    </section>
+
+    <Bootstrap />
 </template>

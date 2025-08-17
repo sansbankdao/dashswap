@@ -1,13 +1,17 @@
 <template>
-    <section class="p-5">
-        <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
-            Trollbox
-        </h1>
+    <main class="">
+        <NavMenu />
 
-        <p class="text-sky-400 text-xl tracking-wider">
-            Chat in real-time with you frens and foes about "financial advice".
-        </p>
-    </section>
+        <section class="p-5">
+            <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
+                Trollbox
+            </h1>
 
-    <Bootstrap />
+            <p class="text-sky-400 text-xl tracking-wider">
+                Chat in real-time with you frens and foes about "financial advice".
+            </p>
+        </section>
+
+        <Bootstrap />
+    </main>
 </template>

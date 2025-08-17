@@ -21,7 +21,7 @@
             href="/launcher"
             title="Token Launcher"
             class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <RectangleGroupIcon />
+            <RocketLaunchIcon />
         </a>
 
         <a
