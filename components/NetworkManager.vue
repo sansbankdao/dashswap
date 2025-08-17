@@ -5,15 +5,15 @@
 
         <div class="flex items-center mb-2">
             <span class="text-slate-200 mr-2">↳</span>
-            <span class="text-gray-100">status ⇒ TESTING</span>
+            <span class="text-sky-300">Dash Network ⇒ <span class="text-sm font-bold">TESTNET</span></span>
         </div>
 
-        <div class="mt-2 text-gray-400">
-            Initializing...
+        <div class="mt-2 text-slate-200">
+            Initializing Platform v2.0...
             <br />
-            Ready for testing.
+            All systems are now ONLINE!
             <br />
-            Waiting for swap request...
+            Waiting for the next swap request...
         </div>
 
     </div>

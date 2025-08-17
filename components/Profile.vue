@@ -19,7 +19,7 @@
                     {{profile.title}}
                 </p>
 
-                <p class="flex items-center justify-center sm:justify-start text-sm text-gray-400">
+                <p class="flex items-center justify-center sm:justify-start text-sm text-slate-200">
                     <svg class="-mt-0.5 inline mr-2"fill=none height=14 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 viewBox="0 0 24 24"width=14 xmlns=http://www.w3.org/2000/svg><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx=12 cy=10 r=3></circle></svg>
                     {{profile.location}}
                 </p>
@@ -28,9 +28,15 @@
 
         </div>
 
-        <p class="text-sm leading-relaxed mt-4 text-gray-400">
-            {{profile.description}}
-        </p>
+        <section class="text-base leading-relaxed mt-4 text-slate-200">
+            <h2 class="text-2xl font-bold tracking-wider">
+                Welcome back Guest
+            </h2>
+
+            <p>
+                Let's get you signed-in and have your assets loaded on to your dashboard.
+            </p>
+        </section>
 
     </div>
 </template>
@@ -41,13 +47,8 @@
 
 const profile = ref({
     name: 'Guest User',
-    title: 'click here to sign-in',
-    location: '192.168.1.1 (localhost)',
-    description: `
-    Welcome back Guest!
-
-    Let's get you signed-in and have your assets loaded on to your dashboard.
-    `
+    title: 'click here to CONNECT',
+    location: 'no wallet connected',
 })
 
 </script>
