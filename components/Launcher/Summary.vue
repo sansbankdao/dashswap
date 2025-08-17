@@ -41,7 +41,7 @@
                                         id="quantity"
                                         name="quantity"
                                         aria-label="Quantity"
-                                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                                     >
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -106,9 +106,9 @@
             <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <button
                     type="submit"
-                    class="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                    class="w-full rounded-md border border-transparent bg-sky-600 px-4 py-3 text-xl font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                 >
-                    Confirm order
+                    Confirm Your Launch
                 </button>
             </div>
         </div>
