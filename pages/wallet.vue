@@ -121,7 +121,7 @@
                     :isFullScreen="isFullScreen"
                 />
 
-                <Swap
+                <SwapMenu
                     v-if="isShowingSwap"
                     :isFullScreen="isFullScreen"
                 />
@@ -143,6 +143,8 @@
 <script setup lang="ts">
 /* Import modules. */
 import numeral from 'numeral'
+
+import { DashPlatformSDK } from 'dash-platform-sdk'
 
 // FOR DEV PURPOSES ONLY
 const isFullScreen = true

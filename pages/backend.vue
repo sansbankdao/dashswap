@@ -2,16 +2,21 @@
     <main class="">
         <NavMenu />
 
-        <section class="p-5">
-            <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
-                Back-end
-            </h1>
+        <section class="p-3">
+            <BackendMenu />
 
-            <p class="text-sky-400 text-xl tracking-wider">
-                Chat in real-time with you frens and foes about "financial advice".
-            </p>
+            <pre v-html="code" class="px-3 py-5 text-amber-100 text-sm" />
         </section>
-
-        <Bootstrap />
     </main>
 </template>
+
+<script setup lang="ts">
+const code = ref(`# Back-end Integration for Python/Django
+from dashswap import Swap
+
+def my_order(request):
+    # Use the Swap function from dashswap
+    result = Swap.buy('DUSD')
+    return HTTpResponse(result)
+`)
+</script>

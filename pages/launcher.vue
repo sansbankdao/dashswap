@@ -1,7 +1,3 @@
 <template>
-    <main class="">
-        <NavMenu />
-
-        <LauncherCreator />
-    </main>
+    <LauncherCreator />
 </template>

@@ -8,8 +8,8 @@
                 @change="loadPage"
                 v-model="activeTab"
             >
-                <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">
-                    <span class="text-slate-700">{{ tab.name }}</span>
+                <option v-for="tab in tabs" :key="tab.name" :selected="tab.current" class="text-slate-700">
+                    {{ tab.name }}
                 </option>
             </select>
 
