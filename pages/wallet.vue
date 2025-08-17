@@ -106,7 +106,7 @@
                     :isFullScreen="isFullScreen"
                 />
 
-                <Send
+                <WalletSend
                     v-if="isShowingSend"
                     :isFullScreen="isFullScreen"
                 />
@@ -116,19 +116,19 @@
                     :isFullScreen="isFullScreen"
                 />
 
-                <History
+                <WalletHistory
                     v-if="isShowingHistory"
                     :isFullScreen="isFullScreen"
                 />
 
-                <SwapMenu
+                <WalletSwap
                     v-if="isShowingSwap"
                     :isFullScreen="isFullScreen"
                 />
             </div>
         </div>
 
-        <section class="px-5 py-2 col-span-3 flex flex-col gap-3">
+        <section class="px-5 py-2 col-span-3 flex flex-col gap-3 text-slate-200">
             <h2 class="text-2xl font-light">
                 Are you ready to start your next <span class="text-3xl font-medium italic">BIG</span> idea?
             </h2>
