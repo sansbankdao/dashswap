@@ -38,6 +38,7 @@ const status = await sdk.node.status()
 
 const epoch = ref(0)
 
+console.log('STATUS CHAIN', status.chain)
 console.log('LAST BLOCK HASH', status.chain.latestBlockHash)
 console.log('EPOCH', status.time.epoch)
 

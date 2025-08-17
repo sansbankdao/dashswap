@@ -64,7 +64,7 @@
             </section>
 
             <div class="block">
-                <nav class="isolate grid grid-cols-4 divide-x divide-gray-200 rounded-x-lg rounded-b-lg shadow" aria-label="Tabs">
+                <nav class="isolate grid grid-cols-3 divide-x divide-gray-200 rounded-x-lg rounded-b-lg shadow" aria-label="Tabs">
                     <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
                     <div @click="setTab('deposit')" class="cursor-pointer bg-gray-700 rounded-bl-lg group relative min-w-0 flex flex-row justify-center items-center gap-1 overflow-hidden py-2 px-2 text-sm font-medium hover:bg-gray-50 hover:text-gray-600 focus:z-10" aria-current="page" :class="[ isShowingSend ? 'text-gray-100' : 'text-gray-400' ]">
                         <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -87,14 +87,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
                         </svg>
                         <span class="text-xs sm:text-sm">History</span>
-                        <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
-                    </div>
-
-                    <div @click="setTab('swap')" class="cursor-pointer bg-gray-700 text-gray-400 rounded-br-lg group relative min-w-0 flex flex-row justify-center items-center gap-1 overflow-hidden py-2 px-2 text-center text-sm font-medium hover:bg-gray-50 hover:text-gray-600 focus:z-10">
-                        <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path>
-                        </svg>
-                        <span class="text-xs sm:text-sm">Swap</span>
                         <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
                     </div>
                 </nav>
@@ -120,21 +112,16 @@
                     v-if="isShowingHistory"
                     :isFullScreen="isFullScreen"
                 />
-
-                <WalletSwap
-                    v-if="isShowingSwap"
-                    :isFullScreen="isFullScreen"
-                />
             </div>
         </div>
 
         <section class="px-5 py-2 col-span-3 flex flex-col gap-3 text-slate-200">
             <h2 class="text-2xl font-light">
-                Are you ready to start your next <span class="text-3xl font-medium italic">BIG</span> idea?
+                Are you ready for an <span class="text-3xl font-medium italic">Evolution</span> in finance?
             </h2>
 
-            <NuxtLink to="https://github.com/avasdao/nexajs/tree/master/studio-wallet" target="_blank" class="text-xl text-blue-500 font-bold hover:underline">
-                Fork Our Wallet Repo and GO!
+            <NuxtLink to="https://sansbank.org/bootstrap" target="_blank" class="text-xl text-blue-300 font-bold hover:underline">
+                See what we're building at Sansbank
             </NuxtLink>
         </section>
     </main>
@@ -145,6 +132,7 @@
 import numeral from 'numeral'
 
 import { DashPlatformSDK } from 'dash-platform-sdk'
+import { PrivateKeyWASM } from 'pshenmic-dpp'
 
 // FOR DEV PURPOSES ONLY
 const isFullScreen = true
@@ -283,24 +271,80 @@ const init = async () => {
 
     const sdk = new DashPlatformSDK({ network: 'testnet' })
 
+//     const tokenContractInfo = await sdk.tokens
+//         .getTokenContractInfo('3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz')
+//         .catch(err => console.error(err))
+// console.log('TOKEN DATA CONTRACT', tokenContractInfo)
+// console.log('TOKEN DATA CONTRACT (id-base58)', tokenContractInfo.dataContractId.base58())
+// console.log('TOKEN DATA CONTRACT (id-hex)', tokenContractInfo.dataContractId.hex())
+// console.log('TOKEN DATA CONTRACT (tokens)', tokenContractInfo.tokens)
+
     // const dataContractIdentifier = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec' // SAMPLE
-    // const dataContractIdentifier = 'GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23' // tDUSD
+    const dataContractIdentifier = 'GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23' // tDUSD
     // const dataContractIdentifier = 'Bwr4WHCPz5rFVAD87RqTs3izo4zpzwsEdKPWUT1NS1C7' // DashPay
     // const dataContractIdentifier = '8XSvQw14RSGZS2MGXieTmXR4RVEyb5bZh7gYMWd6M6Te'
-    const dataContractIdentifier = 'Y189uedQG3CJCuu83P3DqnG7ngQaRKz69x3gY8uDzQe'
+    // const dataContractIdentifier = 'Y189uedQG3CJCuu83P3DqnG7ngQaRKz69x3gY8uDzQe'
 
-    const dataContract = await sdk.dataContracts
-        .getDataContractByIdentifier(dataContractIdentifier)
-        .catch(err => console.error(err))
-console.log('DATA CONTRACT', dataContract)
-console.log('DATA CONTRACT (id)', dataContract.id.base58())
-console.log('DATA CONTRACT (tokens)', dataContract.tokens)
 
-    const tokenContractInfo = await sdk.tokens
-        .getTokenContractInfo('9YxdbQUjJmQsmVPen95HjAU3Esj7tVkWSY2EQWT84ZQP')
-        .catch(err => console.error(err))
-console.log('TOKEN DATA CONTRACT', tokenContractInfo)
-console.log('TOKEN DATA CONTRACT (id)', tokenContractInfo.dataContractId.base58())
+//     const dataContract = await sdk.dataContracts
+//         .getDataContractByIdentifier(dataContractIdentifier)
+//         .catch(err => console.error(err))
+// console.log('DATA CONTRACT', dataContract)
+// console.log('DATA CONTRACT (id)', dataContract.id.base58())
+// console.log('DATA CONTRACT (tokens)', dataContract.tokens)
+
+
+// const owner = 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm'
+// const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'//'8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC'
+// const tokenId = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'
+// const amount = BigInt(1337)
+
+// const privateKey = ''
+
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// const wif = ''
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// // DO NOT SAVE TO REPO
+// const publicKeyId = 3
+
+// const tokenBaseTransition = await sdk.tokens.createBaseTransition(tokenId, owner)
+// const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, owner, 'transfer', { identityId: recipient, amount })
+
+// stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(wif), 'ECDSA_SECP256K1')
+// stateTransition.signaturePublicKeyId = publicKeyId
+
+// console.log('STATE TRANSITION', stateTransition)
+// const resp = await sdk.stateTransitions.broadcast(stateTransition)
+// console.log('BROADCAST RESPONSE', resp)
+
+
+const tokenContractInfo = await sdk.tokens.getTokenContractInfo('A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw')
+const dataContract = await sdk.dataContracts.getDataContractByIdentifier(tokenContractInfo.dataContractId)
+
+const tokenConfiguration = dataContract.tokens[tokenContractInfo.tokenContractPosition]
+const conventions = tokenConfiguration.conventions
+
+const baseSupply = tokenConfiguration.baseSupply
+const maxSupply = tokenConfiguration.maxSupply
+const decimals = conventions.decimals
+const description = tokenConfiguration.description
+const name = conventions.localizations['en'].singularForm
+
+console.log(baseSupply, maxSupply, decimals, description, name)
+
+
+//     const tokenInfo = await sdk.tokens
+//         .getTokenInfo('3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz')
+//         .catch(err => console.error(err))
+// console.log('TOKEN INFO', tokenInfo)
+// console.log('TOKEN INFO (id)', tokenContractInfo.dataContractId.base58())
 // console.log('TOKEN DATA CONTRACT (tokens)', tokenContractInfo.tokens)
 
 

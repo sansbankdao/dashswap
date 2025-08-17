@@ -8,7 +8,7 @@
             </div>
 
             <div class="w-full md:w-4/5 p-0">
-                <div class="min-h-full h-[90vh] flex flex-col overflow-y-scroll">
+                <div class="min-h-full lg:h-[90vh] flex flex-col lg:overflow-y-scroll">
 
 <!-- Dynamic Content SLOT Begins Here-->
                     <slot />
