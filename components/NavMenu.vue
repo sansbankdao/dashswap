@@ -4,27 +4,27 @@
             <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
             <select
                 aria-label="Select a tab"
-                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-slate-500 outline outline-1 -outline-offset-1 outline-slate-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-400"
             >
                 <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">
                     {{ tab.name }}
                 </option>
             </select>
 
-            <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" aria-hidden="true" />
+            <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-slate-500" aria-hidden="true" />
         </div>
 
         <div class="hidden sm:block">
-            <div class="border-b border-gray-200">
+            <div class="border-b border-slate-200">
                 <nav class="-mb-px flex space-x-8" aria-label="Tabs">
                     <a
                         v-for="tab in tabs"
                         :key="tab.name"
                         :href="tab.href"
-                        :class="[tab.current ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700', 'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium']"
+                        :class="[tab.current ? 'border-sky-500 text-sky-400' : 'border-transparent text-slate-200 hover:border-slate-50 hover:text-slate-400', 'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium']"
                         :aria-current="tab.current ? 'page' : undefined"
                     >
-                        <component :is="tab.icon" :class="[tab.current ? 'text-indigo-500' : 'text-gray-400 group-hover:text-gray-500', '-ml-0.5 mr-2 size-5']" aria-hidden="true" />
+                        <component :is="tab.icon" :class="[tab.current ? 'text-sky-300' : 'text-slate-400 group-hover:text-slate-500', '-ml-0.5 mr-2 size-5']" aria-hidden="true" />
 
                         <span>
                             {{ tab.name }}
@@ -42,8 +42,8 @@ import { BuildingOfficeIcon, CreditCardIcon, UserIcon, UsersIcon } from '@heroic
 
 const tabs = [
     { name: 'Read Me', href: '/', icon: UserIcon, current: false },
-    { name: 'Gallery', href: '/gallery', icon: BuildingOfficeIcon, current: false },
-    { name: 'Swap', href: '/swap', icon: UsersIcon, current: true },
+    { name: 'Gallery', href: '/gallery', icon: BuildingOfficeIcon, current: true },
+    { name: 'Swap', href: '/swap', icon: UsersIcon, current: false },
     { name: 'Pay', href: '/pay', icon: CreditCardIcon, current: false },
     { name: 'swap.jsx', href: '/frontend', icon: CreditCardIcon, current: false },
     { name: 'swap.py', href: '/backend', icon: CreditCardIcon, current: false },
