@@ -32,17 +32,17 @@ const socials: Social[] = ref([
     },
     {
         icon: 'trollbox',
-        link: '/bootstrap',
+        link: '/trollbox',
         title: 'Enter Trollbox'
     },
     {
         icon: 'leaderboard',
-        link: '/bootstrap',
+        link: '/leaderboard',
         title: 'View Leaderboard'
     },
     {
         icon: 'profile',
-        link: '/bootstrap',
+        link: '/profile',
         title: 'Open My Profile'
     },
     {
