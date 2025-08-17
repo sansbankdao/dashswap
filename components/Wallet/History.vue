@@ -128,7 +128,7 @@ import numeral from 'numeral'
 
 /* Initialize stores. */
 import { useWalletStore } from '@/stores/wallet'
-
+const Wallet = useWalletStore()
 
 /* Set constants. */
 const MAX_RESULTS_PER_PAGE = 20
@@ -145,8 +145,6 @@ const init = async () => {
     /* Initialize locals. */
     let history
     let txids
-
-    // const Wallet = useWalletStore()
 
     // console.log('ADDRESS', Wallet.address)
 

@@ -1,12 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    ssr: false,
-
+    /* Application */
     app: {
         head: {
             title: 'DashSwap by Sansbank DAO',
             meta: [
-                { name: 'description', content: 'Instantly swap ANY Dash native $TOKEN in a permissioneless marketplace—liquidity providers (LP) offers 24x7 convenience.' },
+                { name: 'description', content: 'Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.' },
                 { name: 'keywords', content: 'dash, crypto, dex, instaswap' },
             ],
             link: [
@@ -15,7 +14,18 @@ export default defineNuxtConfig({
             ],
         },
     },
-    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+
+    /* Modules */
+    modules: [
+        /* Tailwind CSS */
+        '@nuxtjs/tailwindcss',
+
+        /* Pinia */
+        '@pinia/nuxt'
+    ],
+
+    /* Additional Options */
+    ssr: false,
     devtools: { enabled: true },
     compatibilityDate: '2025-07-15',
 })
