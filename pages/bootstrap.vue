@@ -2,9 +2,14 @@
     <h1 class="text-amber-500">
         BOOTSTRAP
     </h1>
+
     <p class="text-amber-500">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique numquam modi labore corporis illo harum repudiandae reiciendis, dignissimos culpa animi. Iste ipsum doloribus sint doloremque nihil! Rerum aspernatur libero dolores.
+        We're bootstrapping a DASH DEX and TOKEN LAUNCHER, with APIs FOR BUILDERS
     </p>
+
+    <section>
+
+    </section>
 </template>
 
 <script setup lang="ts">
