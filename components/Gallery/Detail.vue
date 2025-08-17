@@ -5,7 +5,7 @@
         </h1>
 
         <h3 class="text-sky-400 text-3xl">
-            Path: {{path}}
+            ASSET ID: {{assetid}}
         </h3>
     </main>
 </template>
@@ -15,10 +15,10 @@
 const route = useRoute()
 console.log('ROUTE', route)
 
-const path = ref()
+const assetid = ref()
 
 const init = async () => {
-    path.value = route.path.slice(9)
+    assetid.value = route.path.slice(9)
 }
 
 onMounted(() => {

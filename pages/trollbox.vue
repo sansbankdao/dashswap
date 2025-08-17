@@ -9,6 +9,5 @@
         </p>
     </section>
 
-
     <Bootstrap />
 </template>

@@ -40,13 +40,18 @@
 import { ChevronDownIcon } from '@heroicons/vue/16/solid'
 import { BuildingOfficeIcon, CreditCardIcon, UserIcon, UsersIcon } from '@heroicons/vue/20/solid'
 
+const route = useRoute()
+console.log('NAV ROUTE', route)
+const path = route.path.slice(1)
+console.log('NAV PATH', path)
+
 const tabs = [
-    { name: 'Read Me', href: '/', icon: UserIcon, current: false },
-    { name: 'Gallery', href: '/gallery', icon: BuildingOfficeIcon, current: true },
-    { name: 'Swap', href: '/swap', icon: UsersIcon, current: false },
-    { name: 'Pay', href: '/pay', icon: CreditCardIcon, current: false },
-    { name: 'swap.jsx', href: '/frontend', icon: CreditCardIcon, current: false },
-    { name: 'swap.py', href: '/backend', icon: CreditCardIcon, current: false },
-    { name: 'Need help?', href: '/pay', icon: CreditCardIcon, current: false },
+    { name: 'Read Me', href: '/', icon: UserIcon, current: path === '' ? true : false },
+    { name: 'Gallery', href: '/gallery', icon: BuildingOfficeIcon, current: path === 'gallery' ? true : false },
+    { name: 'Swap', href: '/swap', icon: UsersIcon, current: path === 'swap' ? true : false },
+    { name: 'Pay', href: '/pay', icon: CreditCardIcon, current: path === 'pay' ? true : false },
+    { name: 'swap.jsx', href: '/frontend', icon: CreditCardIcon, current: path === 'frontend' ? true : false },
+    { name: 'swap.py', href: '/backend', icon: CreditCardIcon, current: path === 'backend' ? true : false },
+    { name: 'Need help?', href: '/help', icon: CreditCardIcon, current: path === 'help' ? true : false },
 ]
 </script>
