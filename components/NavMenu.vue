@@ -4,10 +4,12 @@
             <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
             <select
                 aria-label="Select a tab"
-                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-slate-500 outline outline-1 -outline-offset-1 outline-slate-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-400"
+                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-slate-800 outline outline-1 -outline-offset-1 outline-slate-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-400"
+                @change="loadPage"
+                v-model="activeTab"
             >
                 <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">
-                    {{ tab.name }}
+                    <span class="text-slate-700">{{ tab.name }}</span>
                 </option>
             </select>
 
@@ -16,9 +18,24 @@
 
         <div class="hidden sm:block">
             <div class="border-b border-slate-200">
-                <nav class="pl-3 -mb-px flex space-x-8" aria-label="Tabs">
+                <nav class="pl-3 -mb-px flex lg:hidden space-x-8" aria-label="Tabs">
                     <a
                         v-for="tab in tabs"
+                        :key="tab.name"
+                        :href="tab.href"
+                        :class="[tab.current ? 'border-sky-500 text-sky-400' : 'border-transparent text-slate-200 hover:border-slate-50 hover:text-slate-400', 'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium']"
+                        :aria-current="tab.current ? 'page' : undefined"
+                    >
+                        <component :is="tab.icon" :class="[tab.current ? 'text-sky-300' : 'text-slate-400 group-hover:text-slate-500', '-ml-0.5 mr-2 size-5']" aria-hidden="true" />
+
+                        <span>
+                            {{ tab.name }}
+                        </span>
+                    </a>
+                </nav>
+                <nav class="pl-3 -mb-px hidden lg:flex space-x-8" aria-label="Tabs">
+                    <a
+                        v-for="tab in alltabs"
                         :key="tab.name"
                         :href="tab.href"
                         :class="[tab.current ? 'border-sky-500 text-sky-400' : 'border-transparent text-slate-200 hover:border-slate-50 hover:text-slate-400', 'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium']"
@@ -49,11 +66,22 @@ import {
 } from '@heroicons/vue/20/solid'
 
 const route = useRoute()
-console.log('NAV ROUTE', route)
+// console.log('NAV ROUTE', route)
+
 const path = route.path.slice(1)
-console.log('NAV PATH', path)
+// console.log('NAV PATH', path)
+
+const activeTab = ref()
 
 const tabs = [
+    { name: 'Read Me', href: '/', icon: BookOpenIcon, current: path === '' ? true : false },
+    { name: 'Gallery', href: '/gallery', icon: RectangleGroupIcon, current: path === 'gallery' ? true : false },
+    { name: 'Swap', href: '/swap', icon: ArrowsRightLeftIcon, current: path === 'swap' ? true : false },
+    { name: 'Pay', href: '/pay', icon: CreditCardIcon, current: path === 'pay' ? true : false },
+    { name: 'Need help?', href: '/help', icon: InformationCircleIcon, current: path === 'help' ? true : false },
+]
+
+const alltabs = [
     { name: 'Read Me', href: '/', icon: BookOpenIcon, current: path === '' ? true : false },
     { name: 'Gallery', href: '/gallery', icon: RectangleGroupIcon, current: path === 'gallery' ? true : false },
     { name: 'Swap', href: '/swap', icon: ArrowsRightLeftIcon, current: path === 'swap' ? true : false },
@@ -62,4 +90,29 @@ const tabs = [
     { name: 'swap.py', href: '/backend', icon: Square3Stack3DIcon, current: path === 'backend' ? true : false },
     { name: 'Need help?', href: '/help', icon: InformationCircleIcon, current: path === 'help' ? true : false },
 ]
+
+const loadPage = () => {
+    const tab = activeTab.value.toLowerCase()
+    console.log('ACTIVE TAB', tab)
+
+    const router = useRouter()
+
+    switch(tab) {
+    case 'gallery':
+        router.push('/gallery')
+        break
+    case 'need help?':
+        router.push('/help')
+        break
+    case 'pay':
+        router.push('/pay')
+        break
+    case 'read me':
+        router.push('/')
+        break
+    case 'swap':
+        router.push('/swap')
+        break
+    }
+}
 </script>
