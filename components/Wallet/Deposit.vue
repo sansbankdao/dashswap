@@ -1,6 +1,6 @@
 <script setup>
 /* Import modules. */
-import { copyToClipboard } from '@nexajs/app'
+// import { copyToClipboard } from '@nexajs/app'
 import QRCode from 'qrcode'
 
 /* Define properties. */

@@ -101,7 +101,7 @@
             </div>
 
             <div class="my-5">
-                <Assets
+                <WalletAssets
                     v-if="isShowingAssets"
                     :isFullScreen="isFullScreen"
                 />
@@ -111,7 +111,7 @@
                     :isFullScreen="isFullScreen"
                 />
 
-                <Deposit
+                <WalletDeposit
                     v-if="isShowingDeposit"
                     :isFullScreen="isFullScreen"
                 />
@@ -280,6 +280,64 @@ const setTab = (_tab) => {
 const init = async () => {
     /* Set (default) tab. */
     setTab('assets')
+
+    const sdk = new DashPlatformSDK({ network: 'testnet' })
+
+    // const dataContractIdentifier = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec' // SAMPLE
+    // const dataContractIdentifier = 'GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23' // tDUSD
+    // const dataContractIdentifier = 'Bwr4WHCPz5rFVAD87RqTs3izo4zpzwsEdKPWUT1NS1C7' // DashPay
+    // const dataContractIdentifier = '8XSvQw14RSGZS2MGXieTmXR4RVEyb5bZh7gYMWd6M6Te'
+    const dataContractIdentifier = 'Y189uedQG3CJCuu83P3DqnG7ngQaRKz69x3gY8uDzQe'
+
+    const dataContract = await sdk.dataContracts
+        .getDataContractByIdentifier(dataContractIdentifier)
+        .catch(err => console.error(err))
+console.log('DATA CONTRACT', dataContract)
+console.log('DATA CONTRACT (id)', dataContract.id.base58())
+console.log('DATA CONTRACT (tokens)', dataContract.tokens)
+
+    const tokenContractInfo = await sdk.tokens
+        .getTokenContractInfo('9YxdbQUjJmQsmVPen95HjAU3Esj7tVkWSY2EQWT84ZQP')
+        .catch(err => console.error(err))
+console.log('TOKEN DATA CONTRACT', tokenContractInfo)
+console.log('TOKEN DATA CONTRACT (id)', tokenContractInfo.dataContractId.base58())
+// console.log('TOKEN DATA CONTRACT (tokens)', tokenContractInfo.tokens)
+
+
+const identifier = 'QMfCRPcjXoTnZa9sA9JR2KWgGxZXMRJ4akgS3Uia1Qv'
+// const identity = await sdk.identities.getIdentityByIdentifier(identifier)
+// console.log('IDENTITY', identity)
+// console.log('IDENTITY (id)', identity.id)
+// console.log('IDENTITY (balance)', identity.balance)
+
+
+// const response = await sdk.names.search('shomari.dash')
+// console.log('DOCUMENT (shomari)', response)
+// console.log('DOCUMENT (shomari-hex)', response.id.hex())
+// console.log('DOCUMENT (shomari-base58)', response.id.base58())
+
+// const dataContractId = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec'
+// const documentType = 'domain'
+// const limit = 100
+// // const where =  [['$ownerId', '==', dataContractIdentifier]]
+// const where =  []//[['identityId', '==', dataContractIdentifier]]
+// const orderBy = []//[['$createdAt', 'desc']]
+
+// // optional: pagination options (use only one)
+// const startAt = document.id // for pagination
+// const startAfter = document.id // for pagination
+
+// const documents = await sdk.documents.query(
+//   dataContractId,
+//   documentType,
+//   where,
+//   orderBy,
+//   limit,
+//   startAt,
+//   startAfter
+// )
+
+// console.log('DOCUMENTS', documents)
 }
 
 onMounted(() => {

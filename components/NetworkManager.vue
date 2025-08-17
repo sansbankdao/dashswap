@@ -14,6 +14,8 @@
             All systems are now ONLINE!
             <br />
             Waiting for the next swap request...
+            <br />
+            Epoch: {{epoch}}
         </div>
 
     </div>
@@ -24,3 +26,34 @@
     <!-- End: Social Links -->
 
 </template>
+
+<script setup lang="ts">
+/* Import modules. */
+import numeral from 'numeral'
+import { DashPlatformSDK } from 'dash-platform-sdk'
+
+const sdk = new DashPlatformSDK({ network: 'testnet' })
+
+const status = await sdk.node.status()
+
+const epoch = ref(0)
+
+console.log('LAST BLOCK HASH', status.chain.latestBlockHash)
+console.log('EPOCH', status.time.epoch)
+
+
+
+
+const init = async () => {
+    epoch.value = numeral(status.time?.epoch).format('0,0')
+}
+
+onMounted(() => {
+    init()
+})
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
+</script>
