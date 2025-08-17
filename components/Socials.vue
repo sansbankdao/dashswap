@@ -1,20 +1,70 @@
 <template>
     <main class="flex flex-wrap gap-3 mt-6 justify-between">
-        <a v-for="social of socials"
-            :key="social.title"
-            :href="social.link"
-            :title="social.title"
-            class="flex items-center justify-center w-10 h-10 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <SocialIcon :icon="social.icon" />
+        <a
+            key="gallery"
+            href="/gallery"
+            title="Explore the Gallery"
+            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            <RectangleGroupIcon />
+        </a>
+
+        <a
+            key="wallet"
+            href="/wallet"
+            title="Wallet"
+            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            <WalletIcon />
+        </a>
+
+        <a
+            key="launcher"
+            href="/launcher"
+            title="Token Launcher"
+            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            <RectangleGroupIcon />
+        </a>
+
+        <a
+            key="leaderboard"
+            href="/leaderboard"
+            title="Leaderboard"
+            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            <TrophyIcon />
+        </a>
+
+        <a
+            key="profile"
+            href="/profile"
+            title="Profile"
+            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            <UserIcon />
+        </a>
+
+        <a
+            key="help"
+            href="/help"
+            title="Help & Support"
+            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            <InformationCircleIcon />
         </a>
     </main>
 </template>
 
 <script setup lang="ts">
+import {
+    InformationCircleIcon,
+    RectangleGroupIcon,
+    RocketLaunchIcon,
+    TrophyIcon,
+    UserIcon,
+    WalletIcon,
+} from '@heroicons/vue/24/outline'
+
 // import SocialIcon from './SocialIcon.astro'
 
 interface Social {
-    icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'launcher' | 'wallet';
+    // icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'launcher' | 'wallet';
+    icon: string;
     link: string;
     title?: string;
 }
