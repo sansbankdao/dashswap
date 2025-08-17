@@ -14,7 +14,7 @@
 // import SocialIcon from './SocialIcon.astro'
 
 interface Social {
-    icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'trollbox' | 'wallet';
+    icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'launcher' | 'wallet';
     link: string;
     title?: string;
 }
@@ -23,32 +23,32 @@ const socials: Social[] = ref([
     {
         icon: 'gallery',
         link: '/gallery',
-        title: 'Open Gallery View'
+        title: 'Gallery View'
     },
     {
         icon: 'wallet',
         link: '/wallet',
-        title: 'Open Wallet'
+        title: 'Trading Wallet'
     },
     {
-        icon: 'trollbox',
-        link: '/trollbox',
-        title: 'Enter Trollbox'
+        icon: 'launcher',
+        link: '/launcher',
+        title: 'Token Launcher'
     },
     {
         icon: 'leaderboard',
         link: '/leaderboard',
-        title: 'View Leaderboard'
+        title: 'Leaderboard'
     },
     {
         icon: 'profile',
         link: '/profile',
-        title: 'Open My Profile'
+        title: 'Profile Manager'
     },
     {
         icon: 'help',
         link: '/help',
-        title: 'Get Help & Support'
+        title: 'Need help?'
     },
 ])
 </script>
