@@ -1,6 +1,8 @@
 <template>
     <main class="mt-10 border-t border-gray-200 pt-10">
-        <h2 class="text-lg font-medium text-gray-900">Payment</h2>
+        <h2 class="text-lg font-medium text-gray-900">
+            Choose an Identity for Payment
+        </h2>
 
         <fieldset class="mt-4">
             <legend class="sr-only">Payment type</legend>
@@ -20,7 +22,10 @@
 
         <div class="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
             <div class="col-span-4">
-                <label for="card-number" class="block text-sm/6 font-medium text-gray-700">Card number</label>
+                <label for="card-number" class="block text-sm/6 font-medium text-gray-700">
+                    Identity
+                </label>
+
                 <div class="mt-2">
                     <input
                         type="text"
@@ -73,3 +78,14 @@
         </div>
     </main>
 </template>
+
+<script setup lang="ts">
+import { ChevronDownIcon } from '@heroicons/vue/16/solid'
+import { CheckCircleIcon, TrashIcon } from '@heroicons/vue/20/solid'
+
+const paymentMethods = [
+    { id: 'credit-card', title: 'Credit card' },
+    { id: 'paypal', title: 'PayPal' },
+    { id: 'etransfer', title: 'eTransfer' },
+]
+</script>

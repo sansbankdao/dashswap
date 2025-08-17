@@ -15,7 +15,7 @@
             <br />
             Waiting for the next swap request...
             <br />
-            Epoch: {{epoch}}
+            Current epoch is {{epoch}}
         </div>
 
     </div>

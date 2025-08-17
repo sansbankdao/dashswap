@@ -30,7 +30,7 @@
 
         <section class="text-base leading-relaxed mt-4 text-slate-200">
             <h2 class="text-2xl font-bold tracking-wider">
-                Welcome back Guest
+                Welcome Guest
             </h2>
 
             <p>
