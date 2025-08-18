@@ -23,7 +23,7 @@
         </div>
 
         <div class="mt-0 text-slate-200">
-            Waiting for the next swap request...
+            Waiting for your next request...
         </div>
 
     </div>
@@ -57,6 +57,10 @@ const network = computed(() => {
 })
 
 const networkDisplay = computed(() => {
+    if (System.network.slice(0, 9) === 'localhost') {
+        return 'LOCALHOST'
+    }
+
     switch(System.network) {
     case 'mainnet':
         return 'MAINNET'
