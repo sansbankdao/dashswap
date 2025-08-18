@@ -1,5 +1,5 @@
 <template>
-    <main class="mt-10 border-t border-gray-200 pt-10">
+    <main>
         <fieldset>
             <legend class="text-lg font-medium text-gray-900">
                 Choose a Token Type

@@ -16,6 +16,8 @@
             Waiting for the next swap request...
             <br />
             Current epoch is {{epoch}}
+            <br />
+            Network is {{network}}
         </div>
 
     </div>
@@ -32,21 +34,32 @@
 import numeral from 'numeral'
 import { DashPlatformSDK } from 'dash-platform-sdk'
 
+/* Initialize stores. */
+// import { useWalletStore } from '@/stores/wallet'
+import { useSystemStore } from '@/stores/system'
+// const Wallet = useWalletStore()
+const System = useSystemStore()
+
 const sdk = new DashPlatformSDK({ network: 'testnet' })
 
 const status = await sdk.node.status()
 
 const epoch = ref(0)
+const network = computed(() => {
+    return System.network
+})
 
-console.log('STATUS CHAIN', status.chain)
-console.log('LAST BLOCK HASH', status.chain.latestBlockHash)
-console.log('EPOCH', status.time.epoch)
+// console.log('STATUS CHAIN', status.chain)
+// console.log('LAST BLOCK HASH', status.chain.latestBlockHash)
+// console.log('EPOCH', status.time.epoch)
 
 
 
 
 const init = async () => {
     epoch.value = numeral(status.time?.epoch).format('0,0')
+
+    // network.value = System.network
 }
 
 onMounted(() => {

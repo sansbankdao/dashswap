@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     /* Application */
     app: {
         head: {
-            title: 'DashSwap by Sansbank DAO',
+            title: 'DashSwap Buy. Sell. Collect by Sansbank',
             meta: [
                 { name: 'description', content: 'Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.' },
                 { name: 'keywords', content: 'dash, crypto, dex, instaswap' },

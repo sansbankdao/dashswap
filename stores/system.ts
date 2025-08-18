@@ -62,6 +62,18 @@ export const useSystemStore = defineStore('system', {
         _locale: null,
 
         /**
+         * Network
+         *
+         * System notices that nag/remind the user of some important action or
+         * information; which can be permanently disabled ("Do Not Show Again")
+         * via checkbox and confirmation.
+         *
+         * NOTE: Unique 1-byte (hex) codes (up to 255) are used to reduce the size
+         *       of this storage field.
+         */
+        _network: null,
+
+        /**
          * Notices
          *
          * System notices that nag/remind the user of some important action or
@@ -89,6 +101,13 @@ export const useSystemStore = defineStore('system', {
 
             return this._entropy
         },
+        network() {
+            if (!this._network) {
+                return null
+            }
+
+            return this._network
+        },
     },
 
     actions: {
@@ -98,31 +117,41 @@ export const useSystemStore = defineStore('system', {
          * Performs startup activities.
          */
         init() {
-            this._appStarts++
+            // this._appStarts++
 
             /* Validate tickers. */
-            if (!this._tickers) {
-                /* Initialize tickers. */
-                this._tickers = {}
-            }
+            // if (!this._tickers) {
+            //     /* Initialize tickers. */
+            //     this._tickers = {}
+            // }
 
             /* Initialize ticker interval. */
-            setInterval(this.updateTicker, UPDATE_TICKER_INTERVAL)
+            // setInterval(this.updateTicker, UPDATE_TICKER_INTERVAL)
 
             /* Update ticker. */
-            this.updateTicker()
+            // this.updateTicker()
 
-            if (this._locale === null) {
-                /* Set (library) locale from (store) locale. */
-                this._locale = navigator.language || navigator.userLanguage
-                console.log(`User's preferred language is:`, this.locale)
-            }
+            // if (this._locale === null) {
+            //     /* Set (library) locale from (store) locale. */
+            //     this._locale = navigator.language || navigator.userLanguage
+            //     console.log(`User's preferred language is:`, this.locale)
+            // }
 
             /* Initialize (library) locale. */
             // const { locale } = useI18n()
 
             /* Set (library) locale. */
             // locale.value = this.locale
+
+            let currentNetwork = ''
+
+            const host = window.location.host
+console.log('DOMAIN HOST', host)
+
+            this._network = host
+
+            console.log('YOUR CURRENT NETWORK IS', this.network)
+
         },
 
         async updateTicker () {

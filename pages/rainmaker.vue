@@ -2,8 +2,8 @@
     <LauncherCreator />
 </template>
 
-<script setup>
+<script setup lang="ts">
 useHead({
-    title: 'Dream Launcher by DashSwap'
+    title: 'Rainmaker by DashSwap'
 })
 </script>

@@ -34,6 +34,33 @@
     </main>
 </template>
 
+<script setup lang="ts">
+/* Import modules. */
+import moment from 'moment'
+
+/* Initialize stores. */
+// import { useWalletStore } from '@/stores/wallet'
+import { useSystemStore } from '@/stores/system'
+// const Wallet = useWalletStore()
+const System = useSystemStore()
+
+const init = async () => {
+    console.log('init...')
+
+    /* Initialize system. */
+    System.init()
+}
+
+onMounted(() => {
+    init()
+})
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
+</script>
+
 <style>
 
     /* Hide the radio buttons */
