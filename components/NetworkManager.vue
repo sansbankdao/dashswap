@@ -29,9 +29,9 @@
     </div>
     <!-- End: Terminal -->
 
-    <!-- Start: Social Links -->
-    <Socials />
-    <!-- End: Social Links -->
+    <!-- Start: Quick Navigation Links -->
+    <QuickNav />
+    <!-- End: Quick Navigation Links -->
 
 </template>
 
@@ -57,10 +57,17 @@ const network = computed(() => {
 })
 
 const networkDisplay = computed(() => {
+    /* Validate network. */
+    if (typeof System.network === 'undefined' || System.network === null) {
+        return 'n/a'
+    }
+
+    /* Validate localhost. */
     if (System.network.slice(0, 9) === 'localhost') {
         return 'LOCALHOST'
     }
 
+    /* Validate network. */
     switch(System.network) {
     case 'mainnet':
         return 'MAINNET'

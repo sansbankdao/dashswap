@@ -1,10 +1,10 @@
 <template>
-    <main class="flex flex-wrap gap-3 mt-6 justify-between">
+    <main class="flex flex-wrap gap-1 mt-6 justify-between">
         <a
             key="gallery"
             href="/gallery"
             title="Explore the Gallery"
-            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
             <RectangleGroupIcon />
         </a>
 
@@ -12,7 +12,7 @@
             key="wallet"
             href="/wallet"
             title="Wallet"
-            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
             <WalletIcon />
         </a>
 
@@ -20,7 +20,7 @@
             key="launcher"
             href="/launcher"
             title="Token Launcher"
-            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
             <RocketLaunchIcon />
         </a>
 
@@ -28,7 +28,7 @@
             key="leaderboard"
             href="/leaderboard"
             title="Leaderboard"
-            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
             <TrophyIcon />
         </a>
 
@@ -36,7 +36,7 @@
             key="profile"
             href="/profile"
             title="Profile"
-            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
             <UserIcon />
         </a>
 
@@ -44,7 +44,7 @@
             key="help"
             href="/help"
             title="Help & Support"
-            class="flex items-center justify-center w-10 h-10 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
+            class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
             <InformationCircleIcon />
         </a>
     </main>
