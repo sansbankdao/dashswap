@@ -3,7 +3,9 @@
 
     <IdentitySetup v-else-if="!Identity.isReady" />
 
-    <main v-else class="grid grid-cols-1 lg:grid-cols-7 gap-8">
+<!-- SHOULD WE SUPPORT (2) SCREEN SIZES?? -->
+    <!-- <main v-else class="grid grid-cols-1 lg:grid-cols-7 gap-8"> -->
+    <main v-else class="grid grid-cols-1 gap-8">
         <div class="col-span-4">
             <section @click="setTab('assets')" class="cursor-pointer group px-5 py-3 bg-gradient-to-b from-sky-100 to-sky-50 border-t border-x border-sky-400 rounded-x-lg shadow-md hover:bg-sky-100">
                 <div class="flex flex-row w-full justify-between items-center mb-1" :class="[ isShowingAssets ? 'visible' : 'hidden' ]">
@@ -272,11 +274,14 @@ const init = async () => {
 // console.log('TOKEN DATA CONTRACT (id-hex)', tokenContractInfo.dataContractId.hex())
 // console.log('TOKEN DATA CONTRACT (tokens)', tokenContractInfo.tokens)
 
-    // const dataContractIdentifier = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec' // SAMPLE
-    const dataContractIdentifier = 'GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23' // tDUSD
-    // const dataContractIdentifier = 'Bwr4WHCPz5rFVAD87RqTs3izo4zpzwsEdKPWUT1NS1C7' // DashPay
-    // const dataContractIdentifier = '8XSvQw14RSGZS2MGXieTmXR4RVEyb5bZh7gYMWd6M6Te'
-    // const dataContractIdentifier = 'Y189uedQG3CJCuu83P3DqnG7ngQaRKz69x3gY8uDzQe'
+    const dataContractIdentifier = ''
+
+    // const tokenid = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec' // SAMPLE
+    const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
+    // const tokenid = 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw' // tSANS
+    // const tokenid = 'Bwr4WHCPz5rFVAD87RqTs3izo4zpzwsEdKPWUT1NS1C7' // DashPay
+    // const tokenid = '8XSvQw14RSGZS2MGXieTmXR4RVEyb5bZh7gYMWd6M6Te'
+    // const tokenid = 'Y189uedQG3CJCuu83P3DqnG7ngQaRKz69x3gY8uDzQe'
 
 
 //     const dataContract = await sdk.dataContracts
@@ -287,10 +292,9 @@ const init = async () => {
 // console.log('DATA CONTRACT (tokens)', dataContract.tokens)
 
 
-// const owner = 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm'
-// const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'//'8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC'
-// const tokenId = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'
-// const amount = BigInt(1337)
+const owner = 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm'
+const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'//'8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC'
+const amount = BigInt(8888)
 
 // const privateKey = ''
 
@@ -305,20 +309,20 @@ const init = async () => {
 // // DO NOT SAVE TO REPO
 // // DO NOT SAVE TO REPO
 // // DO NOT SAVE TO REPO
-// const publicKeyId = 3
+const publicKeyId = 3 // 03 => Transfer (Critical)
 
-// const tokenBaseTransition = await sdk.tokens.createBaseTransition(tokenId, owner)
-// const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, owner, 'transfer', { identityId: recipient, amount })
+const tokenBaseTransition = await sdk.tokens.createBaseTransition(tokenid, owner)
+const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, owner, 'transfer', { identityId: recipient, amount })
 
-// stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(wif), 'ECDSA_SECP256K1')
-// stateTransition.signaturePublicKeyId = publicKeyId
+stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(Identity.wif.transfer), 'ECDSA_SECP256K1')
+stateTransition.signaturePublicKeyId = publicKeyId
 
-// console.log('STATE TRANSITION', stateTransition)
-// const resp = await sdk.stateTransitions.broadcast(stateTransition)
-// console.log('BROADCAST RESPONSE', resp)
+console.log('STATE TRANSITION', stateTransition)
+const resp = await sdk.stateTransitions.broadcast(stateTransition)
+console.log('BROADCAST RESPONSE', resp)
 
 
-const tokenContractInfo = await sdk.tokens.getTokenContractInfo('A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw')
+const tokenContractInfo = await sdk.tokens.getTokenContractInfo(tokenid)
 const dataContract = await sdk.dataContracts.getDataContractByIdentifier(tokenContractInfo.dataContractId)
 
 const tokenConfiguration = dataContract.tokens[tokenContractInfo.tokenContractPosition]
@@ -341,7 +345,7 @@ console.log(baseSupply, maxSupply, decimals, description, name)
 // console.log('TOKEN DATA CONTRACT (tokens)', tokenContractInfo.tokens)
 
 
-const identifier = 'QMfCRPcjXoTnZa9sA9JR2KWgGxZXMRJ4akgS3Uia1Qv'
+// const identifier = 'QMfCRPcjXoTnZa9sA9JR2KWgGxZXMRJ4akgS3Uia1Qv'
 // const identity = await sdk.identities.getIdentityByIdentifier(identifier)
 // console.log('IDENTITY', identity)
 // console.log('IDENTITY (id)', identity.id)

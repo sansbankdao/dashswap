@@ -34,13 +34,19 @@
             </div>
 
             <input
-                placeholder="AUTHORITY private key"
+                placeholder="Enter your Identity ID"
+                v-model="identityid"
+                class="px-3 py-2 border-2 border-amber-500 rounded-lg shadow"
+            />
+
+            <input
+                placeholder="Enter your AUTHORITY private key"
                 v-model="pkAuthority"
                 class="px-3 py-2 border-2 border-amber-500 rounded-lg shadow"
             />
 
             <input
-                placeholder="TRANSFER private key"
+                placeholder="Enter your TRANSFER private key"
                 v-model="pkTransfer"
                 class="px-3 py-2 border-2 border-amber-500 rounded-lg shadow"
             />
@@ -58,6 +64,7 @@ import { useIdentityStore } from '@/stores/identity'
 const Identity = useIdentityStore()
 
 const mnemonic = ref(null)
+const identityid = ref(null)
 const pkAuthority = ref(null)
 const pkTransfer = ref(null)
 
@@ -79,11 +86,15 @@ const importIdentity = () => {
         // NOTE: Will save `entropy` to the local storage.
         Identity.setMnemonic(mnemonic.value)
 
-        /* Set/save mnemonic. */
+        /* Set/save Identity ID. */
+        // NOTE: Will save `entropy` to the local storage.
+        Identity.setIdentity(identityid.value)
+
+        /* Set/save AUTHORITY private key. */
         // NOTE: Will save `entropy` to the local storage.
         Identity.setPkAuthority(pkAuthority.value)
 
-        /* Set/save mnemonic. */
+        /* Set/save TRANSFER private key. */
         // NOTE: Will save `entropy` to the local storage.
         Identity.setPkTransfer(pkTransfer.value)
     }

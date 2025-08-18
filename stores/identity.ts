@@ -31,6 +31,17 @@ export const useIdentityStore = defineStore('identity', {
         _entropy: null,
 
         /**
+         * Identity ID
+         * (DEPRECATED -- MUST REMAIN SUPPORTED INDEFINITELY)
+         *
+         * Initialize entropy (used for HD wallet).
+         *
+         * NOTE: This is a cryptographically-secure "random"
+         * 32-byte (256-bit) value.
+         */
+        _identityid: null,
+
+        /**
          * Authority Private Key
          * (DEPRECATED -- MUST REMAIN SUPPORTED INDEFINITELY)
          *
@@ -155,6 +166,14 @@ export const useIdentityStore = defineStore('identity', {
             return _state._wallet
         },
 
+        /* Return WIF instance. */
+        wif(_state) {
+            return {
+                auth: _state._pkAuthority,
+                transfer: _state._pkTransfer,
+            }
+        },
+
         IdentityStatus() {
             return IdentityStatus
         },
@@ -258,6 +277,11 @@ export const useIdentityStore = defineStore('identity', {
 
             /* Return entropy. */
             return this.wallet
+        },
+
+        setIdentity(_identityid) {
+            /* Set entropy. */
+            this._identityid = _identityid
         },
 
         setPkAuthority(_pkAuthority) {
