@@ -244,23 +244,23 @@ onMounted(() => {
     <main class="flex flex-col gap-5">
         <div class="border-b border-gray-200">
             <nav class="-mb-px flex space-x-8 text-center" aria-label="Tabs">
-                <button @click="activeTab = 'assets'" class="w-1/2 text-indigo-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page" :class="[ activeTab === 'assets' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
+                <button @click="activeTab = 'assets'" class="w-1/2 text-sky-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page" :class="[ activeTab === 'assets' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
                     <span class="text-lg">
                         Assets
                     </span>
 
-                    <span class="bg-indigo-100 text-indigo-600 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
+                    <span class="bg-sky-100 text-sky-600 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
                         {{assets?.length}}
                     </span>
                 </button>
 
                 <!-- Current: "", Default: "" -->
-                <button @click="activeTab = 'collections'" class="w-1/2 text-gray-500 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" :class="[ activeTab === 'collections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
+                <button @click="activeTab = 'collections'" class="w-1/2 text-gray-500 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" :class="[ activeTab === 'collections' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
                     <span class="text-lg">
                         Collections
                     </span>
 
-                    <!-- Current: "bg-indigo-100 text-indigo-600", Default: "bg-gray-100 text-gray-900" -->
+                    <!-- Current: "bg-sky-100 text-sky-600", Default: "bg-gray-100 text-gray-900" -->
                     <span class="bg-gray-100 text-gray-900 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
                         {{collections?.length}}
                     </span>

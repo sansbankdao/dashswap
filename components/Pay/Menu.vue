@@ -74,7 +74,7 @@
             <p class="px-3 text-xs sm:text-sm text-gray-500">
                 Don't see your asset listed above?
                 Not a problem.
-                Search from <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
+                Search from <span class="text-sky-500 font-medium">more than 400+</span> assets below.
             </p>
 
             <input

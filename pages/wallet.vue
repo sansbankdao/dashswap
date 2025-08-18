@@ -1,8 +1,4 @@
 <template>
-    <small class="text-xs italic">
-        <span class="-mb-2 block font-bold">My Nxy Address</span>
-        <!-- {{ Wallet.getNetwork('nxy').address }} -->
-    </small>
     <!-- <Loading v-if="Wallet.isLoading" /> -->
 
     <!-- <Setup v-else-if="!Wallet.isReady" /> -->
@@ -10,7 +6,7 @@
     <!-- <main v-else class="grid grid-cols-1 lg:grid-cols-7 gap-8"> -->
     <main>
         <div class="col-span-4">
-            <section @click="setTab('assets')" class="cursor-pointer group px-5 py-3 bg-gradient-to-b from-sky-100 to-sky-50 border-t border-x border-sky-400 rounded-t-lg rounded-x-lg shadow-md hover:bg-sky-100">
+            <section @click="setTab('assets')" class="cursor-pointer group px-5 py-3 bg-gradient-to-b from-sky-100 to-sky-50 border-t border-x border-sky-400 rounded-x-lg shadow-md hover:bg-sky-100">
                 <div class="flex flex-row w-full justify-between items-center mb-1" :class="[ isShowingAssets ? 'visible' : 'hidden' ]">
                     <h3 class="text-base tracking-tight uppercase text-sky-600 font-medium text-center opacity-40 group-hover:opacity-100 group-hover:scale-105 duration-300 ease-in-out">
                         My Portfolio Summary
@@ -65,7 +61,6 @@
 
             <div class="block">
                 <nav class="isolate grid grid-cols-3 divide-x divide-gray-200 rounded-x-lg rounded-b-lg shadow" aria-label="Tabs">
-                    <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
                     <div @click="setTab('deposit')" class="cursor-pointer bg-gray-700 rounded-bl-lg group relative min-w-0 flex flex-row justify-center items-center gap-1 overflow-hidden py-2 px-2 text-sm font-medium hover:bg-gray-50 hover:text-gray-600 focus:z-10" aria-current="page" :class="[ isShowingSend ? 'text-gray-100' : 'text-gray-400' ]">
                         <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
@@ -138,14 +133,13 @@ import { PrivateKeyWASM } from 'pshenmic-dpp'
 const isFullScreen = true
 
 /* Initialize stores. */
-// import { useProfileStore } from '@/stores/profile'
-// import { useSystemStore } from '@/stores/system'
-// import { useWalletStore } from '@/stores/wallet'
-// const Profile = useProfileStore()
-// const System = useSystemStore()
-// const Wallet = useWalletStore()
+import { useProfileStore } from '@/stores/profile'
+import { useSystemStore } from '@/stores/system'
+import { useWalletStore } from '@/stores/wallet'
+const Profile = useProfileStore()
+const System = useSystemStore()
+const Wallet = useWalletStore()
 
-const Wallet = {}
 const tokens = ref(null)
 
 const isShowingAssets = ref(false)
