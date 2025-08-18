@@ -18,7 +18,7 @@
 
         <div class="hidden sm:block">
             <div class="border-b border-slate-200">
-                <nav class="pl-3 -mb-px flex lg:hidden space-x-8" aria-label="Tabs">
+                <nav class="pl-3 -mb-px flex xl:hidden space-x-8" aria-label="Tabs">
                     <a
                         v-for="tab in tabs"
                         :key="tab.name"
@@ -33,7 +33,7 @@
                         </span>
                     </a>
                 </nav>
-                <nav class="pl-3 -mb-px hidden lg:flex space-x-8" aria-label="Tabs">
+                <nav class="pl-3 -mb-px hidden xl:flex space-x-8" aria-label="Tabs">
                     <a
                         v-for="tab in alltabs"
                         :key="tab.name"

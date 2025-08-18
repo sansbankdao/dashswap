@@ -28,7 +28,7 @@
                 by <a href="https://sansbank.org/bootstrap" target="_blank" title="Sansbank Bootstrap" class="text-rose-400 hover:text-rose-500">
                     Sansbank
                 </a>
-                for the DASH Evolution ⋆˙⟡
+                <span class="hidden sm:inline">for the DASH Evolution</span> ⋆˙⟡
             </span>
         </footer>
     </main>
