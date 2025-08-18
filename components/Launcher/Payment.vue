@@ -12,9 +12,9 @@
                     autocomplete="country-name"
                     class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 >
-                    <option>A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw</option>
-                    <option>FQ4waDowFQXD4tJPKQM1114VSr5f8s3qAc5bT8FJkT49</option>
-                    <option>HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR</option>
+                    <option>ID #1 A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw</option>
+                    <option>ID #2 FQ4waDowFQXD4tJPKQM1114VSr5f8s3qAc5bT8FJkT49</option>
+                    <option>ID #3 HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR</option>
                 </select>
                 <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" aria-hidden="true" />
             </div>
@@ -101,8 +101,8 @@
                     autocomplete="country-name"
                     class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 >
-                    <option>01 - AUTHORITY (Critical)</option>
-                    <option>03 - TRANSFER (Critical)</option>
+                    <option>Key #1 AUTHORITY (Critical)</option>
+                    <option>Key #3 TRANSFER (Critical)</option>
                 </select>
                 <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" aria-hidden="true" />
             </div>

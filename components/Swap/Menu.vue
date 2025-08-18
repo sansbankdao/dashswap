@@ -1,7 +1,7 @@
 <template>
     <main class="w-full flex flex-col gap-4">
-        <section class="grid grid-cols-2 gap-3">
-            <h2 class="col-span-2 text-2xl font-medium">
+        <section class="p-3 grid grid-cols-2 gap-3">
+            <h2 class="col-span-2 text-2xl font-medium text-slate-200">
                 I Want to Receive ↴
             </h2>
 
