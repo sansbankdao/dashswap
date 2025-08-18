@@ -19,7 +19,7 @@
 
         </section>
 
-        <footer class="fixed md:absolute bottom-0 left-0 right-0 w-full flex justify-center bg-black pt-2 pb-2 lg:pb-5 xl:pb-2 rounded-t-3xl border-t border-stone-700">
+        <footer class="fixed md:absolute bottom-0 left-0 right-0 w-full flex justify-center bg-black pt-2 pb-2 lg:pb-5 xl:pb-2 rounded-t-2xl lg:rounded-t-3xl border-t border-stone-700">
             <span class="text-slate-300 text-center text-sm tracking-wider">
                 ⟡˙⋆ DashSwap was built with
                 <svg class="inline size-5 text-rose-400" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
