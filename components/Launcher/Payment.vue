@@ -4,7 +4,23 @@
             Choose an Identity for Payment
         </h2>
 
-        <fieldset class="mt-4">
+        <div>
+            <div class="mt-2 grid grid-cols-1">
+                <select
+                    id="country"
+                    name="country"
+                    autocomplete="country-name"
+                    class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                >
+                    <option>A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw</option>
+                    <option>FQ4waDowFQXD4tJPKQM1114VSr5f8s3qAc5bT8FJkT49</option>
+                    <option>HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR</option>
+                </select>
+                <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" aria-hidden="true" />
+            </div>
+        </div>
+
+        <!-- <fieldset class="mt-4">
             <legend class="sr-only">Payment type</legend>
             <div class="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
                 <div v-for="(paymentMethod, paymentMethodIdx) in paymentMethods" :key="paymentMethod.id" class="flex items-center">
@@ -18,9 +34,9 @@
                     <label :for="paymentMethod.id" class="ml-3 block text-sm/6 font-medium text-gray-700">{{ paymentMethod.title }}</label>
                 </div>
             </div>
-        </fieldset>
+        </fieldset> -->
 
-        <div class="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
+        <!-- <div class="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
             <div class="col-span-4">
                 <label for="card-number" class="block text-sm/6 font-medium text-gray-700">
                     Identity
@@ -74,6 +90,21 @@
                         class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                 </div>
+            </div>
+        </div> -->
+
+        <div>
+            <div class="mt-2 grid grid-cols-1">
+                <select
+                    id="country"
+                    name="country"
+                    autocomplete="country-name"
+                    class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                >
+                    <option>01 - AUTHORITY (Critical)</option>
+                    <option>03 - TRANSFER (Critical)</option>
+                </select>
+                <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" aria-hidden="true" />
             </div>
         </div>
     </main>

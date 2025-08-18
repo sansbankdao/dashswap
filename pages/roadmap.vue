@@ -1,12 +1,17 @@
 <template>
     <section class="p-5">
         <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
-            Leaderboard
+            Roadmap
         </h1>
 
         <p class="text-sky-400 text-xl tracking-wider">
-            Chat in real-time with you frens and foes about "financial advice".
+            Follow along with our team building progress and major/minor milestones.
         </p>
+
+        <ol class="pl-10 pt-5 list-decimal text-slate-200 text-2xl font-bold space-y-3">
+            <li>✅ Self-custodial Platform web wallet</li>
+            <li>📌 Chrome browser extension integration</li>
+        </ol>
     </section>
 
     <Bootstrap />
