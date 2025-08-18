@@ -1,7 +1,7 @@
 <template>
-    <WalletLoading v-if="Wallet.isLoading" />
+    <IdentityLoading v-if="Identity.isLoading" />
 
-    <WalletSetup v-else-if="!Wallet.isReady" />
+    <IdentitySetup v-else-if="!Identity.isReady" />
 
     <main v-else class="grid grid-cols-1 lg:grid-cols-7 gap-8">
         <div class="col-span-4">
@@ -11,12 +11,12 @@
                         My Portfolio Summary
                     </h3>
 
-                    <img :src="Wallet.asset?.iconUrl" class="-mt-3 -mr-2 p-2 h-10 w-auto opacity-40 group-hover:opacity-100 group-hover:h-11 duration-300 ease-in-out" />
+                    <img :src="Identity.asset?.iconUrl" class="-mt-3 -mr-2 p-2 h-10 w-auto opacity-40 group-hover:opacity-100 group-hover:h-11 duration-300 ease-in-out" />
                 </div>
 
                 <div class="flex flex-col items-end">
                     <h3 class="text-xs tracking-widest text-sky-700 font-medium uppercase">
-                        Spendable ${{Wallet.asset?.ticker}}
+                        Spendable ${{Identity.asset?.ticker}}
                     </h3>
 
                     <h2 class="text-3xl text-gray-600 font-medium">
@@ -87,22 +87,22 @@
             </div>
 
             <div class="my-5">
-                <WalletAssets
+                <IdentityAssets
                     v-if="isShowingAssets"
                     :isFullScreen="isFullScreen"
                 />
 
-                <WalletSend
+                <IdentitySend
                     v-if="isShowingSend"
                     :isFullScreen="isFullScreen"
                 />
 
-                <WalletDeposit
+                <IdentityDeposit
                     v-if="isShowingDeposit"
                     :isFullScreen="isFullScreen"
                 />
 
-                <WalletHistory
+                <IdentityHistory
                     v-if="isShowingHistory"
                     :isFullScreen="isFullScreen"
                 />
@@ -149,27 +149,27 @@ const isShowingSwap = ref(false)
 
 const displayBalance = computed(() => {
     /* Validate asset. */
-    if (!Wallet.asset || !Wallet.asset.amount) {
+    if (!Identity.asset || !Identity.asset.amount) {
         return '0.00'
     }
 
     let decimalValue
     let bigIntValue
 
-    if (Wallet.asset.group === '0') {
-        decimalValue = Wallet.asset.satoshis * BigInt(1e4)
+    if (Identity.asset.group === '0') {
+        decimalValue = Identity.asset.satoshis * BigInt(1e4)
     } else {
         /* Validate amount type. */
-        if (typeof Wallet.asset.amount !== 'bigint') {
+        if (typeof Identity.asset.amount !== 'bigint') {
             decimalValue = BigInt(0)
         } else {
-            decimalValue = Wallet.asset.amount * BigInt(1e4)
+            decimalValue = Identity.asset.amount * BigInt(1e4)
         }
-        decimalValue = Wallet.asset.amount * BigInt(1e4)
+        decimalValue = Identity.asset.amount * BigInt(1e4)
     }
 
-    if (Wallet.asset?.decimal_places > 0) {
-        bigIntValue = decimalValue / BigInt(10**Wallet.asset.decimal_places)
+    if (Identity.asset?.decimal_places > 0) {
+        bigIntValue = decimalValue / BigInt(10**Identity.asset.decimal_places)
     } else {
         bigIntValue = decimalValue
     }
@@ -179,7 +179,7 @@ const displayBalance = computed(() => {
 
 const displayBalanceUsd = computed(() => {
     /* Validate asset. */
-    if (!Wallet.asset || !Wallet.asset.fiat || !Wallet.asset.fiat.USD) {
+    if (!Identity.asset || !Identity.asset.fiat || !Identity.asset.fiat.USD) {
         return '0.00'
     }
 
@@ -187,7 +187,7 @@ const displayBalanceUsd = computed(() => {
     let balanceUsd
 
     /* Set balance. */
-    balanceUsd = Wallet.asset.fiat.USD || 0.00
+    balanceUsd = Identity.asset.fiat.USD || 0.00
 
     /* Return formatted value. */
     return numeral(balanceUsd).format('$0,0.00[0000]')

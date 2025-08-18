@@ -13,7 +13,7 @@
             href="/id"
             title="Identity"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <WalletIcon />
+            <UserIcon />
         </a>
 
         <a
@@ -33,11 +33,11 @@
         </a>
 
         <a
-            key="profile"
-            href="/profile"
-            title="Profile"
+            key="trollbox"
+            href="/trollbox"
+            title="Trollbox"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <UserIcon />
+            <ChatBubbleLeftRightIcon />
         </a>
 
         <a
@@ -52,12 +52,12 @@
 
 <script setup lang="ts">
 import {
+    ChatBubbleLeftRightIcon,
     InformationCircleIcon,
     RectangleGroupIcon,
     RocketLaunchIcon,
     TrophyIcon,
     UserIcon,
-    WalletIcon,
 } from '@heroicons/vue/24/outline'
 
 // import SocialIcon from './SocialIcon.astro'

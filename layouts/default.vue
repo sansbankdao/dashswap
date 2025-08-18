@@ -50,8 +50,8 @@ const init = async () => {
     /* Initialize system. */
     System.init()
 
-    /* Initialize wallet. */
-    Wallet.init()
+    /* Initialize identity. */
+    Identity.init()
 }
 
 onMounted(() => {

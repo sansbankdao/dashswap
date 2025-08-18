@@ -5,7 +5,7 @@
         </h1>
 
         <p class="text-sky-400 text-xl tracking-wider">
-            Chat in real-time with you frens and foes about "financial advice".
+            Compete for cash &amp; prizes against the other TOP traders in your class.
         </p>
     </section>
 
