@@ -148,7 +148,20 @@ export const useSystemStore = defineStore('system', {
             const host = window.location.host
 console.log('DOMAIN HOST', host)
 
-            this._network = host
+            switch(host) {
+            case 'dashswap.xyz':
+                currentNetwork = 'mainnet'
+                break
+            case 'testnet.dashswap.xyz':
+                currentNetwork = 'testnet'
+                break
+            default:
+                currentNetwork = host
+                break
+            }
+
+            /* Set current network. */
+            this._network = currentNetwork
 
             console.log('YOUR CURRENT NETWORK IS', this.network)
 

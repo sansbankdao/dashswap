@@ -5,7 +5,7 @@
 
         <div class="flex items-center mb-2">
             <span class="text-slate-200 mr-2">↳</span>
-            <span class="text-sky-300">Dash Network ⇒ <span class="text-sm font-bold">TESTNET</span></span>
+            <span class="text-sky-300">Dash Network ⇒ <span class="text-sm font-bold">{{networkDisplay}}</span></span>
         </div>
 
         <div class="mt-2 text-slate-200">
@@ -45,8 +45,20 @@ const sdk = new DashPlatformSDK({ network: 'testnet' })
 const status = await sdk.node.status()
 
 const epoch = ref(0)
+
 const network = computed(() => {
     return System.network
+})
+
+const networkDisplay = computed(() => {
+    switch(System.network) {
+    case 'mainnet':
+        return 'MAINNET'
+    case 'testnet':
+        return 'TESTNET'
+    default:
+        return 'UNKNOWN'
+    }
 })
 
 // console.log('STATUS CHAIN', status.chain)
