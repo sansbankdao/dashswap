@@ -39,9 +39,9 @@
 import moment from 'moment'
 
 /* Initialize stores. */
-// import { useWalletStore } from '@/stores/wallet'
+import { useWalletStore } from '@/stores/wallet'
 import { useSystemStore } from '@/stores/system'
-// const Wallet = useWalletStore()
+const Wallet = useWalletStore()
 const System = useSystemStore()
 
 const init = async () => {
@@ -49,6 +49,9 @@ const init = async () => {
 
     /* Initialize system. */
     System.init()
+
+    /* Initialize wallet. */
+    Wallet.init()
 }
 
 onMounted(() => {

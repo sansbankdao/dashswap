@@ -8,7 +8,7 @@ import { defineStore } from 'pinia'
 // } from '@nexajs/wallet'
 
 // import _broadcast from './wallet/broadcast.ts'
-// import _setEntropy from './wallet/setEntropy.ts'
+import _setEntropy from './wallet/setEntropy.ts'
 
 /* Set constants. */
 // FIXME Move these constants to System.
