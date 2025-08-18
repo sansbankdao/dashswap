@@ -2,13 +2,13 @@
     <main class="">
         <NavMenu />
 
-        <section class="p-5">
+        <section class="flex flex-col gap-3 p-5">
             <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
-                Payment
+                Payments
             </h1>
 
             <p class="text-sky-400 text-xl tracking-wider">
-                Chat in real-time with you frens and foes about "financial advice".
+                Conveniently send payments from your Platform wallet to OVER 100+ crypto currencies, including stablecoins.
             </p>
         </section>
 
