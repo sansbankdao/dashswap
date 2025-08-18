@@ -5,7 +5,7 @@
                 I Want to Receive ↴
             </h2>
 
-            <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-sky-700 rounded-lg shadow bg-gradient-to-b from-sky-500 to-sky-300">
+            <div @click="isShowingSubMenu = false; isShowingDash = true" class="cursor-pointer px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-sky-700 rounded-lg shadow bg-gradient-to-b from-sky-500 to-sky-300">
                 <div class="flex flex-col items-center">
                     <h2 class="text-2xl sm:text-3xl text-sky-900 font-medium whitespace-nowrap">
                         Dash
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div @click="isShowingDash = false; isShowingSans = true" class="px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
+            <div @click="isShowingDash = false; isShowingSubMenu = true" class="cursor-pointer px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
                 <div class="flex flex-col items-center">
                     <h2 class="text-2xl sm:text-3xl text-lime-900 font-medium whitespace-nowrap">
                         Dash USD
@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingSans = false; isShowingDash = true" class="px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-900 rounded-lg shadow bg-gradient-to-b from-rose-700 to-rose-500">
+                <div @click="isShowingSubMenu = false; isShowingDash = true" class="cursor-not-allowed px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-900 rounded-lg shadow bg-gradient-to-b from-rose-700 to-rose-500">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-rose-100 font-medium whitespace-nowrap">
                             Popular Token
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-violet-400 rounded-lg shadow bg-gradient-to-b from-violet-300 to-violet-100">
+                <div @click="isShowingSubMenu = false; isShowingDash = true" class="cursor-not-allowed flex-1 h-20 sm:h-24 flex justify-center items-center border border-violet-400 rounded-lg shadow bg-gradient-to-b from-violet-300 to-violet-100">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-violet-900 font-medium whitespace-nowrap">
                             Famous Token
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <div @click="isShowingSans = false; isShowingDash = true" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-yellow-500 rounded-lg shadow bg-gradient-to-b from-yellow-400 to-yellow-200">
+                <a href="https://sansbank.org/bootstrap" target="_blank" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-yellow-500 rounded-lg shadow bg-gradient-to-b from-yellow-400 to-yellow-200">
                     <div class="flex flex-col items-center">
                         <h2 class="text-sm sm:text-lg text-yellow-900 font-medium whitespace-nowrap">
                             Sansnote
@@ -64,17 +64,17 @@
                             SANS
                         </h3>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
-        <div v-if="!isShowingSans && !isShowingDash" class="mx-10 my-3 border-t border-gray-300" />
+        <div v-if="!isShowingSubMenu && !isShowingDash" class="mx-10 my-3 border-t border-slate-300" />
 
-        <section v-if="!isShowingSans && !isShowingDash" class="-mt-3 flex flex-col gap-3">
-            <p class="px-3 text-xs sm:text-sm text-gray-500">
+        <section v-if="!isShowingSubMenu && !isShowingDash" class="-mt-3 flex flex-col gap-3">
+            <p class="px-3 text-xs sm:text-sm text-slate-200 text-center">
                 Don't see your asset listed above?
                 Not a problem.
-                Search from <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
+                Search from <span class="text-sky-400 font-medium tracking-wider">more than 400+</span> assets below.
             </p>
 
             <input
@@ -82,11 +82,11 @@
                 placeholder="Search all supported assets"
                 v-model="search"
                 disabled
-                class="px-3 py-1 w-full h-16 sm:h-20 border-b-4 border-sky-200 bg-gray-800 text-xl sm:text-2xl text-gray-300 rounded shadow focus:outline-none"
+                class="px-3 py-1 w-full h-16 sm:h-20 border-b-4 border-sky-200 bg-slate-800 text-xl sm:text-2xl text-slate-300 rounded shadow focus:outline-none"
             />
         </section>
 
-        <section v-if="isShowingSans || isShowingDash" class="grid grid-cols-2 gap-y-2">
+        <section v-if="isShowingSubMenu || isShowingDash" class="grid grid-cols-2 gap-y-2">
             <div class="col-span-2 pb-3 flex justify-center">
                 <span class="text-sm text-sky-700 font-medium tracking-widest">
                     1.00 $SANS = 0.1337 $DASH
@@ -153,7 +153,7 @@
                 </svg>
             </h4>
             <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm cursor-default">
-                {{ isShowingSans ? '0.01% - 1.0%' : '' }}
+                {{ isShowingSubMenu ? '0.01% - 1.0%' : '' }}
                 {{ isShowingDash ? '2.9%' : '' }}
             </h4>
 
@@ -181,7 +181,7 @@ import { onMounted, ref } from 'vue'
 
 const search = ref(null)
 
-const isShowingSans = ref(false)
+const isShowingSubMenu = ref(false)
 const isShowingDash = ref(false)
 
 const makeSwap = async () => {
