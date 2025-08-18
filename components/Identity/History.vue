@@ -146,10 +146,10 @@ const init = async () => {
     let history
     let txids
 
-    // console.log('ADDRESS', Wallet.address)
+    // console.log('ADDRESS', Identity.address)
 
     /* Request address history. */
-    history = await getAddressHistory(Wallet.address)
+    history = await getAddressHistory(Identity.address)
         .catch(err => console.error(err))
     // console.log('HISTORY', history)
 

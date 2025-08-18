@@ -31,6 +31,28 @@ export const useIdentityStore = defineStore('identity', {
         _entropy: null,
 
         /**
+         * Authority Private Key
+         * (DEPRECATED -- MUST REMAIN SUPPORTED INDEFINITELY)
+         *
+         * Initialize entropy (used for HD wallet).
+         *
+         * NOTE: This is a cryptographically-secure "random"
+         * 32-byte (256-bit) value.
+         */
+        _pkAuthority: null,
+
+        /**
+         * Authority Private Key
+         * (DEPRECATED -- MUST REMAIN SUPPORTED INDEFINITELY)
+         *
+         * Initialize entropy (used for HD wallet).
+         *
+         * NOTE: This is a cryptographically-secure "random"
+         * 32-byte (256-bit) value.
+         */
+        _pkTransfer: null,
+
+        /**
          * Keychain
          *
          * Manages a collection of BIP-32 wallets.
@@ -113,11 +135,19 @@ export const useIdentityStore = defineStore('identity', {
 
         /* Return wallet status. */
         isReady(_state) {
-            if (_state._wallet && _state._wallet._entropy) {
+            if (_state._entropy) {
                 return true
             }
 
-            return _state._wallet.isReady
+            if (_state._pkAuthority) {
+                return true
+            }
+
+            if (_state._pkTransfer) {
+                return true
+            }
+
+            return false
         },
 
         /* Return wallet instance. */
@@ -199,77 +229,6 @@ export const useIdentityStore = defineStore('identity', {
             return _broadcast.bind(this)(_receivers)
         },
 
-        async consolidate() {
-            console.log('start the consolidation ... to', this.address)
-
-            /* Initialize locals. */
-            let amount
-            let coins
-            let receivers
-            let response
-            let sendAmount
-            let tokens
-
-            coins = this.wallet.coins
-            console.log('COINS-1', coins.length, coins)
-
-            /* Validate number of coin inputs. */
-            if (coins.length > MAX_INPUTS_ALLOWED) {
-                /* Sort coins descending values. */
-                coins = coins.sort((a, b) => {
-                    /* Calculate comparison. */
-                    const compare = b.satoshis - a.satoshis
-
-                    /* Compare values. */
-                    if (compare > BigInt(0)) {
-                        return 1
-                    } else if (compare < BigInt(0)) {
-                        return -1
-                    } else {
-                        return 0
-                    }
-                })
-
-                /* Trim coins to MAX ALLOWED inputs. */
-                coins = coins.slice(0, MAX_INPUTS_ALLOWED)
-            }
-            console.log('COINS-2', coins.length, coins)
-
-            tokens = this.wallet.tokens
-            console.log('TOKENS', tokens)
-
-            amount = coins.reduce(
-                (acc, coin) => acc + coin.satoshis, BigInt(0)
-            )
-            console.log('CONSOLIDATION AMOUNT', amount)
-
-            sendAmount = amount - (BigInt(FEE_AMOUNT) * BigInt(coins.length))
-            console.log('SEND AMOUNT', sendAmount)
-
-            if (sendAmount < 0) {
-                return alert(`Oops! There IS NOT enough value to consolidate these coins.`)
-            }
-
-            /* Set receivers. */
-            receivers = [
-                {
-                    address: this.address,
-                    satoshis: sendAmount,
-                },
-                {
-                    address: this.address,
-                }
-            ]
-            console.log('RECEIVERS', receivers)
-
-            /* Send UTXO request. */
-            response = await sendCoins(coins, receivers)
-            // console.log('Consolidate UTXOs (response)', response)
-
-            /* Return response. */
-            return response
-        },
-
         setEntropy(_entropy) {
             this._entropy = _entropy
         },
@@ -299,6 +258,16 @@ export const useIdentityStore = defineStore('identity', {
 
             /* Return entropy. */
             return this.wallet
+        },
+
+        setPkAuthority(_pkAuthority) {
+            /* Set entropy. */
+            this._pkAuthority = _pkAuthority
+        },
+
+        setPkTransfer(_pkTransfer) {
+            /* Set entropy. */
+            this._pkTransfer = _pkTransfer
         },
 
         destroy() {

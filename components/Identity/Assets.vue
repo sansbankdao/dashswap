@@ -11,7 +11,7 @@ const System = useSystemStore()
 const activeTab = ref(null)
 
 const assets = computed(() => {
-    if (!Wallet.assets) {
+    if (!Identity.assets) {
         return []
     }
 
@@ -19,9 +19,9 @@ const assets = computed(() => {
     const filtered = []
 
     /* Handle assets. */
-    Object.keys(Wallet.assets).map(_assetid => {
+    Object.keys(Identity.assets).map(_assetid => {
         if (_assetid === '0' || _assetid.length === 64) {
-            const asset = { ...Wallet.assets[_assetid] }
+            const asset = { ...Identity.assets[_assetid] }
 
             asset.id = _assetid
 
@@ -34,7 +34,7 @@ const assets = computed(() => {
 })
 
 const collections = computed(() => {
-    if (!Wallet.assets) {
+    if (!Identity.assets) {
         return []
     }
 
@@ -42,9 +42,9 @@ const collections = computed(() => {
     const filtered = []
 
     /* Handle assets. */
-    Object.keys(Wallet.assets).map(_assetid => {
+    Object.keys(Identity.assets).map(_assetid => {
         if (_assetid.length === 128) {
-            const asset = { ...Wallet.assets[_assetid] }
+            const asset = { ...Identity.assets[_assetid] }
 
             asset.id = _assetid
 
@@ -57,14 +57,14 @@ const collections = computed(() => {
 })
 
 const coinAmount = computed(() => {
-    if (!Wallet.coins) {
+    if (!Identity.coins) {
         return '0.00'
     }
 
     /* Initialize locals. */
     let total
 
-    total = Wallet.coins.reduce(
+    total = Identity.coins.reduce(
         (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
     )
 
@@ -72,7 +72,7 @@ const coinAmount = computed(() => {
 })
 
 const coinAmountUsd = computed(() => {
-    if (!Wallet.coins) {
+    if (!Identity.coins) {
         return '0.00'
     }
 
@@ -81,7 +81,7 @@ const coinAmountUsd = computed(() => {
     let mex
     let mexUsd
 
-    satoshis = Wallet.coins.reduce(
+    satoshis = Identity.coins.reduce(
         (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
     )
 
@@ -102,11 +102,11 @@ const coinAmountUsd = computed(() => {
 })
 
 const displayTokenName = (_tokenid) => {
-    if (!Wallet.assets || !Wallet.assets[_tokenid]?.name) {
+    if (!Identity.assets || !Identity.assets[_tokenid]?.name) {
         return 'Unknown Asset'
     }
 
-    return Wallet.assets[_tokenid].name
+    return Identity.assets[_tokenid].name
 }
 
 const displayDecimalAmount = (_token) => {
@@ -203,11 +203,11 @@ const loadCollection = async () => {
     let tokenid
 
     /* Handle wallet assets. */
-    Object.keys(Wallet.assets).forEach(async _assetid => {
+    Object.keys(Identity.assets).forEach(async _assetid => {
         console.log('ASSET ID', _assetid)
 
         if (_assetid.length === 128) {
-            collectible = Wallet.assets[_assetid]
+            collectible = Identity.assets[_assetid]
             console.log('COLLECTIBLE', collectible)
 
             tokenid = collectible.token_id_hex
@@ -221,7 +221,7 @@ const loadCollection = async () => {
 }
 
 const init = () => {
-    // console.log('ASSETS', Wallet.assets)
+    // console.log('ASSETS', Identity.assets)
 
     /* Set active tab. */
     // TODO Save last tab.
@@ -271,7 +271,7 @@ onMounted(() => {
         <div v-if="activeTab === 'assets'" class="flex flex-col gap-5">
             <div
                 v-for="token in assets" :key="token.id"
-                @click="Wallet.wallet.setAsset(token.id)"
+                @click="Identity.wallet.setAsset(token.id)"
                 class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
             >
                 <div class="w-1/2 flex flex-row items-start">
@@ -309,7 +309,7 @@ onMounted(() => {
         <div v-else class="flex flex-col gap-5">
             <div
                 v-for="token in collections" :key="token.id"
-                @click="Wallet.wallet.setAsset(token.id)"
+                @click="Identity.wallet.setAsset(token.id)"
                 class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
             >
                 <div class="w-1/2 flex flex-row items-start">

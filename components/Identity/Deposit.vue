@@ -27,7 +27,7 @@ const isShowingCurrencyOptions = ref(false)
  * Uses BIP-21 to encode a data URI.
  */
  const updateQrCode = async () => {
-    if (!Wallet.address) {
+    if (!Identity.address) {
         return setTimeout(() => {
             updateQrCode()
         }, ADDRESS_POLLING_DELAY)
@@ -36,12 +36,12 @@ const isShowingCurrencyOptions = ref(false)
     let bip21Url
 
     /* Handle (user-defined) amount. */
-    if (Wallet.nex > 0) {
-        bip21Url = `${Wallet.address}?amount=${Wallet.nex}`
+    if (Identity.nex > 0) {
+        bip21Url = `${Identity.address}?amount=${Identity.nex}`
     } else {
-        bip21Url = Wallet.address
+        bip21Url = Identity.address
     }
-    console.log('Wallet.address', Wallet.address)
+    console.log('Identity.address', Identity.address)
     console.log('bip21Url', bip21Url)
 
     /* Set data URL. */
@@ -50,8 +50,8 @@ const isShowingCurrencyOptions = ref(false)
 
 const clipboardHandler = () => {
     /* Copy address to clipboard. */
-    if (copyToClipboard(Wallet.address)) {
-        alert(`[ ${Wallet.address} ] has been copied to the clipboard.`)
+    if (copyToClipboard(Identity.address)) {
+        alert(`[ ${Identity.address} ] has been copied to the clipboard.`)
     } else {
         alert(`Oops! Unfortunately, something went wrong.`)
     }
@@ -73,16 +73,16 @@ onMounted(() => {
 
 <template>
     <main class="" :class="[ props.isFullScreen === true ? 'grid lg:grid-cols-2 gap-8' : '' ]">
-        <NuxtLink :to="Wallet.address">
+        <NuxtLink :to="Identity.address">
             <section class="w-full px-3 py-2 my-5 bg-amber-500 border-2 border-amber-700 rounded-lg shadow">
                 <h2 class="text-lg sm:text-xl text-amber-700 font-medium text-center uppercase">
                     Your Deposit Address
                 </h2>
 
-                <h3 :to="Wallet.address"
+                <h3 :to="Identity.address"
                     class="flex justify-center text-lg text-amber-900 font-medium truncate"
                 >
-                    {{Wallet.abbr}}
+                    {{Identity.abbr}}
                 </h3>
 
                 <div class="flex justify-center">

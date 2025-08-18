@@ -3,7 +3,7 @@
 
         <section class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl relative bg-black mb-12 md:mb-4 lg:mb-20 xl:mb-4">
             <div class="px-3 sm:px-5 pt-6 pb-6 lg:pb-16 xl:pb-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
-                <Profile />
+                <ProfileGuest />
                 <NetworkManager />
             </div>
 
@@ -40,8 +40,10 @@ import moment from 'moment'
 
 /* Initialize stores. */
 import { useIdentityStore } from '@/stores/identity'
+import { useProfileStore } from '@/stores/profile'
 import { useSystemStore } from '@/stores/system'
 const Identity = useIdentityStore()
+const Profile = useProfileStore()
 const System = useSystemStore()
 
 const init = async () => {
@@ -53,6 +55,59 @@ const init = async () => {
     /* Initialize identity. */
     Identity.init()
 }
+
+onBeforeMount(() => {
+    // TODO Move this block to @nexajs/app
+    try {
+        Identity.$state = JSON.parse(localStorage.getItem('identity'), (key, value) => {
+            if (typeof value === 'string' && /^\d+n$/.test(value)) {
+                return BigInt(value.slice(0, value.length - 1))
+            }
+            return value
+        })
+
+        Profile.$state = JSON.parse(localStorage.getItem('profile'), (key, value) => {
+            if (typeof value === 'string' && /^\d+n$/.test(value)) {
+                return BigInt(value.slice(0, value.length - 1))
+            }
+            return value
+        })
+
+        System.$state = JSON.parse(localStorage.getItem('system'), (key, value) => {
+            if (typeof value === 'string' && /^\d+n$/.test(value)) {
+                return BigInt(value.slice(0, value.length - 1))
+            }
+            return value
+        })
+
+        // add additional states here...
+    } catch (err) {
+        console.error(err)
+    }
+})
+
+// TODO Move this block to @nexajs/app
+watch([Identity.$state, Profile.$state, System.$state], (_state) => {
+    localStorage.setItem('identity',
+        JSON.stringify(_state[0], (key, value) =>
+            typeof value === 'bigint' ? value.toString() + 'n' : value
+        )
+    )
+
+    localStorage.setItem('profile',
+        JSON.stringify(_state[1], (key, value) =>
+            typeof value === 'bigint' ? value.toString() + 'n' : value
+        )
+    )
+
+    localStorage.setItem('system',
+        JSON.stringify(_state[2], (key, value) =>
+            typeof value === 'bigint' ? value.toString() + 'n' : value
+        )
+    )
+
+    // watch additional states here...
+})
 
 onMounted(() => {
     init()
