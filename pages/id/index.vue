@@ -134,10 +134,10 @@ const isFullScreen = true
 /* Initialize stores. */
 import { useProfileStore } from '@/stores/profile'
 import { useSystemStore } from '@/stores/system'
-import { useWalletStore } from '@/stores/wallet'
+import { useIdentityStore } from '@/stores/identity'
 const Profile = useProfileStore()
 const System = useSystemStore()
-const Wallet = useWalletStore()
+const Identity = useIdentityStore()
 
 const tokens = ref(null)
 

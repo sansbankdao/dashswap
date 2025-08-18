@@ -2,13 +2,8 @@
 import { defineStore } from 'pinia'
 // import { mnemonicToEntropy } from '@nexajs/hdnode'
 // import { sendCoins } from '@nexajs/purse'
-// import {
-//     Wallet,
-//     WalletStatus,
-// } from '@nexajs/wallet'
 
-// import _broadcast from './wallet/broadcast.ts'
-import _setEntropy from './wallet/setEntropy.ts'
+import _setEntropy from './identity/setEntropy.ts'
 
 /* Set constants. */
 // FIXME Move these constants to System.
@@ -16,9 +11,9 @@ const FEE_AMOUNT = 1000
 const MAX_INPUTS_ALLOWED = 250
 
 /**
- * Wallet Store
+ * Identity Store
  */
-export const useWalletStore = defineStore('wallet', {
+export const useIdentityStore = defineStore('identity', {
     state: () => ({
         _assets: null,
 
@@ -130,8 +125,8 @@ export const useWalletStore = defineStore('wallet', {
             return _state._wallet
         },
 
-        WalletStatus() {
-            return WalletStatus
+        IdentityStatus() {
+            return IdentityStatus
         },
     },
 
@@ -154,7 +149,7 @@ export const useWalletStore = defineStore('wallet', {
             }
 
             /* Request a wallet instance (by mnemonic). */
-            this._wallet = await Wallet.init(this._entropy, true)
+            this._wallet = await Identity.init(this._entropy, true)
             console.info('(Initialized) wallet', this.wallet)
 
             // this._assets = { ...this.wallet.assets } // cloned assets
@@ -164,7 +159,7 @@ export const useWalletStore = defineStore('wallet', {
 
             /* Handle balance updates. */
             this.wallet.on('balances', async (_assets) => {
-                // console.log('Wallet Balances (onChanges):', _assets)
+                // console.log('Identity Balances (onChanges):', _assets)
 
                 /* Close asset locally. */
 // FIXME Read ASSETS directly from library (getter).
@@ -172,7 +167,7 @@ export const useWalletStore = defineStore('wallet', {
             })
         },
 
-        createWallet(_entropy) {
+        createIdentity(_entropy) {
             /* Validate entropy. */
             // NOTE: Expect HEX value to be 32 or 64 characters.
             if (_entropy.length !== 32 && _entropy.length !== 64) {
@@ -300,7 +295,7 @@ export const useWalletStore = defineStore('wallet', {
             this._entropy = entropy
 
             /* Create wallet. */
-            this.createWallet(entropy)
+            this.createIdentity(entropy)
 
             /* Return entropy. */
             return this.wallet
@@ -311,7 +306,7 @@ export const useWalletStore = defineStore('wallet', {
             this._entropy = null
             this._wallet = null
 
-            console.info('Wallet destroyed successfully!')
+            console.info('Identity destroyed successfully!')
         },
     },
 })

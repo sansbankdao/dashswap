@@ -127,8 +127,8 @@ import numeral from 'numeral'
 // } from '@nexajs/provider'
 
 /* Initialize stores. */
-import { useWalletStore } from '@/stores/wallet'
-const Wallet = useWalletStore()
+import { useIdentityStore } from '@/stores/identity'
+const Identity = useIdentityStore()
 
 /* Set constants. */
 const MAX_RESULTS_PER_PAGE = 20

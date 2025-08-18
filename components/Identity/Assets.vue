@@ -3,9 +3,9 @@
 import numeral from 'numeral'
 
 /* Initialize stores. */
-import { useWalletStore } from '@/stores/wallet'
+import { useIdentityStore } from '@/stores/identity'
 import { useSystemStore } from '@/stores/system'
-const Wallet = useWalletStore()
+const Identity = useIdentityStore()
 const System = useSystemStore()
 
 const activeTab = ref(null)

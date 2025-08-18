@@ -10,9 +10,9 @@ import QrScanner from 'qr-scanner'
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
-import { useWalletStore } from '@/stores/wallet'
+import { useIdentityStore } from '@/stores/identity'
 const System = useSystemStore()
-const Wallet = useWalletStore()
+const Identity = useIdentityStore()
 
 
 const amount = ref(null)
