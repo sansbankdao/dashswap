@@ -1,5 +1,5 @@
 <template>
-    <main class="min-h-[100vh] flex items-center justify-center p-4 bg-violet-950">
+    <main class="min-h-[100vh] flex items-center justify-center p-2 bg-violet-950">
 
         <section class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl relative bg-black mb-12 md:mb-4 lg:mb-20 xl:mb-4">
             <div class="px-8 md:px-6 pt-6 pb-6 lg:pb-16 xl:pb-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
