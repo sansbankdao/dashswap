@@ -1,10 +1,16 @@
 <template>
     <main class="min-h-[100vh] flex items-center justify-center p-2 bg-violet-950">
 
-        <section class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl relative bg-black mb-12 md:mb-4 lg:mb-20 xl:mb-4">
+        <section class="relative bg-gradient-to-b from-slate-950 to-stone-800 mb-12 md:mb-4 lg:mb-20 xl:mb-4 flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl">
             <div class="px-3 sm:px-5 pt-6 pb-6 lg:pb-16 xl:pb-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
-                <ProfileGuest />
-                <NetworkManager />
+                <div>
+                    <ProfileGuest />
+                </div>
+
+                <div>
+                    <NetworkManager />
+                </div>
+
             </div>
 
             <div class="w-full md:w-4/5 p-0">
@@ -19,7 +25,7 @@
 
         </section>
 
-        <footer class="fixed md:absolute bottom-0 left-0 right-0 w-full flex justify-center bg-black pt-2 pb-2 lg:pb-5 xl:pb-2 rounded-t-2xl lg:rounded-t-3xl border-t border-stone-700">
+        <footer class="fixed md:absolute bottom-0 left-0 right-0 w-full flex justify-center bg-stone-950 pt-2 pb-2 lg:pb-5 xl:pb-2 rounded-t-2xl lg:rounded-t-3xl border-t border-stone-700">
             <span class="text-slate-300 text-center text-sm tracking-wider">
                 ⟡˙⋆ DashSwap was built with
                 <svg class="inline size-5 text-rose-400" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

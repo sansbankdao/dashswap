@@ -1,8 +1,5 @@
 <template>
-
-    <!-- Start: Terminal -->
-    <div class="mt-6 bg-black rounded-lg p-4 border border-gray-600 text-xs">
-
+    <main class="mt-6 bg-black rounded-lg p-4 border border-gray-600 text-xs">
         <div class="flex items-center">
             <!-- <span class="text-slate-200 mr-2">↳</span> -->
             <span class="flex items-center text-sky-300">
@@ -41,13 +38,9 @@
             Waiting for your next request...
         </div>
 
-    </div>
-    <!-- End: Terminal -->
+    </main>
 
-    <!-- Start: Quick Navigation Links -->
     <QuickNav />
-    <!-- End: Quick Navigation Links -->
-
 </template>
 
 <script setup lang="ts">
