@@ -222,7 +222,11 @@ export const useIdentityStore = defineStore('identity', {
                 '0': {
                     ticker: 'DASH',
                     iconUrl: '/icons/dash.svg'
-                }
+                },
+                'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
+                    ticker: 'SANS',
+                    iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg'
+                },
             })
             // this._assets = {
 
