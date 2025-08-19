@@ -223,24 +223,33 @@ export const useIdentityStore = defineStore('identity', {
                     ticker: 'DASH',
                     iconUrl: '/icons/dash.svg',
                     decimal_places: 8,
-                    amount: BigInt(123),
-                    satoshis: BigInt(777),
+                    amount: BigInt(1337000000),
+                    satoshis: BigInt(111),
+                    fiat: {
+                        USD: 286.3854,
+                    },
                 },
                 'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
                     name: 'Sansnote',
                     ticker: 'SANS',
                     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
-                    // decimal_places: 8,
-                    // amount: BigInt(456),
-                    // satoshis: BigInt(888),
+                    decimal_places: 8,
+                    amount: BigInt(45600000000),
+                    // satoshis: BigInt(222),
+                    fiat: {
+                        USD: 0.0456,
+                    },
                 },
                 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
                     name: 'Dash USD',
                     ticker: 'DUSD',
                     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
-                    // decimal_places: 6,
-                    // amount: BigInt(789),
-                    // satoshis: BigInt(999),
+                    decimal_places: 6,
+                    amount: BigInt(78900000),
+                    // satoshis: BigInt(333),
+                    fiat: {
+                        USD: 78.9000,
+                    },
                 },
             })
             this.setAssetId('0')
