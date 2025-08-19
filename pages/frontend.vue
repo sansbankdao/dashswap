@@ -11,6 +11,10 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+    title: 'Front-end Builder Suite by DashSwap'
+})
+
 const code = ref(`/* Front-end Integration for React/Next.js */
 import { swap, type OrderType } from 'dashswap'
 

@@ -11,6 +11,10 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+    title: 'Back-end Developer Suite by DashSwap'
+})
+
 const code = ref(`# Back-end Integration for Python/Django
 from dashswap import Swap
 

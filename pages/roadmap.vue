@@ -21,6 +21,10 @@
 /* Import modules. */
 import moment from 'moment'
 
+useHead({
+    title: 'Roadmap for DashSwap DEX'
+})
+
 // onMounted(() => {
 //     console.log('Mounted!')
 //     // Now it's safe to perform setup operations.

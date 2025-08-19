@@ -16,6 +16,10 @@
 /* Import modules. */
 import moment from 'moment'
 
+useHead({
+    title: 'PAGE_TITLE by DashSwap'
+})
+
 // onMounted(() => {
 //     console.log('Mounted!')
 //     // Now it's safe to perform setup operations.

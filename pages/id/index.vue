@@ -320,6 +320,10 @@ stateTransition.signaturePublicKeyId = publicKeyId
 console.log('STATE TRANSITION', stateTransition)
 // await sdk.stateTransitions.broadcast(stateTransition)
 
+const balance = await sdk.identities.getIdentityBalance(Identity.id)
+console.log('CREDIT BALANCE', balance)
+console.log('DASH BALANCE (approx)', balance / 100000000000n)
+
 
 const tokenContractInfo = await sdk.tokens.getTokenContractInfo(tokenid)
 const dataContract = await sdk.dataContracts.getDataContractByIdentifier(tokenContractInfo.dataContractId)

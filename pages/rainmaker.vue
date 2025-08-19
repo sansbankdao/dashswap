@@ -1,5 +1,5 @@
 <template>
-    <LauncherCreator />
+    <RainmakerWelcome />
 </template>
 
 <script setup lang="ts">
