@@ -14,7 +14,7 @@
                     Sansbank is building DashSwap with YOUR ❤️ support
                 </h1>
 
-                <p class="mt-6 text-balance text-xl/8 text-slate-700 dark:text-slate-300">
+                <p class="mt-6 text-pretty text-xl/8 text-slate-700 dark:text-slate-300">
                     We believe that everyone should have a clear path to financial sovereignty
                     — we're here to make sure that EVERYONE in the Dash community who shows up EARLY to Sansbank gets to EAT!
                 </p>

@@ -2,7 +2,7 @@
     <div class="bg-white py-12 sm:py-16 dark:bg-gray-900">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
+                <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
                     Dash Platform Galleria
                 </h2>
 
