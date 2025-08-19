@@ -1,3 +1,110 @@
+<template>
+    <main class="flex flex-col gap-5">
+        <div class="border-b border-gray-200">
+            <nav class="-mb-px flex space-x-8 text-center" aria-label="Tabs">
+                <button @click="activeTab = 'assets'" class="w-1/2 text-sky-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page" :class="[ activeTab === 'assets' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
+                    <span class="text-lg">
+                        Assets
+                    </span>
+
+                    <span class="bg-sky-100 text-sky-600 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
+                        {{assets?.length}}
+                    </span>
+                </button>
+
+                <!-- Current: "", Default: "" -->
+                <button @click="activeTab = 'collections'" class="w-1/2 text-gray-500 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" :class="[ activeTab === 'collections' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
+                    <span class="text-lg">
+                        Collections
+                    </span>
+
+                    <!-- Current: "bg-sky-100 text-sky-600", Default: "bg-gray-100 text-gray-900" -->
+                    <span class="bg-gray-100 text-gray-900 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
+                        {{collections?.length}}
+                    </span>
+                </button>
+            </nav>
+        </div>
+
+        <div v-if="activeTab === 'assets'" class="flex flex-col gap-5">
+            <div
+                v-for="token in assets" :key="token.id"
+                @click="Identity.wallet.setAsset(token.id)"
+                class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
+            >
+                <div class="w-1/2 flex flex-row items-start">
+                    <img :src="displayIcon(token)" class="-mt-0.5 mr-1 h-12 w-auto p-2 opacity-80" />
+
+                    <div class="flex flex-col">
+                        <h3 class="text-base text-amber-800 font-medium uppercase truncate">
+                            {{displayTokenName(token.id)}}
+                        </h3>
+
+                        <span class="sm:hidden text-lg font-medium text-amber-600">
+                            {{displayDecimalAmount(token)}}
+                        </span>
+                        <span class="hidden sm:flex text-xl font-medium text-amber-600">
+                            {{displayDecimalAmount(token)}}
+                        </span>
+                    </div>
+                </div>
+
+                <h3 class="w-1/2 flex flex-col items-end font-medium text-amber-700">
+                    <sup class="text-xs">
+                        USD
+                    </sup>
+
+                    <span class="-mt-3 sm:hidden text-2xl">
+                        {{displayDecimalAmountUsd(token)}}
+                    </span>
+                    <span class="-mt-3 hidden sm:flex text-3xl">
+                        {{displayDecimalAmountUsd(token)}}
+                    </span>
+                </h3>
+            </div>
+        </div>
+
+        <div v-else class="flex flex-col gap-5">
+            <div
+                v-for="token in collections" :key="token.id"
+                @click="Identity.wallet.setAsset(token.id)"
+                class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
+            >
+                <div class="w-1/2 flex flex-row items-start">
+                    <img :src="displayIcon(token)" class="-mt-0.5 mr-1 h-12 w-auto p-2 opacity-80" />
+
+                    <div class="flex flex-col">
+                        <h3 class="text-base text-amber-800 font-medium uppercase truncate">
+                            {{displayTokenName(token.id)}}
+                        </h3>
+
+                        <span class="sm:hidden text-lg font-medium text-amber-600">
+                            {{displayDecimalAmount(token)}}
+                        </span>
+                        <span class="hidden sm:flex text-xl font-medium text-amber-600">
+                            {{displayDecimalAmount(token)}}
+                        </span>
+                    </div>
+                </div>
+
+                <h3 class="w-1/2 flex flex-col items-end font-medium text-amber-700">
+                    <sup class="text-xs">
+                        USD
+                    </sup>
+
+                    <span class="-mt-3 sm:hidden text-2xl">
+                        {{displayDecimalAmountUsd(token)}}
+                    </span>
+                    <span class="-mt-3 hidden sm:flex text-3xl">
+                        {{displayDecimalAmountUsd(token)}}
+                    </span>
+                </h3>
+            </div>
+        </div>
+
+    </main>
+</template>
+
 <script setup>
 /* Import modules. */
 import numeral from 'numeral'
@@ -20,7 +127,7 @@ const assets = computed(() => {
 
     /* Handle assets. */
     Object.keys(Identity.assets).map(_assetid => {
-        if (_assetid === '0' || _assetid.length === 64) {
+        if (_assetid === '0' || _assetid.length === 44) {
             const asset = { ...Identity.assets[_assetid] }
 
             asset.id = _assetid
@@ -239,110 +346,3 @@ onMounted(() => {
 //     // Now is the time to perform all cleanup operations.
 // })
 </script>
-
-<template>
-    <main class="flex flex-col gap-5">
-        <div class="border-b border-gray-200">
-            <nav class="-mb-px flex space-x-8 text-center" aria-label="Tabs">
-                <button @click="activeTab = 'assets'" class="w-1/2 text-sky-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page" :class="[ activeTab === 'assets' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
-                    <span class="text-lg">
-                        Assets
-                    </span>
-
-                    <span class="bg-sky-100 text-sky-600 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
-                        {{assets?.length}}
-                    </span>
-                </button>
-
-                <!-- Current: "", Default: "" -->
-                <button @click="activeTab = 'collections'" class="w-1/2 text-gray-500 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" :class="[ activeTab === 'collections' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
-                    <span class="text-lg">
-                        Collections
-                    </span>
-
-                    <!-- Current: "bg-sky-100 text-sky-600", Default: "bg-gray-100 text-gray-900" -->
-                    <span class="bg-gray-100 text-gray-900 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
-                        {{collections?.length}}
-                    </span>
-                </button>
-            </nav>
-        </div>
-
-        <div v-if="activeTab === 'assets'" class="flex flex-col gap-5">
-            <div
-                v-for="token in assets" :key="token.id"
-                @click="Identity.wallet.setAsset(token.id)"
-                class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
-            >
-                <div class="w-1/2 flex flex-row items-start">
-                    <img :src="displayIcon(token)" class="-mt-0.5 mr-1 h-12 w-auto p-2 opacity-80" />
-
-                    <div class="flex flex-col">
-                        <h3 class="text-base text-amber-800 font-medium uppercase truncate">
-                            {{displayTokenName(token.id)}}
-                        </h3>
-
-                        <span class="sm:hidden text-lg font-medium text-amber-600">
-                            {{displayDecimalAmount(token)}}
-                        </span>
-                        <span class="hidden sm:flex text-xl font-medium text-amber-600">
-                            {{displayDecimalAmount(token)}}
-                        </span>
-                    </div>
-                </div>
-
-                <h3 class="w-1/2 flex flex-col items-end font-medium text-amber-700">
-                    <sup class="text-xs">
-                        USD
-                    </sup>
-
-                    <span class="-mt-3 sm:hidden text-2xl">
-                        {{displayDecimalAmountUsd(token)}}
-                    </span>
-                    <span class="-mt-3 hidden sm:flex text-3xl">
-                        {{displayDecimalAmountUsd(token)}}
-                    </span>
-                </h3>
-            </div>
-        </div>
-
-        <div v-else class="flex flex-col gap-5">
-            <div
-                v-for="token in collections" :key="token.id"
-                @click="Identity.wallet.setAsset(token.id)"
-                class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
-            >
-                <div class="w-1/2 flex flex-row items-start">
-                    <img :src="displayIcon(token)" class="-mt-0.5 mr-1 h-12 w-auto p-2 opacity-80" />
-
-                    <div class="flex flex-col">
-                        <h3 class="text-base text-amber-800 font-medium uppercase truncate">
-                            {{displayTokenName(token.id)}}
-                        </h3>
-
-                        <span class="sm:hidden text-lg font-medium text-amber-600">
-                            {{displayDecimalAmount(token)}}
-                        </span>
-                        <span class="hidden sm:flex text-xl font-medium text-amber-600">
-                            {{displayDecimalAmount(token)}}
-                        </span>
-                    </div>
-                </div>
-
-                <h3 class="w-1/2 flex flex-col items-end font-medium text-amber-700">
-                    <sup class="text-xs">
-                        USD
-                    </sup>
-
-                    <span class="-mt-3 sm:hidden text-2xl">
-                        {{displayDecimalAmountUsd(token)}}
-                    </span>
-                    <span class="-mt-3 hidden sm:flex text-3xl">
-                        {{displayDecimalAmountUsd(token)}}
-                    </span>
-                </h3>
-            </div>
-        </div>
-
-    </main>
-</template>
