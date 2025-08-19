@@ -62,7 +62,7 @@
                     <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                         <div class="flex flex-col gap-y-2 border-b border-dotted border-slate-200 pb-4 dark:border-slate-700">
                             <dt class="text-sm/6 text-slate-600 dark:text-slate-200">
-                                Tokens Launched
+                                Assets Launched
                             </dt>
 
                             <dd class="order-first text-6xl font-semibold tracking-tight text-slate-900 dark:text-white">
@@ -92,7 +92,7 @@
 
                         <div class="flex flex-col gap-y-2">
                             <dt class="text-sm/6 text-slate-600 dark:text-slate-200">
-                                SANS Stake Payouts
+                                SANS Payouts
                             </dt>
 
                             <dd class="order-first text-6xl font-semibold tracking-tight text-slate-900 dark:text-white">
@@ -116,7 +116,7 @@
             <section class="mt-10 px-10 py-5">
                 <a href="https://sansbank.org/bootstrap" target="_blank" class="px-5 py-3 flex flex-col items-center text-5xl font-bold text-center text-sky-800 bg-sky-200 border-4 border-sky-400 rounded-2xl hover:bg-sky-800 hover:text-sky-100">
                     Get More $AN$
-                    <span class="block text-xs uppercase">
+                    <span class="block text-xs uppercase opacity-50">
                         This Is Not Financial Advice
                     </span>
                 </a>
