@@ -157,11 +157,11 @@ export const useIdentityStore = defineStore('identity', {
 
         /* Return wallet status. */
         isLoading(_state) {
-            if (!_state._wallet) {
+            if (!_state._assets) {
                 return true
             }
 
-            return _state._wallet.isLoading
+            return false
         },
 
         /* Return wallet status. */
