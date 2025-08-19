@@ -1,5 +1,5 @@
 <template>
-    <RainmakerWelcome />
+    <RainmakerDashboard />
 </template>
 
 <script setup lang="ts">
