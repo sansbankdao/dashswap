@@ -10,7 +10,7 @@
             <section @click="setTab('assets')" class="cursor-pointer group px-5 py-3 bg-gradient-to-b from-sky-100 to-sky-50 border-t border-x border-sky-400 rounded-x-lg shadow-md hover:bg-sky-100">
                 <div class="flex flex-row w-full justify-between items-center mb-1" :class="[ isShowingAssets ? 'visible' : 'hidden' ]">
                     <h3 class="text-base tracking-tight uppercase text-sky-600 font-medium text-center opacity-40 group-hover:opacity-100 group-hover:scale-105 duration-300 ease-in-out">
-                        My Portfolio Summary
+                        My Identity Dashboard
                     </h3>
 
                     <img :src="Identity.asset?.iconUrl" class="-mt-3 -mr-2 p-2 h-10 w-auto opacity-40 group-hover:opacity-100 group-hover:h-11 duration-300 ease-in-out" />
@@ -353,6 +353,21 @@ const description = tokenConfiguration.description
 const name = conventions.localizations['en'].singularForm
 
 console.log(baseSupply, maxSupply, decimals, description, name)
+
+
+console.log('IDENTITY (assets)', Identity.assets)
+console.log('IDENTITY (assetid)', Identity.assetid)
+console.log('IDENTITY (asset)', Identity.asset)
+
+// watch(() => Identity.assets, (_assets) => {
+//     console.log('ASSETS CHANGED', _assets)
+// })
+// watch(() => Identity.assetid, (_assetid) => {
+//     console.log('ASSET ID CHANGED', _assetid)
+// })
+// watch(() => Identity.asset, (_asset) => {
+//     console.log('ASSET CHANGED', _asset)
+// })
 
 
 //     const tokenInfo = await sdk.tokens

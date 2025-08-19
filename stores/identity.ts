@@ -15,6 +15,13 @@ const MAX_INPUTS_ALLOWED = 250
  */
 export const useIdentityStore = defineStore('identity', {
     state: () => ({
+        /**
+         * Asset ID
+         *
+         * The currently active asset ID.
+         */
+        _assetid: null,
+
         _assets: null,
 
         // _forceUI: null,
@@ -116,23 +123,27 @@ export const useIdentityStore = defineStore('identity', {
         },
 
         asset(_state) {
-            if (!this.assets || !this.wallet) {
+            if (!this.assets) {
                 return null
             }
 
-            return this.assets[this.wallet.assetid]
+            return this.assets[this.assetid]
+        },
+
+        assetid(_state) {
+            if (!this._assetid) {
+                return null
+            }
+
+            return this._assetid
         },
 
         assets(_state) {
-            if (_state._assets) {
-                return _state._assets
+            if (!_state._assets) {
+                return []
             }
 
-            if (!_state._wallet) {
-                return null
-            }
-
-            return _state._wallet.assets
+            return _state._assets
         },
 
         /* Return Identity ID. */
@@ -183,9 +194,9 @@ export const useIdentityStore = defineStore('identity', {
             }
         },
 
-        IdentityStatus() {
-            return IdentityStatus
-        },
+        // IdentityStatus() {
+        //     return IdentityStatus
+        // },
     },
 
     actions: {
@@ -198,31 +209,42 @@ export const useIdentityStore = defineStore('identity', {
          *   3. Load assets.
          */
         async init() {
-            console.info('Initializing wallet...')
+            console.info('Initializing identity...')
 
-            if (this._entropy === null) {
-                this._wallet = 'NEW' // FIXME TEMP NEW WALLET FLAG
-                // throw new Error('Missing wallet entropy.')
-                return console.error('Missing wallet entropy.')
-            }
+            // if (this._entropy === null) {
+            //     this._wallet = 'NEW' // FIXME TEMP NEW WALLET FLAG
+            //     // throw new Error('Missing wallet entropy.')
+            //     return console.error('Missing wallet entropy.')
+            // }
+
+            this.setAssetId('0')
+            this.setAssets({
+                '0': {
+                    ticker: 'DASH',
+                    iconUrl: '/icons/dash.svg'
+                }
+            })
+            // this._assets = {
+
+            // }
 
             /* Request a wallet instance (by mnemonic). */
-            this._wallet = await Identity.init(this._entropy, true)
-            console.info('(Initialized) wallet', this.wallet)
+            // this._wallet = await Identity.init(this._entropy, true)
+            // console.info('(Initialized) wallet', this.wallet)
 
             // this._assets = { ...this.wallet.assets } // cloned assets
 
             /* Set (default) asset. */
-            this.wallet.setAsset('0')
+            // this.wallet.setAsset('0')
 
             /* Handle balance updates. */
-            this.wallet.on('balances', async (_assets) => {
-                // console.log('Identity Balances (onChanges):', _assets)
+//             this.wallet.on('balances', async (_assets) => {
+//                 // console.log('Identity Balances (onChanges):', _assets)
 
-                /* Close asset locally. */
-// FIXME Read ASSETS directly from library (getter).
-                this._assets = { ..._assets }
-            })
+//                 /* Close asset locally. */
+// // FIXME Read ASSETS directly from library (getter).
+//                 this._assets = { ..._assets }
+//             })
         },
 
         createIdentity(_entropy) {
@@ -255,6 +277,14 @@ export const useIdentityStore = defineStore('identity', {
         broadcast(_receivers) {
             /* Broadcast to receivers. */
             return _broadcast.bind(this)(_receivers)
+        },
+
+        setAssetId(_assetid) {
+            this._assetid = _assetid
+        },
+
+        setAssets(_assets) {
+            this._assets = _assets
         },
 
         setEntropy(_entropy) {
@@ -304,9 +334,11 @@ export const useIdentityStore = defineStore('identity', {
         },
 
         destroy() {
-            /* Reset wallet. */
+            /* Reset identity. */
             this._entropy = null
-            this._wallet = null
+            this._identityid = null
+            this._pkAuthority = null
+            this._pkTransfer = null
 
             console.info('Identity destroyed successfully!')
         },
