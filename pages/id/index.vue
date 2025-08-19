@@ -294,7 +294,7 @@ const init = async () => {
 
 const owner = 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm'
 const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'//'8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC'
-const amount = BigInt(8888)
+const amount = BigInt(777)
 
 // const privateKey = ''
 
@@ -311,15 +311,14 @@ const amount = BigInt(8888)
 // // DO NOT SAVE TO REPO
 const publicKeyId = 3 // 03 => Transfer (Critical)
 
-const tokenBaseTransition = await sdk.tokens.createBaseTransition(tokenid, owner)
+const tokenBaseTransition = await sdk.tokens.createBaseTransition(tokenid, Identity.id)
 const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, owner, 'transfer', { identityId: recipient, amount })
 
 stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(Identity.wif.transfer), 'ECDSA_SECP256K1')
 stateTransition.signaturePublicKeyId = publicKeyId
 
 console.log('STATE TRANSITION', stateTransition)
-const resp = await sdk.stateTransitions.broadcast(stateTransition)
-console.log('BROADCAST RESPONSE', resp)
+// await sdk.stateTransitions.broadcast(stateTransition)
 
 
 const tokenContractInfo = await sdk.tokens.getTokenContractInfo(tokenid)
