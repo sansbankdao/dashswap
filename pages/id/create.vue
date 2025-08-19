@@ -1,11 +1,11 @@
 <template>
     <section class="flex flex-col gap-3 p-5">
         <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
-            Create a NEW Wallet
+            Create a NEW Identity
         </h1>
 
         <p class="text-sky-400 text-xl tracking-wider">
-            A Dash Evolution Wallet is very similar to an Ethereum Account.
+            A Dash Platform Identity is very similar to an Ethereum Account.
             Create a NEW Platform Identity right from the WEB!
         </p>
 
