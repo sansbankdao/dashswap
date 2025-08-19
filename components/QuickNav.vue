@@ -25,11 +25,11 @@
         </a>
 
         <a
-            key="leaderboard"
-            href="/leaderboard"
-            title="Leaderboard"
+            key="rainmaker"
+            href="/rainmaker"
+            title="Rainmaker"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <TrophyIcon />
+            <BoltIcon />
         </a>
 
         <a
@@ -52,11 +52,11 @@
 
 <script setup lang="ts">
 import {
+    BoltIcon,
     ChatBubbleLeftRightIcon,
     InformationCircleIcon,
     RectangleGroupIcon,
     RocketLaunchIcon,
-    TrophyIcon,
     UserIcon,
 } from '@heroicons/vue/24/outline'
 
@@ -86,9 +86,9 @@ const socials: Social[] = ref([
         title: 'Token Launcher'
     },
     {
-        icon: 'leaderboard',
-        link: '/leaderboard',
-        title: 'Leaderboard'
+        icon: 'rainmaker',
+        link: '/rainmaker',
+        title: 'Rainmaker'
     },
     {
         icon: 'profile',

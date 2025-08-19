@@ -92,27 +92,27 @@
 /* Import modules. */
 import makeBlockie from 'ethereum-blockies-base64'
 import numeral from 'numeral'
-import {
-    decodeAddress,
-    encodeAddress,
-} from '@nexajs/address'
+// import {
+//     decodeAddress,
+//     encodeAddress,
+// } from '@nexajs/address'
 
 useHead({
-    title: `Campaign Manager — Causes Cash`,
+    title: `Rainmaker by DashSwap`,
     meta: [
         { name: 'description', content: `An uncensorable funding platform for radical creators and unstoppable service providers.` }
     ],
 })
 
 /* Initialize stores. */
+import { useIdentityStore } from '@/stores/identity'
 import { useProfileStore } from '@/stores/profile'
 import { useRainmakerStore } from '@/stores/rainmaker'
 import { useSystemStore } from '@/stores/system'
-import { useWalletStore } from '@/stores/wallet'
+const Identity = useIdentityStore()
 const Profile = useProfileStore()
 const Rainmaker = useRainmakerStore()
 const System = useSystemStore()
-const Wallet = useWalletStore()
 
 const route = useRoute()
 const campaignid = ref(route.params.campaignid)
@@ -197,7 +197,7 @@ const airdrop = async () => {
     })
 
     /* Broadcast (to profiles). */
-    response = await Wallet.broadcast(walletReceivers)
+    response = await Identity.broadcast(walletReceivers)
         .catch(err => console.error(err))
     console.log('RESPONSE', response)
 

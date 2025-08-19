@@ -1,5 +1,5 @@
 <template>
-    <main class="h-full p-3 bg-fuchsia-700 text-slate-200">
+    <main class="h-full p-3 bg-fuchsia-950 text-slate-200">
         <header>
             <h1 class="text-5xl font-medium text-slate-200">
                 Rainmaker ☔
@@ -185,17 +185,6 @@
 /* Import modules. */
 import makeBlockie from 'ethereum-blockies-base64'
 import moment from 'moment'
-
-// definePageMeta({
-//     layout: 'admin',
-// })
-
-useHead({
-    title: `Rainmaker — Causes Cash`,
-    meta: [
-        { name: 'description', content: `An uncensorable funding platform for radical creators and unstoppable service providers.` }
-    ],
-})
 
 /* Initialize stores. */
 import { useProfileStore } from '@/stores/profile'
