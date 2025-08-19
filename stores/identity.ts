@@ -227,6 +227,10 @@ export const useIdentityStore = defineStore('identity', {
                     ticker: 'SANS',
                     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg'
                 },
+                'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
+                    ticker: 'DUSD',
+                    iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg'
+                },
             })
             // this._assets = {
 
