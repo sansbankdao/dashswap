@@ -61,7 +61,7 @@
             </section>
 
             <div class="block">
-                <nav class="isolate grid grid-cols-3 divide-x divide-gray-200 rounded-x-lg rounded-b-lg shadow" aria-label="Tabs">
+                <nav class="isolate grid grid-cols-4 divide-x divide-gray-200 rounded-x-lg rounded-b-lg shadow" aria-label="Tabs">
                     <div @click="setTab('deposit')" class="cursor-pointer bg-gray-700 rounded-bl-lg group relative min-w-0 flex flex-row justify-center items-center gap-1 overflow-hidden py-2 px-2 text-sm font-medium hover:bg-gray-50 hover:text-gray-600 focus:z-10" aria-current="page" :class="[ isShowingSend ? 'text-gray-100' : 'text-gray-400' ]">
                         <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
@@ -83,6 +83,14 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
                         </svg>
                         <span class="text-xs sm:text-sm">History</span>
+                        <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
+                    </div>
+
+                    <div @click="setTab('assistant')" class="cursor-pointer bg-gray-700 text-gray-400 group relative min-w-0 flex flex-row justify-center items-center gap-1 overflow-hidden py-2 px-2 text-center text-sm font-medium hover:bg-gray-50 hover:text-gray-600 focus:z-10">
+                        <svg class="w-5 h-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"></path>
+                        </svg>
+                        <span class="text-xs sm:text-sm">Assistant</span>
                         <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
                     </div>
                 </nav>
@@ -108,10 +116,17 @@
                     v-if="isShowingHistory"
                     :isFullScreen="isFullScreen"
                 />
+
+                <IdentityAssistant
+                    v-if="isShowingAssistant"
+                    :isFullScreen="isFullScreen"
+                />
             </div>
         </div>
 
-        <section class="px-5 py-2 col-span-3 flex flex-col gap-3 text-slate-200">
+        <Bootstrap class="col-span-4" />
+
+        <!-- <section class="px-5 py-2 col-span-3 flex flex-col gap-3 text-slate-200">
             <h2 class="text-2xl font-light">
                 Are you ready for an <span class="text-3xl font-medium italic">Evolution</span> in finance?
             </h2>
@@ -119,7 +134,7 @@
             <NuxtLink to="https://sansbank.org/bootstrap" target="_blank" class="text-xl text-blue-300 font-bold hover:underline">
                 See what we're building at Sansbank
             </NuxtLink>
-        </section>
+        </section> -->
     </main>
 </template>
 
@@ -147,7 +162,7 @@ const isShowingAssets = ref(false)
 const isShowingDeposit = ref(false)
 const isShowingSend = ref(false)
 const isShowingHistory = ref(false)
-const isShowingSwap = ref(false)
+const isShowingAssistant = ref(false)
 
 const displayBalance = computed(() => {
     /* Validate asset. */
@@ -237,7 +252,7 @@ const setTab = (_tab) => {
     isShowingSend.value = false
     isShowingDeposit.value = false
     isShowingHistory.value = false
-    isShowingSwap.value = false
+    isShowingAssistant.value = false
 
     if (_tab === 'assets') {
         isShowingAssets.value = true
@@ -255,8 +270,8 @@ const setTab = (_tab) => {
         isShowingHistory.value = true
     }
 
-    if (_tab === 'swap') {
-        isShowingSwap.value = true
+    if (_tab === 'assistant') {
+        isShowingAssistant.value = true
     }
 }
 
