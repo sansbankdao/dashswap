@@ -7,6 +7,7 @@ import init, {
     WasmSdkBuilder,
     identity_fetch,
     get_identity_nonce,
+    get_identity_balance,
     get_identity_token_balances,
     prefetch_trusted_quorums_testnet,
 
@@ -261,13 +262,16 @@ export const useIdentityStore = defineStore('identity', {
         })
     console.log('TEST-2', test2)
 
+    const balanceCredit = await get_identity_balance(sdk, this.id)
+    console.log('BALANCE (credits)', balanceCredit.balance)
+
     // FIXME FOR DEV PURPOSES ONLY
-    const balances = await get_identity_token_balances(sdk, this.id, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
+    const balancesDusd = await get_identity_token_balances(sdk, this.id, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
         .catch(err => {
             console.error(err)
             console.error('TOKEN NOT FOUND!!')
         })
-    console.log('BALANCES', balances)
+    console.log('BALANCES (DUSD)', balancesDusd)
 
 // FIXME FOR DEV PURPOSES ONLY
 const PRICE = 21.64
@@ -278,10 +282,10 @@ const PRICE = 21.64
                     ticker: 'DASH',
                     iconUrl: '/icons/dash.svg',
                     decimal_places: 11,
-                    amount: BigInt(balances[0].balance),
+                    amount: BigInt(balanceCredit.balance),
                     satoshis: BigInt(111),
                     fiat: {
-                        USD: ((balances[0].balance/10**11) * PRICE).toFixed(4),
+                        USD: ((balanceCredit.balance/10**11) * PRICE).toFixed(4),
                     },
                 },
                 'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
@@ -303,7 +307,7 @@ const PRICE = 21.64
                     amount: BigInt(11200000),
                     // satoshis: BigInt(333),
                     fiat: {
-                        USD: 11.2000,
+                        USD: ((balancesDusd[0].balance/10**6) * PRICE).toFixed(4),
                     },
                 },
             })
