@@ -326,6 +326,9 @@ const amount = BigInt(777)
 // // DO NOT SAVE TO REPO
 const publicKeyId = 3 // 03 => Transfer (Critical)
 
+if (typeof Identity.id === 'undefined' || Identity.id === null) {
+    throw new Error('MUST provide an Identity to continue.')
+}
 
 const balance = await sdk.identities.getIdentityBalance(Identity.id)
 console.log('CREDIT BALANCE', balance)

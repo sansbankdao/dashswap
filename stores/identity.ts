@@ -9,6 +9,7 @@ import init, {
     get_identity_nonce,
     get_identity_balance,
     get_identity_token_balances,
+    prefetch_trusted_quorums_mainnet,
     prefetch_trusted_quorums_testnet,
 
     data_contract_fetch,
@@ -29,7 +30,8 @@ const MAX_INPUTS_ALLOWED = 250
 await init()
 
 /* Pre-fretch trusted (TESTNET) quorums. */
-await prefetch_trusted_quorums_testnet()
+await prefetch_trusted_quorums_mainnet()
+// await prefetch_trusted_quorums_testnet()
 
 /**
  * Identity Store
@@ -178,7 +180,7 @@ export const useIdentityStore = defineStore('identity', {
 
         /* Return wallet status. */
         isLoading(_state) {
-            if (!_state._assets) {
+            if (!_state._identityid) {
                 return true
             }
 
@@ -232,52 +234,55 @@ export const useIdentityStore = defineStore('identity', {
         async init() {
             console.info('Initializing identity...')
 
-            // if (this._entropy === null) {
-            //     this._wallet = 'NEW' // FIXME TEMP NEW WALLET FLAG
-            //     // throw new Error('Missing wallet entropy.')
-            //     return console.error('Missing wallet entropy.')
-            // }
+            if (typeof this.id === 'undefined' || this.id === null) {
+                this._identityid = 'NEW' // FIXME TEMP NEW WALLET FLAG
+                // throw new Error('Missing wallet entropy.')
+                return console.error('Missing Identity.')
+            }
 
 
             /* Initialize SDK. */
             const sdk = await WasmSdkBuilder
-                .new_testnet_trusted()
+                .new_mainnet_trusted()
+                // .new_testnet_trusted()
                 .build()
             console.log('SDK', sdk)
 
     // FIXME FOR DEV PURPOSES ONLY
-    const identity = await identity_fetch(sdk, this.id)
-        .catch(err => {
-            console.error(err)
-            console.error('HANDLE NOT FOUND!!')
-        })
-    console.log('IDENTITY', identity.toJSON())
-    console.log('IDENTITY (token balance)', identity.balance)
+    // const identity = await identity_fetch(sdk, this.id)
+    //     .catch(err => {
+    //         console.error(err)
+    //         console.error('HANDLE NOT FOUND!!')
+    //     })
+    // console.log('IDENTITY', identity.toJSON())
+    // console.log('IDENTITY (token balance)', identity.balance)
 
     // FIXME FOR DEV PURPOSES ONLY
-    const test2 = await get_data_contracts(sdk, ['GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23'])
-        .catch(err => {
-            console.error(err)
-            console.error('TEST2 NOT FOUND!!')
-        })
-    console.log('TEST-2', test2)
+    // const test2 = await get_data_contracts(sdk, ['GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23'])
+    //     .catch(err => {
+    //         console.error(err)
+    //         console.error('TEST2 NOT FOUND!!')
+    //     })
+    // console.log('TEST-2', test2)
 
     const balanceCredit = await get_identity_balance(sdk, this.id)
     console.log('BALANCE (credits)', balanceCredit.balance)
 
     // FIXME FOR DEV PURPOSES ONLY
-    const balancesDusd = await get_identity_token_balances(sdk, this.id, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
+    const balancesDusd = await get_identity_token_balances(sdk, this.id, ['DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd'])
+    // const balancesDusd = await get_identity_token_balances(sdk, this.id, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
         .catch(err => {
             console.error(err)
-            console.error('TOKEN NOT FOUND!!')
+            console.error('DUSD NOT FOUND!!')
         })
     console.log('BALANCES (DUSD)', balancesDusd)
 
     // FIXME FOR DEV PURPOSES ONLY
-    const balancesSans = await get_identity_token_balances(sdk, this.id, ['A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw'])
+    const balancesSans = await get_identity_token_balances(sdk, this.id, ['AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB'])
+    // const balancesSans = await get_identity_token_balances(sdk, this.id, ['A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw'])
         .catch(err => {
             console.error(err)
-            console.error('TOKEN NOT FOUND!!')
+            console.error('SANS NOT FOUND!!')
         })
     console.log('BALANCES (SANS)', balancesSans)
 
@@ -287,20 +292,9 @@ const DUSD_PRICE = 1.00
 const SANS_PRICE = 0.01
 
             this.setAssets({
-                '0': {
-                    name: '[TEST] Dash Credit',
-                    ticker: 'tDASH',
-                    iconUrl: '/icons/dash.svg',
-                    decimal_places: 11,
-                    amount: BigInt(balanceCredit.balance),
-                    satoshis: BigInt(111), // IS THIS DEPRECATED??
-                    fiat: {
-                        USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
-                    },
-                },
                 // '0': {
-                //     name: 'Dash Credit',
-                //     ticker: 'DASH',
+                //     name: '[TEST] Dash Credit',
+                //     ticker: 'tDASH',
                 //     iconUrl: '/icons/dash.svg',
                 //     decimal_places: 11,
                 //     amount: BigInt(balanceCredit.balance),
@@ -309,18 +303,29 @@ const SANS_PRICE = 0.01
                 //         USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
                 //     },
                 // },
-                'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
-                    name: '[TEST] Sansnote',
-                    ticker: 'tSANS',
-                    iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
-                    decimal_places: 8,
-                    amount: BigInt(balancesSans[0].balance),
-                    // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                '0': {
+                    name: 'Dash Credit',
+                    ticker: 'DASH',
+                    iconUrl: '/icons/dash.svg',
+                    decimal_places: 11,
+                    amount: BigInt(balanceCredit.balance),
+                    satoshis: BigInt(111), // IS THIS DEPRECATED??
                     fiat: {
-                        USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
+                        USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
                     },
                 },
-                // 'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
+                // 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
+                //     name: '[TEST] Sansnote',
+                //     ticker: 'tSANS',
+                //     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
+                //     decimal_places: 8,
+                //     amount: BigInt(balancesSans[0].balance),
+                //     // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                //     fiat: {
+                //         USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
+                //     },
+                // },
+                // 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
                 //     name: 'Sansnote',
                 //     ticker: 'SANS',
                 //     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
@@ -331,18 +336,18 @@ const SANS_PRICE = 0.01
                 //         USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
                 //     },
                 // },
-                '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
-                    name: '[TEST] Dash USD',
-                    ticker: 'tDUSD',
-                    iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
-                    decimal_places: 6,
-                    amount: BigInt(balancesDusd[0].balance),
-                    // satoshis: BigInt(333), // IS THIS DEPRECATED??
-                    fiat: {
-                        USD: ((balancesDusd[0].balance/10**6) * DUSD_PRICE).toFixed(4),
-                    },
-                },
-                // 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
+                // '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
+                //     name: '[TEST] Dash USD',
+                //     ticker: 'tDUSD',
+                //     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
+                //     decimal_places: 6,
+                //     amount: BigInt(balancesDusd[0].balance),
+                //     // satoshis: BigInt(333), // IS THIS DEPRECATED??
+                //     fiat: {
+                //         USD: ((balancesDusd[0].balance/10**6) * DUSD_PRICE).toFixed(4),
+                //     },
+                // },
+                // '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
                 //     name: 'Dash USD',
                 //     ticker: 'DUSD',
                 //     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
