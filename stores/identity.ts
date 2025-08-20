@@ -304,10 +304,10 @@ const PRICE = 21.64
                     ticker: 'DUSD',
                     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
                     decimal_places: 6,
-                    amount: BigInt(11200000),
+                    amount: BigInt(balancesDusd[0].balance),
                     // satoshis: BigInt(333),
                     fiat: {
-                        USD: ((balancesDusd[0].balance/10**6) * PRICE).toFixed(4),
+                        USD: (balancesDusd[0].balance/10**6).toFixed(4),
                     },
                 },
             })
