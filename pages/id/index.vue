@@ -279,7 +279,8 @@ const init = async () => {
     /* Set (default) tab. */
     setTab('assets')
 
-    const sdk = new DashPlatformSDK({ network: 'testnet' })
+    const sdk = new DashPlatformSDK({ network: 'mainnet' })
+    // const sdk = new DashPlatformSDK({ network: 'testnet' })
 
 //     const tokenContractInfo = await sdk.tokens
 //         .getTokenContractInfo('3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz')
@@ -292,7 +293,8 @@ const init = async () => {
     const dataContractIdentifier = ''
 
     // const tokenid = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec' // SAMPLE
-    const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
+    const tokenid = 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd' // DUSD
+    // const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
     // const tokenid = 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw' // tSANS
     // const tokenid = 'Bwr4WHCPz5rFVAD87RqTs3izo4zpzwsEdKPWUT1NS1C7' // DashPay
     // const tokenid = '8XSvQw14RSGZS2MGXieTmXR4RVEyb5bZh7gYMWd6M6Te'
@@ -307,23 +309,10 @@ const init = async () => {
 // console.log('DATA CONTRACT (tokens)', dataContract.tokens)
 
 
-const owner = 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm'
-const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'//'8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC'
-const amount = BigInt(777)
+// const owner = 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm'
+// const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'//'8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC'
+// const amount = BigInt(777)
 
-// const privateKey = ''
-
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
-// const wif = ''
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
-// // DO NOT SAVE TO REPO
 const publicKeyId = 3 // 03 => Transfer (Critical)
 
 if (typeof Identity.id === 'undefined' || Identity.id === null) {

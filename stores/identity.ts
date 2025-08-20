@@ -297,10 +297,10 @@ const SANS_PRICE = 0.01
                 //     ticker: 'tDASH',
                 //     iconUrl: '/icons/dash.svg',
                 //     decimal_places: 11,
-                //     amount: BigInt(balanceCredit.balance),
+                //     amount: BigInt(balanceCredit?.balance || 0),
                 //     satoshis: BigInt(111), // IS THIS DEPRECATED??
                 //     fiat: {
-                //         USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
+                //         USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
                 //     },
                 // },
                 '0': {
@@ -308,10 +308,10 @@ const SANS_PRICE = 0.01
                     ticker: 'DASH',
                     iconUrl: '/icons/dash.svg',
                     decimal_places: 11,
-                    amount: BigInt(balanceCredit.balance),
+                    amount: BigInt(balanceCredit?.balance || 0),
                     satoshis: BigInt(111), // IS THIS DEPRECATED??
                     fiat: {
-                        USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
+                        USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
                     },
                 },
                 // 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
@@ -319,50 +319,49 @@ const SANS_PRICE = 0.01
                 //     ticker: 'tSANS',
                 //     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
                 //     decimal_places: 8,
-                //     amount: BigInt(balancesSans[0].balance),
+                //     amount: BigInt(balancesSans[0]?.balance || 0),
                 //     // satoshis: BigInt(222), // IS THIS DEPRECATED??
                 //     fiat: {
-                //         USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
+                //         USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
                 //     },
                 // },
-                // 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
-                //     name: 'Sansnote',
-                //     ticker: 'SANS',
-                //     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
-                //     decimal_places: 8,
-                //     amount: BigInt(balancesSans[0].balance),
-                //     // satoshis: BigInt(222), // IS THIS DEPRECATED??
-                //     fiat: {
-                //         USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
-                //     },
-                // },
+                'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
+                    name: 'Sansnote',
+                    ticker: 'SANS',
+                    iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
+                    decimal_places: 8,
+                    amount: BigInt(balancesSans[0]?.balance || 0),
+                    // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                    fiat: {
+                        USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
+                    },
+                },
                 // '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
                 //     name: '[TEST] Dash USD',
                 //     ticker: 'tDUSD',
                 //     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
                 //     decimal_places: 6,
-                //     amount: BigInt(balancesDusd[0].balance),
+                //     amount: BigInt(balancesDusd[0]?.balance || 0),
                 //     // satoshis: BigInt(333), // IS THIS DEPRECATED??
                 //     fiat: {
-                //         USD: ((balancesDusd[0].balance/10**6) * DUSD_PRICE).toFixed(4),
+                //         USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
                 //     },
                 // },
-                // '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
-                //     name: 'Dash USD',
-                //     ticker: 'DUSD',
-                //     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
-                //     decimal_places: 6,
-                //     amount: BigInt(balancesDusd[0].balance),
-                //     // satoshis: BigInt(333), // IS THIS DEPRECATED??
-                //     fiat: {
-                //         USD: ((balancesDusd[0].balance/10**6) * DUSD_PRICE).toFixed(4),
-                //     },
-                // },
+                'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
+                    name: 'Dash USD',
+                    ticker: 'DUSD',
+                    iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
+                    decimal_places: 6,
+                    amount: BigInt(balancesDusd[0]?.balance || 0),
+                    // satoshis: BigInt(333), // IS THIS DEPRECATED??
+                    fiat: {
+                        USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
+                    },
+                },
             })
-            this.setAsset('0')
-            // this._assets = {
 
-            // }
+// FIXME FOR DEV PURPOSES ONLY
+            this.setAsset('0')
 
             /* Request a wallet instance (by mnemonic). */
             // this._wallet = await Identity.init(this._entropy, true)
@@ -414,7 +413,8 @@ console.log('SENDING DASH CREDITS')
 
                 /* Initialize SDK. */
                 const sdk = await WasmSdkBuilder
-                    .new_testnet_trusted()
+                    .new_mainnet_trusted()
+                    // .new_testnet_trusted()
                     .build()
                 console.log('SDK', sdk)
 
@@ -429,9 +429,10 @@ return
             }
 
 console.log('SENDING TOKENS...')
-            const sdk = new DashPlatformSDK({ network: 'testnet' })
+            const sdk = new DashPlatformSDK({ network: 'mainnet' })
+            // const sdk = new DashPlatformSDK({ network: 'testnet' })
 
-            const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
+            // const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
 
             const publicKeyId = 3 // 03 => Transfer (Critical)
 
