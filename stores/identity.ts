@@ -3,12 +3,32 @@ import { defineStore } from 'pinia'
 // import { mnemonicToEntropy } from '@nexajs/hdnode'
 // import { sendCoins } from '@nexajs/purse'
 
+import init, {
+    WasmSdkBuilder,
+    identity_fetch,
+    get_identity_nonce,
+    get_identity_token_balances,
+    prefetch_trusted_quorums_testnet,
+
+    data_contract_fetch,
+    get_data_contracts,
+} from '../libs/dash/wasm_sdk.js'
+
+import { DashPlatformSDK } from 'dash-platform-sdk'
+import { PrivateKeyWASM } from 'pshenmic-dpp'
+
 import _setEntropy from './identity/setEntropy.ts'
 
 /* Set constants. */
 // FIXME Move these constants to System.
 const FEE_AMOUNT = 1000
 const MAX_INPUTS_ALLOWED = 250
+
+/* Initialize WASM module. */
+await init()
+
+/* Pre-fretch trusted (TESTNET) quorums. */
+await prefetch_trusted_quorums_testnet()
 
 /**
  * Identity Store
@@ -79,7 +99,7 @@ export const useIdentityStore = defineStore('identity', {
          *   {
          *     id        : '5be2e5c3-9d27-4b0f-bb3c-8b2ef6fdaafd',
          *     type      : 'studio',
-         *     title     : `My Studio Wallet`,
+         *     title     : `My Web Identity`,
          *     entropy   : 0x0000000000000000000000000000000000000000000000000000000000000000,
          *     createdAt : 0123456789,
          *     updatedAt : 1234567890,
@@ -87,7 +107,7 @@ export const useIdentityStore = defineStore('identity', {
          *   {
          *     id        : 'f2457985-4b92-4025-be8d-5f11a5fc4077',
          *     type      : 'ledger',
-         *     title     : `My Ledger Wallet`,
+         *     title     : `My Ledger Identity`,
          *     createdAt : 0123456789,
          *     updatedAt : 1234567890,
          *   },
@@ -96,11 +116,11 @@ export const useIdentityStore = defineStore('identity', {
         _keychain: null,
 
         /**
-         * Wallet
+         * Identity
          *
-         * Currently active wallet object.
+         * Currently active Identity object.
          */
-        _wallet: null,
+        _identity: null,
     }),
 
     getters: {
@@ -203,9 +223,9 @@ export const useIdentityStore = defineStore('identity', {
         /**
          * Initialize
          *
-         * Setup the wallet store.
+         * Setup the identity store.
          *   1. Retrieve the saved entropy.
-         *   2. Initialize a Wallet instance.
+         *   2. Initialize a Identity instance.
          *   3. Load assets.
          */
         async init() {
@@ -216,6 +236,57 @@ export const useIdentityStore = defineStore('identity', {
             //     // throw new Error('Missing wallet entropy.')
             //     return console.error('Missing wallet entropy.')
             // }
+
+
+            /* Initialize SDK. */
+            const sdk = await WasmSdkBuilder
+                .new_testnet_trusted()
+                .build()
+            console.log('SDK', sdk)
+
+    // FIXME FOR DEV PURPOSES ONLY
+    const identityid = '35SD29sWhmKEeQt1h87B2yXQVvBPDhevUYeubpAwGEow'
+
+    // FIXME FOR DEV PURPOSES ONLY
+    const identity = await identity_fetch(sdk, identityid)
+        .catch(err => {
+            console.error(err)
+            console.error('HANDLE NOT FOUND!!')
+        })
+    console.log('IDENTITY', identity.toJSON())
+    console.log('IDENTITY (token balance)', identity.balance)
+
+    // FIXME FOR DEV PURPOSES ONLY
+    const nonce = await get_identity_nonce(sdk, identityid)
+        .catch(err => {
+            console.error(err)
+            console.error('NONCE NOT FOUND!!')
+        })
+    console.log('NONCE', nonce)
+
+    // // FIXME FOR DEV PURPOSES ONLY
+    // const test1 = await data_contract_fetch(sdk, 'GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23')
+    //     .catch(err => {
+    //         console.error(err)
+    //         console.error('TEST1 NOT FOUND!!')
+    //     })
+    // console.log('TEST-1', test1.toJSON())
+
+    // FIXME FOR DEV PURPOSES ONLY
+    const test2 = await get_data_contracts(sdk, ['GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23'])
+        .catch(err => {
+            console.error(err)
+            console.error('TEST2 NOT FOUND!!')
+        })
+    console.log('TEST-2', test2)
+
+    // FIXME FOR DEV PURPOSES ONLY
+    const balances = await get_identity_token_balances(sdk, identityid, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
+        .catch(err => {
+            console.error(err)
+            console.error('TOKEN NOT FOUND!!')
+        })
+    console.log('BALANCES', balances)
 
             this.setAssets({
                 '0': {
@@ -293,14 +364,43 @@ export const useIdentityStore = defineStore('identity', {
         },
 
         async transfer(_receiver, _satoshis) {
-            /* Validate transaction type. */
-            if (this.asset.group === '0') {
-                /* Send coins. */
-                return await this.wallet.send(_receiver, _satoshis)
-            } else {
-                /* Send tokens. */
-                return await this.wallet.send(this.asset.token_id_hex, _receiver, _satoshis)
-            }
+            // /* Validate transaction type. */
+            // if (this.asset.group === '0') {
+            //     /* Send coins. */
+            //     return await this.wallet.send(_receiver, _satoshis)
+            // } else {
+            //     /* Send tokens. */
+            //     return await this.wallet.send(this.asset.token_id_hex, _receiver, _satoshis)
+            // }
+
+            const sdk = new DashPlatformSDK({ network: 'testnet' })
+
+            const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
+
+            const publicKeyId = 3 // 03 => Transfer (Critical)
+
+            const owner = '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf'
+            const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'
+// 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm' // atlanta-degen-for-life
+// '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf' // NewMoneyHoney69
+// HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR // Test-1
+// 8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC // Test-2
+            const amount = BigInt(_satoshis)
+
+            /* Initialize stores. */
+const Identity = useIdentityStore()
+
+const tokenBaseTransition = await sdk.tokens.createBaseTransition(tokenid, this.id)
+const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, owner, 'transfer', { identityId: recipient, amount })
+
+stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(this.wif.transfer), 'ECDSA_SECP256K1')
+stateTransition.signaturePublicKeyId = publicKeyId
+
+console.log('STATE TRANSITION', stateTransition)
+const response = await sdk.stateTransitions.broadcast(stateTransition)
+
+            return response
+
         },
 
         broadcast(_receivers) {

@@ -52,7 +52,7 @@
             />
 
             <div @click="importIdentity" class="cursor-pointer px-3 py-2 text-2xl text-blue-100 font-medium bg-blue-500 border-2 border-blue-700 rounded-lg shadow hover:bg-blue-400">
-                Import Existing Wallet
+                Import Existing Identity
             </div>
         </section>
     </main>

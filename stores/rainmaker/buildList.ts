@@ -1,18 +1,18 @@
 import fetch from 'node-fetch'
 
-import { encodeAddress } from '@nexajs/address'
+// import { encodeAddress } from '@nexajs/address'
 
-import {
-    encodeDataPush,
-    OP,
-} from '@nexajs/script'
+// import {
+//     encodeDataPush,
+//     OP,
+// } from '@nexajs/script'
 
 import {
     binToHex,
     hexToBin,
 } from '@nexajs/utils'
 
-import { Wallet } from '@nexajs/wallet'
+// import { Wallet } from '@nexajs/wallet'
 
 /* Set (test) constants. */
 const BASE_PAYOUT_SATOSHIS = 100000000n

@@ -13,7 +13,7 @@ import {
 const ENTROPY_BYTES_LENGTH = 32
 
 /**
- * Create Wallet
+ * Create Identity
  *
  * Generates 128-bits of random entropy and saves it to the
  * local browser.

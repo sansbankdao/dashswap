@@ -59,46 +59,4 @@ import {
     RocketLaunchIcon,
     UserIcon,
 } from '@heroicons/vue/24/outline'
-
-// import SocialIcon from './SocialIcon.astro'
-
-interface Social {
-    // icon: 'leaderboard' | 'help' | 'gallery' | 'profile' | 'launcher' | 'wallet';
-    icon: string;
-    link: string;
-    title?: string;
-}
-
-const socials: Social[] = ref([
-    {
-        icon: 'gallery',
-        link: '/gallery',
-        title: 'Gallery View'
-    },
-    {
-        icon: 'wallet',
-        link: '/wallet',
-        title: 'Trading Wallet'
-    },
-    {
-        icon: 'launcher',
-        link: '/launcher',
-        title: 'Token Launcher'
-    },
-    {
-        icon: 'rainmaker',
-        link: '/rainmaker',
-        title: 'Rainmaker'
-    },
-    {
-        icon: 'profile',
-        link: '/profile',
-        title: 'Profile Manager'
-    },
-    {
-        icon: 'help',
-        link: '/help',
-        title: 'Need help?'
-    },
-])
 </script>

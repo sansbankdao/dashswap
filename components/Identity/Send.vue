@@ -33,6 +33,17 @@ const cameraError = ref(null)
 
 const isShowingVideoPreview = ref('hidden')
 
+const getAddressBalance = async (_address) => {
+    return 123
+}
+
+const getAddressFirstUse = async (_address) => {
+    return 'just a while ago'
+}
+
+const getTransaction = async (_txid) => {
+    return 'kewl stuff happened'
+}
 
 watch(() => amount.value, (_amount) => {
     /* Clear errors. */
@@ -142,7 +153,7 @@ const send = async () => {
     if (confirm(`Are you sure you want to send ${numeral(amount.value).format('0,0.00')} ${Identity.asset?.ticker} to ${receiver.value}?`)) {
         console.log(`Starting transfer of ${amount.value} ${Identity.asset?.ticker} to ${receiver.value}...`)
 
-        response = await Wallet
+        response = await Identity
             .transfer(receiver.value, BigInt(satoshis.value))
             .catch(err => {
                 console.error(err)
@@ -342,7 +353,7 @@ onMounted(() => {
 
             </section>
 
-            <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-6 text-slate-200">
                 <section v-if="addressBalance">
                     <h2 class="text-xl font-medium tracking-widest">
                         Address Balance
@@ -394,7 +405,7 @@ onMounted(() => {
                         @click="consolidate"
                         class="w-fit cursor-pointer my-5 block px-5 py-2 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
                     >
-                        Consolidate Wallet
+                        Consolidate Coins
                     </button>
 
                     <div class="-mt-3 pl-3">
