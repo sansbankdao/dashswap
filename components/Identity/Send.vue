@@ -1,3 +1,176 @@
+<template>
+    <main class="grid grid-cols-1 lg:grid-cols-7 gap-8 lg:divide-x-2 divide-solid divide-sky-200">
+
+        <div class="col-span-4">
+            <section class="mt-5 flex flex-row gap-1">
+                <input
+                    class="w-full px-3 py-1 text-xl sm:text-2xl bg-yellow-200 border-2 border-yellow-400 rounded-md shadow"
+                    type="text"
+                    v-model="receiver"
+                    v-on:keyup="updateAddressDetails"
+                    placeholder="Enter a Crypto address"
+                />
+
+                <div @click="openScanner">
+                    <svg class="cursor-pointer w-12 h-12 hover:text-red-500 hover:cursor-pointer" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z"></path>
+                    </svg>
+                </div>
+            </section>
+
+            <div class="px-3">
+                <span class="sm:hidden text-xs italic">
+                    Send to: BTC, ETH, BSC, TRX, MATIC and more..
+                </span>
+                <span class="hidden text-xs italic">
+                    Send to: Bitcoin, Ethereum, Binance, Tron, Polygon and more..
+                </span>
+            </div>
+
+            <video
+                class="my-5"
+                :class="isShowingVideoPreview"
+                id="video-display"
+                autoplay
+                playsinline
+            />
+
+            <section class="my-5 flex flex-col">
+                <input
+                    class="w-full px-3 py-1 text-xl sm:text-2xl bg-yellow-200 border-2 border-yellow-400 rounded-md shadow"
+                    type="number"
+                    v-model="amount"
+                    :placeholder="`Enter a (${Identity.asset?.ticker}) amount`"
+                />
+
+                <!-- <h4 v-if="satoshis > 0" class="mt-1 ml-3 text-sm text-gray-500 font-medium">
+                    = {{numeral(satoshis / 100).format('0,0')}} {{Identity.asset?.ticker}}
+                </h4> -->
+            </section>
+
+            <button
+                @click="send"
+                class="w-fit cursor-pointer my-5 block px-5 py-2 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
+            >
+                Send {{Identity.asset?.ticker}}
+            </button>
+
+            <section v-if="txidem" class="my-10">
+                <div>
+                    <h3 class="text-sm text-gray-500 font-medium">Transaction sent successfully!</h3>
+
+                    <NuxtLink :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" class="text-blue-500 font-medium hover:underline">
+                        Click here to OPEN transaction details
+                    </NuxtLink>
+                </div>
+            </section>
+
+            <section v-if="errorMsgs" class="my-10">
+                <div class="rounded-md bg-red-50 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">
+                                Transaction FAILED!
+                            </h3>
+
+                            <div class="mt-2 text-sm text-red-700">
+                                <!-- <ul role="list" class="list-disc space-y-1 pl-5">
+                                    <li>Your password must be at least 8 characters</li>
+                                    <li>Your password must include at least one pro wrestling finishing move</li>
+                                </ul> -->
+                                <pre>{{JSON.stringify(errorMsgs, null, 2)}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="flex flex-col gap-6 text-slate-200">
+                <section v-if="addressBalance">
+                    <h2 class="text-xl font-medium tracking-widest">
+                        Address Balance
+                    </h2>
+
+                    <h3>
+                        Confirmed: {{addressBalance?.confirmed}}
+                    </h3>
+
+                    <h3>
+                        Unconfirmed: {{addressBalance?.unconfirmed}}
+                    </h3>
+                </section>
+
+                <!-- <section v-if="addressFirstUse">
+                    <h2 class="text-xl font-medium tracking-widest">
+                        Address First Use
+                    </h2>
+
+                    <pre>{{addressFirstUse}}</pre>
+                </section> -->
+
+                <section v-if="firstTx?.blocktime">
+                    <h2 class="text-xl font-medium tracking-widest">
+                        First Transaction
+                    </h2>
+
+                    <h3>
+                        Block Time: {{firstTx.blocktime}}
+                        <span class="block text-rose-500 font-bold">
+                            {{moment.unix(firstTx.blocktime).format('llll')}}
+                            <span class="italic text-rose-400">{{moment.unix(firstTx.blocktime).fromNow()}}</span>
+                        </span>
+                    </h3>
+
+                    <!-- <pre>{{firstTx}}</pre> -->
+                </section>
+            </div>
+        </div>
+
+        <section class="pl-0 lg:pl-5 col-span-3 flex flex-col gap-6">
+            <div>
+                <h1 class="text-2xl font-medium">
+                    Manage Assets
+                </h1>
+
+                <section>
+                    <button
+                        @click="consolidate"
+                        class="w-fit cursor-pointer my-5 block px-5 py-2 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
+                    >
+                        Consolidate Coins
+                    </button>
+
+                    <div class="-mt-3 pl-3">
+                        <span class="block text-sm"># of coin inputs: {{consolidation ? consolidation.coins : 'n/a'}}</span>
+                        <span class="block text-sm"># of token inputs: {{consolidation ? consolidation.tokens : 'n/a'}}</span>
+                    </div>
+                </section>
+
+            </div>
+
+            <div>
+                <h1 class="text-2xl font-medium">
+                    Advanced Options
+                </h1>
+
+                TBD...
+            </div>
+        </section>
+    </main>
+</template>
+
 <script setup>
 import numeral from 'numeral'
 import moment from 'moment'
@@ -229,11 +402,11 @@ const clearErrors = () => {
 }
 
 const init = async () => {
-    const coins = Identity.wallet?.coins
-    // console.log('COINS', coins)
+    const coins = Identity.coins
+console.log('IDENTITY COINS', coins)
 
-    const tokens = Identity.wallet?.tokens
-    // console.log('TOKENS', tokens)
+    const tokens = Identity.tokens
+console.log('IDENTITY TOKENS', tokens)
 
     if (typeof coins !== 'undefined' && typeof tokens !== 'undefined') {
         consolidation.value = {
@@ -253,176 +426,3 @@ onMounted(() => {
 // })
 
 </script>
-
-<template>
-    <main class="grid grid-cols-1 lg:grid-cols-7 gap-8 lg:divide-x-2 divide-solid divide-sky-200">
-
-        <div class="col-span-4">
-            <section class="mt-5 flex flex-row gap-1">
-                <input
-                    class="w-full px-3 py-1 text-xl sm:text-2xl bg-yellow-200 border-2 border-yellow-400 rounded-md shadow"
-                    type="text"
-                    v-model="receiver"
-                    v-on:keyup="updateAddressDetails"
-                    placeholder="Enter a Crypto address"
-                />
-
-                <div @click="openScanner">
-                    <svg class="cursor-pointer w-12 h-12 hover:text-red-500 hover:cursor-pointer" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z"></path>
-                    </svg>
-                </div>
-            </section>
-
-            <div class="px-3">
-                <span class="sm:hidden text-xs italic">
-                    Send to: BTC, ETH, BSC, TRX, MATIC and more..
-                </span>
-                <span class="hidden text-xs italic">
-                    Send to: Bitcoin, Ethereum, Binance, Tron, Polygon and more..
-                </span>
-            </div>
-
-            <video
-                class="my-5"
-                :class="isShowingVideoPreview"
-                id="video-display"
-                autoplay
-                playsinline
-            />
-
-            <section class="my-5 flex flex-col">
-                <input
-                    class="w-full px-3 py-1 text-xl sm:text-2xl bg-yellow-200 border-2 border-yellow-400 rounded-md shadow"
-                    type="number"
-                    v-model="amount"
-                    :placeholder="`Enter a (${Identity.asset?.ticker}) amount`"
-                />
-
-                <!-- <h4 v-if="satoshis > 0" class="mt-1 ml-3 text-sm text-gray-500 font-medium">
-                    = {{numeral(satoshis / 100).format('0,0')}} {{Identity.asset?.ticker}}
-                </h4> -->
-            </section>
-
-            <button
-                @click="send"
-                class="w-fit cursor-pointer my-5 block px-5 py-2 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
-            >
-                Send {{Identity.asset?.ticker}}
-            </button>
-
-            <section v-if="txidem" class="my-10">
-                <div>
-                    <h3 class="text-sm text-gray-500 font-medium">Transaction sent successfully!</h3>
-
-                    <NuxtLink :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" class="text-blue-500 font-medium hover:underline">
-                        Click here to OPEN transaction details
-                    </NuxtLink>
-                </div>
-            </section>
-
-            <section v-if="errorMsgs" class="my-10">
-                <div class="rounded-md bg-red-50 p-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                        </div>
-
-                        <div class="ml-3">
-                            <h3 class="text-sm font-medium text-red-800">
-                                Transaction FAILED!
-                            </h3>
-
-                            <div class="mt-2 text-sm text-red-700">
-                                <!-- <ul role="list" class="list-disc space-y-1 pl-5">
-                                    <li>Your password must be at least 8 characters</li>
-                                    <li>Your password must include at least one pro wrestling finishing move</li>
-                                </ul> -->
-                                <pre>{{JSON.stringify(errorMsgs, null, 2)}}</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-
-            <div class="flex flex-col gap-6 text-slate-200">
-                <section v-if="addressBalance">
-                    <h2 class="text-xl font-medium tracking-widest">
-                        Address Balance
-                    </h2>
-
-                    <h3>
-                        Confirmed: {{addressBalance?.confirmed}}
-                    </h3>
-
-                    <h3>
-                        Unconfirmed: {{addressBalance?.unconfirmed}}
-                    </h3>
-                </section>
-
-                <!-- <section v-if="addressFirstUse">
-                    <h2 class="text-xl font-medium tracking-widest">
-                        Address First Use
-                    </h2>
-
-                    <pre>{{addressFirstUse}}</pre>
-                </section> -->
-
-                <section v-if="firstTx?.blocktime">
-                    <h2 class="text-xl font-medium tracking-widest">
-                        First Transaction
-                    </h2>
-
-                    <h3>
-                        Block Time: {{firstTx.blocktime}}
-                        <span class="block text-rose-500 font-bold">
-                            {{moment.unix(firstTx.blocktime).format('llll')}}
-                            <span class="italic text-rose-400">{{moment.unix(firstTx.blocktime).fromNow()}}</span>
-                        </span>
-                    </h3>
-
-                    <!-- <pre>{{firstTx}}</pre> -->
-                </section>
-            </div>
-        </div>
-
-        <section class="pl-0 lg:pl-5 col-span-3 flex flex-col gap-6">
-            <div>
-                <h1 class="text-2xl font-medium">
-                    Manage Assets
-                </h1>
-
-                <section>
-                    <button
-                        @click="consolidate"
-                        class="w-fit cursor-pointer my-5 block px-5 py-2 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
-                    >
-                        Consolidate Coins
-                    </button>
-
-                    <div class="-mt-3 pl-3">
-                        <span class="block text-sm"># of coin inputs: {{consolidation ? consolidation.coins : 'n/a'}}</span>
-                        <span class="block text-sm"># of token inputs: {{consolidation ? consolidation.tokens : 'n/a'}}</span>
-                    </div>
-                </section>
-
-            </div>
-
-            <div>
-                <h1 class="text-2xl font-medium">
-                    Advanced Options
-                </h1>
-
-                TBD...
-            </div>
-        </section>
-    </main>
-</template>

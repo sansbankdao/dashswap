@@ -283,12 +283,13 @@ export const useIdentityStore = defineStore('identity', {
 
 // FIXME FOR DEV PURPOSES ONLY
 const DASH_PRICE = 21.64
+const DUSD_PRICE = 1.00
 const SANS_PRICE = 0.01
 
             this.setAssets({
                 '0': {
-                    name: 'Dash Credit',
-                    ticker: 'DASH',
+                    name: '[TEST] Dash Credit',
+                    ticker: 'tDASH',
                     iconUrl: '/icons/dash.svg',
                     decimal_places: 11,
                     amount: BigInt(balanceCredit.balance),
@@ -297,9 +298,20 @@ const SANS_PRICE = 0.01
                         USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
                     },
                 },
-                'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
-                    name: 'Sansnote',
-                    ticker: 'SANS',
+                // '0': {
+                //     name: 'Dash Credit',
+                //     ticker: 'DASH',
+                //     iconUrl: '/icons/dash.svg',
+                //     decimal_places: 11,
+                //     amount: BigInt(balanceCredit.balance),
+                //     satoshis: BigInt(111), // IS THIS DEPRECATED??
+                //     fiat: {
+                //         USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
+                //     },
+                // },
+                'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
+                    name: '[TEST] Sansnote',
+                    ticker: 'tSANS',
                     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
                     decimal_places: 8,
                     amount: BigInt(balancesSans[0].balance),
@@ -308,19 +320,41 @@ const SANS_PRICE = 0.01
                         USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
                     },
                 },
-                'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
-                    name: 'Dash USD',
-                    ticker: 'DUSD',
+                // 'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
+                //     name: 'Sansnote',
+                //     ticker: 'SANS',
+                //     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
+                //     decimal_places: 8,
+                //     amount: BigInt(balancesSans[0].balance),
+                //     // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                //     fiat: {
+                //         USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
+                //     },
+                // },
+                '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
+                    name: '[TEST] Dash USD',
+                    ticker: 'tDUSD',
                     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
                     decimal_places: 6,
                     amount: BigInt(balancesDusd[0].balance),
                     // satoshis: BigInt(333), // IS THIS DEPRECATED??
                     fiat: {
-                        USD: (balancesDusd[0].balance/10**6).toFixed(4),
+                        USD: ((balancesDusd[0].balance/10**6) * DUSD_PRICE).toFixed(4),
                     },
                 },
+                // 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
+                //     name: 'Dash USD',
+                //     ticker: 'DUSD',
+                //     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
+                //     decimal_places: 6,
+                //     amount: BigInt(balancesDusd[0].balance),
+                //     // satoshis: BigInt(333), // IS THIS DEPRECATED??
+                //     fiat: {
+                //         USD: ((balancesDusd[0].balance/10**6) * DUSD_PRICE).toFixed(4),
+                //     },
+                // },
             })
-            this.setAssetId('0')
+            this.setAsset('0')
             // this._assets = {
 
             // }
@@ -370,14 +404,34 @@ const SANS_PRICE = 0.01
             //     return await this.wallet.send(this.asset.token_id_hex, _receiver, _satoshis)
             // }
 
+            if (this.assetid === '0') {
+console.log('SENDING DASH CREDITS')
+
+                /* Initialize SDK. */
+                const sdk = await WasmSdkBuilder
+                    .new_testnet_trusted()
+                    .build()
+                console.log('SDK', sdk)
+
+                const resultMe = await sdk.identityCreditTransfer(
+                    this.id, // sender is the authenticated identity
+                    _receiver,
+                    BigInt(_satoshis),
+                    this.wif.transfer,
+                    null // key_id - will auto-select
+                )
+return
+            }
+
+console.log('SENDING TOKENS...')
             const sdk = new DashPlatformSDK({ network: 'testnet' })
 
             const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
 
             const publicKeyId = 3 // 03 => Transfer (Critical)
 
-            const owner = '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf'
-            const recipient = _receiver//'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'
+            // const owner = '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf'
+            // const recipient = _receiver//'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'
 // 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm' // atlanta-degen-for-life
 // '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf' // NewMoneyHoney69
 // HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR // Test-1
@@ -385,10 +439,12 @@ const SANS_PRICE = 0.01
             const amount = BigInt(_satoshis)
 
             /* Initialize stores. */
-const Identity = useIdentityStore()
+// const Identity = useIdentityStore()
 
-const tokenBaseTransition = await sdk.tokens.createBaseTransition(tokenid, this.id)
-const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, owner, 'transfer', { identityId: recipient, amount })
+// FIXME Validate asset ID and identity ID
+console.log('WHAT IS ASSET ID ', this.assetid)
+const tokenBaseTransition = await sdk.tokens.createBaseTransition(this.assetid, this.id)
+const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, this.id, 'transfer', { identityId: _receiver, amount })
 
 stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(this.wif.transfer), 'ECDSA_SECP256K1')
 stateTransition.signaturePublicKeyId = publicKeyId
@@ -405,7 +461,7 @@ const response = await sdk.stateTransitions.broadcast(stateTransition)
             return _broadcast.bind(this)(_receivers)
         },
 
-        setAssetId(_assetid) {
+        setAsset(_assetid) {
             this._assetid = _assetid
         },
 

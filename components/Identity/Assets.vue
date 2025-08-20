@@ -29,7 +29,7 @@
         <div v-if="activeTab === 'assets'" class="px-1.5 flex flex-col gap-5">
             <div
                 v-for="token in assets" :key="token.id"
-                @click="Identity.wallet.setAsset(token.id)"
+                @click="Identity.setAsset(token.id)"
                 class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
             >
                 <div class="w-1/2 flex flex-row items-start">
@@ -67,7 +67,7 @@
         <div v-else class="flex flex-col gap-5">
             <div
                 v-for="token in collections" :key="token.id"
-                @click="Identity.wallet.setAsset(token.id)"
+                @click="Identity.setAsset(token.id)"
                 class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
             >
                 <div class="w-1/2 flex flex-row items-start">
