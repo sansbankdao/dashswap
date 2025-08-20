@@ -15,6 +15,28 @@ export default defineNuxtConfig({
         },
     },
 
+    /* Progressive Web Application Settings */
+    pwa: {
+        manifest: {
+            name: 'DashSwap Buy. Sell. Collect by Sansbank',
+            short_name: 'DashSwap',
+            description: `Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.`,
+            // lang: 'en',
+            // useWebmanifestExtension: false,
+        },
+        meta: {
+            name: 'DashSwap Buy. Sell. Collect by Sansbank',
+            description: `Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.`,
+            author: `Sansbank DAO`,
+            // nativeUI: true,
+        },
+        // icon: false, // disables the icon module
+        workbox: {
+            // workboxURL: 'TBD',
+            // enabled: true, // FOR DEV PURPOSES ONLY
+        },
+    },
+
     /* Modules */
     modules: [
         /* Tailwind CSS */

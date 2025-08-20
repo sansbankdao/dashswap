@@ -1,6 +1,6 @@
 {
   "name": "dashswap.xyz",
-  "version": "25.8.19",
+  "version": "25.8.20",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -14,6 +14,7 @@
     "@ethersproject/hdnode": "5.8.0",
     "@headlessui/vue": "1.7.23",
     "@heroicons/vue": "2.2.0",
+    "@kevinmarrec/nuxt-pwa": "0.17.0",
     "@nexajs/crypto": "24.9.5",
     "@nexajs/utils": "24.7.15",
     "@nuxtjs/tailwindcss": "6.14.0",
