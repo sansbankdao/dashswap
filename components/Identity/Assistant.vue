@@ -19,12 +19,19 @@
         <button @click="search" id="btn-find-id" class="w-full sm:w-fit flex text-2xl font-bold tracking-wider bg-amber-200">
             Find
         </button>
+
+        <button @click="Identity.destroy" id="btn-find-id" class="w-full sm:w-fit flex text-2xl font-bold tracking-wider bg-amber-200">
+            LOGOUT
+        </button>
     </main>
 </template>
 
 <script setup lang="ts">
 /* Import modules. */
 import moment from 'moment'
+
+import { useIdentityStore } from '@/stores/identity'
+const Identity = useIdentityStore()
 
 const query = ref()
 
