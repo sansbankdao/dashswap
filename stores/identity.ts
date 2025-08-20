@@ -245,32 +245,13 @@ export const useIdentityStore = defineStore('identity', {
             console.log('SDK', sdk)
 
     // FIXME FOR DEV PURPOSES ONLY
-    const identityid = '35SD29sWhmKEeQt1h87B2yXQVvBPDhevUYeubpAwGEow'
-
-    // FIXME FOR DEV PURPOSES ONLY
-    const identity = await identity_fetch(sdk, identityid)
+    const identity = await identity_fetch(sdk, this.id)
         .catch(err => {
             console.error(err)
             console.error('HANDLE NOT FOUND!!')
         })
     console.log('IDENTITY', identity.toJSON())
     console.log('IDENTITY (token balance)', identity.balance)
-
-    // FIXME FOR DEV PURPOSES ONLY
-    const nonce = await get_identity_nonce(sdk, identityid)
-        .catch(err => {
-            console.error(err)
-            console.error('NONCE NOT FOUND!!')
-        })
-    console.log('NONCE', nonce)
-
-    // // FIXME FOR DEV PURPOSES ONLY
-    // const test1 = await data_contract_fetch(sdk, 'GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23')
-    //     .catch(err => {
-    //         console.error(err)
-    //         console.error('TEST1 NOT FOUND!!')
-    //     })
-    // console.log('TEST-1', test1.toJSON())
 
     // FIXME FOR DEV PURPOSES ONLY
     const test2 = await get_data_contracts(sdk, ['GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23'])
@@ -281,23 +262,26 @@ export const useIdentityStore = defineStore('identity', {
     console.log('TEST-2', test2)
 
     // FIXME FOR DEV PURPOSES ONLY
-    const balances = await get_identity_token_balances(sdk, identityid, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
+    const balances = await get_identity_token_balances(sdk, this.id, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
         .catch(err => {
             console.error(err)
             console.error('TOKEN NOT FOUND!!')
         })
     console.log('BALANCES', balances)
 
+// FIXME FOR DEV PURPOSES ONLY
+const PRICE = 21.64
+
             this.setAssets({
                 '0': {
                     name: 'Dash Credit',
                     ticker: 'DASH',
                     iconUrl: '/icons/dash.svg',
-                    decimal_places: 8,
-                    amount: BigInt(1337000000),
+                    decimal_places: 11,
+                    amount: BigInt(balances[0].balance),
                     satoshis: BigInt(111),
                     fiat: {
-                        USD: 286.3854,
+                        USD: ((balances[0].balance/10**11) * PRICE).toFixed(4),
                     },
                 },
                 'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
@@ -305,10 +289,10 @@ export const useIdentityStore = defineStore('identity', {
                     ticker: 'SANS',
                     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
                     decimal_places: 8,
-                    amount: BigInt(45600000000),
+                    amount: BigInt(133700000000),
                     // satoshis: BigInt(222),
                     fiat: {
-                        USD: 0.0456,
+                        USD: 13.37,
                     },
                 },
                 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
@@ -316,10 +300,10 @@ export const useIdentityStore = defineStore('identity', {
                     ticker: 'DUSD',
                     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
                     decimal_places: 6,
-                    amount: BigInt(78900000),
+                    amount: BigInt(11200000),
                     // satoshis: BigInt(333),
                     fiat: {
-                        USD: 78.9000,
+                        USD: 11.2000,
                     },
                 },
             })
@@ -380,7 +364,7 @@ export const useIdentityStore = defineStore('identity', {
             const publicKeyId = 3 // 03 => Transfer (Critical)
 
             const owner = '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf'
-            const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'
+            const recipient = _receiver//'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'
 // 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm' // atlanta-degen-for-life
 // '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf' // NewMoneyHoney69
 // HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR // Test-1
