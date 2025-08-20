@@ -26,7 +26,7 @@
             </nav>
         </div>
 
-        <div v-if="activeTab === 'assets'" class="flex flex-col gap-5">
+        <div v-if="activeTab === 'assets'" class="px-1.5 flex flex-col gap-5">
             <div
                 v-for="token in assets" :key="token.id"
                 @click="Identity.wallet.setAsset(token.id)"

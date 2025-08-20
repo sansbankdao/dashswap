@@ -273,8 +273,17 @@ export const useIdentityStore = defineStore('identity', {
         })
     console.log('BALANCES (DUSD)', balancesDusd)
 
+    // FIXME FOR DEV PURPOSES ONLY
+    const balancesSans = await get_identity_token_balances(sdk, this.id, ['A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw'])
+        .catch(err => {
+            console.error(err)
+            console.error('TOKEN NOT FOUND!!')
+        })
+    console.log('BALANCES (SANS)', balancesSans)
+
 // FIXME FOR DEV PURPOSES ONLY
-const PRICE = 21.64
+const DASH_PRICE = 21.64
+const SANS_PRICE = 0.01
 
             this.setAssets({
                 '0': {
@@ -283,9 +292,9 @@ const PRICE = 21.64
                     iconUrl: '/icons/dash.svg',
                     decimal_places: 11,
                     amount: BigInt(balanceCredit.balance),
-                    satoshis: BigInt(111),
+                    satoshis: BigInt(111), // IS THIS DEPRECATED??
                     fiat: {
-                        USD: ((balanceCredit.balance/10**11) * PRICE).toFixed(4),
+                        USD: ((balanceCredit.balance/10**11) * DASH_PRICE).toFixed(4),
                     },
                 },
                 'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
@@ -293,10 +302,10 @@ const PRICE = 21.64
                     ticker: 'SANS',
                     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
                     decimal_places: 8,
-                    amount: BigInt(133700000000),
-                    // satoshis: BigInt(222),
+                    amount: BigInt(balancesSans[0].balance),
+                    // satoshis: BigInt(222), // IS THIS DEPRECATED??
                     fiat: {
-                        USD: 13.37,
+                        USD: ((balancesSans[0].balance/10**8) * SANS_PRICE).toFixed(4),
                     },
                 },
                 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
@@ -305,7 +314,7 @@ const PRICE = 21.64
                     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
                     decimal_places: 6,
                     amount: BigInt(balancesDusd[0].balance),
-                    // satoshis: BigInt(333),
+                    // satoshis: BigInt(333), // IS THIS DEPRECATED??
                     fiat: {
                         USD: (balancesDusd[0].balance/10**6).toFixed(4),
                     },
