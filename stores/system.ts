@@ -143,42 +143,42 @@ export const useSystemStore = defineStore('system', {
             /* Set (library) locale. */
             // locale.value = this.locale
 
-            let currentNetwork = ''
-
+            /* Set host. */
             const host = window.location.host
-console.log('DOMAIN HOST', host)
+// console.log('DOMAIN HOST', host)
 
+            /* Handle host. */
             switch(host) {
             case 'dashswap.xyz':
-                currentNetwork = 'mainnet'
+                this.setNetwork('mainnet')
                 break
             case 'testnet.dashswap.xyz':
-                currentNetwork = 'testnet'
+                this.setNetwork('testnet')
                 break
             default:
-                currentNetwork = host
+                this.setNetwork(host)
                 break
             }
-
-            /* Set current network. */
-            this._network = currentNetwork
-
             console.log('YOUR CURRENT NETWORK IS', this.network)
+        },
 
+        setNetwork(_network) {
+            /* Set network. */
+            this._network = _network
         },
 
         async updateTicker () {
-            if (!this._tickers.AVAS) {
-                this._tickers.AVAS = {}
+            if (!this._tickers.DUSD) {
+                this._tickers.DUSD = {}
             }
 
-            if (!this._tickers.NEXA) {
-                this._tickers.NEXA = {}
+            if (!this._tickers.DASH) {
+                this._tickers.DASH = {}
             }
 
-            this._tickers.AVAS = await $fetch('https://nexa.exchange/v1/ticker/quote/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000')
-
-            this._tickers.NEXA = await $fetch('https://nexa.exchange/v1/ticker/quote/NEXA')
+            this._tickers.DASH = await $fetch('https://nexa.exchange/v1/ticker/quote/NEXA')
+            this._tickers.DUSD = {} // FIXME
+            this._tickers.SANS = await $fetch('https://nexa.exchange/v1/ticker/quote/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000')
         },
 
     },

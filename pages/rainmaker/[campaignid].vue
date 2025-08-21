@@ -132,7 +132,7 @@ const txidem = ref(null)
 const isAddingReceiver = ref(false)
 
 /* Initialize constants. */
-const NEXA_PREFIX = 'nexa'
+const DASH_PREFIX = 'dash'
 
 const tokenAmount = computed(() => {
     if (!campaign.value?.tokens || !campaign.value?.decimals) {
@@ -182,7 +182,7 @@ const airdrop = async () => {
 
         /* Encode address to Nexa (core) format. */
         address = encodeAddress(
-            NEXA_PREFIX,
+            DASH_PREFIX,
             decoded.type,
             decoded.hash
         )

@@ -37,7 +37,7 @@
                         </h2>
 
                         <h3 class="text-xs sm:text-sm text-yellow-600 font-medium">
-                            NEXA
+                            DASH
                         </h3>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
         <section v-if="isShowingAvas || isShowingDash" class="grid grid-cols-2 gap-y-2">
             <div class="col-span-2 pb-3 flex justify-center">
                 <span class="text-sm text-sky-700 font-medium tracking-widest">
-                    1.00 $AVAS = 1,337.88 $NEXA
+                    1.00 SANS = 1,337.88 DASH
                 </span>
             </div>
 
@@ -188,7 +188,7 @@ const makeSwap = async () => {
     const msg = `Are you sure you want to continue with this Swap:
 
         ↪ You are sending ( 1.00 ) $AVAS
-        ↪ You are receiving ( ~1,337.88 ) $NEXA
+        ↪ You are receiving ( ~1,337.88 ) DASH
     `
     if (confirm(msg)) {
         alert('done!')
