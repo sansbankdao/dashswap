@@ -1,28 +1,24 @@
 <template>
     <main class="min-h-[100vh] flex items-center justify-center p-2 bg-violet-950">
-
         <section class="relative bg-gradient-to-b from-slate-950 to-stone-800 mb-12 md:mb-4 lg:mb-20 xl:mb-4 flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl">
             <div class="px-3 sm:px-5 pt-6 pb-6 lg:pb-16 xl:pb-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
-                <div>
+                <div class="">
                     <ProfileGuest />
                 </div>
 
-                <div>
+                <div class="flex flex-col">
                     <NetworkManager />
+                    <QuickNav />
                 </div>
-
             </div>
 
             <div class="w-full md:w-4/5 p-0">
                 <div class="min-h-full lg:h-[90vh] flex flex-col lg:overflow-y-scroll">
-
 <!-- Dynamic Content SLOT Begins Here-->
                     <slot />
 <!-- Dynamic Content SLOT Ends Here-->
-
                 </div>
             </div>
-
         </section>
 
         <footer class="fixed md:absolute bottom-0 left-0 right-0 w-full flex justify-center bg-stone-950 pt-2 pb-2 lg:pb-5 xl:pb-2 rounded-t-2xl lg:rounded-t-3xl border-t border-stone-700">

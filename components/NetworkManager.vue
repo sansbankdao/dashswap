@@ -1,7 +1,6 @@
 <template>
     <main class="mt-6 bg-black rounded-lg p-4 border border-gray-600 text-xs">
         <div class="flex items-center">
-            <!-- <span class="text-slate-200 mr-2">↳</span> -->
             <span class="flex items-center text-sky-300">
                 Dash Platform v2.0
                 <svg class="mx-1 inline size-3" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -39,8 +38,6 @@
         </div>
 
     </main>
-
-    <QuickNav />
 </template>
 
 <script setup lang="ts">
@@ -49,20 +46,10 @@ import numeral from 'numeral'
 import { DashPlatformSDK } from 'dash-platform-sdk'
 
 /* Initialize stores. */
-// import { useIdentityStore } from '@/stores/identity'
 import { useSystemStore } from '@/stores/system'
-// const Identity = useIdentityStore()
 const System = useSystemStore()
 
-const sdk = new DashPlatformSDK({ network: 'testnet' })
-
-const status = await sdk.node.status()
-
 const epoch = ref(0)
-
-const network = computed(() => {
-    return System.network
-})
 
 const networkDisplay = computed(() => {
     /* Validate network. */
@@ -86,17 +73,17 @@ const networkDisplay = computed(() => {
     }
 })
 
-// console.log('STATUS CHAIN', status.chain)
-// console.log('LAST BLOCK HASH', status.chain.latestBlockHash)
-// console.log('EPOCH', status.time.epoch)
-
-
-
-
 const init = async () => {
-    epoch.value = numeral(status.time?.epoch).format('0,0')
+    /* Initialize SDK. */
+    const sdk = new DashPlatformSDK({
+        network: System.network === 'mainnet' ? 'mainnet' : 'testnet',
+    })
 
-    // network.value = System.network
+    /* Request node status. */
+    const status = await sdk.node.status()
+
+    /* Set (formatted) epoch. */
+    epoch.value = numeral(status.time?.epoch).format('0,0')
 }
 
 onMounted(() => {
