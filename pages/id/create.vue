@@ -21,10 +21,22 @@
 /* Import modules. */
 import moment from 'moment'
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+/* Initialize stores. */
+import { useIdentityStore } from '@/stores/identity'
+const Identity = useIdentityStore()
+
+const init = async () => {
+    console.log('TEST ID CREATOR')
+
+    // const response = await Identity.createIdentity('entropy')
+    const response = await Identity.pshenmic()
+        .catch(err => console.error(err))
+console.log('ID CREATE TEST', response)
+}
+
+onMounted(() => {
+    init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')

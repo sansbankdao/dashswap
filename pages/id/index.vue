@@ -143,7 +143,6 @@
 import numeral from 'numeral'
 
 import { DashPlatformSDK } from 'dash-platform-sdk'
-import { PrivateKeyWASM } from 'pshenmic-dpp'
 
 // FOR DEV PURPOSES ONLY
 const isFullScreen = true

@@ -3,6 +3,8 @@ import { defineStore } from 'pinia'
 // import { mnemonicToEntropy } from '@nexajs/hdnode'
 // import { sendCoins } from '@nexajs/purse'
 
+import { useSystemStore } from '@/stores/system'
+
 import init, {
     WasmSdkBuilder,
     identity_fetch,
@@ -17,7 +19,12 @@ import init, {
 } from '../libs/dash/wasm_sdk.js'
 
 import { DashPlatformSDK } from 'dash-platform-sdk'
-import { PrivateKeyWASM } from 'pshenmic-dpp'
+import {
+    AssetLockProofWASM,
+    OutPointWASM,
+    PrivateKeyWASM,
+} from 'pshenmic-dpp'
+
 
 import _setEntropy from './identity/setEntropy.ts'
 
@@ -25,13 +32,6 @@ import _setEntropy from './identity/setEntropy.ts'
 // FIXME Move these constants to System.
 const FEE_AMOUNT = 1000
 const MAX_INPUTS_ALLOWED = 250
-
-/* Initialize WASM module. */
-await init()
-
-/* Pre-fretch trusted (TESTNET) quorums. */
-await prefetch_trusted_quorums_mainnet()
-// await prefetch_trusted_quorums_testnet()
 
 /**
  * Identity Store
@@ -234,6 +234,21 @@ export const useIdentityStore = defineStore('identity', {
         async init() {
             console.info('Initializing identity...')
 
+            /* Initialize WASM module. */
+            await init()
+
+            /* Initialize SYSTEM store. */
+            const System = useSystemStore()
+
+            /* Validate network. */
+            if (System.network === 'mainnet') {
+                /* Pre-fretch trusted (MAINNET) quorums. */
+                await prefetch_trusted_quorums_mainnet()
+            } else {
+                /* Pre-fretch trusted (TESTNET) quorums. */
+                await prefetch_trusted_quorums_testnet()
+            }
+
             if (typeof this.id === 'undefined' || this.id === null) {
                 this._identityid = 'NEW' // FIXME TEMP NEW WALLET FLAG
                 // throw new Error('Missing wallet entropy.')
@@ -291,74 +306,80 @@ const DASH_PRICE = 21.64
 const DUSD_PRICE = 1.00
 const SANS_PRICE = 0.01
 
-            this.setAssets({
-                // '0': {
-                //     name: '[TEST] Dash Credit',
-                //     ticker: 'tDASH',
-                //     iconUrl: '/icons/dash.svg',
-                //     decimal_places: 11,
-                //     amount: BigInt(balanceCredit?.balance || 0),
-                //     satoshis: BigInt(111), // IS THIS DEPRECATED??
-                //     fiat: {
-                //         USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
-                //     },
-                // },
-                '0': {
-                    name: 'Dash Credit',
-                    ticker: 'DASH',
-                    iconUrl: '/icons/dash.svg',
-                    decimal_places: 11,
-                    amount: BigInt(balanceCredit?.balance || 0),
-                    satoshis: BigInt(111), // IS THIS DEPRECATED??
-                    fiat: {
-                        USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
-                    },
+    // FOR DEVELOPMENT PURPOSES ONLY
+    if (System.network === 'mainnet') {
+        this.setAssets({
+            '0': {
+                name: 'Dash Credit',
+                ticker: 'DASH',
+                iconUrl: '/icons/dash.svg',
+                decimal_places: 11,
+                amount: BigInt(balanceCredit?.balance || 0),
+                satoshis: BigInt(111), // IS THIS DEPRECATED??
+                fiat: {
+                    USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
                 },
-                // 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
-                //     name: '[TEST] Sansnote',
-                //     ticker: 'tSANS',
-                //     iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
-                //     decimal_places: 8,
-                //     amount: BigInt(balancesSans[0]?.balance || 0),
-                //     // satoshis: BigInt(222), // IS THIS DEPRECATED??
-                //     fiat: {
-                //         USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
-                //     },
-                // },
-                'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
-                    name: 'Sansnote',
-                    ticker: 'SANS',
-                    iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
-                    decimal_places: 8,
-                    amount: BigInt(balancesSans[0]?.balance || 0),
-                    // satoshis: BigInt(222), // IS THIS DEPRECATED??
-                    fiat: {
-                        USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
-                    },
+            },
+            'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
+                name: 'Sansnote',
+                ticker: 'SANS',
+                iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
+                decimal_places: 8,
+                amount: BigInt(balancesSans[0]?.balance || 0),
+                // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                fiat: {
+                    USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
                 },
-                // '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
-                //     name: '[TEST] Dash USD',
-                //     ticker: 'tDUSD',
-                //     iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
-                //     decimal_places: 6,
-                //     amount: BigInt(balancesDusd[0]?.balance || 0),
-                //     // satoshis: BigInt(333), // IS THIS DEPRECATED??
-                //     fiat: {
-                //         USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
-                //     },
-                // },
-                'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
-                    name: 'Dash USD',
-                    ticker: 'DUSD',
-                    iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
-                    decimal_places: 6,
-                    amount: BigInt(balancesDusd[0]?.balance || 0),
-                    // satoshis: BigInt(333), // IS THIS DEPRECATED??
-                    fiat: {
-                        USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
-                    },
+            },
+            'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
+                name: 'Dash USD',
+                ticker: 'DUSD',
+                iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
+                decimal_places: 6,
+                amount: BigInt(balancesDusd[0]?.balance || 0),
+                // satoshis: BigInt(333), // IS THIS DEPRECATED??
+                fiat: {
+                    USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
                 },
-            })
+            },
+        })
+    } else {
+        this.setAssets({
+            '0': {
+                name: '[TEST] Dash Credit',
+                ticker: 'tDASH',
+                iconUrl: '/icons/dash.svg',
+                decimal_places: 11,
+                amount: BigInt(balanceCredit?.balance || 0),
+                satoshis: BigInt(111), // IS THIS DEPRECATED??
+                fiat: {
+                    USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
+                },
+            },
+            'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
+                name: '[TEST] Sansnote',
+                ticker: 'tSANS',
+                iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
+                decimal_places: 8,
+                amount: BigInt(balancesSans[0]?.balance || 0),
+                // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                fiat: {
+                    USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
+                },
+            },
+            '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
+                name: '[TEST] Dash USD',
+                ticker: 'tDUSD',
+                iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
+                decimal_places: 6,
+                amount: BigInt(balancesDusd[0]?.balance || 0),
+                // satoshis: BigInt(333), // IS THIS DEPRECATED??
+                fiat: {
+                    USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
+                },
+            },
+        })
+    }
 
 // FIXME FOR DEV PURPOSES ONLY
             this.setAsset('0')
@@ -382,20 +403,92 @@ const SANS_PRICE = 0.01
 //             })
         },
 
-        createIdentity(_entropy) {
+        async createIdentity(_entropy) {
             /* Validate entropy. */
             // NOTE: Expect HEX value to be 32 or 64 characters.
-            if (_entropy.length !== 32 && _entropy.length !== 64) {
-                console.error(_entropy, 'is NOT valid entropy.')
+            // if (_entropy.length !== 32 && _entropy.length !== 64) {
+            //     console.error(_entropy, 'is NOT valid entropy.')
 
-                _entropy = null
-            }
+            //     _entropy = null
+            // }
 
             /* Set entropy. */
-            _setEntropy.bind(this)(_entropy)
+            // _setEntropy.bind(this)(_entropy)
 
             /* Initialize wallet. */
-            this.init()
+            // this.init()
+
+
+
+
+
+// With ChainLocks
+const chain_locked_height = 2325021
+const tx_id = '00000000000000135ce508cd5783daa69566c24a1112d0bee7aa1872ec155c51'
+const outputIndex = 1
+
+const outpoint = new OutPointWASM(tx_id, outputIndex)
+
+const assetLockProof = AssetLockProofWASM.createChainAssetLockProof(chain_locked_height, outpoint)
+console.log('ASSET LOCK PROOF', assetLockProof)
+console.log('ASSET LOCK PROOF (object)', assetLockProof.toObject())
+console.log('ASSET LOCK PROOF (string)', assetLockProof.toString())
+console.log('ASSET LOCK PROOF (lock type)', assetLockProof.getLockType())
+// console.log('ASSET LOCK PROOF (instant)', assetLockProof.getInstantLockProof())
+console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
+
+            const publicKeys = [
+              {
+                id: 0,
+                keyType: 'ECDSA_HASH160',
+                purpose: 'AUTHENTICATION',
+                securityLevel: 'MASTER',
+                privateKeyHex: masterKey.private_key_hex,
+                readOnly: false
+              },
+              {
+                id: 1,
+                keyType: 'ECDSA_HASH160',
+                purpose: 'AUTHENTICATION',
+                securityLevel: 'HIGH',
+                privateKeyHex: authKey.private_key_hex,
+                readOnly: false
+              },
+              {
+                id: 2,
+                keyType: 'ECDSA_HASH160',
+                purpose: 'TRANSFER',
+                securityLevel: 'CRITICAL',
+                privateKeyHex: transferKey.private_key_hex,
+                readOnly: false
+              }
+            ]
+
+          // Handle identity create with asset lock proof
+        //   result = await sdk.identityCreate(
+        //     assetLockProof,
+        //     privateKey,
+        //     JSON.stringify(publicKeys)
+        //   )
+
+
+            return null
+        },
+
+        async createWallet(_entropy) {
+            /* Validate entropy. */
+            // NOTE: Expect HEX value to be 32 or 64 characters.
+            // if (_entropy.length !== 32 && _entropy.length !== 64) {
+            //     console.error(_entropy, 'is NOT valid entropy.')
+
+            //     _entropy = null
+            // }
+
+            /* Set entropy. */
+            // _setEntropy.bind(this)(_entropy)
+
+            /* Initialize wallet. */
+            // this.init()
         },
 
         async transfer(_receiver, _satoshis) {
@@ -529,6 +622,21 @@ const response = await sdk.stateTransitions.broadcast(stateTransition)
             this._pkTransfer = null
 
             console.info('Identity destroyed successfully!')
+        },
+
+        pshenmic() {
+const chain_locked_height = 1312876
+const tx_id = 'dcf15ac5ed31b066c2cfd8a921c4fc8b42c46ecc1d152d331856620246f54ad3'
+const outputIndex = 0 // output index from your OP_RETURN
+
+const outpoint = new OutPointWASM(tx_id, outputIndex)
+console.log('OUTPUT', outpoint)
+
+const assetLockProof = AssetLockProofWASM.createChainAssetLockProof(chain_locked_height, outpoint)
+console.log('ASSET LOCK PROOF', assetLockProof)
+const assetLockProofHex = assetLockProof.hex()
+console.log('ASSET LOCK PROOF (hex)', assetLockProofHex)
+
         },
     },
 })
