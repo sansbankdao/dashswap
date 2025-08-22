@@ -489,14 +489,6 @@ console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
               }
             ]
 
-          // Handle identity create with asset lock proof
-        //   result = await sdk.identityCreate(
-        //     assetLockProof,
-        //     privateKey,
-        //     JSON.stringify(publicKeys)
-        //   )
-
-
             return null
         },
 
@@ -529,12 +521,11 @@ console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
             //     return await this.wallet.send(this.asset.token_id_hex, _receiver, _satoshis)
             // }
 
+            /* Initialize SYSTEM store. */
+            const System = useSystemStore()
+
             if (this.assetid === '0') {
 console.log('SENDING DASH CREDITS')
-
-                /* Initialize SYSTEM store. */
-                const System = useSystemStore()
-
                 /* Handle network. */
                 if (System.network === 'mainnet') {
                     /* Initialize SDK. */
@@ -559,7 +550,6 @@ return
             }
 
 console.log('SENDING TOKENS...')
-
             /* Handle network. */
             if (System.network === 'mainnet') {
                 /* Initialize Dash Platform SDK. */
