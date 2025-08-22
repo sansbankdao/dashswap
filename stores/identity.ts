@@ -559,20 +559,9 @@ console.log('SENDING TOKENS...')
                 sdk = new DashPlatformSDK({ network: 'testnet' })
             }
 
-            // const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
-
             const publicKeyId = 3 // 03 => Transfer (Critical)
 
-            // const owner = '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf'
-            // const recipient = _receiver//'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'
-// 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm' // atlanta-degen-for-life
-// '34vkjdeUTP2z798SiXqoB6EAuobh51kXYURqVa9xkujf' // NewMoneyHoney69
-// HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR // Test-1
-// 8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC // Test-2
             const amount = BigInt(_satoshis)
-
-            /* Initialize stores. */
-// const Identity = useIdentityStore()
 
 // FIXME Validate asset ID and identity ID
 console.log('WHAT IS ASSET ID ', this.assetid)
