@@ -62,7 +62,7 @@ const networkDisplay = computed(() => {
         return 'LOCALHOST'
     }
 
-    /* Validate network. */
+    /* Handle network. */
     switch(System.network) {
     case 'mainnet':
         return 'MAINNET'

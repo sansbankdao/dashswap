@@ -29,8 +29,7 @@ const init = async () => {
     console.log('TEST ID CREATOR')
 
     // const response = await Identity.createIdentity('entropy')
-    const response = await Identity.pshenmic()
-        .catch(err => console.error(err))
+    const response = Identity.pshenmic()
 console.log('ID CREATE TEST', response)
 }
 

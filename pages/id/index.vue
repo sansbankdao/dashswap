@@ -275,11 +275,20 @@ const setTab = (_tab) => {
 }
 
 const init = async () => {
+    /* Initialize locals. */
+    let sdk
+
+    /* Handle network. */
+    if (System.network === 'mainnet') {
+        /* Initialize Dash Platform SDK. */
+        sdk = new DashPlatformSDK({ network: 'mainnet' })
+    } else {
+        /* Initialize Dash Platform SDK. */
+        sdk = new DashPlatformSDK({ network: 'testnet' })
+    }
+
     /* Set (default) tab. */
     setTab('assets')
-
-    const sdk = new DashPlatformSDK({ network: 'mainnet' })
-    // const sdk = new DashPlatformSDK({ network: 'testnet' })
 
 //     const tokenContractInfo = await sdk.tokens
 //         .getTokenContractInfo('3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz')

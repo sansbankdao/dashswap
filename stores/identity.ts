@@ -234,20 +234,8 @@ export const useIdentityStore = defineStore('identity', {
         async init() {
             console.info('Initializing identity...')
 
-            /* Initialize WASM module. */
-            await init()
-
-            /* Initialize SYSTEM store. */
-            const System = useSystemStore()
-
-            /* Validate network. */
-            if (System.network === 'mainnet') {
-                /* Pre-fretch trusted (MAINNET) quorums. */
-                await prefetch_trusted_quorums_mainnet()
-            } else {
-                /* Pre-fretch trusted (TESTNET) quorums. */
-                await prefetch_trusted_quorums_testnet()
-            }
+            /* Initialize locals. */
+            let sdk
 
             if (typeof this.id === 'undefined' || this.id === null) {
                 this._identityid = 'NEW' // FIXME TEMP NEW WALLET FLAG
@@ -255,13 +243,30 @@ export const useIdentityStore = defineStore('identity', {
                 return console.error('Missing Identity.')
             }
 
+            /* Initialize WASM module. */
+            await init()
 
-            /* Initialize SDK. */
-            const sdk = await WasmSdkBuilder
-                .new_mainnet_trusted()
-                // .new_testnet_trusted()
-                .build()
-            console.log('SDK', sdk)
+            /* Initialize SYSTEM store. */
+            const System = useSystemStore()
+
+            /* Handle network. */
+            if (System.network === 'mainnet') {
+                /* Pre-fretch trusted (MAINNET) quorums. */
+                await prefetch_trusted_quorums_mainnet()
+
+                /* Initialize SDK. */
+                sdk = await WasmSdkBuilder
+                    .new_mainnet_trusted()
+                    .build()
+            } else {
+                /* Pre-fretch trusted (TESTNET) quorums. */
+                await prefetch_trusted_quorums_testnet()
+
+                /* Initialize SDK. */
+                sdk = await WasmSdkBuilder
+                    .new_testnet_trusted()
+                    .build()
+            }
 
     // FIXME FOR DEV PURPOSES ONLY
     // const identity = await identity_fetch(sdk, this.id)
@@ -492,6 +497,9 @@ console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
         },
 
         async transfer(_receiver, _satoshis) {
+            /* Initialize locals. */
+            let sdk
+
             // /* Validate transaction type. */
             // if (this.asset.group === '0') {
             //     /* Send coins. */
@@ -504,12 +512,21 @@ console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
             if (this.assetid === '0') {
 console.log('SENDING DASH CREDITS')
 
-                /* Initialize SDK. */
-                const sdk = await WasmSdkBuilder
-                    .new_mainnet_trusted()
-                    // .new_testnet_trusted()
-                    .build()
-                console.log('SDK', sdk)
+                /* Initialize SYSTEM store. */
+                const System = useSystemStore()
+
+                /* Handle network. */
+                if (System.network === 'mainnet') {
+                    /* Initialize SDK. */
+                    sdk = await WasmSdkBuilder
+                        .new_mainnet_trusted()
+                        .build()
+                } else {
+                    /* Initialize SDK. */
+                    sdk = await WasmSdkBuilder
+                        .new_testnet_trusted()
+                        .build()
+                }
 
                 const resultMe = await sdk.identityCreditTransfer(
                     this.id, // sender is the authenticated identity
@@ -522,8 +539,15 @@ return
             }
 
 console.log('SENDING TOKENS...')
-            const sdk = new DashPlatformSDK({ network: 'mainnet' })
-            // const sdk = new DashPlatformSDK({ network: 'testnet' })
+
+            /* Handle network. */
+            if (System.network === 'mainnet') {
+                /* Initialize Dash Platform SDK. */
+                sdk = new DashPlatformSDK({ network: 'mainnet' })
+            } else {
+                /* Initialize Dash Platform SDK. */
+                sdk = new DashPlatformSDK({ network: 'testnet' })
+            }
 
             // const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
 
@@ -636,6 +660,8 @@ const assetLockProof = AssetLockProofWASM.createChainAssetLockProof(chain_locked
 console.log('ASSET LOCK PROOF', assetLockProof)
 const assetLockProofHex = assetLockProof.hex()
 console.log('ASSET LOCK PROOF (hex)', assetLockProofHex)
+
+            return null
 
         },
     },
