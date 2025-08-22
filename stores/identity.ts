@@ -33,6 +33,17 @@ import _setEntropy from './identity/setEntropy.ts'
 const FEE_AMOUNT = 1000
 const MAX_INPUTS_ALLOWED = 250
 
+// FIXME FOR DEV PURPOSES ONLY
+const DASH_PRICE = 21.64
+const DUSD_PRICE = 1.00
+const SANS_PRICE = 0.01
+
+const DUSD_CONTRACT_ID = 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd'
+const TDUSD_CONTRACT_ID = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'
+const SANS_CONTRACT_ID = 'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB'
+const TSANS_CONTRACT_ID = 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw'
+
+
 /**
  * Identity Store
  */
@@ -285,31 +296,40 @@ export const useIdentityStore = defineStore('identity', {
     //     })
     // console.log('TEST-2', test2)
 
+    let balancesDusd
+    let balancesSans
+
     const balanceCredit = await get_identity_balance(sdk, this.id)
     console.log('BALANCE (credits)', balanceCredit.balance)
 
-    // FIXME FOR DEV PURPOSES ONLY
-    const balancesDusd = await get_identity_token_balances(sdk, this.id, ['DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd'])
-    // const balancesDusd = await get_identity_token_balances(sdk, this.id, ['3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'])
+// FIXME FOR DEV PURPOSES ONLY
+/* Handle network. */
+if (System.network === 'mainnet') {
+    balancesDusd = await get_identity_token_balances(sdk, this.id, [DUSD_CONTRACT_ID])
         .catch(err => {
             console.error(err)
             console.error('DUSD NOT FOUND!!')
         })
-    console.log('BALANCES (DUSD)', balancesDusd)
 
-    // FIXME FOR DEV PURPOSES ONLY
-    const balancesSans = await get_identity_token_balances(sdk, this.id, ['AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB'])
-    // const balancesSans = await get_identity_token_balances(sdk, this.id, ['A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw'])
+    balancesSans = await get_identity_token_balances(sdk, this.id, [SANS_CONTRACT_ID])
         .catch(err => {
             console.error(err)
             console.error('SANS NOT FOUND!!')
         })
-    console.log('BALANCES (SANS)', balancesSans)
+} else {
+    balancesDusd = await get_identity_token_balances(sdk, this.id, [TDUSD_CONTRACT_ID])
+        .catch(err => {
+            console.error(err)
+            console.error('DUSD NOT FOUND!!')
+        })
 
-// FIXME FOR DEV PURPOSES ONLY
-const DASH_PRICE = 21.64
-const DUSD_PRICE = 1.00
-const SANS_PRICE = 0.01
+    balancesSans = await get_identity_token_balances(sdk, this.id, [TSANS_CONTRACT_ID])
+        .catch(err => {
+            console.error(err)
+            console.error('SANS NOT FOUND!!')
+        })
+}
+
 
     // FOR DEVELOPMENT PURPOSES ONLY
     if (System.network === 'mainnet') {
