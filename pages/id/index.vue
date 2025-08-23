@@ -277,49 +277,25 @@ const setTab = (_tab) => {
 const init = async () => {
     /* Initialize locals. */
     let sdk
+    let tokenid
 
     /* Handle network. */
     if (System.network === 'mainnet') {
         /* Initialize Dash Platform SDK. */
         sdk = new DashPlatformSDK({ network: 'mainnet' })
+
+        /* Set token ID. */
+        tokenid = 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd' // DUSD
     } else {
         /* Initialize Dash Platform SDK. */
         sdk = new DashPlatformSDK({ network: 'testnet' })
+
+        /* Set token ID. */
+        tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
     }
 
     /* Set (default) tab. */
     setTab('assets')
-
-//     const tokenContractInfo = await sdk.tokens
-//         .getTokenContractInfo('3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz')
-//         .catch(err => console.error(err))
-// console.log('TOKEN DATA CONTRACT', tokenContractInfo)
-// console.log('TOKEN DATA CONTRACT (id-base58)', tokenContractInfo.dataContractId.base58())
-// console.log('TOKEN DATA CONTRACT (id-hex)', tokenContractInfo.dataContractId.hex())
-// console.log('TOKEN DATA CONTRACT (tokens)', tokenContractInfo.tokens)
-
-    const dataContractIdentifier = ''
-
-    // const tokenid = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec' // SAMPLE
-    const tokenid = 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd' // DUSD
-    // const tokenid = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz' // tDUSD
-    // const tokenid = 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw' // tSANS
-    // const tokenid = 'Bwr4WHCPz5rFVAD87RqTs3izo4zpzwsEdKPWUT1NS1C7' // DashPay
-    // const tokenid = '8XSvQw14RSGZS2MGXieTmXR4RVEyb5bZh7gYMWd6M6Te'
-    // const tokenid = 'Y189uedQG3CJCuu83P3DqnG7ngQaRKz69x3gY8uDzQe'
-
-
-//     const dataContract = await sdk.dataContracts
-//         .getDataContractByIdentifier(dataContractIdentifier)
-//         .catch(err => console.error(err))
-// console.log('DATA CONTRACT', dataContract)
-// console.log('DATA CONTRACT (id)', dataContract.id.base58())
-// console.log('DATA CONTRACT (tokens)', dataContract.tokens)
-
-
-// const owner = 'AFaVqRJCWXFZRUhuq6ZUUcWXVW8fErCN3wpEtgsBnDZm'
-// const recipient = 'HT3pUBM1Uv2mKgdPEN1gxa7A4PdsvNY89aJbdSKQb5wR'//'8GopLQQCViyroS2gHktesGaCMe2tueXWeQ6Y9vpMFTEC'
-// const amount = BigInt(777)
 
 const publicKeyId = 3 // 03 => Transfer (Critical)
 

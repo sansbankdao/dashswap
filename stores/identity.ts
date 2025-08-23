@@ -34,7 +34,7 @@ const FEE_AMOUNT = 1000
 const MAX_INPUTS_ALLOWED = 250
 
 // FIXME FOR DEV PURPOSES ONLY
-const DASH_PRICE = 21.64
+const DASH_PRICE = 22.89
 const DUSD_PRICE = 1.00
 const SANS_PRICE = 0.01
 
@@ -568,8 +568,12 @@ console.log('WHAT IS ASSET ID ', this.assetid)
 const tokenBaseTransition = await sdk.tokens.createBaseTransition(this.assetid, this.id)
 const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, this.id, 'transfer', { identityId: _receiver, amount })
 
-stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(this.wif.transfer), 'ECDSA_SECP256K1')
+const privKey = PrivateKeyWASM.fromWIF(this.wif.transfer)
+const pubKey = privKey.toPublicKey()
+
+// stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(this.wif.transfer), 'ECDSA_SECP256K1')
 stateTransition.signaturePublicKeyId = publicKeyId
+stateTransition.sign(privKey, pubKey)
 
 console.log('STATE TRANSITION', stateTransition)
 const response = await sdk.stateTransitions.broadcast(stateTransition)
@@ -648,8 +652,8 @@ const response = await sdk.stateTransitions.broadcast(stateTransition)
         },
 
         pshenmic() {
-const chain_locked_height = 1312876
-const tx_id = 'dcf15ac5ed31b066c2cfd8a921c4fc8b42c46ecc1d152d331856620246f54ad3'
+const chain_locked_height = 1313305
+const tx_id = '09ca37cd153d0d145d663ed112d54eca51b16c2f33e95135ecaab34c3b79396c'
 const outputIndex = 0 // output index from your OP_RETURN
 
 const outpoint = new OutPointWASM(tx_id, outputIndex)
