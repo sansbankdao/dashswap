@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 import { useSystemStore } from '@/stores/system'
 
+import { mnemonicToEntropy } from '@ethersproject/hdnode'
 import init, {
     WasmSdkBuilder,
     get_identity_balance,
@@ -17,7 +18,9 @@ import {
     PrivateKeyWASM,
 } from 'pshenmic-dpp'
 
+import _getAssetLockProof from './identity/getAssetLockProof.ts'
 import _setEntropy from './identity/setEntropy.ts'
+import _transfer from './identity/transfer.ts'
 
 /* Set constants. */
 // FIXME Move these constants to System.
@@ -47,6 +50,11 @@ export const useIdentityStore = defineStore('identity', {
          */
         _assetid: null,
 
+        /**
+         * Assets
+         *
+         * Manages all of the client's assets.
+         */
         _assets: null,
 
         // _forceUI: null,
@@ -130,22 +138,22 @@ export const useIdentityStore = defineStore('identity', {
 
     getters: {
         /* Return (abbreviated) wallet status. */
-        abbr(_state) {
-            if (!_state._wallet) {
-                return null
-            }
+        // abbr(_state) {
+        //     if (!_state._wallet) {
+        //         return null
+        //     }
 
-            return _state._wallet.abbr
-        },
+        //     return _state._wallet.abbr
+        // },
 
         /* Return wallet status. */
-        address(_state) {
-            if (!_state._wallet) {
-                return null
-            }
+        // address(_state) {
+        //     if (!_state._wallet) {
+        //         return null
+        //     }
 
-            return _state._wallet.address
-        },
+        //     return _state._wallet.address
+        // },
 
         asset(_state) {
             if (!this.assets) {
@@ -207,9 +215,9 @@ export const useIdentityStore = defineStore('identity', {
         },
 
         /* Return wallet instance. */
-        wallet(_state) {
-            return _state._wallet
-        },
+        // wallet(_state) {
+        //     return _state._wallet
+        // },
 
         /* Return WIF instance. */
         wif(_state) {
@@ -218,10 +226,6 @@ export const useIdentityStore = defineStore('identity', {
                 transfer: _state._pkTransfer,
             }
         },
-
-        // IdentityStatus() {
-        //     return IdentityStatus
-        // },
     },
 
     actions: {
@@ -234,14 +238,18 @@ export const useIdentityStore = defineStore('identity', {
          *   3. Load assets.
          */
         async init() {
-            console.info('Initializing identity...')
+            console.info('Initializing Identity...')
 
             /* Initialize locals. */
+            let balanceCredit
+            let balanceDusd
+            let balanceSans
+            let contractDusd
+            let contractSans
             let sdk
 
             if (typeof this.id === 'undefined' || this.id === null) {
                 this._identityid = 'NEW' // FIXME TEMP NEW WALLET FLAG
-                // throw new Error('Missing wallet entropy.')
                 return console.error('Missing Identity.')
             }
 
@@ -270,249 +278,125 @@ export const useIdentityStore = defineStore('identity', {
                     .build()
             }
 
-    let balancesDusd
-    let balancesSans
+            /* Request identity balance. */
+            balanceCredit = await get_identity_balance(sdk, this.id)
+// console.log('BALANCE (credits)', balanceCredit.balance)
 
-    const balanceCredit = await get_identity_balance(sdk, this.id)
-    console.log('BALANCE (credits)', balanceCredit.balance)
-
-// FIXME FOR DEV PURPOSES ONLY
-/* Handle network. */
-if (System.network === 'mainnet') {
-    balancesDusd = await get_identity_token_balances(sdk, this.id, [DUSD_CONTRACT_ID])
-        .catch(err => {
-            console.error(err)
-            console.error('DUSD NOT FOUND!!')
-        })
-
-    balancesSans = await get_identity_token_balances(sdk, this.id, [SANS_CONTRACT_ID])
-        .catch(err => {
-            console.error(err)
-            console.error('SANS NOT FOUND!!')
-        })
-} else {
-    balancesDusd = await get_identity_token_balances(sdk, this.id, [TDUSD_CONTRACT_ID])
-        .catch(err => {
-            console.error(err)
-            console.error('DUSD NOT FOUND!!')
-        })
-
-    balancesSans = await get_identity_token_balances(sdk, this.id, [TSANS_CONTRACT_ID])
-        .catch(err => {
-            console.error(err)
-            console.error('SANS NOT FOUND!!')
-        })
-}
-
-
-    // FOR DEVELOPMENT PURPOSES ONLY
-    if (System.network === 'mainnet') {
-        this.setAssets({
-            '0': {
-                name: 'Dash Credit',
-                ticker: 'DASH',
-                iconUrl: '/icons/dash.svg',
-                decimal_places: 11,
-                amount: BigInt(balanceCredit?.balance || 0),
-                satoshis: BigInt(111), // IS THIS DEPRECATED??
-                fiat: {
-                    USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
-                },
-            },
-            'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
-                name: 'Sansnote',
-                ticker: 'SANS',
-                iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
-                decimal_places: 8,
-                amount: BigInt(balancesSans[0]?.balance || 0),
-                // satoshis: BigInt(222), // IS THIS DEPRECATED??
-                fiat: {
-                    USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
-                },
-            },
-            'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
-                name: 'Dash USD',
-                ticker: 'DUSD',
-                iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
-                decimal_places: 6,
-                amount: BigInt(balancesDusd[0]?.balance || 0),
-                // satoshis: BigInt(333), // IS THIS DEPRECATED??
-                fiat: {
-                    USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
-                },
-            },
-        })
-    } else {
-        this.setAssets({
-            '0': {
-                name: '[TEST] Dash Credit',
-                ticker: 'tDASH',
-                iconUrl: '/icons/dash.svg',
-                decimal_places: 11,
-                amount: BigInt(balanceCredit?.balance || 0),
-                satoshis: BigInt(111), // IS THIS DEPRECATED??
-                fiat: {
-                    USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
-                },
-            },
-            'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
-                name: '[TEST] Sansnote',
-                ticker: 'tSANS',
-                iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
-                decimal_places: 8,
-                amount: BigInt(balancesSans[0]?.balance || 0),
-                // satoshis: BigInt(222), // IS THIS DEPRECATED??
-                fiat: {
-                    USD: (((balancesSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
-                },
-            },
-            '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
-                name: '[TEST] Dash USD',
-                ticker: 'tDUSD',
-                iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
-                decimal_places: 6,
-                amount: BigInt(balancesDusd[0]?.balance || 0),
-                // satoshis: BigInt(333), // IS THIS DEPRECATED??
-                fiat: {
-                    USD: (((balancesDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
-                },
-            },
-        })
-    }
-
-// FIXME FOR DEV PURPOSES ONLY
-            this.setAsset('0')
-
-            /* Request a wallet instance (by mnemonic). */
-            // this._wallet = await Identity.init(this._entropy, true)
-            // console.info('(Initialized) wallet', this.wallet)
-
-            // this._assets = { ...this.wallet.assets } // cloned assets
-
-            /* Set (default) asset. */
-            // this.wallet.setAsset('0')
-
-            /* Handle balance updates. */
-//             this.wallet.on('balances', async (_assets) => {
-//                 // console.log('Identity Balances (onChanges):', _assets)
-
-//                 /* Close asset locally. */
-// // FIXME Read ASSETS directly from library (getter).
-//                 this._assets = { ..._assets }
-//             })
-        },
-
-        async createIdentity(_entropy) {
-// With ChainLocks
-const chain_locked_height = 2325021
-const tx_id = '00000000000000135ce508cd5783daa69566c24a1112d0bee7aa1872ec155c51'
-const outputIndex = 1
-
-const outpoint = new OutPointWASM(tx_id, outputIndex)
-
-const assetLockProof = AssetLockProofWASM.createChainAssetLockProof(chain_locked_height, outpoint)
-console.log('ASSET LOCK PROOF', assetLockProof)
-console.log('ASSET LOCK PROOF (object)', assetLockProof.toObject())
-console.log('ASSET LOCK PROOF (string)', assetLockProof.toString())
-console.log('ASSET LOCK PROOF (lock type)', assetLockProof.getLockType())
-// console.log('ASSET LOCK PROOF (instant)', assetLockProof.getInstantLockProof())
-console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
-
-            return null
-        },
-
-        async createWallet(_entropy) {
-            /* Validate entropy. */
-            // NOTE: Expect HEX value to be 32 or 64 characters.
-            if (_entropy.length !== 32 && _entropy.length !== 64) {
-                console.error(_entropy, 'is NOT valid entropy.')
-
-                _entropy = null
+            /* Handle network. */
+            if (System.network === 'mainnet') {
+                /* Set MAINNET contracts. */
+                contractDusd = DUSD_CONTRACT_ID
+                contractSans = SANS_CONTRACT_ID
+            } else {
+                /* Set TESTNET contracts. */
+                contractDusd = TDUSD_CONTRACT_ID
+                contractSans = TSANS_CONTRACT_ID
             }
 
-            /* Set entropy. */
-            _setEntropy.bind(this)(_entropy)
+// FOR DEVELOPMENT PURPOSES ONLY
+            /* Request DUSD balance. */
+            balanceDusd = await get_identity_token_balances(sdk, this.id, [contractDusd])
+                .catch(err => {
+                    console.error(err)
+                    console.error('DUSD NOT FOUND!!')
+                })
 
-            /* Initialize wallet. */
-            this.init()
+            /* Request SANS balance. */
+            balanceSans = await get_identity_token_balances(sdk, this.id, [contractSans])
+                .catch(err => {
+                    console.error(err)
+                    console.error('SANS NOT FOUND!!')
+                })
+
+// FOR DEVELOPMENT PURPOSES ONLY
+            if (System.network === 'mainnet') {
+                this.setAssets({
+                    '0': {
+                        name: 'Dash Credit',
+                        ticker: 'DASH',
+                        iconUrl: '/icons/dash.svg',
+                        decimal_places: 11,
+                        amount: BigInt(balanceCredit?.balance || 0),
+                        satoshis: BigInt(111), // IS THIS DEPRECATED??
+                        fiat: {
+                            USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
+                        },
+                    },
+                    'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
+                        name: 'Sansnote',
+                        ticker: 'SANS',
+                        iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
+                        decimal_places: 8,
+                        amount: BigInt(balanceSans[0]?.balance || 0),
+                        // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                        fiat: {
+                            USD: (((balanceSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
+                        },
+                    },
+                    'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
+                        name: 'Dash USD',
+                        ticker: 'DUSD',
+                        iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
+                        decimal_places: 6,
+                        amount: BigInt(balanceDusd[0]?.balance || 0),
+                        // satoshis: BigInt(333), // IS THIS DEPRECATED??
+                        fiat: {
+                            USD: (((balanceDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
+                        },
+                    },
+                })
+            } else {
+                this.setAssets({
+                    '0': {
+                        name: '[TEST] Dash Credit',
+                        ticker: 'tDASH',
+                        iconUrl: '/icons/dash.svg',
+                        decimal_places: 11,
+                        amount: BigInt(balanceCredit?.balance || 0),
+                        satoshis: BigInt(111), // IS THIS DEPRECATED??
+                        fiat: {
+                            USD: (((balanceCredit?.balance || 0)/10**11) * DASH_PRICE).toFixed(4),
+                        },
+                    },
+                    'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw': {
+                        name: '[TEST] Sansnote',
+                        ticker: 'tSANS',
+                        iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
+                        decimal_places: 8,
+                        amount: BigInt(balanceSans[0]?.balance || 0),
+                        // satoshis: BigInt(222), // IS THIS DEPRECATED??
+                        fiat: {
+                            USD: (((balanceSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
+                        },
+                    },
+                    '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {
+                        name: '[TEST] Dash USD',
+                        ticker: 'tDUSD',
+                        iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
+                        decimal_places: 6,
+                        amount: BigInt(balanceDusd[0]?.balance || 0),
+                        // satoshis: BigInt(333), // IS THIS DEPRECATED??
+                        fiat: {
+                            USD: (((balanceDusd[0]?.balance || 0)/10**6) * DUSD_PRICE).toFixed(4),
+                        },
+                    },
+                })
+            }
+
+// TODO Save last tab.
+            this.setAsset('0')
+        },
+
+        async createIdentity() {
+            /* Request asset lock proof. */
+            const proof = _getAssetLockProof.bind(this)()
+
+            return proof
         },
 
         async transfer(_receiver, _satoshis) {
-            /* Initialize locals. */
-            let sdk
-
-            // /* Validate transaction type. */
-            // if (this.asset.group === '0') {
-            //     /* Send coins. */
-            //     return await this.wallet.send(_receiver, _satoshis)
-            // } else {
-            //     /* Send tokens. */
-            //     return await this.wallet.send(this.asset.token_id_hex, _receiver, _satoshis)
-            // }
-
-            /* Initialize SYSTEM store. */
-            const System = useSystemStore()
-
-            if (this.assetid === '0') {
-console.log('SENDING DASH CREDITS')
-                /* Handle network. */
-                if (System.network === 'mainnet') {
-                    /* Initialize SDK. */
-                    sdk = await WasmSdkBuilder
-                        .new_mainnet_trusted()
-                        .build()
-                } else {
-                    /* Initialize SDK. */
-                    sdk = await WasmSdkBuilder
-                        .new_testnet_trusted()
-                        .build()
-                }
-
-                const resultMe = await sdk.identityCreditTransfer(
-                    this.id, // sender is the authenticated identity
-                    _receiver,
-                    BigInt(_satoshis),
-                    this.wif.transfer,
-                    null // key_id - will auto-select
-                )
-return
-            }
-
-console.log('SENDING TOKENS...')
-            /* Handle network. */
-            if (System.network === 'mainnet') {
-                /* Initialize Dash Platform SDK. */
-                sdk = new DashPlatformSDK({ network: 'mainnet' })
-            } else {
-                /* Initialize Dash Platform SDK. */
-                sdk = new DashPlatformSDK({ network: 'testnet' })
-            }
-
-            const publicKeyId = 3 // 03 => Transfer (Critical)
-
-            const amount = BigInt(_satoshis)
-
-// FIXME Validate asset ID and identity ID
-console.log('WHAT IS ASSET ID ', this.assetid)
-const tokenBaseTransition = await sdk.tokens.createBaseTransition(this.assetid, this.id)
-const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, this.id, 'transfer', { identityId: _receiver, amount })
-
-const privKey = PrivateKeyWASM.fromWIF(this.wif.transfer)
-
-const identity = await sdk.identities.getIdentityByIdentifier(this.id)
-const identityPublicKeys = identity.getPublicKeys()
-console.log('PUBLIC KEYS', identityPublicKeys)
-
-const pubKey = identityPublicKeys[publicKeyId]
-stateTransition.signaturePublicKeyId = publicKeyId
-// stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(this.wif.transfer), 'ECDSA_SECP256K1')
-stateTransition.sign(privKey, pubKey)
-
-console.log('STATE TRANSITION', stateTransition)
-const response = await sdk.stateTransitions.broadcast(stateTransition)
-
-            return response
-
+            /* Broadcast to receivers. */
+            return _transfer.bind(this)(_receiver, _satoshis)
         },
 
         broadcast(_receivers) {
@@ -553,10 +437,11 @@ const response = await sdk.stateTransitions.broadcast(stateTransition)
             this._entropy = entropy
 
             /* Create wallet. */
-            this.createIdentity(entropy)
+            // this.createWallet(entropy)
 
             /* Return entropy. */
-            return this.wallet
+            // return this.wallet
+            return entropy
         },
 
         setIdentity(_identityid) {
