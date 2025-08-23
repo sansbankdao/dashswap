@@ -1,21 +1,13 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
-// import { mnemonicToEntropy } from '@nexajs/hdnode'
-// import { sendCoins } from '@nexajs/purse'
-
 import { useSystemStore } from '@/stores/system'
 
 import init, {
     WasmSdkBuilder,
-    identity_fetch,
-    get_identity_nonce,
     get_identity_balance,
     get_identity_token_balances,
     prefetch_trusted_quorums_mainnet,
     prefetch_trusted_quorums_testnet,
-
-    data_contract_fetch,
-    get_data_contracts,
 } from '../libs/dash/wasm_sdk.js'
 
 import { DashPlatformSDK } from 'dash-platform-sdk'
@@ -24,7 +16,6 @@ import {
     OutPointWASM,
     PrivateKeyWASM,
 } from 'pshenmic-dpp'
-
 
 import _setEntropy from './identity/setEntropy.ts'
 
@@ -279,23 +270,6 @@ export const useIdentityStore = defineStore('identity', {
                     .build()
             }
 
-    // FIXME FOR DEV PURPOSES ONLY
-    // const identity = await identity_fetch(sdk, this.id)
-    //     .catch(err => {
-    //         console.error(err)
-    //         console.error('HANDLE NOT FOUND!!')
-    //     })
-    // console.log('IDENTITY', identity.toJSON())
-    // console.log('IDENTITY (token balance)', identity.balance)
-
-    // FIXME FOR DEV PURPOSES ONLY
-    // const test2 = await get_data_contracts(sdk, ['GWghYQoDFEb3osEfigrF7CKdZLWauxC7TwM4jsJyqa23'])
-    //     .catch(err => {
-    //         console.error(err)
-    //         console.error('TEST2 NOT FOUND!!')
-    //     })
-    // console.log('TEST-2', test2)
-
     let balancesDusd
     let balancesSans
 
@@ -429,24 +403,6 @@ if (System.network === 'mainnet') {
         },
 
         async createIdentity(_entropy) {
-            /* Validate entropy. */
-            // NOTE: Expect HEX value to be 32 or 64 characters.
-            // if (_entropy.length !== 32 && _entropy.length !== 64) {
-            //     console.error(_entropy, 'is NOT valid entropy.')
-
-            //     _entropy = null
-            // }
-
-            /* Set entropy. */
-            // _setEntropy.bind(this)(_entropy)
-
-            /* Initialize wallet. */
-            // this.init()
-
-
-
-
-
 // With ChainLocks
 const chain_locked_height = 2325021
 const tx_id = '00000000000000135ce508cd5783daa69566c24a1112d0bee7aa1872ec155c51'
@@ -462,50 +418,23 @@ console.log('ASSET LOCK PROOF (lock type)', assetLockProof.getLockType())
 // console.log('ASSET LOCK PROOF (instant)', assetLockProof.getInstantLockProof())
 console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
 
-            const publicKeys = [
-              {
-                id: 0,
-                keyType: 'ECDSA_HASH160',
-                purpose: 'AUTHENTICATION',
-                securityLevel: 'MASTER',
-                privateKeyHex: masterKey.private_key_hex,
-                readOnly: false
-              },
-              {
-                id: 1,
-                keyType: 'ECDSA_HASH160',
-                purpose: 'AUTHENTICATION',
-                securityLevel: 'HIGH',
-                privateKeyHex: authKey.private_key_hex,
-                readOnly: false
-              },
-              {
-                id: 2,
-                keyType: 'ECDSA_HASH160',
-                purpose: 'TRANSFER',
-                securityLevel: 'CRITICAL',
-                privateKeyHex: transferKey.private_key_hex,
-                readOnly: false
-              }
-            ]
-
             return null
         },
 
         async createWallet(_entropy) {
             /* Validate entropy. */
             // NOTE: Expect HEX value to be 32 or 64 characters.
-            // if (_entropy.length !== 32 && _entropy.length !== 64) {
-            //     console.error(_entropy, 'is NOT valid entropy.')
+            if (_entropy.length !== 32 && _entropy.length !== 64) {
+                console.error(_entropy, 'is NOT valid entropy.')
 
-            //     _entropy = null
-            // }
+                _entropy = null
+            }
 
             /* Set entropy. */
-            // _setEntropy.bind(this)(_entropy)
+            _setEntropy.bind(this)(_entropy)
 
             /* Initialize wallet. */
-            // this.init()
+            this.init()
         },
 
         async transfer(_receiver, _satoshis) {
@@ -569,10 +498,14 @@ const tokenBaseTransition = await sdk.tokens.createBaseTransition(this.assetid, 
 const stateTransition = sdk.tokens.createStateTransition(tokenBaseTransition, this.id, 'transfer', { identityId: _receiver, amount })
 
 const privKey = PrivateKeyWASM.fromWIF(this.wif.transfer)
-const pubKey = privKey.toPublicKey()
 
-// stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(this.wif.transfer), 'ECDSA_SECP256K1')
+const identity = await sdk.identities.getIdentityByIdentifier(this.id)
+const identityPublicKeys = identity.getPublicKeys()
+console.log('PUBLIC KEYS', identityPublicKeys)
+
+const pubKey = identityPublicKeys[publicKeyId]
 stateTransition.signaturePublicKeyId = publicKeyId
+// stateTransition.signByPrivateKey(PrivateKeyWASM.fromWIF(this.wif.transfer), 'ECDSA_SECP256K1')
 stateTransition.sign(privKey, pubKey)
 
 console.log('STATE TRANSITION', stateTransition)

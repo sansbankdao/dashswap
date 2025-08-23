@@ -51,8 +51,8 @@ importers:
         specifier: 3.0.3
         version: 3.0.3(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       pshenmic-dpp:
-        specifier: 1.0.20
-        version: 1.0.20
+        specifier: 1.0.19
+        version: 1.0.19
       qr-scanner:
         specifier: 1.4.2
         version: 1.4.2
@@ -3778,9 +3778,6 @@ packages:
 
   pshenmic-dpp@1.0.19:
     resolution: {integrity: sha512-oE24VzE52GYwHPUdjk2q4/leTrXnUPHC8wtpyuLJUQ47ElznF9Ig0ewSPT4VkbDpccReZC9xIRIE/6rsZd470A==}
-
-  pshenmic-dpp@1.0.20:
-    resolution: {integrity: sha512-hYUfue0tx7kDwo/Pu7juJtXI7/Q3iR3VItf4O4JFb1DEYiJKYIjD3ffBELcTB+8U8dSh8y8UwcAktBYYAWjT+A==}
 
   pump@3.0.3:
     resolution: {integrity: sha512-todwxLMY7/heScKmntwQG8CXVkWUOdYxIvY2s0VWAAMh/nd8SoYiRaKjlr7+iCs984f2P8zvrfWcDDYVb73NfA==}
@@ -8835,8 +8832,6 @@ snapshots:
   protocols@2.0.2: {}
 
   pshenmic-dpp@1.0.19: {}
-
-  pshenmic-dpp@1.0.20: {}
 
   pump@3.0.3:
     dependencies:
