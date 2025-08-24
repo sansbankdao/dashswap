@@ -12,6 +12,25 @@
             This guide was prepared especially for iOS users whom currently DO NOT have access to DashPay.
         </p>
     </section>
+
+    <ClaimProgress />
+
+    <section class="p-5 flex flex-col gap-6">
+        <p class="text-slate-200">
+            DashSwap introduces the simplest way to secure your Dash username to your new or existing wallet.
+            Simply begin below by searching for your preferred username.
+        </p>
+
+        <input
+            type="text"
+            placeholder="Enter your username"
+            class="w-full h-20 px-5 text-3xl font-medium bg-amber-100 rounded-lg border-4 border-sky-200"
+        />
+
+        <button class="w-fit px-5 py-3 text-3xl font-bold tracking-wider border-4 border-sky-200 bg-sky-100 rounded-xl hover:bg-sky-300">
+            Find it!
+        </button>
+    </section>
 </template>
 
 <script setup lang="ts">
