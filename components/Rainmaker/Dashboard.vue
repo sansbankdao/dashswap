@@ -240,10 +240,10 @@ const init = async () => {
 
 onMounted(() => {
     /* Initialize Rainmaker (store). */
-    Rainmaker.init()
+    // Rainmaker.init()
 
     /* Initialize campaigns. */
-    init()
+    // init()
 })
 
 // onBeforeUnmount(() => {
