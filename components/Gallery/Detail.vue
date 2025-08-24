@@ -5,14 +5,14 @@
             <div class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
                 <!-- Product image -->
                 <div class="lg:col-span-4 lg:row-end-1">
-                    <img :src="product.imageSrc" :alt="product.imageAlt" class="aspect-[4/3] w-full rounded-lg bg-gray-100 object-cover" />
+                    <img :src="props.imageSrc" :alt="product.imageAlt" class="aspect-[4/3] w-full rounded-lg bg-gray-100 object-cover" />
                 </div>
 
                 <!-- Product details -->
                 <div class="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
                     <div class="flex flex-col-reverse">
                         <div class="mt-4">
-                            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ product.name }}</h1>
+                            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ props.name }}</h1>
 
     <h3 class="text-sky-400 text-xs truncate">
         ASSET ID
@@ -179,12 +179,22 @@
     </div>
 </template>
 
-<script setup>
-import { StarIcon } from "@heroicons/vue/20/solid";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
+<script setup lang="ts">
+import { StarIcon } from '@heroicons/vue/20/solid'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
+
+const props = defineProps({
+    name: String,
+    imageSrc: String,
+})
+
+
+const route = useRoute()
+console.log('ROUTE', route)
+
+const assetid = ref()
 
 const product = {
-    name: 'Application UI Icon Pack',
     version: {
         name: '1.0',
         date: 'June 5, 2021',
@@ -197,7 +207,6 @@ const product = {
         'Compatible with Figma, Sketch, and Adobe XD',
         'Drawn on 24 x 24 pixel grid'
     ],
-    imageSrc: 'https://sansbank.org/icon.svg',
     imageAlt: 'Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles.',
 }
 
@@ -283,11 +292,6 @@ const license = {
 </ul>
     `,
 }
-
-const route = useRoute()
-console.log('ROUTE', route)
-
-const assetid = ref()
 
 const init = async () => {
     assetid.value = route.path.slice(9)
