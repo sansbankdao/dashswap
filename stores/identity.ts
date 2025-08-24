@@ -469,21 +469,9 @@ export const useIdentityStore = defineStore('identity', {
             console.info('Identity destroyed successfully!')
         },
 
-        pshenmic() {
-const chain_locked_height = 1313305
-const tx_id = '09ca37cd153d0d145d663ed112d54eca51b16c2f33e95135ecaab34c3b79396c'
-const outputIndex = 0 // output index from your OP_RETURN
-
-const outpoint = new OutPointWASM(tx_id, outputIndex)
-console.log('OUTPUT', outpoint)
-
-const assetLockProof = AssetLockProofWASM.createChainAssetLockProof(chain_locked_height, outpoint)
-console.log('ASSET LOCK PROOF', assetLockProof)
-const assetLockProofHex = assetLockProof.hex()
-console.log('ASSET LOCK PROOF (hex)', assetLockProofHex)
-
-            return null
-
+        generateALP(_chain_locked_height, _txid) {
+            /* Broadcast to receivers. */
+            return _getAssetLockProof.bind(this)(_chain_locked_height, _txid)
         },
     },
 })

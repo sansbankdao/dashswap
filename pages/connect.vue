@@ -1,23 +1,33 @@
 <template>
     <section class="flex flex-col gap-3 p-5">
         <h1 class="text-sky-200 text-6xl tracking-widest italic font-light">
-            Roadmap
+            Connect Your Profile
         </h1>
 
         <p class="text-sky-400 text-xl tracking-wider">
-            Follow along with our team building progress and major/minor milestones.
+            Get connected what ever way works best for YOU!
         </p>
 
-        <ol class="pl-10 pt-5 list-decimal text-slate-200 text-2xl font-bold space-y-3">
-            <li>📌 Chrome browser extension integration</li>
-            <li>📌 Ledger HW support</li>
-            <li>📌 Trezor/OneKey HW support</li>
-            <li>✅ Bip-34 (seed phrase) support</li>
-            <li>✅ Self-custodial Platform web wallet</li>
-        </ol>
+        <ul class="pl-10 list-disc text-sky-400 text-xl tracking-wider">
+            <li>
+                Passkey
+            </li>
+
+            <li>
+                Seed phrase
+            </li>
+
+            <li>
+                Web browser extension
+            </li>
+
+            <li>
+                Identity keys
+            </li>
+        </ul>
     </section>
 
-    <Bootstrap />
+    <IdentitySetup />
 </template>
 
 <script setup lang="ts">
@@ -25,7 +35,7 @@
 import moment from 'moment'
 
 useHead({
-    title: 'Roadmap for DashSwap DEX'
+    title: 'Connect by DashSwap'
 })
 
 // onMounted(() => {

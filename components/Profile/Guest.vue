@@ -1,11 +1,10 @@
 <template>
     <div class="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
 
-        <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
-
+        <NuxtLink to="/connect" class="group flex flex-col sm:flex-row gap-4 sm:items-center">
             <img
                 src="@/assets/profile.png"
-                class="w-24 h-24 rounded-xl object-cover border-2 border-primary mx-auto sm:mx-0"
+                class="w-24 h-24 rounded-xl object-cover border-2 border-sky-300 mx-auto sm:mx-0 group-hover:border-amber-300"
                 alt="Profile Photo"
             />
 
@@ -15,8 +14,8 @@
                     {{profile.name}}
                 </h1>
 
-                <p class="text-sm mb-2 text-slate-200">
-                    {{profile.title}}
+                <p class="text-sm mb-2 text-sky-300 font-medium group-hover:text-amber-300">
+                    click here to CONNECT
                 </p>
 
                 <p class="flex items-center justify-center sm:justify-start text-sm text-slate-200">
@@ -25,8 +24,7 @@
                 </p>
 
             </div>
-
-        </div>
+        </NuxtLink>
 
         <section class="text-base leading-relaxed mt-4 text-slate-200">
             <h2 class="text-2xl font-bold tracking-wider">

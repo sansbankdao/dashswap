@@ -28,9 +28,12 @@ const Identity = useIdentityStore()
 const init = async () => {
     console.log('TEST ID CREATOR')
 
+    const chainLockedHeight = 1313424
+    const txid = '7bb1af36d96ce6439e6be81a46a1565f65e4272e5f8f9f92150ec6f3336b965f'
+
     // const response = await Identity.createIdentity('entropy')
-    const response = Identity.pshenmic()
-console.log('ID CREATE TEST', response)
+    const response = Identity.generateALP(chainLockedHeight, txid)
+console.log('ASSET LOCK PROOF (from Identity)', response)
 }
 
 onMounted(() => {

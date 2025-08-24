@@ -40,7 +40,7 @@ export default function (_entropy) {
 
     this.setEntropy(entropy)
 
-    console.info('New (128-bit) wallet created!')
+    console.info('New (128-bit) SAFE ENTROPY created!')
 
     return entropy
 }

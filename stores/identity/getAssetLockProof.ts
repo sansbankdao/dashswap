@@ -1,21 +1,32 @@
+/* Import modules. */
+import {
+    AssetLockProofWASM,
+    OutPointWASM,
+} from 'pshenmic-dpp'
+
 /**
  * Create Identity
  *
  * Generate the Asset Lock Proof required to create a new Identity.
  */
-export default function () {
-    // With ChainLocks
-    const chain_locked_height = 2325021
-    const tx_id = '00000000000000135ce508cd5783daa69566c24a1112d0bee7aa1872ec155c51'
-    const outputIndex = 1
+export default function (_chain_locked_height, _txid) {
+    /* Set output index. */
+    // NOTE: Output index from your OP_RETURN.
+    const outputIndex = 0
 
-    const outpoint = new OutPointWASM(tx_id, outputIndex)
+    /* Set outpoint. */
+    const outpoint = new OutPointWASM(_txid, outputIndex)
+// console.log('OUTPUT', outpoint)
 
-    const assetLockProof = AssetLockProofWASM.createChainAssetLockProof(chain_locked_height, outpoint)
-    console.log('ASSET LOCK PROOF', assetLockProof)
-    console.log('ASSET LOCK PROOF (object)', assetLockProof.toObject())
-    console.log('ASSET LOCK PROOF (string)', assetLockProof.toString())
-    console.log('ASSET LOCK PROOF (lock type)', assetLockProof.getLockType())
-    // console.log('ASSET LOCK PROOF (instant)', assetLockProof.getInstantLockProof())
-    console.log('ASSET LOCK PROOF (regular)', assetLockProof.getChainLockProof())
+    /* Generate asset lock proof. */
+    const assetLockProof = AssetLockProofWASM
+        .createChainAssetLockProof(_chain_locked_height, outpoint)
+// console.log('ASSET LOCK PROOF', assetLockProof)
+
+    /* Convert proof to hex. */
+    const assetLockProofHex = assetLockProof.hex()
+// console.log('ASSET LOCK PROOF (hex)', assetLockProofHex)
+
+    /* Return asset lock proof (in hex). */
+    return assetLockProofHex
 }

@@ -31,7 +31,7 @@ import { ChevronDownIcon } from '@heroicons/vue/16/solid'
 import { CheckCircleIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
 const deliveryMethods = [
-    { id: 1, title: 'Coin', turnaround: '4–10 business days', price: '$5.00' },
-    { id: 2, title: 'Collectible', turnaround: '2–5 business days', price: '$16.00' },
+    { id: 1, title: 'Coin (fungible)', turnaround: 'Rewards Tokens - More', price: '1.0 DASH per economy' },
+    { id: 2, title: 'Collectible (non-fungible)', turnaround: 'Unique artwork and/or media item.', price: '0.1 DASH per canvas' },
 ]
 </script>
