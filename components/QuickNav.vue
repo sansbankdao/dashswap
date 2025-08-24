@@ -1,11 +1,11 @@
 <template>
-    <main class="flex flex-wrap gap-1 mt-6 justify-between">
+    <main class="flex flex-wrap gap-0.5 mt-6 justify-between">
         <a
             key="gallery"
             href="/gallery"
             title="Explore the Gallery"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <RectangleGroupIcon />
+            <RectangleGroupIcon class="w-full h-full" />
         </a>
 
         <a
@@ -13,7 +13,7 @@
             href="/id"
             title="Identity"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <UserIcon />
+            <UserIcon class="w-full h-full" />
         </a>
 
         <a
@@ -21,7 +21,7 @@
             href="/launcher"
             title="Token Launcher"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <RocketLaunchIcon />
+            <RocketLaunchIcon class="w-full h-full" />
         </a>
 
         <a
@@ -29,7 +29,7 @@
             href="/rainmaker"
             title="Rainmaker"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <BoltIcon />
+            <BoltIcon class="w-full h-full" />
         </a>
 
         <a
@@ -37,7 +37,7 @@
             href="/trollbox"
             title="Trollbox"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <ChatBubbleLeftRightIcon />
+            <ChatBubbleLeftRightIcon class="w-full h-full" />
         </a>
 
         <a
@@ -45,7 +45,7 @@
             href="/help"
             title="Help & Support"
             class="flex items-center justify-center size-14 p-2 rounded-lg bg-black text-gray-100 transition-all duration-150 border border-gray-600 hover:bg-primary hover:-translate-y-0.5">
-            <InformationCircleIcon />
+            <InformationCircleIcon class="w-full h-full" />
         </a>
     </main>
 </template>
