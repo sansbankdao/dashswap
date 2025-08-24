@@ -115,7 +115,7 @@
 
             <section class="mt-10 px-10 py-5">
                 <a href="https://sansbank.org/bootstrap" target="_blank" class="px-5 py-3 flex flex-col items-center text-3xl sm:text-5xl font-bold text-center text-sky-800 bg-sky-200 border-4 border-sky-400 rounded-2xl hover:bg-sky-800 hover:text-sky-100">
-                    Get More $AN$
+                    Get More SANS
                     <span class="block text-xs uppercase opacity-50">
                         This Is Not Financial Advice
                     </span>

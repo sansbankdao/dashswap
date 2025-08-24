@@ -1,18 +1,18 @@
 <template>
-    <div class="bg-white py-12 sm:py-16 dark:bg-gray-900">
+    <main class="bg-white py-6 sm:py-8 dark:bg-gray-900">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl text-center">
                 <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
-                    Dash Platform Galleria
+                    Dash Galleria
                 </h2>
 
-                <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-400">
-                    Learn how to grow your business with our expert advice.
+                <p class="mt-2 text-lg/8 text-gray-600 dark:text-slate-300">
+                    Discover the DASH Evolution in a Showcase
                 </p>
             </div>
 
-            <div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-                <article v-for="post in posts" :key="post.id" class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 dark:bg-gray-800">
+            <div class="mx-auto mt-8 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-10 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+                <article v-for="post in posts" :key="post.id" class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-48 dark:bg-gray-800">
                     <img
                         :src="post.imageUrl"
                         alt=""
@@ -38,7 +38,7 @@
                         </div>
                     </div>
 
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white">
+                    <h3 class="mt-3 text-4xl font-semibold text-slate-200">
                         <a :href="'/gallery/' + post.id">
                             <span class="absolute inset-0" />
                             {{ post.title }}
@@ -47,48 +47,114 @@
                 </article>
             </div>
         </div>
-    </div>
+    </main>
+
+    <section class="px-10 py-5">
+        <nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 dark:border-white/10">
+            <div class="-mt-px flex w-0 flex-1">
+                <a
+                    href="#"
+                    class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                >
+                    <ArrowLongLeftIcon class="mr-3 size-5 text-gray-400 dark:text-slate-500" aria-hidden="true" />
+                    Previous
+                </a>
+            </div>
+
+            <div class="hidden md:-mt-px md:flex">
+                <a
+                    href="#"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                >
+                    1
+                </a>
+                <!-- Current: "border-indigo-500 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400", Default: "border-transparent text-slate-500 hover:text-gray-700 dark:text-slate-300 hover:border-gray-300 dark:hover:border-white/20" -->
+                <a href="#" class="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-base font-medium text-indigo-600 dark:border-indigo-400 dark:text-indigo-400" aria-current="page">2</a>
+                <a
+                    href="#"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                >
+                    3
+                </a>
+                <span class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500">...</span>
+                <a
+                    href="#"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                >
+                    8
+                </a>
+                <a
+                    href="#"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                >
+                    9
+                </a>
+                <a
+                    href="#"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                >
+                    10
+                </a>
+            </div>
+
+            <div class="-mt-px flex w-0 flex-1 justify-end">
+                <a
+                    href="#"
+                    class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                >
+                    Next
+                    <ArrowLongRightIcon class="ml-3 size-5 text-gray-400 dark:text-slate-500" aria-hidden="true" />
+                </a>
+            </div>
+        </nav>
+    </section>
+
+
+    <Bootstrap />
 </template>
 
-<script setup>
+<script setup lang="ts">
+/* Import modules. */
+import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/vue/20/solid'
+
 const posts = [
     {
-        id: 1,
-        title: 'Boost your conversion rate',
+        id: '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz',
+        title: 'Dash USD',
         href: '#',
         description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-        imageUrl: 'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-        date: 'Mar 16, 2020',
+        imageUrl: 'https://dashusd.org/icon.svg',
+        date: 'DUSD',
         datetime: '2020-03-16',
         author: {
-            name: 'Michael Foster',
-            imageUrl: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+            name: '$0.01 | 0.0432 DASH',
+            imageUrl: 'https://dashusd.org/icon.svg',
         },
     },
     {
-        id: 2,
-        title: 'How to use search engine optimization to drive sales',
+        id: 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw',
+        title: 'Sansnote',
         href: '#',
         description: 'Optio cum necessitatibus dolor voluptatum provident commodi et. Qui aperiam fugiat nemo cumque.',
-        imageUrl: 'https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80',
-        date: 'Mar 10, 2020',
+        imageUrl: 'https://sansbank.org/icon.svg',
+        date: 'SANS',
         datetime: '2020-03-10',
         author: {
-            name: 'Lindsay Walton',
-            imageUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+            name: '$0.01 | 0.0004 DASH',
+            imageUrl: 'https://sansbank.org/icon.svg',
         },
     },
     {
-        id: 3,
-        title: 'Improve your customer experience',
-        href: '#',
-        description: 'Cupiditate maiores ullam eveniet adipisci in doloribus nulla minus. Voluptas iusto libero adipisci rem et corporis.',
-        imageUrl: 'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80',
-        date: 'Feb 12, 2020',
+        id: 'LAUNCHER',
+        title: 'Launch Your OWN Token',
+        href: '/launcher',
+        description: 'Ready to build your own community and economic empire? Cupiditate maiores ullam eveniet adipisci in doloribus nulla minus. Voluptas iusto libero adipisci rem et corporis.',
+        imageUrl: 'https://plus.unsplash.com/premium_photo-1682309558108-14762fe2ca7a?q=80',
+        date: 'TBD',
         datetime: '2020-02-12',
         author: {
-            name: 'Tom Cook',
-            imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+            name: 'TBD',
+            imageUrl: 'https://plus.unsplash.com/premium_photo-1682309558108-14762fe2ca7a?q=80',
         },
     },
 ]
