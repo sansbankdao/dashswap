@@ -25,6 +25,20 @@
             DashSwap will offer full 1st-class support for all <span class="font-bold">DASH $TOKENS</span>; following the Dash Platform v2.0 upgrade and the introduction of <span class="font-bold">"Native" Fungible Tokens</span>.
         </p>
 
+        <NuxtLink to="/claim" class="px-5 py-3 flex flex-col gap-3 text-slate-200 bg-sky-800 border-2 border-rose-200 hover:bg-sky-700 rounded-xl">
+            <h2 class="text-3xl font-bold text-rose-300">
+                Claim Your Dash Username
+            </h2>
+
+            <h3 class="text-lg font-bold text-amber-300">
+                Specially built assistant for iOS users to claim their Dash username TODAY!
+            </h3>
+
+            <p>
+                We offer a step-by-step guide to get MOST usernames claimed in just a few minutes.
+            </p>
+        </NuxtLink>
+
         <section class="flex flex-col gap-3 text-slate-200">
             <h3 class="text-lg font-bold text-amber-300">
                 Liquidity Pools (LPs)

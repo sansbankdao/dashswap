@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
 
-        <NuxtLink to="/connect" class="group flex flex-col sm:flex-row gap-4 sm:items-center">
+        <NuxtLink to="/profile" class="group flex flex-col sm:flex-row gap-4 sm:items-center">
             <img
                 src="@/assets/profile.png"
                 class="w-24 h-24 rounded-xl object-cover border-2 border-sky-300 mx-auto sm:mx-0 group-hover:border-amber-300"
