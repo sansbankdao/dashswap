@@ -9,7 +9,8 @@
             <ul role="list" class="divide-y divide-gray-200">
                 <li v-for="product in products" :key="product.id" class="flex px-4 py-6 sm:px-6">
                     <div class="shrink-0">
-                        <img :src="product.imageSrc" :alt="product.imageAlt" class="w-20 rounded-md" />
+                        <SparklesIcon class="size-12 text-gray-500" />
+                        <!-- <img :src="product.imageSrc" :alt="product.imageAlt" class="w-20 rounded-md" /> -->
                     </div>
 
                     <div class="ml-6 flex flex-1 flex-col">
@@ -118,6 +119,7 @@
 <script setup lang="ts">
 import { ChevronDownIcon } from '@heroicons/vue/16/solid'
 import { CheckCircleIcon, TrashIcon } from '@heroicons/vue/20/solid'
+import { SparklesIcon } from '@heroicons/vue/24/outline';
 
 const products = [
     {
