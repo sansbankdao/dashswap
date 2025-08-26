@@ -226,9 +226,16 @@ console.log('RAINMAKER (result)', result)
         if (assetName === 'Sansnote') {
             const response = await Identity
                 .transfer(result.platformid, SANS_BAG_VALUE)
-                .catch(err => console.error(err))
+                .catch(err => {
+                    console.error(err)
+                    status.value = `ERROR: ${JSON.stringify(err)}`
+                })
 console.log('AIRDROP RESPONSE', response)
-            status.value = `RESPONSE: ${JSON.stringify(response)}`
+
+            /* Validate status (has no errors). */
+            if (status.value === null) {
+                status.value = `RESPONSE: ${JSON.stringify(response)}`
+            }
         }
     }
 }
