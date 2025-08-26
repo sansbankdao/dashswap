@@ -204,6 +204,9 @@ const sortedCampaigns = computed(() => {
 const SANS_BAG_VALUE = BigInt(1000 * 10**8)
 
 const runBootstrap = async () => {
+    /* Initialize locals. */
+    let error
+
     bootstrap.value = null
     status.value = null
 
@@ -230,12 +233,13 @@ const runBootstrap = async () => {
                 .transfer(result.platformid, SANS_BAG_VALUE)
                 .catch(err => {
                     console.error(err)
+                    error = err
                     status.value = `ERROR: ${JSON.stringify(err)}`
                 })
 console.log('AIRDROP RESPONSE', response)
 
             /* Validate status (has no errors). */
-            if (status.value === null) {
+            if (response && (typeof error === 'undefined' || error === null)) {
                 status.value = `RESPONSE: ${JSON.stringify(response)}`
             }
         }
