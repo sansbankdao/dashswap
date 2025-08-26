@@ -30,7 +30,7 @@
                             </span>
 
                             <span v-if="campaigns" id="project-type-0-description-1" class="mt-2 text-xl font-medium text-slate-200">
-                                <span class="text-3xl text-amber-500">{{campaigns.length}}</span> campaigns
+                                <span class="text-3xl text-fuchsia-500">{{campaigns.length}}</span> campaigns
                             </span>
                             <span v-else id="project-type-0-description-1" class="mt-2 text-xl font-medium text-slate-200 italic">
                                 loading...
@@ -54,15 +54,15 @@
                     <span class="flex flex-1">
                         <span class="flex flex-col">
                             <span id="project-type-0-label" class="block text-lg font-medium text-gray-900">
-                                Profile Manager
+                                Identity Manager
                             </span>
 
                             <span id="project-type-0-description-0" class="-mt-1 flex items-center text-xs text-gray-500 italic">
-                                Last profile added an hour ago
+                                Last identity added an hour ago
                             </span>
 
                             <span id="project-type-0-description-1" class="mt-2 text-xl font-medium text-slate-200">
-                                <span class="text-3xl text-amber-500">2,740</span> profiles
+                                <span class="text-3xl text-fuchsia-500">69</span> Identities
                             </span>
                         </span>
                     </span>
@@ -102,7 +102,7 @@
                 <NuxtLink
                     v-for="campaign of sortedCampaigns" :key="campaign.id"
                     :to="'/rainmaker/' + campaign.id"
-                    class="px-5 py-5 flex flex-row items-start bg-amber-50 border-2 border-amber-500 rounded-xl shadow hover:bg-amber-100"
+                    class="px-5 py-5 flex flex-row items-start bg-fuchsia-50 border-2 border-fuchsia-300 rounded-xl shadow hover:bg-fuchsia-100"
                 >
                     <img
                         class="h-16 w-auto lg:h-20 rounded-full object-cover"
@@ -143,11 +143,7 @@
             </div>
         </section>
 
-<section>
-    <h1>
-        BOOTSTRAP CAMPAIGN
-    </h1>
-
+<section class="p-5">
     <button @click="runBootstrap" class="px-5 py-3 text-sky-800 font-bold bg-sky-200 hover:bg-sky-800 hover:text-sky-200">
         RUN BOOTSTRAP
     </button>
@@ -232,16 +228,28 @@ const init = async () => {
     campaigns.value = []
 
     /* Request campaigns. */
-    response = await $fetch('/api/rainmaker/campaigns', {
-        method: 'POST',
-        body: {
-            sessionid: Profile.sessionid,
-        },
-    }).catch(err => console.error(err))
-    console.log('RAINMAKER (campaigns):', response)
+    // response = await $fetch('/api/rainmaker/campaigns', {
+    //     method: 'POST',
+    //     body: {
+    //         sessionid: Profile.sessionid,
+    //     },
+    // }).catch(err => console.error(err))
+    // console.log('RAINMAKER (campaigns):', response)
 
     /* Set campaigns. */
-    campaigns.value = response
+    // campaigns.value = response
+
+    const receivers = new Array(69)
+    receivers.fill()
+
+    campaigns.value.push({
+        id: '36b4f6a8-d0fc-4b18-91c3-e83b169b52eb',
+        ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
+        title: 'Sansnote (SANS) Community Airdrop',
+        receivers,
+        isComplete: false,
+        createdAt: 1755688985,
+    })
 }
 
 onMounted(() => {
@@ -249,7 +257,7 @@ onMounted(() => {
     // Rainmaker.init()
 
     /* Initialize campaigns. */
-    // init()
+    init()
 })
 
 // onBeforeUnmount(() => {
