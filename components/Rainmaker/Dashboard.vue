@@ -277,7 +277,7 @@ const init = async () => {
         ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
         title: 'Sansnote (SANS) Community Airdrop',
         receivers,
-        isComplete: false,
+        isComplete: true,
         createdAt: 1755688985,
     })
 
