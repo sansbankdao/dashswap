@@ -145,16 +145,16 @@ const posts = [
         },
     },
     {
-        id: 'LAUNCHER',
-        title: 'Launch Your OWN Token',
-        href: '/launcher',
+        id: 'TBD',
+        title: 'Gm, Evo!',
+        href: '#',
         description: 'Ready to build your own community and economic empire? Cupiditate maiores ullam eveniet adipisci in doloribus nulla minus. Voluptas iusto libero adipisci rem et corporis.',
-        imageUrl: 'https://plus.unsplash.com/premium_photo-1682309558108-14762fe2ca7a?q=80',
+        imageUrl: 'https://i.ibb.co/W4yCCTHZ/gm-evo.webp',
         date: 'TBD',
         datetime: '2020-02-12',
         author: {
             name: 'TBD',
-            imageUrl: 'https://plus.unsplash.com/premium_photo-1682309558108-14762fe2ca7a?q=80',
+            imageUrl: 'https://i.ibb.co/W4yCCTHZ/gm-evo.webp',
         },
     },
 ]
