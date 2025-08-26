@@ -239,7 +239,7 @@ const runBootstrap = async () => {
 console.log('AIRDROP RESPONSE', response)
 
             /* Validate status (has no errors). */
-            if (response && (typeof error === 'undefined' || error === null)) {
+            if (typeof error === 'undefined' || error === null) {
                 status.value = `RESPONSE: ${JSON.stringify(response)}`
             }
         }
