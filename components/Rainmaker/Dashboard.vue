@@ -222,6 +222,7 @@ console.log('RAINMAKER (result)', result)
     if (typeof result !== 'undefined' && result !== null && result.platformid) {
         const assetName = Identity?.asset?.name
         console.log('READY TO SEND', assetName)
+        status.value = `READY TO SEND ${assetName}`
 
         // LET'S VERIFY WE HAVE THE CORRECT CAMPAIGN
         if (assetName === 'Sansnote') {
