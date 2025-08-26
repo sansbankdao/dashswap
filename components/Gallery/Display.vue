@@ -119,19 +119,6 @@ import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/vue/20/solid'
 
 const posts = [
     {
-        id: '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz',
-        title: 'Dash USD',
-        href: '#',
-        description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-        imageUrl: 'https://dashusd.org/icon.svg',
-        date: 'DUSD',
-        datetime: '2020-03-16',
-        author: {
-            name: '$0.01 | 0.0432 DASH',
-            imageUrl: 'https://dashusd.org/icon.svg',
-        },
-    },
-    {
         id: 'A36eJF2kyYXwxCtJGsgbR3CTAscUFaNxZN19UqUfM1kw',
         title: 'Sansnote',
         href: '#',
@@ -155,6 +142,19 @@ const posts = [
         author: {
             name: 'TBD',
             imageUrl: 'https://i.ibb.co/W4yCCTHZ/gm-evo.webp',
+        },
+    },
+    {
+        id: '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz',
+        title: 'Dash USD',
+        href: '#',
+        description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
+        imageUrl: 'https://dashusd.org/icon.svg',
+        date: 'DUSD',
+        datetime: '2020-03-16',
+        author: {
+            name: '$0.01 | 0.0432 DASH',
+            imageUrl: 'https://dashusd.org/icon.svg',
         },
     },
 ]
