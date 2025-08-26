@@ -39,7 +39,7 @@
                     </div>
 
                     <h3 class="mt-3 text-4xl font-semibold text-slate-200">
-                        <a :href="'/gallery/' + post.id">
+                        <a :href="'/token/' + post.id">
                             <span class="absolute inset-0" />
                             {{ post.title }}
                         </a>
