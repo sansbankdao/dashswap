@@ -198,6 +198,9 @@ const sortedCampaigns = computed(() => {
     return sorted
 })
 
+/* Set constant. */
+const SANS_BAG_VALUE = BigInt(1000 * 10**8)
+
 const runBootstrap = async () => {
     const result = await Rainmaker.runBootstrap()
 console.log('RAINMAKER (result)', result)
@@ -212,7 +215,16 @@ console.log('RAINMAKER (result)', result)
 
     /* Validate result. */
     if (typeof result !== 'undefined' && result !== null && result.platformid) {
-        console.log('READY TO SEND', Identity?.asset?.name)
+        const assetName = Identity?.asset?.name
+        console.log('READY TO SEND', assetName)
+
+        // LET'S VERIFY WE HAVE THE CORRECT CAMPAIGN
+        if (assetName === 'Sansnote') {
+            const response = await Identity
+                .transfer(result.platformid, SANS_BAG_VALUE)
+                .catch(err => console.error(err))
+console.log('AIRDROP RESPONSE', response)
+        }
     }
 }
 
@@ -249,6 +261,15 @@ const init = async () => {
         receivers,
         isComplete: false,
         createdAt: 1755688985,
+    })
+
+    campaigns.value.push({
+        id: 'e56f48da-66c1-4894-99a5-6f29bfef2f5b',
+        ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
+        title: 'Sansnote (SANS) Validator Airdrop',
+        receivers,
+        isComplete: false,
+        createdAt: 1756226004,
     })
 }
 
