@@ -143,13 +143,25 @@
             </div>
         </section>
 
+<section>
+    <h1>
+        BOOTSTRAP CAMPAIGN
+    </h1>
+
+    <button @click="runBootstrap" class="px-5 py-3 text-sky-800 font-bold bg-sky-200 hover:bg-sky-800 hover:text-sky-200">
+        RUN BOOTSTRAP
+    </button>
+
+<pre v-if="bootstrap">{{bootstrap}}</pre>
+</section>
+
     </main>
 
-    <RainmakerAddCampaign
+    <!-- <RainmakerAddCampaign
         v-if="isAddingCampaign"
         @close="isAddingCampaign = false"
         :campaign="Rainmaker.campaign"
-    />
+    /> -->
 </template>
 
 <script setup lang="ts">
@@ -158,8 +170,11 @@ import makeBlockie from 'ethereum-blockies-base64'
 import moment from 'moment'
 
 /* Initialize stores. */
+import { useIdentityStore } from '@/stores/identity'
 import { useProfileStore } from '@/stores/profile'
 import { useRainmakerStore } from '@/stores/rainmaker'
+// import HelpIdentity from '../Help/Identity.vue'
+const Identity = useIdentityStore()
 const Profile = useProfileStore()
 const Rainmaker = useRainmakerStore()
 
@@ -167,6 +182,8 @@ const campaign = ref(null)
 const campaigns = ref(null)
 const profiles = ref(null)
 const txidem = ref(null)
+
+const bootstrap = ref()
 
 const isAddingCampaign = ref(false)
 
@@ -184,6 +201,24 @@ const sortedCampaigns = computed(() => {
     /* Return (sorted) campaigns. */
     return sorted
 })
+
+const runBootstrap = async () => {
+    const result = await Rainmaker.runBootstrap()
+console.log('RAINMAKER (result)', result)
+    bootstrap.value = result
+
+    /* Initialize Identity. */
+    await Identity.init()
+
+// FIXME FOR DEVELOPMENT PURPOSES ONLY
+    /* Set (active) asset to SANS. */
+    Identity.setAsset('AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB')
+
+    /* Validate result. */
+    if (typeof result !== 'undefined' && result !== null && result.platformid) {
+        console.log('READY TO SEND', Identity?.asset?.name)
+    }
+}
 
 const reset = () => {
     // TODO
