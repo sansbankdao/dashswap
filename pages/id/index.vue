@@ -1,5 +1,5 @@
 <template>
-    <IdentityLoading v-if="Identity.isLoading" />
+    <Loading v-if="Identity.isLoading" />
 
     <IdentitySetup v-else-if="!Identity.isReady" />
 

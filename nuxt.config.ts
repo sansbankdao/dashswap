@@ -46,6 +46,12 @@ export default defineNuxtConfig({
         '@pinia/nuxt'
     ],
 
+    loading: {
+        component: '~/components/Loading.vue',
+        duration:5000,
+        throttle: 200,
+    },
+
     /* Additional Options */
     ssr: false,
     devtools: { enabled: true },
