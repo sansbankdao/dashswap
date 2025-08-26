@@ -8,7 +8,7 @@
             Follow along with our team building progress and major/minor milestones.
         </p>
 
-        <ol class="pl-10 pt-5 list-disc text-slate-200 text-2xl font-bold space-y-3">
+        <ol class="pl-5 pt-5 text-slate-200 text-2xl font-bold space-y-3">
             <li>📌 Claim username assistant</li>
             <li>📌 Rainmaker</li>
             <li>📌 Asset gallery</li>
