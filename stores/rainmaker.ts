@@ -59,7 +59,7 @@ export const useRainmakerStore = defineStore('rainmaker', {
                     }`
                 })
             }).catch(err => console.error(err))
-console.log('FREN (response):', response)
+// console.log('FREN (response):', response)
 
             /* Validate response. */
             if (typeof response !== 'undefined' && response !== null) {

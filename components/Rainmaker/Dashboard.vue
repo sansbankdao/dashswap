@@ -208,7 +208,7 @@ const runBootstrap = async () => {
     status.value = null
 
     const result = await Rainmaker.runBootstrap()
-console.log('RAINMAKER (result)', result)
+// console.log('RAINMAKER (result)', result)
     bootstrap.value = result
 
     /* Initialize Identity. */
