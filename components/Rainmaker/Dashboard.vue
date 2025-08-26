@@ -148,8 +148,8 @@
         RUN BOOTSTRAP
     </button>
 
-<pre v-if="bootstrap">{{bootstrap}}</pre>
 <pre v-if="status">{{status}}</pre>
+<pre v-if="bootstrap">{{bootstrap}}</pre>
 </section>
 
     </main>
