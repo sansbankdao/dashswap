@@ -149,6 +149,7 @@
     </button>
 
 <pre v-if="bootstrap">{{bootstrap}}</pre>
+<pre v-if="status">{{status}}</pre>
 </section>
 
     </main>
@@ -180,6 +181,7 @@ const profiles = ref(null)
 const txidem = ref(null)
 
 const bootstrap = ref()
+const status = ref()
 
 const isAddingCampaign = ref(false)
 
@@ -202,6 +204,8 @@ const sortedCampaigns = computed(() => {
 const SANS_BAG_VALUE = BigInt(1000 * 10**8)
 
 const runBootstrap = async () => {
+    status.value = null
+
     const result = await Rainmaker.runBootstrap()
 console.log('RAINMAKER (result)', result)
     bootstrap.value = result
@@ -224,6 +228,7 @@ console.log('RAINMAKER (result)', result)
                 .transfer(result.platformid, SANS_BAG_VALUE)
                 .catch(err => console.error(err))
 console.log('AIRDROP RESPONSE', response)
+            status.value = `RESPONSE: ${JSON.stringify(response)}`
         }
     }
 }
