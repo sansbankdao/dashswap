@@ -7,13 +7,14 @@
                 <div>
                     <LauncherTokenType />
 
-                    <LauncherMetadata />
+                    <LauncherCollectible />
+                    <!-- <LauncherMetadata /> -->
 
-                    <LauncherAdvanced />
+                    <!-- <LauncherAdvanced /> -->
 
-                    <LauncherDeliveryMethod />
+                    <!-- <LauncherDeliveryMethod /> -->
 
-                    <LauncherPayment />
+                    <!-- <LauncherPayment /> -->
                 </div>
 
                 <LauncherSummary />
