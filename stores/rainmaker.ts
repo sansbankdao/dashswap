@@ -49,7 +49,7 @@ export const useRainmakerStore = defineStore('rainmaker', {
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
                     query: `mutation ManageFren {
-                        manageFren(authid: "${authid}") {
+                        manageFren(authid: "${authid}", action: "getNext") {
                         platformid
                         username
                         displayName
