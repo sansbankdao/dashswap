@@ -19,7 +19,7 @@
 
                     <section v-if="!assetType" class="p-5">
                         <h2 class="text-6xl font-light text-lime-800 dark:text-lime-200 italic tracking-wider">
-                            Select A Token Type To Get Started...
+                            Select An Asset Type To Get Started...
                         </h2>
                     </section>
                 </div>
