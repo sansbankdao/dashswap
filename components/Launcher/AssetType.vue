@@ -30,7 +30,7 @@
                         </span>
                     </div>
 
-                    <CheckCircleIcon class="absolute right-2 invisible size-6 text-sky-600 group-has-[:checked]:visible" aria-hidden="true" />
+                    <CheckCircleIcon class="absolute right-2 invisible size-6 text-lime-600 group-has-[:checked]:visible" aria-hidden="true" />
                 </label>
             </div>
         </fieldset>
@@ -61,7 +61,7 @@ const tokenProtocols = [
         id: 'FT',
         title: 'Coin',
         type: 'Fungible',
-        summary: 'Create a new economy for your community'
+        summary: 'Create a NEW economy for your community'
     },
     {
         id: 'NFT',

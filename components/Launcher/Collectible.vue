@@ -43,8 +43,8 @@
                         />
                     </div>
 
-                    <p class="mt-3 text-sm/6 text-gray-600 dark:text-gray-400">
-                        Write a few sentences about yourself.
+                    <p class="mt-3 text-sm/6 text-green-800 dark:text-green-200">
+                        Write a few sentences about what you're making.
                     </p>
                 </div>
 
