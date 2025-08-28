@@ -12,7 +12,7 @@
                     <input
                         type="radio"
                         :value="token.id"
-                        v-model="tokenType"
+                        v-model="assetType"
                         class="absolute inset-0 appearance-none focus:outline focus:outline-0"
                     />
 
@@ -42,18 +42,18 @@ import { ChevronDownIcon } from '@heroicons/vue/16/solid'
 import { CheckCircleIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
 /* Define props. */
-const props = defineProps(['tokenType'])
+const props = defineProps(['assetType'])
 
 /* Define emits. */
-const emit = defineEmits(['tokenType'])
+const emit = defineEmits(['assetType'])
 
 /* Initialize local handlers. */
-const tokenType = ref()
+const assetType = ref()
 
 /* Watch token type. */
-watch(tokenType, (_new, _old) => {
+watch(assetType, (_new, _old) => {
     // console.log('TOKEN TYPE CHANGED', _new, _old)
-    emit('tokenType', _new)
+    emit('assetType', _new)
 })
 
 const tokenProtocols = [
