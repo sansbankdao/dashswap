@@ -13,7 +13,7 @@
 
                     <LauncherMetadata v-if="tokenType === 'FT'" />
                     <LauncherAdvanced v-if="tokenType === 'FT'" />
-                    <LauncherDeliveryMethod v-if="tokenType === 'FT'" />
+                    <!-- <LauncherDeliveryMethod v-if="tokenType === 'FT'" /> -->
 
                     <LauncherCollectible v-if="tokenType === 'NFT'" />
 
