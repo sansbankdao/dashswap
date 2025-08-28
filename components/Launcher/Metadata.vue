@@ -14,7 +14,7 @@
                     type="email"
                     name="email-address"
                     autocomplete="email"
-                    class="block w-full rounded-md bg-white px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                    class="block w-full rounded-md bg-green-50 px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                 />
             </div>
         </div>
@@ -29,7 +29,7 @@
                     type="email"
                     name="email-address"
                     autocomplete="email"
-                    class="block w-full rounded-md bg-white px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                    class="block w-full rounded-md bg-green-50 px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                 />
             </div>
         </div>
@@ -46,7 +46,7 @@
                         id="first-name"
                         name="first-name"
                         autocomplete="given-name"
-                        class="block w-full rounded-md bg-white px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                        class="block w-full rounded-md bg-green-50 px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                     />
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         id="last-name"
                         name="last-name"
                         autocomplete="family-name"
-                        class="block w-full rounded-md bg-white px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                        class="block w-full rounded-md bg-green-50 px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                     />
                 </div>
             </div>
@@ -78,7 +78,7 @@
                         name="city"
                         id="city"
                         autocomplete="address-level2"
-                        class="block w-full rounded-md bg-white px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                        class="block w-full rounded-md bg-green-50 px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                     />
                 </div>
             </div>
@@ -93,7 +93,7 @@
                         id="country"
                         name="country"
                         autocomplete="country-name"
-                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-green-50 py-2 pl-3 pr-8 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                     >
                         <option>Creator ONLY</option>
                         <option>Authorized</option>
@@ -115,7 +115,7 @@
                     type="email"
                     name="email-address"
                     autocomplete="email"
-                    class="block w-full rounded-md bg-white px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                    class="block w-full rounded-md bg-green-50 px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                 />
             </div>
         </div>
@@ -127,8 +127,8 @@
 
             <div class="mt-2">
                 <textarea
-                    lines="3"
-                    class="block w-full rounded-md bg-white px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                    rows="2"
+                    class="block w-full rounded-md bg-green-50 px-3 py-2 text-base text-green-900 outline outline-1 -outline-offset-1 outline-green-300 placeholder:text-green-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                 ></textarea>
             </div>
         </div>
