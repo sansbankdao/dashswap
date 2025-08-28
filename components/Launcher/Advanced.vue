@@ -1,7 +1,7 @@
 <template>
     <main class="mt-10 border-t border-gray-200 pt-10">
-        <h2 class="text-2xl font-medium text-slate-300 tracking-wider">
-            Token Advanced Details
+        <h2 class="text-2xl font-medium text-green-800 dark:text-green-200">
+            Coin Advanced Details
         </h2>
 
         <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">

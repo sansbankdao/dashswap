@@ -6,7 +6,7 @@
 
         <div class="mt-4">
             <label for="email-address" class="block text-lg/6 font-medium text-green-800 dark:text-green-200">
-                Coin Name (singular)
+                Name (singular)
             </label>
 
             <div class="mt-2">
@@ -21,7 +21,7 @@
 
         <div class="mt-4">
             <label for="email-address" class="block text-lg/6 font-medium text-green-800 dark:text-green-200">
-                Coin Name (plural)
+                Name (plural)
             </label>
 
             <div class="mt-2">

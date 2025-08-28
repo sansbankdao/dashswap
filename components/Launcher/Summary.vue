@@ -65,41 +65,45 @@
             <pre class="h-64 p-3 bg-amber-300 text-xs overflow-x-hidden overflow-y-scroll">{{refTokenDoc}}</pre>
 
             <section class="grid grid-cols-2">
-                <button class="w-full px-3 py-2 bg-blue-400">
+                <button class="w-full px-3 py-2 bg-blue-400 text-center text-blue-900 font-bold hover:bg-blue-900 hover:text-blue-400">
                     Copy to Clipboard
                 </button>
 
-                <button class="w-full px-3 py-2 bg-pink-400">
+                <a href="https://docs.dash.org/projects/platform/en/stable/docs/tutorials/contracts-and-documents/register-a-data-contract.html" target="_blank" class="w-full px-3 py-2 text-center text-amber-900 bg-amber-400 font-bold hover:bg-amber-900 hover:text-amber-400">
                     Self-deploy Guide
-                </button>
+                </a>
             </section>
 
-            <dl class="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
+            <dl class="font-mono space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
                 <div class="flex items-center justify-between">
-                    <dt class="text-sm">Platform cost</dt>
-                    <dd class="text-sm font-medium text-gray-900">0.4814 DASH</dd>
+                    <dt class="text-sm">Sansbank tribute</dt>
+                    <dd class="text-sm font-medium text-gray-900">0.1 DASH</dd>
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <dt class="text-sm">Additional cost(s)</dt>
-                    <dd class="text-sm font-medium text-gray-900">0.2847 DASH</dd>
+                    <dt class="text-sm">Registration fees</dt>
+                    <dd class="text-sm font-medium text-gray-900">0.368 DASH</dd>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <dt class="text-sm">Transaction fees</dt>
-                    <dd class="text-sm font-medi
-                    um text-gray-900">0.01337 DASH</dd>
+                    <dd class="text-sm font-medium text-gray-900">0.02847 DASH</dd>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <dt class="text-sm">Additional costs</dt>
+                    <dd class="text-sm font-medium text-gray-900">0.01337 DASH</dd>
                 </div>
 
                 <section class="flex flex-col gap-3 border-t border-gray-200 pt-6">
                     <div class="flex items-center justify-between">
-                        <dt class="text-base font-medium">DASH Total</dt>
-                        <dd class="text-base font-medium text-gray-900">0.712</dd>
+                        <dt class="text-lg font-bold">DASH Total</dt>
+                        <dd class="text-xl font-bold text-gray-900">0.7129</dd>
                     </div>
 
                     <div class="flex items-center justify-between">
-                        <dt class="text-base font-medium">USD Total</dt>
-                        <dd class="text-base font-medium text-gray-900">$18.77</dd>
+                        <dt class="text-lg font-bold">USD Total</dt>
+                        <dd class="text-xl font-bold text-gray-900">$18.77</dd>
                     </div>
                 </section>
             </dl>
