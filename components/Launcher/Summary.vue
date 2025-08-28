@@ -1,6 +1,6 @@
 <template>
     <main class="mt-10 lg:mt-0">
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-2xl font-medium text-green-100">
             Launch Summary
         </h2>
 

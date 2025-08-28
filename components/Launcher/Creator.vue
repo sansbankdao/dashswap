@@ -1,63 +1,44 @@
 <template>
-    <div class="bg-stone-600">
-        <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div class="bg-gradient-to-r from-green-950 to-lime-700">
+        <div class="mx-auto max-w-2xl px-3 pb-12 pt-8 sm:px-4 lg:max-w-7xl">
             <h2 class="sr-only">Token Launcher</h2>
 
             <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
                 <div>
-                    <LauncherTokenType />
+                    <legend class="text-2xl font-medium text-green-100">
+                        Token Design Studio
+                    </legend>
 
-                    <LauncherCollectible />
-                    <!-- <LauncherMetadata /> -->
+                    <LauncherTokenType :tokenType="tokenType" @tokenType="handleTokenType" />
 
-                    <!-- <LauncherAdvanced /> -->
+                    <LauncherMetadata v-if="tokenType === 'FT'" />
+                    <LauncherAdvanced v-if="tokenType === 'FT'" />
+                    <LauncherDeliveryMethod v-if="tokenType === 'FT'" />
 
-                    <!-- <LauncherDeliveryMethod /> -->
+                    <LauncherCollectible v-if="tokenType === 'NFT'" />
 
-                    <!-- <LauncherPayment /> -->
+                    <section v-if="!tokenType" class="p-5">
+                        <h2 class="text-6xl font-light text-lime-800 dark:text-lime-200 italic tracking-wider">
+                            Select A Token Type To Get Started...
+                        </h2>
+                    </section>
                 </div>
 
                 <LauncherSummary />
+                <!-- <LauncherPayment v-if="tokenType" /> -->
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ChevronDownIcon } from '@heroicons/vue/16/solid'
-import { CheckCircleIcon, TrashIcon } from '@heroicons/vue/20/solid'
+/* Import modules. */
 
-const products = [
-    {
-        id: 1,
-        title: 'Basic Tee',
-        href: '#',
-        price: '$32.00',
-        color: 'Black',
-        size: 'Large',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-02-product-01.jpg',
-        imageAlt: `Front of men's Basic Tee in black.`,
-    },
-    {
-        id: 2,
-        title: 'Basic Tee',
-        href: '#',
-        price: '$32.00',
-        color: 'Sienna',
-        size: 'Large',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-02-product-02.jpg',
-        imageAlt: `Front of men's Basic Tee in sienna.`,
-    },
-]
+const tokenType = ref()
 
-const deliveryMethods = [
-    { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
-    { id: 2, title: 'Express', turnaround: '2–5 business days', price: '$16.00' },
-]
+const handleTokenType = (_tokenType: string) => {
+    // console.log('PARENT SEZ TOKEN CHANGED', _tokenType)
+    tokenType.value = _tokenType
+}
 
-const paymentMethods = [
-    { id: 'credit-card', title: 'Credit card' },
-    { id: 'paypal', title: 'PayPal' },
-    { id: 'etransfer', title: 'eTransfer' },
-]
 </script>
