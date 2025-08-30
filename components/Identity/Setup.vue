@@ -11,17 +11,22 @@
             </div>
         </section>
 
-        <section class="mt-10 flex flex-col gap-5">
+        <section class="mt-3 flex flex-col gap-5">
             <p class="px-3 py-2 bg-yellow-100 text-base font-medium border-2 border-yellow-200 rounded-lg shadow-md">
                 Import your existing Identity into DashSwap.
             </p>
 
-            <textarea
-                placeholder="Seed #1 Seed #2 Seed #3 ..."
-                v-model="mnemonic"
-                disabled
-                class="px-3 py-2 border-2 border-amber-500 rounded-lg shadow"
-            />
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                <input
+                    v-for="(word, idx) of seedWords" :key="idx"
+                    type="text"
+                    :placeholder="`Word #${idx + 1}`"
+                    v-model="seedWords[idx]"
+                    @paste="onMnemonicPaste"
+                    class="px-3 py-1 text-slate-800 font-medium border-4 border-sky-200 rounded"
+                    :class="[ (idx >= 12) ? 'hidden' : '' ]"
+                />
+            </div>
 
             <div>
                 <time datetime="2021-08" class="flex items-center text-lg font-semibold text-sky-600 dark:text-sky-200">
@@ -63,10 +68,34 @@
 import { useIdentityStore } from '@/stores/identity'
 const Identity = useIdentityStore()
 
-const mnemonic = ref(null)
-const identityid = ref(null)
-const pkAuthority = ref(null)
-const pkTransfer = ref(null)
+// const mnemonic = ref()
+const identityid = ref()
+const pkAuthority = ref()
+const pkTransfer = ref()
+const seedWords = ref(new Array(24).fill(''))
+
+/**
+ * Handle Mnemonic Paste
+ *
+ * Distributes (mnemonic) seed phrase into individual text fields.
+ */
+const onMnemonicPaste = (_evt) => {
+    /* Set (new) clipboard. */
+    const clipboard = _evt.clipboardData.getData('text/plain')
+
+    /* Split seed words. */
+    const splitWords = clipboard.split(' ')
+
+    /* Wait a tick. */
+    setTimeout(() => {
+        /* Handle pasting seed words into individual fields. */
+        for (let i = 0; i < splitWords.length; i++) {
+            if (splitWords[i] !== '') {
+                seedWords.value[i] = splitWords[i]
+            }
+        }
+    }, 0)
+}
 
 const createIdentity = () => {
     // NOTE: This confirmation is NOT REQUIRED for single-application
@@ -82,9 +111,11 @@ const importIdentity = () => {
     // NOTE: This confirmation is NOT REQUIRED for single-application
     //       wallet integration(s), and can be SAFELY removed.
     if (confirm('Before you continue, please close ALL other DashSwap browser windows. Failure to do so may result in LOSS OF ASSETS!\n\nWould you like to continue importing an EXISTING Identity?')) {
+        const mnemonic = seedWords.value.slice(0, 12).join(' ')
+console.log('MNEMONIC', mnemonic)
         /* Set/save mnemonic. */
         // NOTE: Will save `entropy` to the local storage.
-        Identity.setMnemonic(mnemonic.value)
+        Identity.setMnemonic(mnemonic)
 
         /* Set/save Identity ID. */
         // NOTE: Will save `entropy` to the local storage.

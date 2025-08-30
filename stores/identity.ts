@@ -425,7 +425,7 @@ export const useIdentityStore = defineStore('identity', {
         setMnemonic(_mnemonic) {
             let entropy
             let error
-
+console.log('SETTING MNEMONIC', _mnemonic)
             try {
                 /* Derive entropy. */
                 entropy = mnemonicToEntropy(_mnemonic)
@@ -433,7 +433,7 @@ export const useIdentityStore = defineStore('identity', {
                 /* Set error message. */
                 error = err.message
             }
-
+console.log('SETTING ENTROPY', entropy)
             /* Validate error. */
             if (error) {
                 return error

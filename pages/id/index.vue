@@ -336,50 +336,6 @@ console.log('IDENTITY (asset)', Identity.asset)
 // watch(() => Identity.asset, (_asset) => {
 //     console.log('ASSET CHANGED', _asset)
 // })
-
-
-//     const tokenInfo = await sdk.tokens
-//         .getTokenInfo('3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz')
-//         .catch(err => console.error(err))
-// console.log('TOKEN INFO', tokenInfo)
-// console.log('TOKEN INFO (id)', tokenContractInfo.dataContractId.base58())
-// console.log('TOKEN DATA CONTRACT (tokens)', tokenContractInfo.tokens)
-
-
-// const identifier = 'QMfCRPcjXoTnZa9sA9JR2KWgGxZXMRJ4akgS3Uia1Qv'
-// const identity = await sdk.identities.getIdentityByIdentifier(identifier)
-// console.log('IDENTITY', identity)
-// console.log('IDENTITY (id)', identity.id)
-// console.log('IDENTITY (balance)', identity.balance)
-
-
-// const response = await sdk.names.search('shomari.dash')
-// console.log('DOCUMENT (shomari)', response)
-// console.log('DOCUMENT (shomari-hex)', response.id.hex())
-// console.log('DOCUMENT (shomari-base58)', response.id.base58())
-
-// const dataContractId = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec'
-// const documentType = 'domain'
-// const limit = 100
-// // const where =  [['$ownerId', '==', dataContractIdentifier]]
-// const where =  []//[['identityId', '==', dataContractIdentifier]]
-// const orderBy = []//[['$createdAt', 'desc']]
-
-// // optional: pagination options (use only one)
-// const startAt = document.id // for pagination
-// const startAfter = document.id // for pagination
-
-// const documents = await sdk.documents.query(
-//   dataContractId,
-//   documentType,
-//   where,
-//   orderBy,
-//   limit,
-//   startAt,
-//   startAfter
-// )
-
-// console.log('DOCUMENTS', documents)
 }
 
 onMounted(() => {
