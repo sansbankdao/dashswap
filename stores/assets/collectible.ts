@@ -17,7 +17,10 @@ console.log('EVO COLLECTIBLE TEST...')
     const AUTH_KEY = 'cViL1FNW4ryhFjUaQxHbKXFkjiXv2N7oSeJiaGPS1gFeUiCrtstp'
 
     /* Initialize params. */
-    const dataContractId = '2EhcrXyLsM379rdWP2uLLLu8tTr4oxtWwMQPMmpYw95X' // EvoCollectible
+    // const dataContractId = 'FbYdsXRghWpYrLLv5cZrw3MgHJY9mNDuy66xXT5Frpgn' // EvoCollectible 2 payloads
+    // const dataContractId = '3P7GpSi4TLaAxaHs6J3EjUpzNuSPig5DkxjXD3aemj13' // EvoCollectible 4 payloads
+    // const dataContractId = 'FnU4EoQXXvD6Mh38c8q6rLrJuCPEQHtdN1U6v2twaunW' // EvoCollectible 3 payloads
+    const dataContractId = 'CKJcGrC2BFcQmkgLzicBSAz7bz4zpNqBpcjyeV69kpbA' // EvoCollectible 2b payloads
 
     /* Set document type. */
     const documentType = 'media'
@@ -41,7 +44,10 @@ console.log('EVO COLLECTIBLE TEST...')
     const payload = Array.from(mediaData).flat()
 
     const data = {
-        payload,
+        payload1: payload,
+        payload2: payload,
+        // payload3: payload,
+        // payload4: payload.slice(0, payload.length - 264),
     }
 console.log('DATA', data)
 
