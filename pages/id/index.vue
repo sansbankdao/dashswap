@@ -302,6 +302,7 @@ const publicKeyId = 3 // 03 => Transfer (Critical)
 if (typeof Identity.id === 'undefined' || Identity.id === null) {
     throw new Error('MUST provide an Identity to continue.')
 }
+console.log('Identity.id', typeof Identity.id, Identity.id)
 
 const balance = await sdk.identities.getIdentityBalance(Identity.id)
 console.log('CREDIT BALANCE', balance)

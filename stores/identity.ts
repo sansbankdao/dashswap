@@ -186,11 +186,15 @@ export const useIdentityStore = defineStore('identity', {
 
         /* Return wallet status. */
         isLoading(_state) {
-            if (!_state._identityid) {
-                return true
+            if (_state._entropy) {
+                return false
             }
 
-            return false
+            if (_state._identityid) {
+                return false
+            }
+
+            return true
         },
 
         /* Return wallet status. */
@@ -244,9 +248,12 @@ export const useIdentityStore = defineStore('identity', {
             let contractSans
             let sdk
 
-            if (typeof this.id === 'undefined' || this.id === null) {
-                this._identityid = 'NEW' // FIXME TEMP NEW WALLET FLAG
-                return console.error('Missing Identity.')
+            if (
+                (typeof this._entropy === 'undefined' || this.id === this._entropy) &&
+                (typeof this.id === 'undefined' || this.id === null)
+            ) {
+                this._entropy = 'NEW' // FIXME TEMP NEW WALLET FLAG
+                throw new Error('Missing entropy AND Identity.')
             }
 
             /* Initialize WASM module. */
