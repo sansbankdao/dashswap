@@ -2,10 +2,10 @@
 import { DashPlatformSDK } from 'dash-platform-sdk'
 import { PrivateKeyWASM } from 'pshenmic-dpp'
 import { hash256, randomBytes } from '@nexajs/crypto'
-import { binToHex } from '@nexajs/utils'
+import { binToHex, hexToBin } from '@nexajs/utils'
 
 /* Set top-level domain. */
-const TOP_LEVEL_DOMAIN = '.dash'
+const TOP_LEVEL_DOMAIN = 'dash'
 
 export default async (_val1, _val2) => {
 console.log('REGISTRATION TEST...')
@@ -16,13 +16,13 @@ console.log('REGISTRATION TEST...')
     const IDENTITY = 'BpmWfi2G7F4MhSv6tjCmeP3SeHyK3SWRZ8XeawM2RdXs'
     const AUTH_KEY = 'cViL1FNW4ryhFjUaQxHbKXFkjiXv2N7oSeJiaGPS1gFeUiCrtstp'
 
-const username = 'bronco-dumpling-vanish'
+const username = 'tis-a-3rd-party-dpns-reg'
 const normalizedUsername = sdk.utils.convertToHomographSafeChars(username)
 // console.log('USERNAMES', username, normalizedUsername)
 
 // const myUsername = 'tranquil-untaken-sultry'
 
-const label = username + TOP_LEVEL_DOMAIN
+const label = username
 console.log('\nLABEL', label)
 const normalized = sdk.utils.convertToHomographSafeChars(label)
 console.log('\nNORMALIZED', normalized)
@@ -37,82 +37,59 @@ console.log('\nNORMALIZED (bin)', binLabel)
 
     const ownerId = IDENTITY
 
-    // const documentType = 'domain'
-    const documentType = 'preorder'
-
-    // const data = {
-    //     label: username,
-    //     normalizedLabel: normalizedUsername,
-    //     normalizedParentDomainName: 'dash',
-    //     records: {
-    //         dashUniqueIdentityId: ownerId
-    //     }
-    // }
+    const documentType = 'domain'
+    // const documentType = 'preorder'
 
     // const binSalt = new Uint8Array(domain.preorderSalt)
-const binSalt = randomBytes(32)
-console.log('SALT (bin)', binSalt)
-console.log('SALT (hex)', binToHex(binSalt))
+    const preorderSaltHex = 'ed1256046619088ab47516d50f36eb178a504f4f90acc0e43eab76071ef1c6c8'
+    const preorderSalt = Array.from(hexToBin(preorderSaltHex)).flat()
+console.log('PREORDER SALT', preorderSalt)
 
-const totalLength = binSalt.length + binLabel.length
-const concat = new Uint8Array(totalLength)
-concat.set(binSalt, 0)
-concat.set(binLabel, binSalt.length)
-console.log('\nCONCAT', concat)
-
-const hashed = hash256(concat)
-console.log('\nHASHED', hashed)
-console.log('\nHASHED (hex)', binToHex(hashed))
-
-/* Flatten salted domain hash. */
-const saltedDomainHash = Array.from(hashed).flat()
-
-    // const testBytes = randomBytes(32)
-    // console.log('TEST BYTES', testBytes)
-    // console.log('ARRAY BYTES', new Uint8Array(testBytes))
-
-    // const saltedDomainHash = Array.from(new Uint8Array(testBytes)).flat()
-    // const saltedDomainHash2 = (new Array([1, 2, 3, 4])).flat()
-    // const saltedDomainHash = [
-    //     162,
-    //     236,
-    //     12,
-    //     105,
-    //     184,
-    //     5,
-    //     94,
-    //     44,
-    //     244,
-    //     48,
-    //     141,
-    //     32,
-    //     30,
-    //     63,
-    //     85,
-    //     27,
-    //     15,
-    //     193,
-    //     54,
-    //     58,
-    //     207,
-    //     239,
-    //     43,
-    //     138,
-    //     37,
-    //     192,
-    //     39,
-    //     201,
-    //     83,
-    //     164,
-    //     32,
-    //     207,
-    // ]
-console.log('saltedDomainHash', typeof saltedDomainHash, saltedDomainHash)
-// console.log('saltedDomainHash2', typeof saltedDomainHash2, saltedDomainHash2)
-// console.log('saltedDomainHash3', typeof saltedDomainHash3, saltedDomainHash3)
     const data = {
-        // saltedDomainHash: new Uint8Array(testBytes),
-        saltedDomainHash,
+        label: username,
+        normalizedLabel: normalized,
+        normalizedParentDomainName: TOP_LEVEL_DOMAIN,
+        parentDomainName: TOP_LEVEL_DOMAIN,
+        preorderSalt,
+        records: {
+            identity: [
+            2,
+            158,
+            223,
+            197,
+            123,
+            81,
+            7,
+            238,
+            12,
+            76,
+            172,
+            80,
+            140,
+            83,
+            226,
+            142,
+            105,
+            70,
+            241,
+            22,
+            96,
+            252,
+            253,
+            108,
+            170,
+            22,
+            46,
+            126,
+            43,
+            214,
+            108,
+            29
+            ]
+        },
+        subdomainRules: {
+            allowSubdomains: false
+        }
     }
 console.log('DATA', data)
 

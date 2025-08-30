@@ -11,16 +11,12 @@ import init, {
     prefetch_trusted_quorums_testnet,
 } from '../libs/dash/wasm_sdk.js'
 
-import { DashPlatformSDK } from 'dash-platform-sdk'
-import {
-    AssetLockProofWASM,
-    OutPointWASM,
-    PrivateKeyWASM,
-} from 'pshenmic-dpp'
-
 import _getAssetLockProof from './identity/getAssetLockProof.ts'
 import _setEntropy from './identity/setEntropy.ts'
 import _transfer from './identity/transfer.ts'
+
+import _domain from './dpns/domain.ts'
+import _preorder from './dpns/preorder.ts'
 
 /* Set constants. */
 // FIXME Move these constants to System.
@@ -392,6 +388,16 @@ export const useIdentityStore = defineStore('identity', {
             const proof = _getAssetLockProof.bind(this)()
 
             return proof
+        },
+
+        async preorder(_receiver, _satoshis) {
+            /* Broadcast to receivers. */
+            return _preorder.bind(this)(_receiver, _satoshis)
+        },
+
+        async domain(_receiver, _satoshis) {
+            /* Broadcast to receivers. */
+            return _domain.bind(this)(_receiver, _satoshis)
         },
 
         async transfer(_receiver, _satoshis) {

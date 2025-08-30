@@ -32,6 +32,20 @@
         <button class="w-fit px-5 py-3 text-3xl font-bold tracking-wider border-4 border-sky-200 bg-sky-100 rounded-xl hover:bg-sky-300">
             Start searching...
         </button>
+
+        <button
+            @click="Identity.preorder('hi', 'there!')"
+            class="w-full rounded-md border border-transparent bg-sky-600 px-4 py-3 text-xl font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+        >
+            Begin Your Pre-order
+        </button>
+
+        <button
+            @click="Identity.domain('hi', 'there!')"
+            class="w-full rounded-md border border-transparent bg-sky-600 px-4 py-3 text-xl font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+        >
+            Complete Registration
+        </button>
     </section>
 </template>
 
@@ -42,6 +56,10 @@ import moment from 'moment'
 useHead({
     title: 'Claim My Username Assistant by DashSwap'
 })
+
+/* Initialize stores. */
+import { useIdentityStore } from '@/stores/identity'
+const Identity = useIdentityStore()
 
 // onMounted(() => {
 //     console.log('Mounted!')

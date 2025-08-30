@@ -3,11 +3,8 @@
 </template>
 
 <script setup lang="ts">
-/* Import modules. */
-import moment from 'moment'
-
 useHead({
-    title: 'Dream Launcher by DashSwap'
+    title: 'Asset Launcher by DashSwap'
 })
 
 // onMounted(() => {

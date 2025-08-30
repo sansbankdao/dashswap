@@ -110,7 +110,7 @@
 
             <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <button
-                    type="submit"
+                    @click="Launcher.test()"
                     class="w-full rounded-md border border-transparent bg-sky-600 px-4 py-3 text-xl font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                 >
                     Confirm Your Launch
@@ -124,6 +124,13 @@
 import { ChevronDownIcon } from '@heroicons/vue/16/solid'
 import { CheckCircleIcon, TrashIcon } from '@heroicons/vue/20/solid'
 import { SparklesIcon } from '@heroicons/vue/24/outline';
+
+/* Initialize stores. */
+import { useIdentityStore } from '@/stores/identity'
+import { useLauncherStore } from '@/stores/launcher'
+const Identity = useIdentityStore()
+const Launcher = useLauncherStore()
+
 
 const products = [
     {
