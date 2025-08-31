@@ -11,16 +11,14 @@ export default async (_val1, _val2) => {
 console.log('REGISTRATION TEST...')
 
     /* Initialize SDK. */
-    const sdk = new DashPlatformSDK({ network: 'testnet' })
+    const sdk = new DashPlatformSDK({ network: 'mainnet' })
 
-    const IDENTITY = 'BpmWfi2G7F4MhSv6tjCmeP3SeHyK3SWRZ8XeawM2RdXs'
-    const AUTH_KEY = 'cViL1FNW4ryhFjUaQxHbKXFkjiXv2N7oSeJiaGPS1gFeUiCrtstp'
+    const IDENTITY = ''
+    const AUTH_KEY = ''
 
-const username = 'tis-a-3rd-party-dpns-reg'
+const username = 'BetaTesterExtraordinaire'
 const normalizedUsername = sdk.utils.convertToHomographSafeChars(username)
 // console.log('USERNAMES', username, normalizedUsername)
-
-// const myUsername = 'tranquil-untaken-sultry'
 
 const label = username
 console.log('\nLABEL', label)
@@ -41,9 +39,14 @@ console.log('\nNORMALIZED (bin)', binLabel)
     // const documentType = 'preorder'
 
     // const binSalt = new Uint8Array(domain.preorderSalt)
-    const preorderSaltHex = 'ed1256046619088ab47516d50f36eb178a504f4f90acc0e43eab76071ef1c6c8'
+    const preorderSaltHex = '136b2f7e66666f31b3882551b39c31445c2a95643f328c5032940fbd66f63c6f'
     const preorderSalt = Array.from(hexToBin(preorderSaltHex)).flat()
 console.log('PREORDER SALT', preorderSalt)
+
+// FIXME Use `bs58` library.
+// NOTE: This array MUST be flattened.
+const targetIdentity = Array.from(hexToBin('0d94fd5e5a16ebb4b984bcbca0ae7dc8670fde1abdc8d66fdee8efeb87fa9fb0')).flat()
+console.log('TARGET ID', targetIdentity)
 
     const data = {
         label: username,
@@ -52,40 +55,7 @@ console.log('PREORDER SALT', preorderSalt)
         parentDomainName: TOP_LEVEL_DOMAIN,
         preorderSalt,
         records: {
-            identity: [
-            2,
-            158,
-            223,
-            197,
-            123,
-            81,
-            7,
-            238,
-            12,
-            76,
-            172,
-            80,
-            140,
-            83,
-            226,
-            142,
-            105,
-            70,
-            241,
-            22,
-            96,
-            252,
-            253,
-            108,
-            170,
-            22,
-            46,
-            126,
-            43,
-            214,
-            108,
-            29
-            ]
+            identity: targetIdentity,
         },
         subdomainRules: {
             allowSubdomains: false
@@ -142,6 +112,6 @@ console.log('DATA', data)
     const txid = await sdk.stateTransitions.broadcast(stateTransition)
     console.log('TXID', txid)
 
-    const txConfirm = await sdk.stateTransitions.waitForStateTransitionResult(stateTransition)
-    console.log('CONFIRM', txConfirm)
+    // const txConfirm = await sdk.stateTransitions.waitForStateTransitionResult(stateTransition)
+    // console.log('CONFIRM', txConfirm)
 }

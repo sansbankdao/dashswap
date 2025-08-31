@@ -1,6 +1,6 @@
 import init, {
     derive_key_from_seed_with_path,
-} from '../../libs/wasm_sdk.js'
+} from '../../libs/dash/wasm_sdk.js'
 
 export default async function () {
 

@@ -11,6 +11,7 @@ import init, {
     prefetch_trusted_quorums_testnet,
 } from '../libs/dash/wasm_sdk.js'
 
+import _findIdentity from './identity/findIdentity.ts'
 import _getAssetLockProof from './identity/getAssetLockProof.ts'
 import _setEntropy from './identity/setEntropy.ts'
 import _transfer from './identity/transfer.ts'
@@ -252,7 +253,7 @@ export const useIdentityStore = defineStore('identity', {
                 (typeof this._entropy === 'undefined' || this.id === this._entropy) &&
                 (typeof this.id === 'undefined' || this.id === null)
             ) {
-                this._entropy = 'NEW' // FIXME TEMP NEW WALLET FLAG
+                // this._entropy = 'NEW' // FIXME TEMP NEW WALLET FLAG
                 throw new Error('Missing entropy AND Identity.')
             }
 
@@ -395,6 +396,10 @@ export const useIdentityStore = defineStore('identity', {
             const proof = _getAssetLockProof.bind(this)()
 
             return proof
+        },
+
+        async findIdentity() {
+            return await _findIdentity.bind(this)()
         },
 
         async preorder(_receiver, _satoshis) {

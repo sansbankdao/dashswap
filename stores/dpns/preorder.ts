@@ -11,16 +11,14 @@ export default async (_val1, _val2) => {
 console.log('REGISTRATION TEST...')
 
     /* Initialize SDK. */
-    const sdk = new DashPlatformSDK({ network: 'testnet' })
+    const sdk = new DashPlatformSDK({ network: 'mainnet' })
 
-    const IDENTITY = 'BpmWfi2G7F4MhSv6tjCmeP3SeHyK3SWRZ8XeawM2RdXs'
-    const AUTH_KEY = 'cViL1FNW4ryhFjUaQxHbKXFkjiXv2N7oSeJiaGPS1gFeUiCrtstp'
+    const IDENTITY = ''
+    const AUTH_KEY = ''
 
-const username = 'tis-a-3rd-party-dpns-reg'
+const username = 'BetaTesterExtraordinaire'
 const normalizedUsername = sdk.utils.convertToHomographSafeChars(username)
 // console.log('USERNAMES', username, normalizedUsername)
-
-// const myUsername = 'tranquil-untaken-sultry'
 
 const label = username + TOP_LEVEL_DOMAIN
 console.log('\nLABEL', label)
@@ -33,7 +31,6 @@ console.log('\nNORMALIZED (bin)', binLabel)
 
     /* Initialize params. */
     const dataContractId = 'GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec' // DPNS
-    // const dataContractId = '5PT5DFnfWUvE44C7fWwAVFfKuujuWmTixk7LhsWPCpyb'
 
     const ownerId = IDENTITY
 
@@ -43,6 +40,8 @@ console.log('\nNORMALIZED (bin)', binLabel)
     // const binSalt = new Uint8Array(domain.preorderSalt)
 const binSalt = randomBytes(32)
 console.log('SALT (bin)', binSalt)
+
+// NOTE: WE WILL NEED THIS VALUE IN THE CONFIRMATION STEP, NEXT
 console.log('SALT (hex)', binToHex(binSalt))
 
 const totalLength = binSalt.length + binLabel.length
@@ -115,6 +114,6 @@ console.log('DATA', data)
     const txid = await sdk.stateTransitions.broadcast(stateTransition)
     console.log('TXID', txid)
 
-    const txConfirm = await sdk.stateTransitions.waitForStateTransitionResult(stateTransition)
-    console.log('CONFIRM', txConfirm)
+    // const txConfirm = await sdk.stateTransitions.waitForStateTransitionResult(stateTransition)
+    // console.log('CONFIRM', txConfirm)
 }

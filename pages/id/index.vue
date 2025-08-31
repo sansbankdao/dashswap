@@ -1,7 +1,7 @@
 <template>
-    <Loading v-if="Identity.isLoading" />
+    <!-- <Loading v-if="Identity.isLoading" /> -->
 
-    <IdentitySetup v-else-if="!Identity.isReady" />
+    <IdentitySetup v-if="!Identity.isReady" />
 
 <!-- SHOULD WE SUPPORT (2) SCREEN SIZES?? -->
     <!-- <main v-else class="grid grid-cols-1 lg:grid-cols-7 gap-8"> -->
@@ -340,7 +340,8 @@ console.log('IDENTITY (asset)', Identity.asset)
 }
 
 onMounted(() => {
-    init()
+    // init()
+    Identity.findIdentity()
 })
 
 // onBeforeUnmount(() => {
