@@ -62,7 +62,7 @@
                             </span>
 
                             <span id="project-type-0-description-1" class="mt-2 text-xl font-medium text-slate-200">
-                                <span class="text-3xl text-fuchsia-500">69</span> Identities
+                                <span class="text-3xl text-fuchsia-500">74</span> Identities
                             </span>
                         </span>
                     </span>
