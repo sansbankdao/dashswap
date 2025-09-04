@@ -275,6 +275,15 @@ const init = async () => {
     campaign2.fill()
 
     campaigns.value.push({
+        id: 'e56f48da-66c1-4894-99a5-6f29bfef2f5b',
+        ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
+        title: 'Sansnote (SANS) Validator Airdrop',
+        receivers: campaign2,
+        isComplete: true,
+        createdAt: 1756226004,
+    })
+
+    campaigns.value.push({
         id: '36b4f6a8-d0fc-4b18-91c3-e83b169b52eb',
         ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
         title: 'Sansnote (SANS) Community Airdrop',
@@ -283,14 +292,6 @@ const init = async () => {
         createdAt: 1755688985,
     })
 
-    campaigns.value.push({
-        id: 'e56f48da-66c1-4894-99a5-6f29bfef2f5b',
-        ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
-        title: 'Sansnote (SANS) Validator Airdrop',
-        receivers: campaign2,
-        isComplete: true,
-        createdAt: 1756226004,
-    })
 }
 
 onMounted(() => {
