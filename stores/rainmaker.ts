@@ -16,7 +16,7 @@ export const useRainmakerStore = defineStore('rainmaker', {
             // FIXME FOR DEV PURPOSES ONLY
             return {
                 id: 'eba8c2e7-38b2-47cc-bbc5-fa37cfd9adc2',
-                title: '1st $STUDIO Stakehouse Airdrop',
+                title: 'Platform Validator Airdrop',
                 createdAt: 1234567890,
             }
         },
@@ -40,7 +40,7 @@ export const useRainmakerStore = defineStore('rainmaker', {
 
             /* Initialize locals. */
             let response
-            let fren
+            let validator
 
             const authid = '3a4a7fdb-dc73-4737-85c6-262cb18bf242'
 
@@ -48,27 +48,25 @@ export const useRainmakerStore = defineStore('rainmaker', {
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
-                    query: `mutation ManageFren {
-                        manageFren(authid: "${authid}", action: "getNext") {
+                    query: `mutation ManageValidator {
+                        manageValidator(authid: "${authid}", action: "getNext") {
                         platformid
-                        username
-                        displayName
                         status
                         createdAt
                         }
                     }`
                 })
             }).catch(err => console.error(err))
-// console.log('FREN (response):', response)
+// console.log('VALIDATOR (response):', response)
 
             /* Validate response. */
             if (typeof response !== 'undefined' && response !== null) {
-                fren = response?.data?.manageFren[0]
+                validator = response?.data?.manageValidator[0]
             }
-console.log('FREN', fren)
+console.log('VALIDATOR', validator)
 
-            /* Return fren. */
-            return fren
+            /* Return validator. */
+            return validator
         },
 
     },
