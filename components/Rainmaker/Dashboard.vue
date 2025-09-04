@@ -271,7 +271,7 @@ const init = async () => {
 
     const campaign1 = new Array(69)
     campaign1.fill()
-    const campaign2 = new Array(50)
+    const campaign2 = new Array(74)
     campaign2.fill()
 
     campaigns.value.push({
