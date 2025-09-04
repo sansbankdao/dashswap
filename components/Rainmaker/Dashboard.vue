@@ -269,14 +269,16 @@ const init = async () => {
     /* Set campaigns. */
     // campaigns.value = response
 
-    const receivers = new Array(69)
-    receivers.fill()
+    const campaign1 = new Array(69)
+    campaign1.fill()
+    const campaign2 = new Array(50)
+    campaign2.fill()
 
     campaigns.value.push({
         id: '36b4f6a8-d0fc-4b18-91c3-e83b169b52eb',
         ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
         title: 'Sansnote (SANS) Community Airdrop',
-        receivers,
+        receivers: campaign1,
         isComplete: true,
         createdAt: 1755688985,
     })
@@ -285,8 +287,8 @@ const init = async () => {
         id: 'e56f48da-66c1-4894-99a5-6f29bfef2f5b',
         ownerid: 'BkEqcgfmNFY5TEy2atDhhFsDY1NZ6oPa4XPrDGuuWLVT',
         title: 'Sansnote (SANS) Validator Airdrop',
-        receivers,
-        isComplete: false,
+        receivers: campaign2,
+        isComplete: true,
         createdAt: 1756226004,
     })
 }
