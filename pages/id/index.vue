@@ -18,7 +18,7 @@
 
                 <div class="flex flex-col items-end">
                     <h3 class="text-xs tracking-widest text-sky-700 font-medium uppercase">
-                        Spendable ${{Identity.asset?.ticker}}
+                        Spendable {{Identity.asset?.ticker}}
                     </h3>
 
                     <h2 class="text-3xl text-gray-600 font-medium">

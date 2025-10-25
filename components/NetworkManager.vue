@@ -28,7 +28,14 @@
             <span class="block">
                 <span class="text-slate-200 mr-2">↳</span>
                 <span class="inline-flex">
-                    Current network epoch is {{epoch}}
+                    Current network epoch is <span class="px-1 font-bold">{{epoch}}</span>
+                </span>
+            </span>
+
+            <span class="block">
+                <span class="text-slate-200 mr-2">↳</span>
+                <span class="inline-flex">
+                    Dash is trading @ <span class="px-1 font-bold">{{dashUsdTickerDisplay}}</span> USD
                 </span>
             </span>
         </div>
@@ -50,6 +57,7 @@ import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
 const epoch = ref(0)
+const dashUsdTickerDisplay = ref('$0.00')
 
 const networkDisplay = computed(() => {
     /* Validate network. */
@@ -74,6 +82,20 @@ const networkDisplay = computed(() => {
 })
 
 const init = async () => {
+    /* Request (latest) ticker. */
+    const response = await fetch('https://dashswap.xyz/v1/ticker/dash')
+        .catch(err => console.error(err))
+
+    /* Validate response. */
+    if (typeof response !== 'undefined' && response !== null) {
+        /* Decode JSON data. */
+        const json = await response.json()
+            .catch(err => console.error(err))
+
+        /* Set DASH/USD ticker display. */
+        dashUsdTickerDisplay.value = numeral(json.quote.USD.price).format('$0,0.00[00]')
+    }
+
     /* Initialize SDK. */
     const sdk = new DashPlatformSDK({
         network: System.network === 'mainnet' ? 'mainnet' : 'testnet',
