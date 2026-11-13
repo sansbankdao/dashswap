@@ -164,6 +164,14 @@ export const useDashConnectStore = defineStore('dashconnect', {
         pendingIdentityId(_state) {
             return _state._pendingGrant?.identityId ?? null
         },
+
+        /**
+         * Whether a login attempt can start: build configuration captured and
+         * the anchor contract (appId) present for this network.
+         */
+        configured(_state) {
+            return !!(_state._config && _state._config.appId)
+        },
     },
 
     actions: {
@@ -174,13 +182,20 @@ export const useDashConnectStore = defineStore('dashconnect', {
          * CONNECTION_ID per network. Call once per app boot.
          */
         init() {
-            const runtimeConfig = useRuntimeConfig()
-            this._config = {
-                appId: (runtimeConfig.public.appConnectAppId as string) || '',
-                groupId: (runtimeConfig.public.appConnectGroupId as string) || '',
-                label: (runtimeConfig.public.appConnectLabel as string) || 'DashSwap',
-                callbackUrl: (runtimeConfig.public.appConnectCallback as string) || '',
-                carrierSetting: (runtimeConfig.public.appConnectCarrier as string) || 'both',
+            /* Defensive: a runtime-config failure must never break the boot
+             * sequence (the layout continues with Identity.init()). */
+            try {
+                const runtimeConfig = useRuntimeConfig()
+                this._config = {
+                    appId: (runtimeConfig.public.appConnectAppId as string) || '',
+                    groupId: (runtimeConfig.public.appConnectGroupId as string) || '',
+                    label: (runtimeConfig.public.appConnectLabel as string) || 'DashSwap',
+                    callbackUrl: (runtimeConfig.public.appConnectCallback as string) || '',
+                    carrierSetting: (runtimeConfig.public.appConnectCarrier as string) || 'both',
+                }
+            } catch (err) {
+                console.error('DashConnect: runtime config unavailable', err)
+                this._config = null
             }
 
             const System = useSystemStore()

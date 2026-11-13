@@ -1,7 +1,7 @@
 <template>
     <main class="py-6">
         <section class="border-b border-gray-900/10 pb-12 dark:border-white/10">
-            <!-- <h2 class="text-base/7 font-semibold text-gray-900 dark:text-green-100">
+            <!-- <h2 class="text-base/7 font-semibold text-ink1 dark:text-green-100">
                 Profile
             </h2> -->
 
@@ -11,20 +11,20 @@
 
             <div class="mt-8 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
                 <!-- <div class="sm:col-span-4">
-                    <label for="username" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="username" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">
                         Username
                     </label>
 
                     <div class="mt-2">
                         <div
-                            class="flex items-center rounded-md bg-green-50 pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-sky-600 dark:bg-green-50/5 dark:outline-white/10 dark:focus-within:outline-sky-500"
+                            class="flex items-center rounded-md bg-green-50 pl-3 outline outline-1 -outline-offset-1 outline-line focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-sky-600 dark:bg-green-50/5 dark:outline-white/10 dark:focus-within:outline-sky-500"
                         >
-                            <div class="shrink-0 select-none text-base text-gray-500 sm:text-sm/6 dark:text-gray-400">workcation.com/</div>
+                            <div class="shrink-0 select-none text-base text-ink3 sm:text-sm/6 dark:text-ink3">workcation.com/</div>
                             <input
                                 type="text"
                                 name="username"
                                 id="username"
-                                class="block min-w-0 grow bg-green-50 py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 dark:bg-transparent dark:text-green-100 dark:placeholder:text-gray-500"
+                                class="block min-w-0 grow bg-green-50 py-1.5 pl-1 pr-3 text-base text-ink1 placeholder:text-ink3 focus:outline focus:outline-0 sm:text-sm/6 dark:bg-transparent dark:text-green-100 dark:placeholder:text-ink3"
                                 placeholder="janesmith"
                             />
                         </div>
@@ -32,14 +32,14 @@
                 </div> -->
 
                 <div class="col-span-full">
-                    <label for="about" class="block text-lg/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="about" class="block text-lg/6 font-medium text-ink1 dark:text-green-100">
                         Describe Your Collectible
                     </label>
 
                     <div class="mt-2">
                         <textarea
                             rows="2"
-                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-sky-500"
+                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line placeholder:text-ink3 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-ink3 dark:focus:outline-sky-500"
                         />
                     </div>
 
@@ -49,15 +49,15 @@
                 </div>
 
                 <div class="col-span-full">
-                    <label for="photo" class="block text-lg/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="photo" class="block text-lg/6 font-medium text-ink1 dark:text-green-100">
                         Creator Photo
                     </label>
 
                     <div class="mt-2 flex items-center gap-x-3">
-                        <UserCircleIcon class="size-12 text-gray-300 dark:text-gray-500" aria-hidden="true" />
+                        <UserCircleIcon class="size-12 text-gray-300 dark:text-ink3" aria-hidden="true" />
                         <button
                             type="button"
-                            class="rounded-md bg-green-50 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-green-50/10 dark:text-green-100 dark:shadow-none dark:ring-white/5 dark:hover:bg-green-50/20"
+                            class="rounded-md bg-green-50 px-3 py-2 text-sm font-semibold text-ink1 shadow-sm ring-1 ring-inset ring-line hover:bg-surface dark:bg-green-50/10 dark:text-green-100 dark:shadow-none dark:ring-white/5 dark:hover:bg-green-50/20"
                         >
                             Change
                         </button>
@@ -65,14 +65,14 @@
                 </div>
 
                 <div class="col-span-full">
-                    <label for="cover-photo" class="block text-lg/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="cover-photo" class="block text-lg/6 font-medium text-ink1 dark:text-green-100">
                         Cover Photo
                     </label>
 
                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 dark:border-white/25">
                         <div class="text-center">
-                            <PhotoIcon class="mx-auto size-12 text-gray-300 dark:text-gray-600" aria-hidden="true" />
-                            <div class="mt-4 flex text-sm/6 text-gray-600 dark:text-gray-400">
+                            <PhotoIcon class="mx-auto size-12 text-gray-300 dark:text-ink2" aria-hidden="true" />
+                            <div class="mt-4 flex text-sm/6 text-ink2 dark:text-ink3">
                                 <label
                                     for="file-upload"
                                     class="relative cursor-pointer rounded-md bg-transparent font-semibold text-sky-600 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-sky-600 hover:text-sky-500 dark:text-sky-400 dark:focus-within:outline-sky-500 dark:hover:text-sky-300"
@@ -83,7 +83,7 @@
                                 <p class="pl-1">or drag and drop</p>
                             </div>
 
-                            <p class="text-xs/5 text-gray-600 dark:text-gray-400">
+                            <p class="text-xs/5 text-ink2 dark:text-ink3">
                                 PNG, JPG, GIF up to 10MB
                             </p>
                         </div>
@@ -93,7 +93,7 @@
         </section>
 
         <section class="border-b border-gray-900/10 pt-4 pb-12 dark:border-white/10">
-            <h2 class="text-lg/7 font-semibold text-gray-900 dark:text-green-100">
+            <h2 class="text-lg/7 font-semibold text-ink1 dark:text-green-100">
                 Creator Information
             </h2>
 
@@ -103,7 +103,7 @@
 
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div class="sm:col-span-3">
-                    <label for="first-name" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="first-name" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">
                         First name
                     </label>
 
@@ -113,13 +113,13 @@
                             name="first-name"
                             id="first-name"
                             autocomplete="given-name"
-                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-sky-500"
+                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line placeholder:text-ink3 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-ink3 dark:focus:outline-sky-500"
                         />
                     </div>
                 </div>
 
                 <div class="sm:col-span-3">
-                    <label for="last-name" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="last-name" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">
                         Last name
                     </label>
 
@@ -129,13 +129,13 @@
                             name="last-name"
                             id="last-name"
                             autocomplete="family-name"
-                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-sky-500"
+                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line placeholder:text-ink3 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-ink3 dark:focus:outline-sky-500"
                         />
                     </div>
                 </div>
 
                 <div class="sm:col-span-4">
-                    <label for="email" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="email" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">
                         Email address
                     </label>
 
@@ -145,13 +145,13 @@
                             name="email"
                             type="email"
                             autocomplete="email"
-                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-sky-500"
+                            class="block w-full rounded-md bg-green-50 px-3 py-1.5 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line placeholder:text-ink3 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:placeholder:text-ink3 dark:focus:outline-sky-500"
                         />
                     </div>
                 </div>
 
                 <div class="sm:col-span-3">
-                    <label for="country" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">
+                    <label for="country" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">
                         Country
                     </label>
 
@@ -160,20 +160,20 @@
                             id="country"
                             name="country"
                             autocomplete="country-name"
-                            class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-green-50 py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:*:bg-gray-800 dark:focus:outline-sky-500"
+                            class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-green-50 py-1.5 pl-3 pr-8 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6 dark:bg-green-50/5 dark:text-green-100 dark:outline-white/10 dark:*:bg-gray-800 dark:focus:outline-sky-500"
                         >
                             <option>United States</option>
                             <option>Canada</option>
                             <option>Mexico</option>
                         </select>
-                        <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4 dark:text-gray-400" aria-hidden="true" />
+                        <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-ink3 sm:size-4 dark:text-ink3" aria-hidden="true" />
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="border-b border-gray-900/10 pt-4 pb-12 dark:border-white/10">
-            <h2 class="text-lg/7 font-semibold text-gray-900 dark:text-green-100">
+            <h2 class="text-lg/7 font-semibold text-ink1 dark:text-green-100">
                 Notifications
             </h2>
 
@@ -183,7 +183,7 @@
 
             <div class="mt-10 space-y-10">
                 <fieldset>
-                    <legend class="text-lg/6 font-semibold text-gray-900 dark:text-green-100">
+                    <legend class="text-lg/6 font-semibold text-ink1 dark:text-green-100">
                         By email
                     </legend>
 
@@ -197,7 +197,7 @@
                                         name="comments"
                                         type="checkbox"
                                         checked=""
-                                        class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-green-50 checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:checked:bg-green-50/10 forced-colors:appearance-auto"
+                                        class="col-start-1 row-start-1 appearance-none rounded border border-line bg-green-50 checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:checked:bg-surface-sunken dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:checked:bg-green-50/10 forced-colors:appearance-auto"
                                     />
                                     <svg
                                         class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25 dark:group-has-[:disabled]:stroke-white/25"
@@ -211,7 +211,7 @@
                             </div>
 
                             <div class="text-sm/6">
-                                <label for="comments" class="font-medium text-gray-900 dark:text-green-100">
+                                <label for="comments" class="font-medium text-ink1 dark:text-green-100">
                                     Comments
                                 </label>
 
@@ -229,7 +229,7 @@
                                         aria-describedby="candidates-description"
                                         name="candidates"
                                         type="checkbox"
-                                        class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-green-50 checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:checked:bg-green-50/10 forced-colors:appearance-auto"
+                                        class="col-start-1 row-start-1 appearance-none rounded border border-line bg-green-50 checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:checked:bg-surface-sunken dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:checked:bg-green-50/10 forced-colors:appearance-auto"
                                     />
                                     <svg
                                         class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25 dark:group-has-[:disabled]:stroke-white/25"
@@ -243,7 +243,7 @@
                             </div>
 
                             <div class="text-sm/6">
-                                <label for="candidates" class="font-medium text-gray-900 dark:text-green-100">
+                                <label for="candidates" class="font-medium text-ink1 dark:text-green-100">
                                     Candidates
                                 </label>
 
@@ -261,7 +261,7 @@
                                         aria-describedby="offers-description"
                                         name="offers"
                                         type="checkbox"
-                                        class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-green-50 checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:checked:bg-green-50/10 forced-colors:appearance-auto"
+                                        class="col-start-1 row-start-1 appearance-none rounded border border-line bg-green-50 checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:checked:bg-surface-sunken dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:checked:bg-green-50/10 forced-colors:appearance-auto"
                                     />
                                     <svg
                                         class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25 dark:group-has-[:disabled]:stroke-white/25"
@@ -275,7 +275,7 @@
                             </div>
 
                             <div class="text-sm/6">
-                                <label for="offers" class="font-medium text-gray-900 dark:text-green-100">
+                                <label for="offers" class="font-medium text-ink1 dark:text-green-100">
                                     Licensing requests
                                 </label>
 
@@ -288,7 +288,7 @@
                 </fieldset>
 
                 <fieldset>
-                    <legend class="text-lg/6 font-semibold text-gray-900 dark:text-green-100">
+                    <legend class="text-lg/6 font-semibold text-ink1 dark:text-green-100">
                         Push notifications
                     </legend>
 
@@ -303,9 +303,9 @@
                                 name="push-notifications"
                                 type="radio"
                                 checked=""
-                                class="relative size-4 appearance-none rounded-full border border-gray-300 bg-green-50 before:absolute before:inset-1 before:rounded-full before:bg-green-50 checked:border-sky-600 checked:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:before:bg-green-50/20 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
+                                class="relative size-4 appearance-none rounded-full border border-line bg-green-50 before:absolute before:inset-1 before:rounded-full before:bg-green-50 checked:border-sky-600 checked:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:before:bg-gray-400 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:before:bg-green-50/20 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
                             />
-                            <label for="push-everything" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">Everything</label>
+                            <label for="push-everything" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">Everything</label>
                         </div>
 
                         <div class="flex items-center gap-x-3">
@@ -313,9 +313,9 @@
                                 id="push-email"
                                 name="push-notifications"
                                 type="radio"
-                                class="relative size-4 appearance-none rounded-full border border-gray-300 bg-green-50 before:absolute before:inset-1 before:rounded-full before:bg-green-50 checked:border-sky-600 checked:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:before:bg-green-50/20 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
+                                class="relative size-4 appearance-none rounded-full border border-line bg-green-50 before:absolute before:inset-1 before:rounded-full before:bg-green-50 checked:border-sky-600 checked:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:before:bg-gray-400 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:before:bg-green-50/20 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
                             />
-                            <label for="push-email" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">Same as email</label>
+                            <label for="push-email" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">Same as email</label>
                         </div>
 
                         <div class="flex items-center gap-x-3">
@@ -323,9 +323,9 @@
                                 id="push-nothing"
                                 name="push-notifications"
                                 type="radio"
-                                class="relative size-4 appearance-none rounded-full border border-gray-300 bg-green-50 before:absolute before:inset-1 before:rounded-full before:bg-green-50 checked:border-sky-600 checked:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:before:bg-green-50/20 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
+                                class="relative size-4 appearance-none rounded-full border border-line bg-green-50 before:absolute before:inset-1 before:rounded-full before:bg-green-50 checked:border-sky-600 checked:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:before:bg-gray-400 dark:border-white/10 dark:bg-green-50/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-green-50/10 dark:disabled:before:bg-green-50/20 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
                             />
-                            <label for="push-nothing" class="block text-sm/6 font-medium text-gray-900 dark:text-green-100">No push notifications</label>
+                            <label for="push-nothing" class="block text-sm/6 font-medium text-ink1 dark:text-green-100">No push notifications</label>
                         </div>
                     </div>
                 </fieldset>

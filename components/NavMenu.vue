@@ -4,7 +4,7 @@
             <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
             <select
                 aria-label="Select a tab"
-                class="col-start-1 row-start-1 w-full appearance-none rounded-xl bg-white/5 ring-1 ring-white/10 py-2.5 pl-3 pr-8 text-base text-slate-200 focus:ring-2 focus:ring-dash-400 transition-all"
+                class="col-start-1 row-start-1 w-full appearance-none rounded-xl bg-surface-sunken ring-1 ring-line py-2.5 pl-3 pr-8 text-base text-ink1 focus:ring-2 focus:ring-dash-400 transition-all"
                 @change="loadPage"
                 v-model="activeTab"
             >
@@ -17,7 +17,7 @@
         </div>
 
         <div class="hidden sm:block">
-            <div class="border-b border-white/10">
+            <div class="border-b border-line">
                 <nav class="pl-1 -mb-px flex xl:hidden gap-1 overflow-x-auto" aria-label="Tabs">
                     <a
                         v-for="tab in tabs"
@@ -25,7 +25,7 @@
                         :href="tab.href"
                         :class="[tab.current
                             ? 'bg-brand-gradient text-white shadow-glow-dash ring-1 ring-white/20'
-                            : 'text-slate-300 hover:bg-white/5 hover:text-white ring-1 ring-transparent hover:ring-white/10',
+                            : 'text-ink2 hover:bg-surface-sunken hover:text-ink1 ring-1 ring-transparent hover:ring-line',
                             'group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap']"
                         :aria-current="tab.current ? 'page' : undefined"
                     >
@@ -43,7 +43,7 @@
                         :href="tab.href"
                         :class="[tab.current
                             ? 'bg-brand-gradient text-white shadow-glow-dash ring-1 ring-white/20'
-                            : 'text-slate-300 hover:bg-white/5 hover:text-white ring-1 ring-transparent hover:ring-white/10',
+                            : 'text-ink2 hover:bg-surface-sunken hover:text-ink1 ring-1 ring-transparent hover:ring-line',
                             'group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-200']"
                         :aria-current="tab.current ? 'page' : undefined"
                     >

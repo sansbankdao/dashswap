@@ -21,7 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(5, 6, 15, 0.82);
+    background-color: var(--backdrop);
     backdrop-filter: blur(6px);
     z-index: 9999;
 }

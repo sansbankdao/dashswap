@@ -1,13 +1,13 @@
 <template>
     <nav aria-label="Progress">
-        <ol role="list" class="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0 dark:divide-white/15 dark:border-white/15">
+        <ol role="list" class="divide-y divide-gray-300 rounded-md border border-line md:flex md:divide-y-0 dark:divide-white/15 dark:border-white/15">
             <li v-for="(step, stepIdx) in steps" :key="step.name" class="relative md:flex md:flex-1">
                 <a v-if="step.status === 'complete'" :href="step.href" class="group flex w-full items-center">
                     <span class="flex items-center px-6 py-4 text-sm font-medium">
                         <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-sky-600 group-hover:bg-sky-800 dark:bg-sky-500 dark:group-hover:bg-sky-400">
                             <CheckIcon class="size-6 text-white" aria-hidden="true" />
                         </span>
-                        <span class="ml-4 text-sm font-medium text-gray-900 dark:text-white">{{ step.name }}</span>
+                        <span class="ml-4 text-sm font-medium text-ink1 dark:text-white">{{ step.name }}</span>
                     </span>
                 </a>
 
@@ -20,10 +20,10 @@
 
                 <a v-else :href="step.href" class="group flex items-center">
                     <span class="flex items-center px-6 py-4 text-sm font-medium">
-                        <span class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-gray-300 group-hover:border-gray-400 dark:border-white/15 dark:group-hover:border-white/25">
-                            <span class="text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">{{ step.id }}</span>
+                        <span class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-line group-hover:border-gray-400 dark:border-white/15 dark:group-hover:border-white/25">
+                            <span class="text-ink3 group-hover:text-ink1 dark:text-ink3 dark:group-hover:text-white">{{ step.id }}</span>
                         </span>
-                        <span class="ml-4 text-sm font-medium text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">{{ step.name }}</span>
+                        <span class="ml-4 text-sm font-medium text-ink3 group-hover:text-ink1 dark:text-ink3 dark:group-hover:text-white">{{ step.name }}</span>
                     </span>
                 </a>
 

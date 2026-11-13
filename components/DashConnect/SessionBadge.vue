@@ -21,7 +21,7 @@
         </button>
 
         <!-- Signed in -->
-        <div v-else class="relative rounded-xl bg-white/5 ring-1 ring-dash-400/30 p-3 flex items-center gap-3 animate-pop-in">
+        <div v-else class="relative rounded-xl bg-surface-sunken ring-1 ring-dash-400/30 p-3 flex items-center gap-3 animate-pop-in">
             <div class="absolute -inset-0.5 rounded-xl bg-dash-400/20 blur-md animate-pulse-glow" aria-hidden="true"></div>
             <img
                 v-if="blockieUrl"
@@ -30,11 +30,11 @@
                 alt="Session avatar"
             />
             <div class="relative flex-1 min-w-0">
-                <p class="text-[10px] uppercase tracking-widest text-dash-300/80">DashConnect session</p>
-                <p class="font-mono text-xs text-slate-200 truncate">{{ shortId }}</p>
+                <p class="text-[10px] uppercase tracking-widest text-ink3">DashConnect session</p>
+                <p class="font-mono text-xs text-ink1 truncate">{{ shortId }}</p>
             </div>
             <button
-                class="relative rounded-lg p-2 text-slate-400 hover:text-rose-300 hover:bg-white/10 transition-colors"
+                class="relative rounded-lg p-2 text-ink3 hover:text-rose-300 hover:bg-surface-sunken transition-colors"
                 title="Sign out (wipes the in-memory session)"
                 @click="logout"
             >

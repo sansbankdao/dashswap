@@ -1,12 +1,12 @@
 <template>
-    <main class="bg-white py-6 sm:py-8 dark:bg-gray-900">
+    <main class="bg-surface py-6 sm:py-8 dark:bg-gray-900">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
+                <h2 class="text-pretty text-4xl font-semibold tracking-tight text-ink1 sm:text-5xl dark:text-white">
                     Dash Galleria
                 </h2>
 
-                <p class="mt-2 text-lg/8 text-gray-600 dark:text-slate-300">
+                <p class="mt-2 text-lg/8 text-ink2 dark:text-slate-300">
                     Discover the DASH Evolution in a Showcase
                 </p>
             </div>
@@ -32,7 +32,7 @@
                             </svg>
 
                             <div class="flex gap-x-2.5">
-                                <img :src="post.author.imageUrl" alt="" class="size-6 flex-none rounded-full bg-white/10 dark:bg-gray-800/10" />
+                                <img :src="post.author.imageUrl" alt="" class="size-6 flex-none rounded-full bg-surface/10 dark:bg-gray-800/10" />
                                 {{ post.author.name }}
                             </div>
                         </div>
@@ -50,13 +50,13 @@
     </main>
 
     <section class="px-10 py-5">
-        <nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 dark:border-white/10">
+        <nav class="flex items-center justify-between border-t border-line px-4 sm:px-0 dark:border-white/10">
             <div class="-mt-px flex w-0 flex-1">
                 <a
                     href="#"
-                    class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                    class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-base font-medium text-slate-500 hover:border-line hover:text-ink2 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
                 >
-                    <ArrowLongLeftIcon class="mr-3 size-5 text-gray-400 dark:text-slate-500" aria-hidden="true" />
+                    <ArrowLongLeftIcon class="mr-3 size-5 text-ink3 dark:text-slate-500" aria-hidden="true" />
                     Previous
                 </a>
             </div>
@@ -64,34 +64,34 @@
             <div class="hidden md:-mt-px md:flex">
                 <a
                     href="#"
-                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-line hover:text-ink2 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
                 >
                     1
                 </a>
-                <!-- Current: "border-indigo-500 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400", Default: "border-transparent text-slate-500 hover:text-gray-700 dark:text-slate-300 hover:border-gray-300 dark:hover:border-white/20" -->
+                <!-- Current: "border-indigo-500 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400", Default: "border-transparent text-slate-500 hover:text-ink2 dark:text-slate-300 hover:border-line dark:hover:border-white/20" -->
                 <a href="#" class="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-base font-medium text-indigo-600 dark:border-indigo-400 dark:text-indigo-400" aria-current="page">2</a>
                 <a
                     href="#"
-                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-line hover:text-ink2 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
                 >
                     3
                 </a>
                 <span class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500">...</span>
                 <a
                     href="#"
-                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-line hover:text-ink2 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
                 >
                     8
                 </a>
                 <a
                     href="#"
-                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-line hover:text-ink2 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
                 >
                     9
                 </a>
                 <a
                     href="#"
-                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                    class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-base font-medium text-slate-500 hover:border-line hover:text-ink2 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
                 >
                     10
                 </a>
@@ -100,10 +100,10 @@
             <div class="-mt-px flex w-0 flex-1 justify-end">
                 <a
                     href="#"
-                    class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-base font-medium text-slate-500 hover:border-gray-300 hover:text-gray-700 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
+                    class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-base font-medium text-slate-500 hover:border-line hover:text-ink2 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-gray-200"
                 >
                     Next
-                    <ArrowLongRightIcon class="ml-3 size-5 text-gray-400 dark:text-slate-500" aria-hidden="true" />
+                    <ArrowLongRightIcon class="ml-3 size-5 text-ink3 dark:text-slate-500" aria-hidden="true" />
                 </a>
             </div>
         </nav>

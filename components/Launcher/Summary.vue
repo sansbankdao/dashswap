@@ -4,12 +4,12 @@
             Launch Summary
         </h2>
 
-        <div class="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
+        <div class="mt-4 rounded-lg border border-line bg-surface shadow-sm">
             <h3 class="sr-only">Items in your cart</h3>
-            <ul role="list" class="divide-y divide-gray-200">
+            <ul role="list" class="divide-y divide-line">
                 <li v-for="product in products" :key="product.id" class="flex px-4 py-6 sm:px-6">
                     <div class="shrink-0">
-                        <SparklesIcon class="size-12 text-gray-500" />
+                        <SparklesIcon class="size-12 text-ink3" />
                         <!-- <img :src="product.imageSrc" :alt="product.imageAlt" class="w-20 rounded-md" /> -->
                     </div>
 
@@ -17,16 +17,16 @@
                         <div class="flex">
                             <div class="min-w-0 flex-1">
                                 <h4 class="text-sm">
-                                    <a :href="product.href" class="font-medium text-gray-700 hover:text-gray-800">{{ product.title }}</a>
+                                    <a :href="product.href" class="font-medium text-ink2 hover:text-ink1">{{ product.title }}</a>
                                 </h4>
 
-                                <p class="mt-1 text-sm text-gray-500">{{ product.color }}</p>
+                                <p class="mt-1 text-sm text-ink3">{{ product.color }}</p>
 
-                                <p class="mt-1 text-sm text-gray-500">{{ product.size }}</p>
+                                <p class="mt-1 text-sm text-ink3">{{ product.size }}</p>
                             </div>
 
                             <div class="ml-4 flow-root shrink-0">
-                                <button type="button" class="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500">
+                                <button type="button" class="-m-2.5 flex items-center justify-center bg-surface p-2.5 text-ink3 hover:text-ink3">
                                     <span class="sr-only">Remove</span>
                                     <TrashIcon class="size-5" aria-hidden="true" />
                                 </button>
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="flex flex-1 items-end justify-between pt-2">
-                            <p class="mt-1 text-sm font-medium text-gray-900">{{ product.price }}</p>
+                            <p class="mt-1 text-sm font-medium text-ink1">{{ product.price }}</p>
 
                             <div class="ml-4">
                                 <div class="grid grid-cols-1">
@@ -42,7 +42,7 @@
                                         id="quantity"
                                         name="quantity"
                                         aria-label="Quantity"
-                                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-surface py-2 pl-3 pr-8 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                                     >
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -53,7 +53,7 @@
                                         <option value="7">7</option>
                                         <option value="8">8</option>
                                     </select>
-                                    <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" aria-hidden="true" />
+                                    <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-ink3 sm:size-4" aria-hidden="true" />
                                 </div>
                             </div>
                         </div>
@@ -74,41 +74,41 @@
                 </a>
             </section>
 
-            <dl class="font-mono space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
+            <dl class="font-mono space-y-6 border-t border-line px-4 py-6 sm:px-6">
                 <div class="flex items-center justify-between">
                     <dt class="text-sm">Sansbank tribute</dt>
-                    <dd class="text-sm font-medium text-gray-900">0.1 DASH</dd>
+                    <dd class="text-sm font-medium text-ink1">0.1 DASH</dd>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <dt class="text-sm">Registration fees</dt>
-                    <dd class="text-sm font-medium text-gray-900">0.368 DASH</dd>
+                    <dd class="text-sm font-medium text-ink1">0.368 DASH</dd>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <dt class="text-sm">Transaction fees</dt>
-                    <dd class="text-sm font-medium text-gray-900">0.02847 DASH</dd>
+                    <dd class="text-sm font-medium text-ink1">0.02847 DASH</dd>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <dt class="text-sm">Additional costs</dt>
-                    <dd class="text-sm font-medium text-gray-900">0.01337 DASH</dd>
+                    <dd class="text-sm font-medium text-ink1">0.01337 DASH</dd>
                 </div>
 
-                <section class="flex flex-col gap-3 border-t border-gray-200 pt-6">
+                <section class="flex flex-col gap-3 border-t border-line pt-6">
                     <div class="flex items-center justify-between">
                         <dt class="text-lg font-bold">DASH Total</dt>
-                        <dd class="text-xl font-bold text-gray-900">0.7129</dd>
+                        <dd class="text-xl font-bold text-ink1">0.7129</dd>
                     </div>
 
                     <div class="flex items-center justify-between">
                         <dt class="text-lg font-bold">USD Total</dt>
-                        <dd class="text-xl font-bold text-gray-900">$18.77</dd>
+                        <dd class="text-xl font-bold text-ink1">$18.77</dd>
                     </div>
                 </section>
             </dl>
 
-            <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+            <div class="border-t border-line px-4 py-6 sm:px-6">
                 <button
                     @click="Launcher.test()"
                     class="w-full rounded-md border border-transparent bg-sky-600 px-4 py-3 text-xl font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-gray-50"

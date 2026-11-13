@@ -21,21 +21,21 @@
                     </p>
                 </div>
 
-                <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg bg-gray-100 border-2 border-rose-300 shadow">
+                <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg bg-surface-sunken border-2 border-rose-300 shadow">
                     <img src="https://images.unsplash.com/photo-1615526675651-91bdbee68170?auto=format&fit=crop&q=80&w=1886&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="object-cover object-center" />
                 </div>
             </div>
         </section>
 
-        <section class="bg-white py-3 sm:py-4">
+        <section class="bg-surface py-3 sm:py-4">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="flex flex-col mx-auto mt-8 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-10 lg:mx-0 lg:flex lg:max-w-none">
+                <div class="flex flex-col mx-auto mt-8 max-w-2xl rounded-3xl ring-1 ring-line sm:mt-10 lg:mx-0 lg:flex lg:max-w-none">
                     <div class="p-8 sm:p-10 lg:flex-auto">
                         <h3 class="text-2xl font-bold tracking-tight text-slate-200">
                             Upgrade to Studio PRO
                         </h3>
 
-                        <p class="mt-6 text-base leading-7 text-gray-600">
+                        <p class="mt-6 text-base leading-7 text-ink2">
                             <span class="font-medium">
                                 Studio PRO is 100% FREE Forever!
                             </span>
@@ -44,7 +44,7 @@
                         </p>
 
                         <section class="max-w-2xl w-full mt-10">
-                            <div class="px-5 py-2 flex flex-col items-center bg-gray-700 border-2 border-amber-300 shadow rounded-2xl">
+                            <div class="px-5 py-2 flex flex-col items-center bg-surface-sunken border-2 border-amber-300 shadow rounded-2xl">
                                 <h2 class="pl-3 text-base font-medium text-amber-200 uppercase tracking-widest">
                                     Set Your Stakeline
                                 </h2>
@@ -74,10 +74,10 @@
                             <h4 class="flex-none text-xl font-semibold leading-6 tracking-wider text-sky-600">
                                 What’s included in PRO
                             </h4>
-                            <div class="h-px flex-auto bg-gray-100"></div>
+                            <div class="h-px flex-auto bg-surface-sunken"></div>
                         </div>
 
-                        <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-xl leading-6 tracking-tighter font-light text-gray-600 sm:grid-cols-2 sm:gap-6">
+                        <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-xl leading-6 tracking-tighter font-light text-ink2 sm:grid-cols-2 sm:gap-6">
                             <li class="flex gap-x-3">
                                 <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
@@ -148,7 +148,7 @@
                                         {{displayProRate}}
                                     </span>
 
-                                    <span class="text-lg font-semibold leading-6 tracking-wide text-gray-600">
+                                    <span class="text-lg font-semibold leading-6 tracking-wide text-ink2">
                                         SANS
                                     </span>
 
@@ -165,12 +165,12 @@
                                     Activate Stakeline
                                 </button>
 
-                                <p class="mt-6 text-base leading-5 text-gray-600">
+                                <p class="mt-6 text-base leading-5 text-ink2">
                                     Early termination may result in loss of some or all of your remaining assets.
                                 </p>
                             </div>
 
-                            <button v-if="isShowingRecovery" @click="closeout" class="mt-5 mx-auto px-5 py-2 w-fit text-xl text-gray-800 font-bold bg-red-500 border-2 border-red-600 rounded-lg shadow hover:bg-red-400">
+                            <button v-if="isShowingRecovery" @click="closeout" class="mt-5 mx-auto px-5 py-2 w-fit text-xl text-ink1 font-bold bg-red-500 border-2 border-red-600 rounded-lg shadow hover:bg-red-400">
                                 <span class="text-red-100">
                                     Closeout Stakeline
                                 </span>

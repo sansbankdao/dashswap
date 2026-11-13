@@ -20,7 +20,7 @@
                     click here to CONNECT
                 </p>
 
-                <p class="flex items-center justify-center sm:justify-start text-sm text-slate-300">
+                <p class="flex items-center justify-center sm:justify-start text-sm text-ink2">
                     <svg class="-mt-0.5 inline mr-2"fill=none height=14 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 viewBox="0 0 24 24"width=14 xmlns=http://www.w3.org/2000/svg><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx=12 cy=10 r=3></circle></svg>
                     {{profile.location}}
                 </p>
@@ -28,11 +28,11 @@
         </NuxtLink>
 
         <section class="text-base leading-relaxed">
-            <h2 class="text-xl font-bold tracking-wider text-slate-100">
+            <h2 class="text-xl font-bold tracking-wider text-ink1">
                 Welcome Guest
             </h2>
 
-            <p class="text-slate-300 mt-1">
+            <p class="text-ink2 mt-1">
                 Let's get you signed-in and have your assets loaded on to your dashboard.
             </p>
         </section>

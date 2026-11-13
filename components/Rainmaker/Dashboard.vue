@@ -11,21 +11,21 @@
         </header>
 
         <fieldset class="mt-5">
-            <legend class="pl-3 text-xs font-medium tracking-widest text-gray-400 uppercase">
+            <legend class="pl-3 text-xs font-medium tracking-widest text-ink3 uppercase">
                 Choose a Manager
             </legend>
 
             <div class="mt-3 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                <!-- Active: "border-indigo-600 ring-2 ring-indigo-600", Not Active: "border-gray-300" -->
-                <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none border-indigo-600 ring-2 ring-indigo-600">
+                <!-- Active: "border-indigo-600 ring-2 ring-indigo-600", Not Active: "border-line" -->
+                <label class="relative flex cursor-pointer rounded-lg border bg-surface p-4 shadow-sm focus:outline-none border-indigo-600 ring-2 ring-indigo-600">
                     <input type="radio" name="project-type" value="Existing Customers" class="sr-only" aria-labelledby="project-type-1-label" aria-describedby="project-type-1-description-0 project-type-1-description-1" />
                     <span class="flex flex-1">
                         <span class="flex flex-col">
-                            <span id="project-type-1-label" class="block text-lg font-medium text-gray-900">
+                            <span id="project-type-1-label" class="block text-lg font-medium text-ink1">
                                 Campaign Manager
                             </span>
 
-                            <span id="project-type-1-description-0" class="-mt-1 flex items-center text-xs text-gray-500 italic">
+                            <span id="project-type-1-description-0" class="-mt-1 flex items-center text-xs text-ink3 italic">
                                 Last campaign updated 2 minutes ago
                             </span>
 
@@ -48,16 +48,16 @@
                     <span class="pointer-events-none absolute -inset-px rounded-lg border border-indigo-600" aria-hidden="true"></span>
                 </label>
 
-                <!-- Active: "border-indigo-600 ring-2 ring-indigo-600", Not Active: "border-gray-300" -->
-                <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none">
+                <!-- Active: "border-indigo-600 ring-2 ring-indigo-600", Not Active: "border-line" -->
+                <label class="relative flex cursor-pointer rounded-lg border bg-surface p-4 shadow-sm focus:outline-none">
                     <input type="radio" name="project-type" value="Newsletter" class="sr-only" aria-labelledby="project-type-0-label" aria-describedby="project-type-0-description-0 project-type-0-description-1" />
                     <span class="flex flex-1">
                         <span class="flex flex-col">
-                            <span id="project-type-0-label" class="block text-lg font-medium text-gray-900">
+                            <span id="project-type-0-label" class="block text-lg font-medium text-ink1">
                                 Identity Manager
                             </span>
 
-                            <span id="project-type-0-description-0" class="-mt-1 flex items-center text-xs text-gray-500 italic">
+                            <span id="project-type-0-description-0" class="-mt-1 flex items-center text-xs text-ink3 italic">
                                 Last identity added an hour ago
                             </span>
 
@@ -91,10 +91,10 @@
             </div>
         </div>
 
-        <div class="my-5 px-5 border-t border-gray-300" />
+        <div class="my-5 px-5 border-t border-line" />
 
         <section class="mt-5">
-            <legend class="pl-3 text-xs font-medium tracking-widest text-gray-400 uppercase">
+            <legend class="pl-3 text-xs font-medium tracking-widest text-ink3 uppercase">
                 Select a Campaign
             </legend>
 
@@ -111,31 +111,31 @@
                     />
 
                     <section class="ml-4 flex flex-col gap-2">
-                        <h3 class="text-xl font-medium text-gray-500 tracking-tighter">
+                        <h3 class="text-xl font-medium text-ink3 tracking-tighter">
                             {{campaign?.title}}
                         </h3>
 
-                        <div class="text-gray-500 truncate">
+                        <div class="text-ink3 truncate">
                             Campaign Id: {{campaign?.id}}
                         </div>
 
-                        <div class="text-gray-500 truncate">
+                        <div class="text-ink3 truncate">
                             Owner Id: {{campaign?.ownerid}}
                         </div>
 
-                        <div class="text-gray-500 truncate">
+                        <div class="text-ink3 truncate">
                             # of receivers {{Object.keys(campaign?.receivers || {}).length}}
                         </div>
 
-                        <div class="text-gray-500 truncate">
+                        <div class="text-ink3 truncate">
                             Completed? {{campaign?.isComplete}}
                         </div>
 
-                        <div class="text-gray-500 truncate">
+                        <div class="text-ink3 truncate">
                             Created {{moment.unix(campaign?.createdAt).format('llll')}}
                         </div>
 
-                        <div v-if="campaign?.updatedAt" class="text-gray-500 truncate">
+                        <div v-if="campaign?.updatedAt" class="text-ink3 truncate">
                             Updated {{moment.unix(campaign?.updatedAt).format('llll')}}
                         </div>
                     </section>

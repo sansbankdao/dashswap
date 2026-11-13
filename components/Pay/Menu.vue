@@ -68,10 +68,10 @@
             </div>
         </section>
 
-        <div v-if="!isShowingAvas && !isShowingDash" class="mx-10 my-3 border-t border-gray-300" />
+        <div v-if="!isShowingAvas && !isShowingDash" class="mx-10 my-3 border-t border-line" />
 
         <section v-if="!isShowingAvas && !isShowingDash" class="-mt-3 flex flex-col gap-3">
-            <p class="px-3 text-xs sm:text-sm text-gray-500">
+            <p class="px-3 text-xs sm:text-sm text-ink3">
                 Don't see your asset listed above?
                 Not a problem.
                 Search from <span class="text-sky-500 font-medium">more than 400+</span> assets below.

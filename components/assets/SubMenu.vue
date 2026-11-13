@@ -10,13 +10,13 @@
                     {{ project.initials }}
                 </div>
 
-                <div class="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                <div class="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-line bg-surface">
                     <div class="flex-1 truncate px-4 py-2 text-sm">
-                        <a :href="project.href" class="font-medium text-gray-900 hover:text-gray-600">
+                        <a :href="project.href" class="font-medium text-ink1 hover:text-ink2">
                             {{ project.name }}
                         </a>
 
-                        <p class="text-gray-500 text-xs">
+                        <p class="text-ink3 text-xs">
                             {{ project.members }} Members
                         </p>
                     </div>
@@ -24,7 +24,7 @@
                     <div class="shrink-0 pr-2">
                         <button
                             type="button"
-                            class="inline-flex size-8 items-center justify-center rounded-full bg-transparent bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                            class="inline-flex size-8 items-center justify-center rounded-full bg-transparent bg-surface text-ink3 hover:text-ink3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
                         >
                             <span class="sr-only">Open options</span>
                             <EllipsisVerticalIcon class="size-5" aria-hidden="true" />

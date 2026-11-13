@@ -21,7 +21,7 @@
                     </dt>
 
                     <DisclosurePanel as="dd" class="mt-2 pr-12">
-                        <p class="text-base/7 text-gray-600">
+                        <p class="text-base/7 text-ink2">
                             {{ faq.answer }}
                         </p>
                     </DisclosurePanel>

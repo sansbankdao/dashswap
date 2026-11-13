@@ -1,0 +1,93 @@
+/* assets/css/theme.css
+ *
+ * DashSwap adaptive theme tokens.
+ *
+ * Every shared surface, text and line color is a CSS variable so components
+ * stay mode-agnostic. Light ("normal") mode is the root; dark mode is the
+ * `.dark` class on <html> (see plugins/theme.client.js + components/
+ * ThemeToggle.vue). Dark is the default for a fresh install.
+ */
+
+:root {
+    /* Page base + header/footer chrome */
+    --bg-base: #f2f5fb;
+    --chrome-bg: rgba(255, 255, 255, 0.72);
+
+    /* Glass card surfaces */
+    --surface: rgba(255, 255, 255, 0.82);
+    --surface-strong: rgba(255, 255, 255, 0.94);
+    --surface-sunken: rgba(15, 23, 42, 0.05);
+
+    /* Text */
+    --text-1: #0f172a;
+    --text-2: #334155;
+    --text-3: #64748b;
+
+    /* Lines and chrome details */
+    --line: rgba(15, 23, 42, 0.10);
+    --ring: rgba(15, 23, 42, 0.08);
+
+    /* Effects layers */
+    --wash: #131a3a;
+    --vignette-color: rgba(2, 3, 10, 0.85);
+    --aurora-opacity: 0.20;
+    --grid-color: rgba(0, 141, 228, 0.10);
+    --grid-opacity: 0.5;
+    --mote-opacity: 0.45;
+    --vignette-opacity: 0.5;
+    --backdrop: rgba(15, 23, 42, 0.38);
+    --card-shadow: 0 8px 30px -12px rgba(15, 23, 42, 0.18);
+    --glow-opacity: 0.10;
+
+    /* Terminal-style inset (NetworkManager) — stays dark in both modes */
+    --terminal-bg: #070b16;
+}
+
+.dark {
+    --bg-base: #05060f;
+    --chrome-bg: rgba(7, 9, 18, 0.7);
+
+    --wash: #131a3a;
+    --vignette-color: rgba(2, 3, 10, 0.85);
+
+    --surface: rgba(23, 27, 45, 0.82);
+    --surface-strong: rgba(12, 14, 26, 0.92);
+    --surface-sunken: rgba(255, 255, 255, 0.05);
+
+    --text-1: #f1f5f9;
+    --text-2: #cbd5e1;
+    --text-3: #94a3b8;
+
+    --line: rgba(255, 255, 255, 0.10);
+    --ring: rgba(255, 255, 255, 0.10);
+
+    --aurora-opacity: 1;
+    --grid-color: rgba(124, 196, 255, 0.16);
+    --grid-opacity: 1;
+    --mote-opacity: 1;
+    --vignette-opacity: 1;
+    --backdrop: rgba(3, 4, 12, 0.8);
+    --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 50px -12px rgba(0, 0, 0, 0.65);
+    --glow-opacity: 1;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-1);
+    transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* Global reduced-motion guard for the whole animation system. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,8 +1,8 @@
 <template>
     <main class="flex flex-col gap-5">
-        <div class="border-b border-gray-200">
+        <div class="border-b border-line">
             <nav class="-mb-px flex space-x-8 text-center" aria-label="Tabs">
-                <button @click="activeTab = 'assets'" class="w-1/2 text-sky-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page" :class="[ activeTab === 'assets' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
+                <button @click="activeTab = 'assets'" class="w-1/2 text-sky-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page" :class="[ activeTab === 'assets' ? 'border-sky-500 text-sky-600' : 'border-transparent text-ink3 hover:border-line hover:text-ink2']">
                     <span class="text-lg">
                         Assets
                     </span>
@@ -13,13 +13,13 @@
                 </button>
 
                 <!-- Current: "", Default: "" -->
-                <button @click="activeTab = 'collections'" class="w-1/2 text-gray-500 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" :class="[ activeTab === 'collections' ? 'border-sky-500 text-sky-600' : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700']">
+                <button @click="activeTab = 'collections'" class="w-1/2 text-ink3 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" :class="[ activeTab === 'collections' ? 'border-sky-500 text-sky-600' : 'border-transparent text-ink3 hover:border-line hover:text-ink2']">
                     <span class="text-lg">
                         Collections
                     </span>
 
-                    <!-- Current: "bg-sky-100 text-sky-600", Default: "bg-gray-100 text-gray-900" -->
-                    <span class="bg-gray-100 text-gray-900 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
+                    <!-- Current: "bg-sky-100 text-sky-600", Default: "bg-surface-sunken text-ink1" -->
+                    <span class="bg-surface-sunken text-ink1 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
                         {{collections?.length}}
                     </span>
                 </button>

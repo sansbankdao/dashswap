@@ -44,7 +44,7 @@
                     :placeholder="`Enter a (${Identity.asset?.ticker}) amount`"
                 />
 
-                <!-- <h4 v-if="satoshis > 0" class="mt-1 ml-3 text-sm text-gray-500 font-medium">
+                <!-- <h4 v-if="satoshis > 0" class="mt-1 ml-3 text-sm text-ink3 font-medium">
                     = {{numeral(satoshis / 100).format('0,0')}} {{Identity.asset?.ticker}}
                 </h4> -->
             </section>
@@ -58,7 +58,7 @@
 
             <section v-if="txidem" class="my-10">
                 <div>
-                    <h3 class="text-sm text-gray-500 font-medium">Transaction sent successfully!</h3>
+                    <h3 class="text-sm text-ink3 font-medium">Transaction sent successfully!</h3>
 
                     <NuxtLink :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" class="text-blue-500 font-medium hover:underline">
                         Click here to OPEN transaction details
@@ -281,7 +281,7 @@ const startScanner = async () => {
             video.value = document.getElementById('video-display')
 
             /* Enable video display. */
-            isShowingVideoPreview.value = 'flex w-full mt-5 bg-gray-100 border-4 border-gray-300 p-2 rounded-xl z-10'
+            isShowingVideoPreview.value = 'flex w-full mt-5 bg-surface-sunken border-4 border-line p-2 rounded-xl z-10'
 
             /* Start scanner. */
             scanner.value = new QrScanner(video.value, (_data) => {

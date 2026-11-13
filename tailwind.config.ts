@@ -9,9 +9,25 @@
  */
 
 export default {
+    /* Class strategy: plugins/theme.client.js toggles `.dark` on <html>;
+     * components stay mode-agnostic via the CSS vars in assets/css/theme.css. */
+    darkMode: 'class',
+
     theme: {
         extend: {
+            /* Adaptive tokens resolved from assets/css/theme.css vars. */
             colors: {
+                'surface': 'var(--surface)',
+                'surface-strong': 'var(--surface-strong)',
+                'surface-sunken': 'var(--surface-sunken)',
+                'ink1': 'var(--text-1)',
+                'ink2': 'var(--text-2)',
+                'ink3': 'var(--text-3)',
+                'line': 'var(--line)',
+                'chrome': 'var(--chrome-bg)',
+                'backdrop': 'var(--backdrop)',
+                'terminal': 'var(--terminal-bg)',
+
                 dash: {
                     50: '#e6f4ff',
                     100: '#bae0ff',
@@ -135,3 +151,4 @@ export default {
         },
     },
 }
+

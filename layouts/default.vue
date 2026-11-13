@@ -8,7 +8,7 @@
         <AuroraBackground />
 
         <!-- Brand header -->
-        <header class="sticky top-0 z-30 border-b border-white/10 bg-[#070912]/70 backdrop-blur-xl">
+        <header class="sticky top-0 z-30 border-b border-line bg-chrome backdrop-blur-xl">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-3">
                 <NuxtLink to="/" class="group flex items-center gap-3">
                     <span class="relative">
@@ -25,10 +25,12 @@
                     </span>
                 </NuxtLink>
 
-                <span class="ml-auto hidden sm:flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-xs text-slate-300">
+                <span class="ml-auto hidden sm:flex items-center gap-2 rounded-full bg-surface-sunken ring-1 ring-line px-3 py-1.5 text-xs text-ink2">
                     <span class="size-1.5 rounded-full bg-dash-300 animate-pulse" aria-hidden="true"></span>
                     Dash Platform v2.0 · by <a href="https://sansbank.org/bootstrap" target="_blank" class="text-dash-300 hover:text-dash-200 transition-colors">Sansbank</a>
                 </span>
+
+                <ThemeToggle class="ml-1" />
             </div>
         </header>
 
@@ -69,9 +71,9 @@
         </main>
 
         <!-- Footer -->
-        <footer class="relative z-10 border-t border-white/10 bg-[#070912]/70 backdrop-blur-xl">
+        <footer class="relative z-10 border-t border-line bg-chrome backdrop-blur-xl">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 py-4 flex justify-center">
-                <span class="text-slate-300 text-center text-sm tracking-wider">
+                <span class="text-ink2 text-center text-sm tracking-wider">
                     ⟡˙⋆ DashSwap was built with
                     <svg class="inline size-5 text-rose-400 animate-float" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="m9.653 16.915-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001l-.002-.001Z"></path>

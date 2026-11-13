@@ -16,7 +16,7 @@
             >
                 <!-- Backdrop -->
                 <div
-                    class="absolute inset-0 bg-[#03040c]/80 backdrop-blur-md"
+                    class="absolute inset-0 bg-backdrop backdrop-blur-md"
                     @click="close"
                 ></div>
 
@@ -24,21 +24,21 @@
                 <div class="relative w-full max-w-md animate-pop-in">
                     <div class="absolute -inset-1 rounded-3xl bg-brand-gradient opacity-40 blur-lg animate-pulse-glow" aria-hidden="true"></div>
 
-                    <div class="relative overflow-hidden rounded-3xl bg-glass-surface ring-1 ring-white/10 shadow-glass">
+                    <div class="relative overflow-hidden rounded-3xl bg-surface-strong ring-1 ring-line shadow-[var(--card-shadow)]">
                         <!-- Header -->
-                        <div class="relative px-6 pt-6 pb-4 border-b border-white/10">
+                        <div class="relative px-6 pt-6 pb-4 border-b border-line">
                             <div class="flex items-center gap-3">
                                 <img src="/icon.svg" class="size-9 drop-shadow-[0_0_10px_rgba(0,141,228,0.6)]" alt="DashSwap" />
                                 <div class="flex-1">
                                     <h2 class="text-lg font-bold bg-text-gradient bg-clip-text text-transparent">
                                         Connect with DashConnect
                                     </h2>
-                                    <p class="text-[11px] tracking-wider text-slate-400 uppercase">
+                                    <p class="text-[11px] tracking-wider text-ink3 uppercase">
                                         App Connect v2 · {{ networkDisplay }}
                                     </p>
                                 </div>
                                 <button
-                                    class="rounded-lg p-1.5 text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                                    class="rounded-lg p-1.5 text-ink3 hover:text-ink1 hover:bg-surface-sunken transition-colors"
                                     aria-label="Close"
                                     @click="close"
                                 >
@@ -50,8 +50,29 @@
                         <!-- Body -->
                         <div class="relative px-6 py-6 min-h-[22rem] flex flex-col items-center justify-center gap-4">
 
-                            <!-- IDLE / GENERATING -->
-                            <template v-if="status === 'idle' || status === 'generating'">
+                            <!-- SETUP REQUIRED (anchor contract not deployed on this network) -->
+                            <template v-if="!configured">
+                                <div class="flex flex-col items-center gap-4 animate-fade-in text-center">
+                                    <div class="size-14 rounded-2xl bg-amber-400/10 ring-1 ring-amber-400/40 flex items-center justify-center">
+                                        <WrenchScrewdriverIcon class="size-7 text-amber-300" />
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-ink1">DashConnect is not live on {{ networkDisplay }} yet</p>
+                                        <p class="mt-1 text-sm text-ink2 max-w-72">
+                                            DashSwap's anchor contract (the App Connect <span class="font-mono">appId</span>)
+                                            is not deployed on this network, so a wallet has nothing to approve yet.
+                                        </p>
+                                    </div>
+                                    <p class="text-xs text-ink3 max-w-72">
+                                        The shared App Connect stack is live on <span class="font-semibold text-dash-300">Testnet</span> —
+                                        try <span class="font-mono">testnet.dashswap.xyz</span>, or scan this network again
+                                        after the anchor deployment.
+                                    </p>
+                                </div>
+                            </template>
+
+                            <!-- GENERATING -->
+                            <template v-else-if="status === 'idle' || status === 'generating'">
                                 <div class="relative size-20">
                                     <div class="absolute inset-0 rounded-full border-2 border-dash-400/30 border-t-dash-300 animate-spin"></div>
                                     <div class="absolute inset-2 rounded-full border-2 border-space-400/20 border-b-space-300 animate-spin-slower"></div>
@@ -59,14 +80,7 @@
                                         <span class="size-3 rounded-full bg-dash-300 animate-pulse-glow"></span>
                                     </div>
                                 </div>
-                                <p class="text-sm text-slate-300 animate-fade-in">Generating a secure login request…</p>
-                                <button
-                                    v-if="status === 'idle'"
-                                    class="mt-1 px-5 py-2 rounded-xl font-semibold text-white bg-brand-gradient shadow-glow-dash hover:brightness-110 transition-all"
-                                    @click="start"
-                                >
-                                    Start connection
-                                </button>
+                                <p class="text-sm text-ink2 animate-fade-in">Generating a secure login request…</p>
                             </template>
 
                             <!-- WAITING: QR + carrier tabs + countdown -->
@@ -84,13 +98,13 @@
                                     </div>
                                 </div>
 
-                                <p class="text-center text-sm text-slate-300">
+                                <p class="text-center text-sm text-ink2">
                                     Scan with <span class="font-semibold text-dash-300">EvoNext</span>, Dash Evo Tool
                                     or any DashConnect wallet
                                 </p>
 
                                 <!-- Carrier switcher (both offered on testnet) -->
-                                <div v-if="uris.length > 1" class="flex rounded-xl bg-white/5 ring-1 ring-white/10 p-1 text-xs font-medium">
+                                <div v-if="uris.length > 1" class="flex rounded-xl bg-surface-sunken ring-1 ring-line p-1 text-xs font-medium">
                                     <button
                                         v-for="entry in uris"
                                         :key="entry.carrier"
@@ -103,7 +117,7 @@
                                 </div>
 
                                 <!-- Countdown -->
-                                <div class="flex items-center gap-2 text-xs text-slate-400">
+                                <div class="flex items-center gap-2 text-xs text-ink3">
                                     <svg viewBox="0 0 36 36" class="size-9 -rotate-90">
                                         <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3" />
                                         <circle
@@ -124,7 +138,7 @@
                                     <div class="absolute inset-0 rounded-full bg-dash-500/20 blur-xl animate-pulse-glow"></div>
                                     <div class="absolute inset-0 rounded-full border-2 border-dash-400/40 border-t-dash-200 animate-spin"></div>
                                 </div>
-                                <p class="text-sm text-slate-300">Verifying the wallet's response on-chain…</p>
+                                <p class="text-sm text-ink2">Verifying the wallet's response on-chain…</p>
                             </template>
 
                             <!-- CONFIRM: "Continue as …" -->
@@ -136,10 +150,10 @@
                                         alt="Identity avatar"
                                     />
                                     <div>
-                                        <p class="text-sm text-slate-300">A wallet approved this request as</p>
+                                        <p class="text-sm text-ink2">A wallet approved this request as</p>
                                         <p class="mt-1 font-mono text-sm text-dash-200 break-all">{{ shortPendingId }}</p>
                                     </div>
-                                    <p class="text-xs text-slate-400">
+                                    <p class="text-xs text-ink3">
                                         Anyone can answer a request — confirm this is you before signing in.
                                     </p>
                                     <div class="flex gap-3 mt-1">
@@ -150,7 +164,7 @@
                                             Continue
                                         </button>
                                         <button
-                                            class="px-5 py-2 rounded-xl font-medium text-slate-300 ring-1 ring-white/15 hover:bg-white/10 transition-all"
+                                            class="px-5 py-2 rounded-xl font-medium text-ink2 ring-1 ring-line hover:bg-surface-sunken transition-all"
                                             @click="decline"
                                         >
                                             That's not me
@@ -175,7 +189,7 @@
                                         </svg>
                                     </div>
                                     <p class="font-semibold text-emerald-300">Connected!</p>
-                                    <p class="text-xs text-slate-400">Your scoped session key is live — memory only, never on disk.</p>
+                                    <p class="text-xs text-ink3">Your scoped session key is live — memory only, never on disk.</p>
                                 </div>
                             </template>
 
@@ -185,7 +199,7 @@
                                     <div class="size-14 rounded-2xl bg-rose-500/15 ring-1 ring-rose-400/40 flex items-center justify-center">
                                         <ExclamationTriangleIcon class="size-7 text-rose-300" />
                                     </div>
-                                    <p class="text-sm text-rose-200 max-w-64 break-words">{{ error }}</p>
+                                    <p class="text-sm text-rose-300 max-w-64 break-words">{{ error }}</p>
                                     <button
                                         class="px-5 py-2 rounded-xl font-semibold text-white bg-brand-gradient shadow-glow-dash hover:brightness-110 transition-all"
                                         @click="start"
@@ -198,8 +212,8 @@
 
                         <!-- Footer note -->
                         <div class="px-6 pb-5">
-                            <p class="text-[11px] leading-relaxed text-slate-500 text-center">
-                                Approving grants DashSwap a <span class="text-slate-300">scoped, budgeted, expiring</span> key.
+                            <p class="text-[11px] leading-relaxed text-ink3 text-center">
+                                Approving grants DashSwap a <span class="text-ink2">scoped, budgeted, expiring</span> key.
                                 It cannot send your credits, register names or change your keys — the wallet keeps them.
                             </p>
                         </div>
@@ -222,13 +236,14 @@
 
 import QRCode from 'qrcode'
 import blockies from 'ethereum-blockies-base64'
-import { XMarkIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
+import { XMarkIcon, ExclamationTriangleIcon, WrenchScrewdriverIcon } from '@heroicons/vue/24/outline'
 import { selectCarrierUri } from '../../libs/dashconnect/config'
 
 const DashConnect = useDashConnectStore()
 
 const isOpen = useState('dashconnect:login-open', () => false)
 const status = computed(() => DashConnect.status)
+const configured = computed(() => DashConnect.configured)
 const uris = computed(() => DashConnect.uris ?? [])
 const error = computed(() => DashConnect.error)
 
@@ -305,6 +320,12 @@ watch(isOpen, (open) => {
         tickTimer = setInterval(() => {
             nowTick.value = Date.now()
         }, 1000)
+
+        /* Start immediately: clicking Connect should never park on a
+         * spinner-and-button screen. Only when the network is configured. */
+        if (configured.value && DashConnect.status === 'idle') {
+            DashConnect.startLogin()
+        }
     } else {
         clearInterval(tickTimer)
         tickTimer = null

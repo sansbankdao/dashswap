@@ -57,7 +57,7 @@
                 <!-- <pre v-for="input of displayInputs(tx.vin)" :key="input.outpoint" class="text-xs">{{input}}</pre> -->
             </section>
 
-            <section class="my-3 px-2 py-1 flex flex-col gap-3 bg-gray-700 border border-gray-900 rounded">
+            <section class="my-3 px-2 py-1 flex flex-col gap-3 bg-surface-sunken border border-gray-900 rounded">
                 <h2 class="text-xs text-gray-50 uppercase">
                     Outputs
                 </h2>

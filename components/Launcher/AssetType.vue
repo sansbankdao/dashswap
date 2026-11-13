@@ -7,7 +7,7 @@
                     :key="token.id"
                     :aria-label="token.title"
                     :aria-description="`${token.type} for ${token.summary}`"
-                    class="group relative flex rounded-lg border border-slate-300 bg-white p-3 has-[:disabled]:border-slate-400 has-[:disabled]:bg-slate-200 has-[:disabled]:opacity-25 has-[:checked]:outline has-[:focus-visible]:outline has-[:checked]:outline-2 has-[:focus-visible]:outline-[3px] has-[:checked]:-outline-offset-2 has-[:focus-visible]:-outline-offset-1 has-[:checked]:outline-sky-600"
+                    class="group relative flex rounded-lg border border-slate-300 bg-surface p-3 has-[:disabled]:border-slate-400 has-[:disabled]:bg-slate-200 has-[:disabled]:opacity-25 has-[:checked]:outline has-[:focus-visible]:outline has-[:checked]:outline-2 has-[:focus-visible]:outline-[3px] has-[:checked]:-outline-offset-2 has-[:focus-visible]:-outline-offset-1 has-[:checked]:outline-sky-600"
                 >
                     <input
                         type="radio"

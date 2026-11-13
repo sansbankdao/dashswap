@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white py-6 sm:py-8 dark:bg-slate-900">
+    <div class="bg-surface py-6 sm:py-8 dark:bg-slate-900">
         <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
             <div class="max-w-4xl">
                 <h1 class="text-6xl font-semibold text-sky-500 dark:text-sky-300">

@@ -65,6 +65,11 @@ export default defineNuxtConfig({
         },
     },
 
+    /* Global styles (adaptive theme tokens). */
+    css: [
+        '~/assets/css/theme.css',
+    ],
+
     /* Additional Options */
     ssr: false,
     devtools: { enabled: true },

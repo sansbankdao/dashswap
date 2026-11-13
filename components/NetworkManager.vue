@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-white/5 rounded-xl p-4 ring-1 ring-white/10 text-xs backdrop-blur-sm">
+    <main class="bg-terminal rounded-xl p-4 ring-1 ring-line text-xs">
         <div class="flex items-center">
             <span class="flex items-center text-sky-300">
                 Dash Platform v2.0

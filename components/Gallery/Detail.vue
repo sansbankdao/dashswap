@@ -1,18 +1,18 @@
 <template>
-    <div class="bg-white">
+    <div class="bg-surface">
         <div class="mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8">
             <!-- Product -->
             <div class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
                 <!-- Product image -->
                 <div class="lg:col-span-4 lg:row-end-1">
-                    <img :src="props.imageSrc" :alt="product.imageAlt" class="aspect-[4/3] w-full rounded-lg bg-gray-100 object-cover" />
+                    <img :src="props.imageSrc" :alt="product.imageAlt" class="aspect-[4/3] w-full rounded-lg bg-surface-sunken object-cover" />
                 </div>
 
                 <!-- Product details -->
                 <div class="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
                     <div class="flex flex-col-reverse">
                         <div class="mt-4">
-                            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ props.name }}</h1>
+                            <h1 class="text-2xl font-bold tracking-tight text-ink1 sm:text-3xl">{{ props.name }}</h1>
 
     <h3 class="text-sky-400 text-xs truncate">
         ASSET ID
@@ -21,7 +21,7 @@
 
 
                             <h2 id="information-heading" class="sr-only">Product information</h2>
-                            <p class="mt-2 text-sm text-gray-500">Version {{ product.version.name }} (Updated <time :datetime="product.version.datetime">{{ product.version.date }}</time>)</p>
+                            <p class="mt-2 text-sm text-ink3">Version {{ product.version.name }} (Updated <time :datetime="product.version.datetime">{{ product.version.date }}</time>)</p>
                         </div>
 
                         <div>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
 
-                    <p class="mt-6 text-gray-500">{{ product.description }}</p>
+                    <p class="mt-6 text-ink3">{{ product.description }}</p>
 
                     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
                         <button
@@ -50,25 +50,25 @@
                         </button>
                     </div>
 
-                    <div class="mt-10 border-t border-gray-200 pt-10">
-                        <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
+                    <div class="mt-10 border-t border-line pt-10">
+                        <h3 class="text-sm font-medium text-ink1">Highlights</h3>
                         <div class="mt-4">
-                            <ul role="list" class="list-disc space-y-1 pl-5 text-sm/6 text-gray-500 marker:text-gray-300">
+                            <ul role="list" class="list-disc space-y-1 pl-5 text-sm/6 text-ink3 marker:text-gray-300">
                                 <li v-for="highlight in product.highlights" :key="highlight" class="pl-2">{{ highlight }}</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="mt-10 border-t border-gray-200 pt-10">
-                        <h3 class="text-sm font-medium text-gray-900">License</h3>
-                        <p class="mt-4 text-sm text-gray-500">{{ license.summary }} <a :href="license.href" class="font-medium text-sky-600 hover:text-sky-500">Read full license</a></p>
+                    <div class="mt-10 border-t border-line pt-10">
+                        <h3 class="text-sm font-medium text-ink1">License</h3>
+                        <p class="mt-4 text-sm text-ink3">{{ license.summary }} <a :href="license.href" class="font-medium text-sky-600 hover:text-sky-500">Read full license</a></p>
                     </div>
 
-                    <div class="mt-10 border-t border-gray-200 pt-10">
-                        <h3 class="text-sm font-medium text-gray-900">Share</h3>
+                    <div class="mt-10 border-t border-line pt-10">
+                        <h3 class="text-sm font-medium text-ink1">Share</h3>
                         <ul role="list" class="mt-4 flex items-center space-x-6">
                             <li>
-                                <a href="#" class="flex size-6 items-center justify-center text-gray-400 hover:text-gray-500">
+                                <a href="#" class="flex size-6 items-center justify-center text-ink3 hover:text-ink3">
                                     <span class="sr-only">Share on Facebook</span>
                                     <svg class="size-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                         <path
@@ -80,7 +80,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex size-6 items-center justify-center text-gray-400 hover:text-gray-500">
+                                <a href="#" class="flex size-6 items-center justify-center text-ink3 hover:text-ink3">
                                     <span class="sr-only">Share on Instagram</span>
                                     <svg class="size-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -92,7 +92,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex size-6 items-center justify-center text-gray-400 hover:text-gray-500">
+                                <a href="#" class="flex size-6 items-center justify-center text-ink3 hover:text-ink3">
                                     <span class="sr-only">Share on X</span>
                                     <svg class="size-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                         <path
@@ -107,20 +107,20 @@
 
                 <div class="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none">
                     <TabGroup as="div">
-                        <div class="border-b border-gray-200">
+                        <div class="border-b border-line">
                             <TabList class="-mb-px flex space-x-8">
                                 <Tab as="template" v-slot="{ selected }">
-                                    <button :class="[selected ? 'border-sky-600 text-sky-600' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
+                                    <button :class="[selected ? 'border-sky-600 text-sky-600' : 'border-transparent text-ink2 hover:border-line hover:text-ink1', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
                                         Customer Reviews
                                     </button>
                                 </Tab>
                                 <Tab as="template" v-slot="{ selected }">
-                                    <button :class="[selected ? 'border-sky-600 text-sky-600' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
+                                    <button :class="[selected ? 'border-sky-600 text-sky-600' : 'border-transparent text-ink2 hover:border-line hover:text-ink1', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
                                         FAQ
                                     </button>
                                 </Tab>
                                 <Tab as="template" v-slot="{ selected }">
-                                    <button :class="[selected ? 'border-sky-600 text-sky-600' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
+                                    <button :class="[selected ? 'border-sky-600 text-sky-600' : 'border-transparent text-ink2 hover:border-line hover:text-ink1', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
                                         License
                                     </button>
                                 </Tab>
@@ -130,12 +130,12 @@
                             <TabPanel class="-mb-10">
                                 <h3 class="sr-only">Customer Reviews</h3>
 
-                                <div v-for="(review, reviewIdx) in reviews.featured" :key="review.id" class="flex space-x-4 text-sm text-gray-500">
+                                <div v-for="(review, reviewIdx) in reviews.featured" :key="review.id" class="flex space-x-4 text-sm text-ink3">
                                     <div class="flex-none py-10">
-                                        <img :src="review.avatarSrc" alt="" class="size-10 rounded-full bg-gray-100" />
+                                        <img :src="review.avatarSrc" alt="" class="size-10 rounded-full bg-surface-sunken" />
                                     </div>
-                                    <div :class="[reviewIdx === 0 ? '' : 'border-t border-gray-200', 'py-10']">
-                                        <h3 class="font-medium text-gray-900">{{ review.author }}</h3>
+                                    <div :class="[reviewIdx === 0 ? '' : 'border-t border-line', 'py-10']">
+                                        <h3 class="font-medium text-ink1">{{ review.author }}</h3>
                                         <p>
                                             <time :datetime="review.datetime">{{ review.date }}</time>
                                         </p>
@@ -145,18 +145,18 @@
                                         </div>
                                         <p class="sr-only">{{ review.rating }} out of 5 stars</p>
 
-                                        <div class="mt-4 text-sm/6 text-gray-500" v-html="review.content" />
+                                        <div class="mt-4 text-sm/6 text-ink3" v-html="review.content" />
                                     </div>
                                 </div>
                             </TabPanel>
 
-                            <TabPanel class="text-sm text-gray-500">
+                            <TabPanel class="text-sm text-ink3">
                                 <h3 class="sr-only">Frequently Asked Questions</h3>
 
                                 <dl>
                                     <template v-for="faq in faqs" :key="faq.question">
-                                        <dt class="mt-10 font-medium text-gray-900">{{ faq.question }}</dt>
-                                        <dd class="mt-2 text-sm/6 text-gray-500">
+                                        <dt class="mt-10 font-medium text-ink1">{{ faq.question }}</dt>
+                                        <dd class="mt-2 text-sm/6 text-ink3">
                                             <p>{{ faq.answer }}</p>
                                         </dd>
                                     </template>
@@ -167,7 +167,7 @@
                                 <h3 class="sr-only">License</h3>
 
                                 <div
-                                    class="text-sm text-gray-500 [&>:first-child]:mt-0 [&_h4]:mt-5 [&_h4]:font-medium [&_h4]:text-gray-900 [&_li::marker]:text-gray-300 [&_li]:pl-2 [&_p]:my-2 [&_p]:text-sm/6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ul]:text-sm/6"
+                                    class="text-sm text-ink3 [&>:first-child]:mt-0 [&_h4]:mt-5 [&_h4]:font-medium [&_h4]:text-ink1 [&_li::marker]:text-gray-300 [&_li]:pl-2 [&_p]:my-2 [&_p]:text-sm/6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ul]:text-sm/6"
                                     v-html="license.content"
                                 />
                             </TabPanel>

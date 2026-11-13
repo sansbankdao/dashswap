@@ -1,5 +1,5 @@
 <template>
-    <main class="mt-10 border-t border-gray-200 pt-10">
+    <main class="mt-10 border-t border-line pt-10">
         <h2 class="text-2xl font-medium text-green-800 dark:text-green-200">
             Coin Advanced Details
         </h2>
@@ -16,31 +16,31 @@
                         id="first-name"
                         name="first-name"
                         autocomplete="given-name"
-                        class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                        class="block w-full rounded-md bg-surface px-3 py-2 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line placeholder:text-ink3 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                     />
                 </div>
             </div>
 
             <!-- <div>
-                <label for="last-name" class="block text-sm/6 font-medium text-gray-700">Last name</label>
+                <label for="last-name" class="block text-sm/6 font-medium text-ink2">Last name</label>
                 <div class="mt-2">
                     <input
                         type="text"
                         id="last-name"
                         name="last-name"
                         autocomplete="family-name"
-                        class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+                        class="block w-full rounded-md bg-surface px-3 py-2 text-base text-ink1 outline outline-1 -outline-offset-1 outline-line placeholder:text-ink3 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
                     />
                 </div>
             </div> -->
         </div>
 
-        <fieldset class="mt-6 border-b border-t border-gray-200 dark:border-white/10">
+        <fieldset class="mt-6 border-b border-t border-line dark:border-white/10">
             <legend class="sr-only">
                 Token Advanced Details
             </legend>
 
-            <div class="divide-y divide-gray-200 dark:divide-white/10">
+            <div class="divide-y divide-line dark:divide-white/10">
                 <div class="relative flex gap-3 pb-4 pt-3.5">
                     <div class="min-w-0 flex-1 text-sm/6">
                         <label for="comments" class="text-lg font-medium text-slate-700 dark:text-white">
@@ -60,7 +60,7 @@
                                 name="comments"
                                 checked
                                 aria-describedby="comments-description"
-                                class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-white/10 dark:disabled:checked:bg-white/10 forced-colors:appearance-auto"
+                                class="col-start-1 row-start-1 appearance-none rounded border border-line bg-surface checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:checked:bg-surface-sunken dark:border-white/10 dark:bg-surface/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-surface/10 dark:disabled:checked:bg-surface/10 forced-colors:appearance-auto"
                             />
                             <svg
                                 viewBox="0 0 14 14"
@@ -92,7 +92,7 @@
                                 type="checkbox"
                                 name="candidates"
                                 aria-describedby="candidates-description"
-                                class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-white/10 dark:disabled:checked:bg-white/10 forced-colors:appearance-auto"
+                                class="col-start-1 row-start-1 appearance-none rounded border border-line bg-surface checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:checked:bg-surface-sunken dark:border-white/10 dark:bg-surface/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-surface/10 dark:disabled:checked:bg-surface/10 forced-colors:appearance-auto"
                             />
                             <svg
                                 viewBox="0 0 14 14"
@@ -124,7 +124,7 @@
                                 type="checkbox"
                                 name="offers"
                                 aria-describedby="offers-description"
-                                class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-white/10 dark:disabled:checked:bg-white/10 forced-colors:appearance-auto"
+                                class="col-start-1 row-start-1 appearance-none rounded border border-line bg-surface checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-line disabled:bg-surface-sunken disabled:checked:bg-surface-sunken dark:border-white/10 dark:bg-surface/5 dark:checked:border-sky-500 dark:checked:bg-sky-500 dark:indeterminate:border-sky-500 dark:indeterminate:bg-sky-500 dark:focus-visible:outline-sky-500 dark:disabled:border-white/5 dark:disabled:bg-surface/10 dark:disabled:checked:bg-surface/10 forced-colors:appearance-auto"
                             />
                             <svg
                                 viewBox="0 0 14 14"
