@@ -24,15 +24,15 @@ export const DASHPAY_PROFILE_DOCUMENT_TYPE = 'profile'
 /**
  * DashSwap's anchor contract (the App Connect `appId`) and its contract group.
  *
- * STATUS: not deployed on any network yet — this is the last missing piece of
- * the login flow. Deployment needs a funded testnet identity (WIF or seed) to
- * broadcast the contract-create transition (which also registers the group at
- * create). The wallet side and Platform's App Connect system contract are
- * already live (verified): the QR appears here the moment DASHSWAP_APP_ID is
- * set on testnet.
+ * STATUS: DEPLOYED on testnet (2026-11-13) by
+ * `dashswap-api/scripts/register-testnet-anchor.ts` from the settlement
+ * mnemonic. Owner identity: BCZnXhWvJ2oCfFe39eokWBopoGtiCGAd9dHhLaPg65ny
+ * (the anchor registers the group at its own create; single owner, no admins;
+ * `requiresIdentityEncryptionBoundedKey: 2`). Mainnet: pending deployment.
  */
-export const DASHSWAP_APP_ID = ''
-export const DASHSWAP_GROUP_ID = ''
+export const DASHSWAP_APP_ID = 'HntqfEu3PZsPDcg8ERXenx4nP8ghWMxrBej2EQ58ewc7'
+export const DASHSWAP_GROUP_ID = 'CXkQP3VELmmEe1YUCCH3Yhh4jZxCu7Jh3zdSDjm29kD2'
+export const DASHSWAP_APP_OWNER_ID = 'BCZnXhWvJ2oCfFe39eokWBopoGtiCGAd9dHhLaPg65ny'
 
 const DAY_MS = 24 * 60 * 60_000
 /** Session key budget/expiry proposals; the wallet clamps and offers presets. */

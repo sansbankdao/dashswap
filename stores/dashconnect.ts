@@ -38,6 +38,7 @@ import {
 } from '../libs/dashconnect/index'
 
 import { useSystemStore } from '@/stores/system'
+import { DASHSWAP_APP_ID as DASHSWAP_APP_ID_TESTNET, DASHSWAP_GROUP_ID as DASHSWAP_GROUP_ID_TESTNET } from '../libs/dashconnect/config'
 import { useIdentityStore } from '@/stores/identity'
 
 /**
@@ -186,9 +187,14 @@ export const useDashConnectStore = defineStore('dashconnect', {
              * sequence (the layout continues with Identity.init()). */
             try {
                 const runtimeConfig = useRuntimeConfig()
+                /* Network-aware: the anchor is testnet-only for now; mainnet
+                 * deploys its own anchor later. runtimeConfig can still
+                 * override explicitly. */
+                const System = useSystemStore()
+                const network = System.network === 'mainnet' ? 'mainnet' : 'testnet'
                 this._config = {
-                    appId: (runtimeConfig.public.appConnectAppId as string) || '',
-                    groupId: (runtimeConfig.public.appConnectGroupId as string) || '',
+                    appId: (runtimeConfig.public.appConnectAppId as string) || (network === 'mainnet' ? '' : DASHSWAP_APP_ID_TESTNET),
+                    groupId: (runtimeConfig.public.appConnectGroupId as string) || (network === 'mainnet' ? '' : DASHSWAP_GROUP_ID_TESTNET),
                     label: (runtimeConfig.public.appConnectLabel as string) || 'DashSwap',
                     callbackUrl: (runtimeConfig.public.appConnectCallback as string) || '',
                     carrierSetting: (runtimeConfig.public.appConnectCarrier as string) || 'both',
