@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="px-4 pt-4">
         <div class="grid grid-cols-1 sm:hidden">
             <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
             <select
                 aria-label="Select a tab"
-                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-slate-800 outline outline-1 -outline-offset-1 outline-slate-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-sky-400"
+                class="col-start-1 row-start-1 w-full appearance-none rounded-xl bg-white/5 ring-1 ring-white/10 py-2.5 pl-3 pr-8 text-base text-slate-200 focus:ring-2 focus:ring-dash-400 transition-all"
                 @change="loadPage"
                 v-model="activeTab"
             >
@@ -13,35 +13,41 @@
                 </option>
             </select>
 
-            <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-slate-500" aria-hidden="true" />
+            <ChevronDownIcon class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-slate-400" aria-hidden="true" />
         </div>
 
         <div class="hidden sm:block">
-            <div class="border-b border-slate-200">
-                <nav class="pl-3 -mb-px flex xl:hidden space-x-8" aria-label="Tabs">
+            <div class="border-b border-white/10">
+                <nav class="pl-1 -mb-px flex xl:hidden gap-1 overflow-x-auto" aria-label="Tabs">
                     <a
                         v-for="tab in tabs"
                         :key="tab.name"
                         :href="tab.href"
-                        :class="[tab.current ? 'border-sky-500 text-sky-400' : 'border-transparent text-slate-200 hover:border-slate-50 hover:text-slate-400', 'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium']"
+                        :class="[tab.current
+                            ? 'bg-brand-gradient text-white shadow-glow-dash ring-1 ring-white/20'
+                            : 'text-slate-300 hover:bg-white/5 hover:text-white ring-1 ring-transparent hover:ring-white/10',
+                            'group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap']"
                         :aria-current="tab.current ? 'page' : undefined"
                     >
-                        <component :is="tab.icon" :class="[tab.current ? 'text-sky-300' : 'text-slate-400 group-hover:text-slate-500', '-ml-0.5 mr-2 size-5']" aria-hidden="true" />
+                        <component :is="tab.icon" :class="[tab.current ? 'text-white' : 'text-slate-400 group-hover:text-dash-300', 'size-4 transition-transform duration-200 group-hover:scale-110']" aria-hidden="true" />
 
                         <span>
                             {{ tab.name }}
                         </span>
                     </a>
                 </nav>
-                <nav class="pl-3 -mb-px hidden xl:flex space-x-8" aria-label="Tabs">
+                <nav class="pl-1 -mb-px hidden xl:flex gap-1" aria-label="Tabs">
                     <a
                         v-for="tab in alltabs"
                         :key="tab.name"
                         :href="tab.href"
-                        :class="[tab.current ? 'border-sky-500 text-sky-400' : 'border-transparent text-slate-200 hover:border-slate-50 hover:text-slate-400', 'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium']"
+                        :class="[tab.current
+                            ? 'bg-brand-gradient text-white shadow-glow-dash ring-1 ring-white/20'
+                            : 'text-slate-300 hover:bg-white/5 hover:text-white ring-1 ring-transparent hover:ring-white/10',
+                            'group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-200']"
                         :aria-current="tab.current ? 'page' : undefined"
                     >
-                        <component :is="tab.icon" :class="[tab.current ? 'text-sky-300' : 'text-slate-400 group-hover:text-slate-500', '-ml-0.5 mr-2 size-5']" aria-hidden="true" />
+                        <component :is="tab.icon" :class="[tab.current ? 'text-white' : 'text-slate-400 group-hover:text-dash-300', 'size-4 transition-transform duration-200 group-hover:scale-110']" aria-hidden="true" />
 
                         <span>
                             {{ tab.name }}

@@ -52,6 +52,19 @@ export default defineNuxtConfig({
         throttle: 200,
     },
 
+    runtimeConfig: {
+        public: {
+            /* DashConnect (App Connect v2) — set after the anchor contract
+             * deployment; see libs/dashconnect/config.ts. */
+            appConnectAppId: '',
+            appConnectGroupId: '',
+            appConnectLabel: 'DashSwap',
+            appConnectCallback: '',
+            /* dash-key | dashpay | both (testnet; mainnet is always dashpay). */
+            appConnectCarrier: 'both',
+        },
+    },
+
     /* Additional Options */
     ssr: false,
     devtools: { enabled: true },

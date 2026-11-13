@@ -1,6 +1,13 @@
 <template>
     <div class="loading-spinner">
-        <div class="spinner"></div>
+        <div class="relative flex flex-col items-center gap-5 animate-fade-in">
+            <div class="relative size-16">
+                <div class="absolute inset-0 rounded-full bg-dash-500/25 blur-xl animate-pulse-glow"></div>
+                <div class="absolute inset-0 rounded-full border-4 border-white/10 border-t-dash-400"></div>
+                <div class="absolute inset-2 rounded-full border-4 border-transparent border-b-space-400/70 animate-spin-slower" style="animation-direction: reverse;"></div>
+            </div>
+            <span class="text-xs uppercase tracking-[0.25em] text-dash-300">Loading…</span>
+        </div>
     </div>
 </template>
 
@@ -14,21 +21,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(5, 6, 15, 0.82);
+    backdrop-filter: blur(6px);
     z-index: 9999;
 }
 
-.spinner {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@media (prefers-reduced-motion: reduce) {
+    .loading-spinner [class*='animate-'],
+    .loading-spinner [style*='animation'] {
+        animation: none !important;
+    }
 }
 </style>
