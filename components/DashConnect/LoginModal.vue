@@ -64,9 +64,13 @@
                                         </p>
                                     </div>
                                     <p class="text-xs text-ink3 max-w-72">
-                                        The shared App Connect stack is live on <span class="font-semibold text-dash-300">Testnet</span> —
-                                        try <span class="font-mono">testnet.dashswap.xyz</span>, or scan this network again
-                                        after the anchor deployment.
+                                        The wallet side is ready — EvoNext and Dash Evo Tool speak App Connect v2, and
+                                        Platform's App Connect response contract is live on both networks (verified).
+                                        Registering DashSwap's anchor contract is the final step.
+                                    </p>
+                                    <p v-if="isMainnet" class="text-xs text-ink3 max-w-72">
+                                        Testnet goes first — the QR appears here on
+                                        <span class="font-mono">testnet.dashswap.xyz</span> as soon as the anchor lands.
                                     </p>
                                 </div>
                             </template>
@@ -268,6 +272,11 @@ const countdownLabel = computed(() => {
 const networkDisplay = computed(() => {
     const System = useSystemStore()
     return System.network === 'mainnet' ? 'MAINNET' : 'TESTNET'
+})
+
+const isMainnet = computed(() => {
+    const System = useSystemStore()
+    return System.network === 'mainnet'
 })
 
 const activeUri = computed(() => {

@@ -50,27 +50,6 @@
             </div>
         </section>
 
-        <!-- Claim CTA -->
-        <section class="animate-fade-up" style="animation-delay: 140ms;">
-            <NuxtLink to="/claim" class="group relative block rounded-2xl">
-                <span class="absolute -inset-px rounded-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-300 animate-border-flow bg-brand-gradient bg-[length:200%_200%]" aria-hidden="true"></span>
-                <span class="absolute -inset-3 rounded-3xl bg-dash-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></span>
-                <span class="relative flex flex-col gap-2 rounded-2xl bg-surface-strong ring-1 ring-line p-6 text-center transition-transform duration-300 group-hover:-translate-y-0.5">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold bg-text-gradient bg-clip-text text-transparent">
-                        Claim Your Dash Username
-                    </h2>
-
-                    <h3 class="text-base font-bold text-amber-400">
-                        Specially built assistant for iOS users to claim their Dash username TODAY!
-                    </h3>
-
-                    <p class="text-sm text-ink2">
-                        We offer a step-by-step guide to get MOST usernames claimed in just a few minutes.
-                    </p>
-                </span>
-            </NuxtLink>
-        </section>
-
         <!-- Detail sections -->
         <section class="animate-fade-up" style="animation-delay: 200ms;">
             <div class="flex flex-col gap-3">

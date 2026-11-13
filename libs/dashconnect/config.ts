@@ -23,8 +23,13 @@ export const DASHPAY_PROFILE_DOCUMENT_TYPE = 'profile'
 
 /**
  * DashSwap's anchor contract (the App Connect `appId`) and its contract group.
- * TODO: set after the anchor's testnet deployment (`pnpm generate` the anchor
- * contract, register the group at create).
+ *
+ * STATUS: not deployed on any network yet — this is the last missing piece of
+ * the login flow. Deployment needs a funded testnet identity (WIF or seed) to
+ * broadcast the contract-create transition (which also registers the group at
+ * create). The wallet side and Platform's App Connect system contract are
+ * already live (verified): the QR appears here the moment DASHSWAP_APP_ID is
+ * set on testnet.
  */
 export const DASHSWAP_APP_ID = ''
 export const DASHSWAP_GROUP_ID = ''

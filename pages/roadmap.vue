@@ -9,7 +9,6 @@
         </p>
 
         <ol class="pl-5 pt-5 text-slate-200 text-2xl font-bold space-y-3">
-            <li>📌 Claim username assistant</li>
             <li>📌 Rainmaker</li>
             <li>📌 Asset gallery</li>
             <li>📌 Token launcher</li>
