@@ -62,6 +62,12 @@ export default defineNuxtConfig({
             appConnectCallback: '',
             /* dash-key | dashpay | both (testnet; mainnet is always dashpay). */
             appConnectCarrier: 'both',
+
+            /* dashswap-api (FRONTEND-HANDOFF.md). Base defaults to production;
+             * a dev key is a Phase-1 interim (localStorage-overridable), Phase
+             * 2 replaces it with App Connect signature headers. */
+            swapApiBase: 'https://dashswap.xyz/v1',
+            swapApiKey: '',
         },
     },
 

@@ -1,207 +1,392 @@
 <template>
-    <main class="w-full flex flex-col gap-4">
-        <section class="p-3 grid grid-cols-2 gap-3">
-            <h2 class="col-span-2 text-2xl font-medium text-slate-200">
-                I Want to Receive ↴
-            </h2>
+    <main class="p-5 sm:p-8 flex flex-col gap-6">
+        <!-- Network phase banner (FRONTEND-HANDOFF §2) -->
+        <div class="flex items-center gap-2.5 rounded-xl bg-amber-400/10 ring-1 ring-amber-400/40 px-4 py-2.5 text-xs text-amber-300 animate-fade-in">
+            <InformationCircleIcon class="size-4 shrink-0" />
+            <span>
+                <span class="font-bold uppercase">{{ networkDisplay }}</span> phase —
+                deposit addresses are Dash <span class="font-mono">TESTNET</span> L1 addresses
+                and mainnet usernames will NOT resolve yet.
+            </span>
+        </div>
 
-            <div @click="isShowingSubMenu = false; isShowingDash = true" class="cursor-pointer px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-sky-700 rounded-lg shadow bg-gradient-to-b from-sky-500 to-sky-300">
-                <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-sky-900 font-medium whitespace-nowrap">
-                        Dash
-                    </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+            <!-- LEFT: swap form -->
+            <section class="flex flex-col gap-5 animate-fade-up">
+                <EffectsSectionTitle>
+                    I Want to Receive ↴
+                </EffectsSectionTitle>
 
-                    <h3 class="text-sm sm:text-base text-sky-700 font-medium">
-                        DASH
-                    </h3>
+                <!-- Pair selector (bootstrap allowlist; reverse rejected server-side) -->
+                <div class="flex flex-col gap-2.5">
+                    <button
+                        v-for="pair in Swap.pairs"
+                        :key="pair.direction"
+                        class="group relative flex items-center justify-between rounded-xl px-4 py-3.5 text-left ring-1 transition-all duration-200"
+                        :class="Swap.direction === pair.direction
+                            ? 'ring-dash-400/60 bg-dash-500/10 shadow-glow-dash'
+                            : 'ring-line bg-surface-sunken hover:ring-dash-300/40'"
+                        @click="Swap.setDirection(pair.direction)"
+                    >
+                        <span class="flex items-center gap-3">
+                            <span class="flex items-center justify-center size-9 rounded-lg bg-dash-500/15 text-dash-400 text-xs font-bold">DASH</span>
+                            <ArrowRightIcon class="size-4 text-ink3" />
+                            <span
+                                class="flex items-center justify-center size-9 rounded-lg text-xs font-bold"
+                                :class="pair.to === 'SANS' ? 'bg-amber-500/15 text-amber-400' : 'bg-lime-500/15 text-lime-400'"
+                            >{{ pair.to }}</span>
+                        </span>
+                        <span class="text-xs text-ink3">
+                            {{ pair.direction === Swap.direction ? 'selected' : pair.label }}
+                        </span>
+                    </button>
+
+                    <p class="text-[11px] text-ink3 px-1">
+                        Bootstrap phase runs <span class="text-ink2">ONE WAY</span> — receiving DASH back opens after revenue generation
+                        (the allowlist is enforced server-side either way).
+                    </p>
                 </div>
-            </div>
 
-            <div @click="isShowingDash = false; isShowingSubMenu = true" class="cursor-pointer px-2 flex-1 h-24 sm:h-32 flex justify-center items-center border border-lime-500 rounded-lg shadow bg-gradient-to-b from-lime-400 to-lime-200">
-                <div class="flex flex-col items-center">
-                    <h2 class="text-2xl sm:text-3xl text-lime-900 font-medium whitespace-nowrap">
-                        Dash USD
-                    </h2>
-
-                    <h3 class="text-sm sm:text-base text-lime-700 font-medium">
-                        DUSD
-                    </h3>
-                </div>
-            </div>
-
-            <div class="col-span-2 w-full flex flex-row gap-3">
-                <div @click="isShowingSubMenu = false; isShowingDash = true" class="cursor-not-allowed px-2 flex-1 h-20 sm:h-24 flex justify-center items-center border border-rose-900 rounded-lg shadow bg-gradient-to-b from-rose-700 to-rose-500">
-                    <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-rose-100 font-medium whitespace-nowrap">
-                            Popular Token
-                        </h2>
-
-                        <h3 class="text-xs sm:text-sm text-rose-50 font-medium">
-                            POP
-                        </h3>
+                <!-- Amount -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-medium tracking-widest uppercase text-ink3">Amount of DASH to send</label>
+                    <div class="relative">
+                        <input
+                            type="number"
+                            min="0"
+                            step="any"
+                            placeholder="0.00 — leave empty for an OPEN swap"
+                            v-model="amountDisplay"
+                            class="w-full rounded-xl bg-surface-sunken ring-1 ring-line px-4 py-3 text-xl font-semibold text-ink1 placeholder:text-ink3 placeholder:font-normal placeholder:text-base focus:ring-2 focus:ring-dash-400 outline-none transition-all"
+                        />
+                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-dash-400">DASH</span>
                     </div>
                 </div>
 
-                <div @click="isShowingSubMenu = false; isShowingDash = true" class="cursor-not-allowed flex-1 h-20 sm:h-24 flex justify-center items-center border border-violet-400 rounded-lg shadow bg-gradient-to-b from-violet-300 to-violet-100">
-                    <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-violet-900 font-medium whitespace-nowrap">
-                            Famous Token
-                        </h2>
+                <!-- Destination -->
+                <div class="flex flex-col gap-2.5">
+                    <label class="text-xs font-medium tracking-widest uppercase text-ink3">Receiving destination</label>
 
-                        <h3 class="text-xs sm:text-sm text-violet-700 font-medium">
-                            FAME
-                        </h3>
-                    </div>
+                    <button
+                        class="flex items-center gap-3 rounded-xl bg-surface-sunken ring-1 p-3.5 text-left transition-all"
+                        :class="Swap._sendToSelf ? 'ring-dash-400/50' : 'ring-line hover:ring-dash-300/40'"
+                        @click="Swap.setSendToSelf(true)"
+                    >
+                        <UserCircleIcon class="size-8 text-dash-400 shrink-0" />
+                        <span class="min-w-0">
+                            <span class="block text-sm font-semibold text-ink1">This identity</span>
+                            <span class="block font-mono text-xs text-ink3 truncate">{{ shortPlatformid || 'connect a wallet to swap' }}</span>
+                        </span>
+                    </button>
+
+                    <button
+                        class="flex items-center gap-3 rounded-xl bg-surface-sunken ring-1 p-3.5 text-left transition-all"
+                        :class="!Swap._sendToSelf ? 'ring-dash-400/50' : 'ring-line hover:ring-dash-300/40'"
+                        @click="Swap.setSendToSelf(false)"
+                    >
+                        <PaperAirplaneIcon class="size-8 text-violet-400 shrink-0" />
+                        <span class="min-w-0">
+                            <span class="block text-sm font-semibold text-ink1">Someone else</span>
+                            <span class="block text-xs text-ink3">username.dash, bare label or identity id</span>
+                        </span>
+                    </button>
+
+                    <input
+                        v-if="!Swap._sendToSelf"
+                        type="text"
+                        placeholder="alice.dash — or a bare identity id"
+                        v-model="customDestDisplay"
+                        class="w-full rounded-xl bg-surface-sunken ring-1 ring-line px-4 py-2.5 font-mono text-sm text-ink1 focus:ring-2 focus:ring-dash-400 outline-none transition-all"
+                    />
                 </div>
 
-                <a href="https://sansbank.org/bootstrap" target="_blank" class="flex-1 h-20 sm:h-24 flex justify-center items-center border border-yellow-500 rounded-lg shadow bg-gradient-to-b from-yellow-400 to-yellow-200">
-                    <div class="flex flex-col items-center">
-                        <h2 class="text-sm sm:text-lg text-yellow-900 font-medium whitespace-nowrap">
-                            Sansnote
-                        </h2>
+                <!-- Create -->
+                <button
+                    class="group relative w-full rounded-xl px-5 py-3.5 font-bold text-white overflow-hidden transition-all duration-300 enabled:hover:scale-[1.01] enabled:active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                    :disabled="!canCreate || Swap.creating"
+                    @click="onCreate"
+                >
+                    <span class="absolute inset-0 bg-brand-gradient bg-[length:200%_200%] animate-border-flow" aria-hidden="true"></span>
+                    <span class="relative flex items-center justify-center gap-2">
+                        <ArrowPathIcon v-if="Swap.creating" class="size-5 animate-spin" />
+                        <BoltIcon v-else class="size-5" />
+                        {{ Swap.creating ? 'Creating swap request…' : 'Create Swap Request' }}
+                    </span>
+                </button>
 
-                        <h3 class="text-xs sm:text-sm text-yellow-700 font-medium">
-                            SANS
-                        </h3>
+                <p v-if="Swap.error" class="text-sm text-rose-300">{{ Swap.error }}</p>
+
+                <!-- No wallet -->
+                <div v-if="!platformid" class="rounded-xl bg-surface-sunken ring-1 ring-line p-4 text-sm text-ink2">
+                    Swaps are <span class="font-semibold text-ink1">identity-bound</span> — connect a DashConnect wallet first.
+                    <button class="ml-1 text-dash-400 font-semibold hover:text-dash-300" @click="openConnect">
+                        Connect ↗
+                    </button>
+                </div>
+
+                <!-- Phase 1 key setup -->
+                <details v-if="!Swap.hasApiKey" class="rounded-xl bg-surface-sunken ring-1 ring-line p-4">
+                    <summary class="text-sm font-medium text-ink1 cursor-pointer">Advanced — swap API key (Phase 1)</summary>
+                    <p class="mt-2 text-xs text-ink3">
+                        The browser needs a <span class="font-mono">dsw_dev_…</span> key to reach the API
+                        (server-enforced: scope <span class="font-mono">swap</span> + per-identity list filter).
+                        Phase 2 replaces this with wallet signatures — the key never outlives the interim.
+                    </p>
+                    <div class="mt-2.5 flex gap-2">
+                        <input
+                            type="password"
+                            placeholder="dsw_dev_…"
+                            v-model="apiKeyInput"
+                            class="flex-1 rounded-lg bg-surface ring-1 ring-line px-3 py-2 font-mono text-xs text-ink1 focus:ring-2 focus:ring-dash-400 outline-none"
+                        />
+                        <button
+                            class="rounded-lg px-3 py-2 text-xs font-semibold text-white bg-brand-gradient"
+                            @click="saveApiKey"
+                        >Save</button>
                     </div>
-                </a>
-            </div>
-        </section>
+                </details>
+            </section>
 
-        <div v-if="!isShowingSubMenu && !isShowingDash" class="mx-10 my-3 border-t border-slate-300" />
+            <!-- RIGHT: tracker -->
+            <section class="flex flex-col gap-5 animate-fade-up" style="animation-delay: 90ms;">
+                <EffectsSectionTitle>Your swaps</EffectsSectionTitle>
 
-        <section v-if="!isShowingSubMenu && !isShowingDash" class="-mt-3 flex flex-col gap-3">
-            <p class="px-3 text-xs sm:text-sm text-slate-200 text-center">
-                Don't see your asset listed above?
-                Not a problem.
-                Search from <span class="text-sky-400 font-medium tracking-wider">more than 400+</span> assets below.
-            </p>
+                <!-- Active swap detail -->
+                <div v-if="Swap.activeSwap" class="relative rounded-2xl ring-1 ring-line bg-surface-sunken p-5 flex flex-col gap-4 animate-pop-in">
+                    <div class="flex items-center justify-between gap-3">
+                        <span class="font-mono text-xs text-ink3">{{ shortSwapId }}</span>
+                        <SwapStatusBadge :status="Swap.activeSwap.status" />
+                    </div>
 
-            <input
-                type="text"
-                placeholder="Search all supported assets"
-                v-model="search"
-                disabled
-                class="px-3 py-1 w-full h-16 sm:h-20 border-b-4 border-sky-200 bg-slate-800 text-xl sm:text-2xl text-slate-300 rounded shadow focus:outline-none"
-            />
-        </section>
+                    <!-- Deposit step -->
+                    <div class="rounded-xl bg-surface ring-1 ring-line p-4 flex items-center gap-4">
+                        <img v-if="depositQr" :src="depositQr" class="size-24 rounded-lg bg-white p-1.5" alt="Deposit address QR code" />
+                        <div class="min-w-0 flex-1">
+                            <p class="text-[10px] uppercase tracking-widest text-ink3">Send DASH to ({{ networkDisplay }})</p>
+                            <p class="mt-1 font-mono text-sm text-ink1 break-all">{{ Swap.activeSwap.deposit_address }}</p>
+                            <button
+                                class="mt-1.5 text-xs font-semibold text-dash-400 hover:text-dash-300 transition-colors"
+                                @click="copyDeposit"
+                            >{{ copied ? 'Copied ✓' : 'Copy address' }}</button>
+                        </div>
+                    </div>
 
-        <section v-if="isShowingSubMenu || isShowingDash" class="grid grid-cols-2 gap-y-2">
-            <div class="col-span-2 pb-3 flex justify-center">
-                <span class="text-sm text-sky-700 font-medium tracking-widest">
-                    1.00 $SANS = 0.1337 $DASH
-                </span>
-            </div>
+                    <!-- Status timeline -->
+                    <div class="flex items-center gap-1.5">
+                        <template v-for="(step, idx) in timeline" :key="step.name">
+                            <span
+                                class="h-1.5 flex-1 rounded-full transition-all duration-500"
+                                :class="step.done ? 'bg-brand-gradient' : 'bg-line'"
+                                :title="step.name"
+                            ></span>
+                        </template>
+                    </div>
+                    <div class="flex justify-between text-[10px] uppercase tracking-wider text-ink3 -mt-2.5">
+                        <span :class="timelineClass('pending')">pending</span>
+                        <span :class="timelineClass('detected')">detected</span>
+                        <span :class="timelineClass('confirmed')">confirmed</span>
+                        <span :class="timelineClass('settling')">settling</span>
+                        <span :class="timelineClass('settled')">settled</span>
+                    </div>
 
-            <h4 class="w-fit pr-3 py-1 flex items-center gap-1 text-xs sm:text-sm cursor-help">
-                Slippage
+                    <!-- Quote -->
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <div class="rounded-lg bg-surface ring-1 ring-line p-3">
+                            <p class="text-[10px] uppercase tracking-widest text-ink3">Indicative rate</p>
+                            <p class="mt-0.5 font-semibold text-ink1">{{ Swap.activeSwap.rate ?? '—' }}</p>
+                        </div>
+                        <div class="rounded-lg bg-surface ring-1 ring-line p-3">
+                            <p class="text-[10px] uppercase tracking-widest text-ink3">Estimate out</p>
+                            <p class="mt-0.5 font-semibold text-ink1">
+                                {{ Swap.activeSwap.expected_out ?? Swap.activeSwap.amount_out ?? '—' }}
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-ink3">
+                        The FINAL rate is fixed at settlement
+                        <template v-if="Swap.activeSwap.amount_out">
+                            — settled output: <span class="font-semibold text-ink1">{{ Swap.activeSwap.amount_out }}</span>
+                        </template>.
+                    </p>
 
-                <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
-                </svg>
-            </h4>
-            <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm text-blue-500 cursor-pointer hover:scale-105 duration-200 ease-in-out">
-                Auto (1%)
+                    <!-- Live poll indicator -->
+                    <p v-if="isPolling" class="flex items-center gap-2 text-[11px] text-ink3">
+                        <span class="size-1.5 rounded-full bg-dash-400 animate-pulse"></span>
+                        Polling every 10 s — the deposit is monitored on-chain (ChainLock-gated finality).
+                    </p>
+                </div>
 
-                <svg class="w-3 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"></path>
-                </svg>
-            </h4>
+                <!-- Empty state -->
+                <div v-else class="rounded-2xl bg-surface-sunken ring-1 ring-line p-8 text-center animate-fade-in">
+                    <ArrowsRightLeftIcon class="size-10 mx-auto text-ink3" />
+                    <p class="mt-3 text-sm text-ink2">Create a swap request to get a deposit address.</p>
+                </div>
 
-            <h4 class="w-fit pr-3 py-1 flex items-center gap-1 text-xs sm:text-sm cursor-help">
-                Price impact
+                <!-- List -->
+                <div class="flex flex-col gap-2">
+                    <button
+                        v-for="swap in Swap.swaps"
+                        :key="swap.swapid"
+                        class="flex items-center justify-between gap-3 rounded-xl bg-surface-sunken ring-1 p-3 text-left transition-all hover:ring-dash-300/50"
+                        :class="swap.swapid === Swap._activeSwapId ? 'ring-dash-400/50' : 'ring-line'"
+                        @click="Swap.select(swap.swapid)"
+                    >
+                        <span class="min-w-0">
+                            <span class="block font-mono text-xs text-ink1">{{ swap.swapid.slice(0, 8) }}…{{ swap.swapid.slice(-6) }}</span>
+                            <span class="block text-[11px] text-ink3">{{ swap.direction }} · {{ swap.amount_in ? (swap.amount_in / 1e8) + ' DASH' : 'open' }}</span>
+                        </span>
+                        <SwapStatusBadge :status="swap.status" />
+                    </button>
 
-                <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
-                </svg>
-            </h4>
-            <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm cursor-default">
-                &lt; 0.1%
-            </h4>
-
-            <h4 class="w-fit pr-3 py-1 flex items-center gap-1 text-xs sm:text-sm cursor-help">
-                Receiving address
-
-                <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
-                </svg>
-            </h4>
-            <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm text-blue-500 cursor-pointer hover:scale-105 duration-200 ease-in-out">
-                0x255824...9788997d
-
-                <svg class="w-3 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
-                </svg>
-            </h4>
-
-            <h4 class="w-fit pr-3 py-1 flex items-center gap-1 text-xs sm:text-sm cursor-help">
-                Min. quantity
-
-                <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
-                </svg>
-            </h4>
-            <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm cursor-default">
-                3.92159754
-            </h4>
-
-            <h4 class="w-fit pr-3 py-1 flex items-center gap-1 text-xs sm:text-sm cursor-help">
-                Transaction fee
-
-                <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
-                </svg>
-            </h4>
-            <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm cursor-default">
-                {{ isShowingSubMenu ? '0.01% - 1.0%' : '' }}
-                {{ isShowingDash ? '2.9%' : '' }}
-            </h4>
-
-            <h4 class="w-fit pr-3 py-1 flex items-center gap-1 text-xs sm:text-sm cursor-help">
-                Blockchain fees
-
-                <svg class="w-4 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
-                </svg>
-            </h4>
-            <h4 class="w-fit pl-3 py-1 flex place-self-end items-center justify-end gap-1 text-xs sm:text-sm cursor-default">
-                $1.30
-            </h4>
-        </section>
+                    <p v-if="Swap.swaps.length === 0" class="text-xs text-ink3 text-center py-2">
+                        {{ platformid ? 'No swaps yet for this identity.' : 'Your swaps will appear here once a wallet is connected.' }}
+                    </p>
+                </div>
+            </section>
+        </div>
     </main>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-// import numeral from 'numeral'
+/* components/Swap/Menu.vue
+ *
+ * InstaSwap — real dashswap-api integration (FRONTEND-HANDOFF.md §8):
+ * pair selector (bootstrap allowlist), duffs amount input, identity-bound
+ * destination, dash: deposit QR, full status lifecycle, 10 s polling.
+ * Replaces the previous mock UI (fake rates / dead buttons removed).
+ */
 
-/* Initialize stores. */
-// import { useSystemStore } from '@/stores/system'
-// const System = useSystemStore()
+import QRCode from 'qrcode'
+import {
+    ArrowPathIcon,
+    ArrowRightIcon,
+    ArrowsRightLeftIcon,
+    BoltIcon,
+    InformationCircleIcon,
+    PaperAirplaneIcon,
+    UserCircleIcon,
+} from '@heroicons/vue/24/outline'
 
-const search = ref(null)
+const Swap = useSwapStore()
+const DashConnect = useDashConnectStore()
+const System = useSystemStore()
 
-const isShowingSubMenu = ref(false)
-const isShowingDash = ref(false)
+const apiKeyInput = ref('')
+const copied = ref(false)
+const depositQr = ref(null)
 
-const makeSwap = async () => {
-    const msg = `Are you sure you want to continue with this Swap:
+const networkDisplay = computed(() => (System.network === 'mainnet' ? 'MAINNET' : 'TESTNET'))
+const platformid = computed(() => Swap.platformid)
+const isPolling = computed(() => Swap._pollTimer !== null)
 
-        ↪ You are sending ( 1.00 ) $SANS
-        ↪ You are receiving ( ~1,337.88 ) $DASH
-    `
-    if (confirm(msg)) {
-        alert('done!')
-    }
-}
-
-onMounted(() => {
-    console.log('MENU Mounted!')
-    // Now it's safe to perform setup operations.
+const shortPlatformid = computed(() => {
+    const id = platformid.value
+    if (!id) return ''
+    return `${id.slice(0, 10)}…${id.slice(-10)}`
 })
 
-// onBeforeUnmount(() => {
-//     console.log('Before Unmount!')
-//     // Now is the time to perform all cleanup operations.
-// })
+const shortSwapId = computed(() => {
+    const id = Swap.activeSwap?.swapid
+    if (!id) return ''
+    return `${id.slice(0, 8)}…${id.slice(-6)}`
+})
+
+const amountDisplay = computed({
+    get: () => Swap.amount,
+    set: (value) => Swap.setAmount(value),
+})
+
+const customDestDisplay = computed({
+    get: () => Swap._customDest,
+    set: (value) => Swap.setCustomDest(value),
+})
+
+const canCreate = computed(() => !!platformid.value)
+
+/* Lifecycle steps (FRONTEND-HANDOFF §5) — render forward-compatibly. */
+const STEPS = ['pending', 'detected', 'confirmed', 'settling', 'settled']
+
+const timeline = computed(() => {
+    const status = Swap.activeSwap?.status
+    const activeIndex = STEPS.indexOf(status)
+    return STEPS.map((name, index) => ({
+        name,
+        done: status === 'failed' || status === 'refunded'
+            ? index === 0
+            : activeIndex >= index && activeIndex !== -1,
+    }))
+})
+
+const timelineClass = (name) => {
+    const status = Swap.activeSwap?.status
+    const activeIndex = STEPS.indexOf(status)
+    const index = STEPS.indexOf(name)
+    if (activeIndex >= index) return 'text-dash-300 font-semibold'
+    return ''
+}
+
+/* Deposit QR — dash:<deposit_address> (FRONTEND-HANDOFF §2). */
+watch(() => Swap.activeSwap?.deposit_address, async (address) => {
+    if (!address) {
+        depositQr.value = null
+        return
+    }
+    try {
+        depositQr.value = await QRCode.toDataURL(`dash:${address}`, {
+            margin: 1,
+            width: 240,
+            errorCorrectionLevel: 'M',
+            color: { dark: '#0b1220', light: '#ffffff' },
+        })
+    } catch (err) {
+        console.error('Swap: QR generation failed', err)
+        depositQr.value = null
+    }
+}, { immediate: true })
+
+const onCreate = async () => {
+    await Swap.create()
+    await Swap.loadSwaps()
+}
+
+const openConnect = () => {
+    useState('dashconnect:login-open').value = true
+}
+
+const saveApiKey = () => {
+    Swap.setApiKey(apiKeyInput.value.trim())
+    Swap.init()
+    Swap.loadSwaps()
+}
+
+const copyDeposit = async () => {
+    const address = Swap.activeSwap?.deposit_address
+    if (!address) return
+    await navigator.clipboard.writeText(address).catch((err) => console.error(err))
+    copied.value = true
+    setTimeout(() => {
+        copied.value = false
+    }, 1600)
+}
+
+/* Boot: capture config, restore selection, load records. */
+onMounted(async () => {
+    Swap.init()
+
+    /* Reopen the last tracked swap (localStorage ids survive reloads). */
+    const tracked = Swap.trackedSwapIds()
+    if (tracked.length > 0 && !Swap.activeSwapId) {
+        Swap._activeSwapId = tracked[0]
+        await Swap._refreshActive()
+        if (Swap.activeSwap && !['settled', 'failed', 'refunded'].includes(Swap.activeSwap.status)) {
+            Swap._startPolling()
+        }
+    }
+
+    await Swap.loadSwaps()
+})
+
+onBeforeUnmount(() => {
+    Swap._stopPolling()
+})
 </script>
