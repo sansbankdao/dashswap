@@ -15,14 +15,19 @@ export default defineNuxtConfig({
         },
     },
 
-    /* Progressive Web Application Settings */
+    /* Progressive Web Application Settings (@vite-pwa/nuxt) */
     pwa: {
+        /* The bundled wasm SDKs (dash + pshenmic-dpp) ship as 12 MiB / 5 MiB
+         * chunks — above workbox's 2 MiB default; precache them anyway so the
+         * installed PWA is fully functional offline. (@unplugin-pwa/core reads
+         * this from the pwa ROOT, not from workbox.) */
+        maximumFileSizeToCacheInBytes: 20971520,
+
         manifest: {
             name: 'DashSwap Buy. Sell. Collect by Sansbank',
             short_name: 'DashSwap',
             description: `Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.`,
             // lang: 'en',
-            // useWebmanifestExtension: false,
         },
         meta: {
             name: 'DashSwap Buy. Sell. Collect by Sansbank',
@@ -32,7 +37,6 @@ export default defineNuxtConfig({
         },
         // icon: false, // disables the icon module
         workbox: {
-            // workboxURL: 'TBD',
             // enabled: true, // FOR DEV PURPOSES ONLY
         },
     },
@@ -43,7 +47,10 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
 
         /* Pinia */
-        '@pinia/nuxt'
+        '@pinia/nuxt',
+
+        /* PWA (successor of the deprecated @kevinmarrec/nuxt-pwa) */
+        '@vite-pwa/nuxt'
     ],
 
     loading: {
