@@ -26,7 +26,17 @@ TRANSFER keys.
 |---|---|---|
 | App Connect system contract `H8F9mP1BM55TE1ShsxPZHzhyinaMdY9bMmP85mkDhcJJ` | Testnet | **Deployed** (v1, owner `1111…1111`) |
 | Same system contract | Mainnet | **Deployed** (v1, owner `1111…1111`) |
+| **DashSwap anchor** `HntqfEu3PZsPDcg8ERXenx4nP8ghWMxrBej2EQ58ewc7` (the request `appId`) | Testnet | **Deployed** 2026-11-13 (v1, `requiresIdentityEncryptionBoundedKey: 2`, owner-only `appInfo`) — LIVE for wallet testing |
+| Same anchor | Mainnet | Not deployed yet (the dApp then shows its "not configured" state) |
+| DashSwap contract group `CXkQP3VELmmEe1YUCCH3Yhh4jZxCu7Jh3zdSDjm29kD2` | Testnet | **Registered** at anchor create (single owner, no admins; the anchor is its first member) |
 | Legacy mailbox `7UaqHGBJBbRLJ4fUWS45cnud8PPUugJWoGTt1SKwHJ2P` | Testnet only | Legacy v1; ignore for new work |
+
+Identity map on testnet (both from the settlement mnemonic; non-unique key
+hashes across identities are legal on Platform — do not "merge" them):
+- `DpLt5xyRoACYkXjbVa95nzzG7ZtpiEcTGWR5W6es4xmh` — settlement identity
+  (Platform-credit funded; holds the tSANS/tDUSD pools; signs transfers).
+- `BCZnXhWvJ2oCfFe39eokWBopoGtiCGAd9dHhLaPg65ny` — asset-lock identity
+  (1e8 credits; owns the anchor contract + group).
 
 Wallets shipping the protocol today (per Yappr's status box, 2026-10-28):
 dashwallet-ios TestFlight 9.1.4 (12) (unmerged PRs #1202/#1204/#1210), and dash-wallet

@@ -12,10 +12,8 @@ import init, {
 const CURRENT_NETWORK = 'testnet'
 
 export default async function (_entropy) {
-console.log('SEARCHING FOR MY IDENTITY...', this._entropy)
 
     const mnemonic = entropyToMnemonic(this._entropy)
-console.log('MNEMONIC', mnemonic)
 
     // Derive key from seed phrase
     const result1 = await derive_key_from_seed_phrase(
@@ -23,7 +21,6 @@ console.log('MNEMONIC', mnemonic)
         '',
         CURRENT_NETWORK,
     )
-console.log('RESULT-1', result1)
 
     // const pathStr = `m/44'/5'/0'/0/0`
     const pathStr = `m/9'/5'/5'/0'/0'/0'/0'`
@@ -33,7 +30,6 @@ console.log('RESULT-1', result1)
         pathStr,
         CURRENT_NETWORK,
     )
-console.log('RESULT-2', result2)
 
     /* Initialize WASM module. */
     await init()
@@ -52,7 +48,6 @@ console.log('RESULT-2', result2)
             publicKeyHash,
             null,
           )
-console.log('RESULT-3', result3)
 
     let dip13Path
 
@@ -85,7 +80,6 @@ console.log('RESULT-3', result3)
     default:
         throw new Error('Invalid sub-feature selected');
     }
-console.log('DIP-13 PATH', dip13Path)
 
     // let publicKeys = []
 
@@ -145,15 +139,12 @@ console.log('DIP-13 PATH', dip13Path)
     // Master key (authentication, master level)
     const masterKeyPath = `m/9'/${CURRENT_NETWORK === 'mainnet' ? 5 : 1}'/5'/0'/0'/${identityIndex}'/0'`
     const masterKey = derive_key_from_seed_with_path(mnemonic, undefined, masterKeyPath, CURRENT_NETWORK)
-console.log('MASTER KEY', masterKey)
 
     // Additional authentication key (high security)
     const authKeyPath = `m/9'/${CURRENT_NETWORK === 'mainnet' ? 5 : 1}'/5'/0'/0'/${identityIndex}'/1'`
     const authKey = derive_key_from_seed_with_path(mnemonic, undefined, authKeyPath, CURRENT_NETWORK)
-console.log('AUTH KEY', authKey)
 
     // Transfer key (critical security)
     const transferKeyPath = `m/9'/${CURRENT_NETWORK === 'mainnet' ? 5 : 1}'/5'/0'/0'/${identityIndex}'/2'`
     const transferKey = derive_key_from_seed_with_path(mnemonic, undefined, transferKeyPath, CURRENT_NETWORK)
-console.log('TRANSFER KEY', transferKey)
 }
