@@ -23,11 +23,59 @@ import {
 import { useDashConnectStore } from '@/stores/dashconnect'
 import { useSystemStore } from '@/stores/system'
 
-/** Bootstrap allowlist (server-enforced; mirrored for the UI). */
+/** Bootstrap allowlist (server-enforced; mirrored for the UI).
+ * Naming per FRONTEND-HANDOFF-2 §4: mainnet displays SANS / DUSD
+ * (the testnet tSANS/tDUSD prefixes are gone). */
 export const SWAP_PAIRS = [
-    { direction: 'DASH->SANS', from: 'DASH', to: 'SANS', label: 'Dash → Sansnote' },
-    { direction: 'DASH->DUSD', from: 'DASH', to: 'DUSD', label: 'Dash → Dash USD' },
+    { direction: 'DASH->SANS', from: 'DASH', to: 'SANS', label: 'Dash → SANS' },
+    { direction: 'DASH->DUSD', from: 'DASH', to: 'DUSD', label: 'Dash → DUSD' },
 ] as const
+
+/** The engine phase the API currently settles on. ONE Worker serves ONE
+ * network (FRONTEND-HANDOFF-2 §0: mainnet live); production base
+ * dashswap.xyz/v1 IS mainnet today.
+ * TODO: read from the API once the phase is exposed publicly (a field on
+ * the create response or a public endpoint) instead of this constant. */
+export const SWAP_PHASE = 'MAINNET' as const
+
+/** Destination display decimals (FRONTEND-HANDOFF-2 §1: /10^8 SANS,
+ * /10^6 DUSD). */
+export const TOKEN_DECIMALS = { SANS: 8, DUSD: 6 } as const
+
+/** Platform fee: 30 bps OF THE BASE (DASH), taken before pricing
+ * (FRONTEND-HANDOFF-2 §1 — do not re-derive the payout math; the API's
+ * expected_out/amount_out already carry it. This is for the FEE LINE
+ * display only). */
+export const FEE_BPS = 30
+
+export const feeDuffs = (amountInDuffs: number): number =>
+    Math.floor((amountInDuffs * FEE_BPS) / 10_000)
+
+/** The bootstrap promo ladder, mirrored from FRONTEND-HANDOFF-2 §1 (SANS
+ * in DASH terms, doubles weekly). The API exposes NO public rate endpoint
+ * yet — a swap quote is the only live source — so this mirror feeds the
+ * season display until one ships.
+ * TODO: drop once a public quote/rate endpoint exists (§7). */
+export const PROMO_LADDER = [0.0004, 0.0008, 0.0016, 0.0032, 0.0064, 0.0128, 0.0256, 0.0512] as const
+
+/** DASH per 1 destination token, from the API's base-per-duff rate. */
+export const dashPerToken = (rate: number): number => (rate > 0 ? 1 / rate : 0)
+
+/** Season index from a base-per-duff SANS rate (exact ladder match;
+ * 0 = no match). */
+export const seasonFromRate = (rate: number): number => {
+    const dashPer = dashPerToken(rate)
+    const idx = PROMO_LADDER.findIndex((entry) => Math.abs(entry - dashPer) < entry * 1e-9)
+    return idx + 1
+}
+
+/** Format destination base units for display (FRONTEND-HANDOFF-2 §1). */
+export const formatTokenUnits = (symbol: string, baseUnits: number | string | null | undefined): string => {
+    const value = typeof baseUnits === 'string' ? Number(baseUnits) : baseUnits
+    if (value === null || value === undefined || Number.isNaN(value)) return '—'
+    const decimals = TOKEN_DECIMALS[symbol as keyof typeof TOKEN_DECIMALS] ?? 8
+    return `${(Number(value) / 10 ** decimals).toLocaleString('en-US', { maximumFractionDigits: decimals })} ${symbol}`
+}
 
 /** Terminal statuses — polling stops here (FRONTEND-HANDOFF §5). */
 const TERMINAL_STATUSES = ['settled', 'failed', 'refunded'] as const

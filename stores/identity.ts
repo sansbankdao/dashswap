@@ -24,10 +24,18 @@ import _preorder from './dpns/preorder.ts'
 const FEE_AMOUNT = 1000
 const MAX_INPUTS_ALLOWED = 250
 
-// FIXME FOR DEV PURPOSES ONLY
-const DASH_PRICE = 22.89
+/* LIVE pricing (FRONTEND-HANDOFF-2 §4: never hardcode rates).
+ * - DASH: fetched LIVE from the public ticker (GET /v1/ticker/DASH) in
+ *   init(); the number below is a DISPLAY-ONLY fallback for when the
+ *   ticker is unreachable — the swap engine prices authoritatively.
+ * - SANS: follows the bootstrap promo ladder in DASH terms. The API
+ *   exposes NO public rate endpoint yet (only a swap quote returns it),
+ *   so the LIVE season value is mirrored here.
+ *   TODO: replace with GET /v1/quote once the API ships it.
+ * - DUSD: the $1.00 custodial peg (constant by design). */
+let DASH_PRICE = 22.89
+const SANS_DASH_PER = 0.0016 // TODO: public quote endpoint (FRONTEND-HANDOFF-2 §7)
 const DUSD_PRICE = 1.00
-const SANS_PRICE = 0.01
 
 const DUSD_CONTRACT_ID = 'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd'
 const TDUSD_CONTRACT_ID = '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz'
@@ -282,6 +290,16 @@ export const useIdentityStore = defineStore('identity', {
                     .build()
             }
 
+            /* Live DASH price for the fiat display (display-only; public
+             * ticker, no auth). FRONTEND-HANDOFF-2 §4. */
+            try {
+                const ticker = await (await fetch('https://dashswap.xyz/v1/ticker/DASH')).json()
+                const live = Number(ticker?.quote?.USD?.price)
+                if (Number.isFinite(live) && live > 0) DASH_PRICE = live
+            } catch (err) {
+                console.error('Identity: live DASH price unavailable — using the fallback', err)
+            }
+
             /* Request identity balance. */
             balanceCredit = await get_identity_balance(sdk, this.id)
 // console.log('BALANCE (credits)', balanceCredit.balance)
@@ -327,18 +345,18 @@ export const useIdentityStore = defineStore('identity', {
                         },
                     },
                     'AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB': {
-                        name: 'Sansnote',
+                        name: 'SANS',
                         ticker: 'SANS',
                         iconUrl: '/icons/sans-AxAYWyXV6mrm8Sq7vc7wEM18wtL8a8rgj64SM3SDmzsB.svg',
                         decimal_places: 8,
                         amount: BigInt(balanceSans[0]?.balance || 0),
                         // satoshis: BigInt(222), // IS THIS DEPRECATED??
                         fiat: {
-                            USD: (((balanceSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
+                            USD: (((balanceSans[0]?.balance || 0)/10**8) * (SANS_DASH_PER * DASH_PRICE)).toFixed(4),
                         },
                     },
                     'DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd': {
-                        name: 'Dash USD',
+                        name: 'DUSD',
                         ticker: 'DUSD',
                         iconUrl: '/icons/dusd-DYqxCsuDgYsEAJ2ADnimkwNdL7C4xbe4No4so19X9mmd.svg',
                         decimal_places: 6,
@@ -370,7 +388,7 @@ export const useIdentityStore = defineStore('identity', {
                         amount: BigInt(balanceSans[0]?.balance || 0),
                         // satoshis: BigInt(222), // IS THIS DEPRECATED??
                         fiat: {
-                            USD: (((balanceSans[0]?.balance || 0)/10**8) * SANS_PRICE).toFixed(4),
+                            USD: (((balanceSans[0]?.balance || 0)/10**8) * (SANS_DASH_PER * DASH_PRICE)).toFixed(4),
                         },
                     },
                     '3oTHkj8nqn82QkZRHkmUmNBX696nzE1rg1fwPRpemEdz': {

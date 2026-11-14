@@ -1,12 +1,13 @@
 <template>
     <main class="p-5 sm:p-8 flex flex-col gap-6">
-        <!-- Network phase banner (FRONTEND-HANDOFF §2) -->
+        <!-- Engine phase banner (FRONTEND-HANDOFF-2 §0: real value) -->
         <div class="flex items-center gap-2.5 rounded-xl bg-amber-400/10 ring-1 ring-amber-400/40 px-4 py-2.5 text-xs text-amber-300 animate-fade-in">
             <InformationCircleIcon class="size-4 shrink-0" />
             <span>
-                <span class="font-bold uppercase">{{ networkDisplay }}</span> phase —
-                deposit addresses are Dash <span class="font-mono">TESTNET</span> L1 addresses
-                and mainnet usernames will NOT resolve yet.
+                <span class="font-bold uppercase">{{ SWAP_PHASE }} LIVE</span> — swaps settle
+                <span class="font-semibold">real DASH → real SANS / DUSD</span>.
+                Deposit addresses are Dash <span class="font-mono">{{ SWAP_PHASE }}</span> L1 addresses —
+                double-check every detail before sending.
             </span>
         </div>
 
@@ -162,7 +163,7 @@
                     <div class="rounded-xl bg-surface ring-1 ring-line p-4 flex items-center gap-4">
                         <img v-if="depositQr" :src="depositQr" class="size-24 rounded-lg bg-white p-1.5" alt="Deposit address QR code" />
                         <div class="min-w-0 flex-1">
-                            <p class="text-[10px] uppercase tracking-widest text-ink3">Send DASH to ({{ networkDisplay }})</p>
+                            <p class="text-[10px] uppercase tracking-widest text-ink3">Send DASH to ({{ SWAP_PHASE }})</p>
                             <p class="mt-1 font-mono text-sm text-ink1 break-all">{{ Swap.activeSwap.deposit_address }}</p>
                             <button
                                 class="mt-1.5 text-xs font-semibold text-dash-400 hover:text-dash-300 transition-colors"
@@ -189,23 +190,24 @@
                         <span :class="timelineClass('settled')">settled</span>
                     </div>
 
-                    <!-- Quote -->
-                    <div class="grid grid-cols-2 gap-3 text-sm">
+                    <!-- Quote (FRONTEND-HANDOFF-2 §1/§3: promo rate + fee transparency) -->
+                    <div class="flex flex-col gap-2">
                         <div class="rounded-lg bg-surface ring-1 ring-line p-3">
-                            <p class="text-[10px] uppercase tracking-widest text-ink3">Indicative rate</p>
-                            <p class="mt-0.5 font-semibold text-ink1">{{ Swap.activeSwap.rate ?? '—' }}</p>
+                            <p class="text-[10px] uppercase tracking-widest text-ink3">Promo rate</p>
+                            <p class="mt-0.5 font-semibold text-ink1">{{ rateDisplay }}</p>
                         </div>
                         <div class="rounded-lg bg-surface ring-1 ring-line p-3">
-                            <p class="text-[10px] uppercase tracking-widest text-ink3">Estimate out</p>
+                            <p class="text-[10px] uppercase tracking-widest text-ink3">Payout (net of fee)</p>
                             <p class="mt-0.5 font-semibold text-ink1">
-                                {{ Swap.activeSwap.expected_out ?? Swap.activeSwap.amount_out ?? '—' }}
+                                {{ formatTokenUnits(destSymbol, Swap.activeSwap.expected_out ?? Swap.activeSwap.amount_out) }}
                             </p>
                         </div>
                     </div>
                     <p class="text-[11px] text-ink3">
+                        Includes <span class="font-semibold text-ink2">0.30% platform fee</span><template v-if="feeDisplay"> — fee ≈ {{ feeDisplay }} DASH</template>.
                         The FINAL rate is fixed at settlement
                         <template v-if="Swap.activeSwap.amount_out">
-                            — settled output: <span class="font-semibold text-ink1">{{ Swap.activeSwap.amount_out }}</span>
+                            — settled output: <span class="font-semibold text-ink1">{{ formatTokenUnits(destSymbol, Swap.activeSwap.amount_out) }}</span>
                         </template>.
                     </p>
 
@@ -258,6 +260,13 @@
 
 import QRCode from 'qrcode'
 import {
+    SWAP_PHASE,
+    PROMO_LADDER,
+    feeDuffs,
+    seasonFromRate,
+    formatTokenUnits,
+} from '@/stores/swap'
+import {
     ArrowPathIcon,
     ArrowRightIcon,
     ArrowsRightLeftIcon,
@@ -269,13 +278,11 @@ import {
 
 const Swap = useSwapStore()
 const DashConnect = useDashConnectStore()
-const System = useSystemStore()
 
 const apiKeyInput = ref('')
 const copied = ref(false)
 const depositQr = ref(null)
 
-const networkDisplay = computed(() => (System.network === 'mainnet' ? 'MAINNET' : 'TESTNET'))
 const platformid = computed(() => Swap.platformid)
 const isPolling = computed(() => Swap._pollTimer !== null)
 
@@ -324,6 +331,29 @@ const timelineClass = (name) => {
     if (activeIndex >= index) return 'text-dash-300 font-semibold'
     return ''
 }
+
+/* Destination symbol of the active swap (§1 display semantics). */
+const destSymbol = computed(() =>
+    ((Swap.activeSwap?.direction ?? Swap.direction).split('->')[1] ?? 'SANS'))
+
+/* §1: the API's rate is base-units-per-duff of the destination — display
+ * it in customer terms. SANS: the promo ladder ("1 SANS = 0.0016 DASH —
+ * Season 3"); DUSD: the $1.00 peg. */
+const rateDisplay = computed(() => {
+    const rate = Swap.activeSwap?.rate
+    if (!rate || rate <= 0) return '—'
+    if (destSymbol.value === 'DUSD') return '1 DUSD = $1.00 (USD peg)'
+    const season = seasonFromRate(rate)
+    const dashPer = season > 0 ? PROMO_LADDER[season - 1] : Number((1 / rate).toPrecision(3))
+    return `1 SANS = ${dashPer} DASH${season > 0 ? ` — Season ${season}` : ' (×2 weekly ladder)'}`
+})
+
+/* §3 fee line: 30 bps of the base, shown in DASH when the amount is known. */
+const feeDisplay = computed(() => {
+    const amountIn = Swap.activeSwap?.amount_in
+    if (!amountIn || amountIn <= 0) return ''
+    return (feeDuffs(amountIn) / 1e8).toLocaleString('en-US', { maximumFractionDigits: 8 })
+})
 
 /* Deposit QR — dash:<deposit_address> (FRONTEND-HANDOFF §2). */
 watch(() => Swap.activeSwap?.deposit_address, async (address) => {
