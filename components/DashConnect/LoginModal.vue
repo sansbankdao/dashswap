@@ -291,8 +291,6 @@ const extensionAvailable = computed(() => DashConnect.extensionAvailable)
 const extensionConnecting = computed(() => DashConnect.extensionConnecting)
 const extensionError = computed(() => DashConnect.extensionError)
 const extensionIdentityId = computed(() => DashConnect.extensionIdentityId)
-const extensionConnecting = computed(() => DashConnect.extensionConnecting)
-const extensionError = computed(() => DashConnect.extensionError)
 const extensionSuccess = ref(false)
 const extensionShortId = computed(() => {
     const id = extensionIdentityId.value || ''

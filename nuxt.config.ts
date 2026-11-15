@@ -3,15 +3,23 @@ export default defineNuxtConfig({
     /* Application */
     app: {
         head: {
-            title: 'DashSwap Buy. Sell. Collect by Sansbank',
+            title: 'DashSwap — Instant DASH token swaps by Sansbank',
             meta: [
-                { name: 'description', content: 'Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.' },
-                { name: 'keywords', content: 'dash, crypto, dex, instaswap' },
+                { name: 'description', content: 'Instantly swap DASH for native Dash Platform tokens. On-chain settlement, self-custody wallets, flat 0.3% engine fee — live in seconds.' },
+                { name: 'keywords', content: 'dash, crypto, dex, instaswap, sansbank' },
             ],
             link: [
                 { rel: 'canonical', href: 'https://dashswap.xyz' },
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             ],
+        },
+    },
+
+    /* Runtime config (public env — bakeable at build, overridable per
+     * deployment). GlitchTip DSN: empty until the self-host lands. */
+    runtimeConfig: {
+        public: {
+            glitchtipDsn: process.env.NUXT_PUBLIC_GLITCHTIP_DSN || '',
         },
     },
 
@@ -24,14 +32,14 @@ export default defineNuxtConfig({
         maximumFileSizeToCacheInBytes: 20971520,
 
         manifest: {
-            name: 'DashSwap Buy. Sell. Collect by Sansbank',
+            name: 'DashSwap — Instant DASH token swaps',
             short_name: 'DashSwap',
-            description: `Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.`,
+            description: `Instantly swap DASH for native Dash Platform tokens. On-chain settlement, self-custody wallets, flat 0.3% engine fee.`,
             // lang: 'en',
         },
         meta: {
-            name: 'DashSwap Buy. Sell. Collect by Sansbank',
-            description: `Instantly swap ANY Dash native $TOKEN in a permissionless marketplace—liquidity providers (LP) offers 24x7 convenience.`,
+            name: 'DashSwap — Instant DASH token swaps',
+            description: `Instantly swap DASH for native Dash Platform tokens. On-chain settlement, self-custody wallets, flat 0.3% engine fee.`,
             author: `Sansbank DAO`,
             // nativeUI: true,
         },

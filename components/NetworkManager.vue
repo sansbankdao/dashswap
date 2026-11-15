@@ -44,6 +44,26 @@
             Waiting for your next request...
         </div>
 
+        <!-- Swap engine status (heartbeat: public market endpoint) -->
+        <div class="mt-2 pt-2 border-t border-line flex items-center gap-2">
+            <span
+                class="size-2 rounded-full shrink-0"
+                :class="{
+                    'bg-emerald-400 animate-pulse': engineState === 'ok',
+                    'bg-amber-400 animate-pulse': engineState === 'degraded',
+                    'bg-rose-500': engineState === 'down',
+                    'bg-slate-500': engineState === null,
+                }"
+                aria-hidden="true"
+            ></span>
+            <span class="text-slate-300">
+                <template v-if="engineState === 'ok'">Swap engine is live</template>
+                <template v-else-if="engineState === 'degraded'">Swap engine is syncing…</template>
+                <template v-else-if="engineState === 'down'">Swap engine is unreachable</template>
+                <template v-else>Checking swap engine…</template>
+            </span>
+        </div>
+
     </main>
 </template>
 
@@ -58,6 +78,26 @@ const System = useSystemStore()
 
 const epoch = ref(0)
 const dashUsdTickerDisplay = ref('$0.00')
+
+/* Swap-engine heartbeat: the engine's own API base for THIS host (the
+ * same base the swap store uses — network-aware, baked per host).
+ * ok = 200+success; degraded = answered but not success; down = no answer. */
+const engineState = ref(null as string | null)
+const pollEngine = async () => {
+    try {
+        /* Ensure the store's host-aware base is set regardless of boot order. */
+        const Swap = useSwapStore()
+        Swap.init()
+
+        const response = await fetch(`${Swap.base}/v1/market`, {
+            signal: AbortSignal.timeout(8000),
+        })
+        const json = await response.json().catch(() => null)
+        engineState.value = (response.ok && json?.success === true) ? 'ok' : 'degraded'
+    } catch {
+        engineState.value = 'down'
+    }
+}
 
 const networkDisplay = computed(() => {
     /* Validate network. */
@@ -110,6 +150,8 @@ const init = async () => {
 
 onMounted(() => {
     init()
+    pollEngine()
+    setInterval(pollEngine, 60_000)
 })
 
 // onBeforeUnmount(() => {

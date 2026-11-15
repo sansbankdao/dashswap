@@ -64,6 +64,29 @@
                     </div>
                 </div>
 
+                <!-- Engine inventory (API-HANDOFF-CHAT-INVENTORY §2):
+                     hidden until the engine exposes inventory_state. -->
+                <div
+                    v-if="Swap.inventoryState === 'out'"
+                    class="rounded-xl bg-rose-500/10 ring-1 ring-rose-400/40 p-3 flex gap-2.5"
+                >
+                    <ExclamationTriangleIcon class="size-5 text-rose-300 shrink-0 mt-0.5" />
+                    <div>
+                        <p class="text-sm font-semibold text-rose-200">Sold out</p>
+                        <p class="text-xs text-ink3">The engine's inventory for this token is exhausted — new swaps pause until the pool is topped up.</p>
+                    </div>
+                </div>
+                <div
+                    v-else-if="Swap.inventoryState === 'low'"
+                    class="rounded-xl bg-amber-500/10 ring-1 ring-amber-400/40 p-3 flex gap-2.5"
+                >
+                    <ExclamationTriangleIcon class="size-5 text-amber-300 shrink-0 mt-0.5" />
+                    <div>
+                        <p class="text-sm font-semibold text-amber-200">Low inventory</p>
+                        <p class="text-xs text-ink3">The pool is running thin — swaps still settle, but top-ups are coming.</p>
+                    </div>
+                </div>
+
                 <!-- Destination (prominent: who receives the swapped tokens) -->
                 <div class="flex flex-col gap-2.5">
                     <div class="flex items-center justify-between">
@@ -313,6 +336,7 @@ import {
     ArrowsRightLeftIcon,
     BoltIcon,
     CheckCircleIcon,
+    ExclamationTriangleIcon,
     InformationCircleIcon,
     PaperAirplaneIcon,
     UserCircleIcon,

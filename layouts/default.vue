@@ -88,6 +88,9 @@
 
         <!-- DashConnect login (teleported; available on every page) -->
         <DashConnectLoginModal />
+
+        <!-- AI support chat (bottom-right) — wired to /v1/support/chat -->
+        <SupportChat />
     </div>
 </template>
 

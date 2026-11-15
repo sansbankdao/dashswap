@@ -177,6 +177,7 @@
 import numeral from 'numeral'
 import moment from 'moment'
 import QrScanner from 'qr-scanner'
+import { captureError } from '@/libs/telemetry'
 // import {
 //     getAddressBalance,
 //     getAddressFirstUse,
@@ -313,7 +314,8 @@ const startScanner = async () => {
 
         cameraError.value = true
 
-        /* Bugsnag alert. */
+        /* Error telemetry (GlitchTip when the DSN is configured). */
+        captureError('send.scanner.failed', err)
         throw new Error(err)
     }
 }

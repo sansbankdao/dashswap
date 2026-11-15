@@ -20,6 +20,7 @@ import {
     SwapApiError,
     request,
 } from '../libs/swap-api/client.js'
+import { friendlySwapError } from '../libs/swap-api/errors.js'
 
 import { useDashConnectStore } from '@/stores/dashconnect'
 import { useSystemStore } from '@/stores/system'
@@ -102,6 +103,12 @@ export const useSwapStore = defineStore('swap', {
         _quote: null as Record<string, any> | null,
         _engineNetwork: DEFAULT_ENGINE_NETWORK as string,
 
+        /* Engine inventory exposure (API-HANDOFF-CHAT-INVENTORY contract:
+         * quote gains inventory_state 'ok'|'low'|'out' + inventory_base_duffs
+         * when the engine ships it — null until then, UI stays hidden). */
+        _inventoryState: null as string | null,
+        _inventoryBaseDuffs: null as number | null,
+
         /* Flow. */
         _creating: false,
         _loading: false,
@@ -115,6 +122,16 @@ export const useSwapStore = defineStore('swap', {
         /** LIVE public quote for the selected destination. */
         quote(_state) {
             return _state._quote
+        },
+
+        /** Engine inventory state ('ok' | 'low' | 'out' | null). */
+        inventoryState(_state) {
+            return _state._inventoryState
+        },
+
+        /** Engine inventory remaining, base duffs (null until exposed). */
+        inventoryBaseDuffs(_state) {
+            return _state._inventoryBaseDuffs
         },
 
         /** The engine's settlement phase, read live (quote → network;
@@ -271,6 +288,15 @@ export const useSwapStore = defineStore('swap', {
             if (typeof payload?.network === 'string' && payload.network) {
                 this._engineNetwork = payload.network
             }
+
+            /* Inventory exposure (API-HANDOFF-CHAT-INVENTORY §2): hidden
+             * until the engine ships the fields. */
+            this._inventoryState = typeof payload?.inventory_state === 'string'
+                ? payload.inventory_state
+                : null
+            this._inventoryBaseDuffs = typeof payload?.inventory_base_duffs === 'number'
+                ? payload.inventory_base_duffs
+                : null
             return payload
         },
 
@@ -297,7 +323,8 @@ export const useSwapStore = defineStore('swap', {
                     await this.select(this._swaps[0]!.swapid)
                 }
             } catch (err) {
-                this._error = err instanceof SwapApiError ? err.message : String(err)
+                console.error(err) // eslint-disable-line no-console
+                this._error = friendlySwapError(err, { network: this._engineNetwork })
             } finally {
                 this._loading = false
             }
@@ -352,7 +379,8 @@ export const useSwapStore = defineStore('swap', {
                 /* Start polling for transitions. */
                 this._startPolling()
             } catch (err) {
-                this._error = err instanceof SwapApiError ? err.message : String(err)
+                console.error(err) // eslint-disable-line no-console
+                this._error = friendlySwapError(err, { network: this._engineNetwork })
             } finally {
                 this._creating = false
             }

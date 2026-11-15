@@ -15,9 +15,9 @@
             </h3>
 
             <ol class="pl-10 list-decimal">
-                <li>Instant $TOKEN swap</li>
-                <li>Custom $TOKEN launcher</li>
-                <li>Paymaster (for $DASH-free transfers)</li>
+                <li>Instant $TOKEN swap <span class="text-emerald-300 font-semibold">(live)</span></li>
+                <li>Custom $TOKEN launcher <span class="text-slate-400">(roadmap)</span></li>
+                <li>Paymaster (for $DASH-free transfers) <span class="text-slate-400">(roadmap)</span></li>
             </ol>
         </section>
 
