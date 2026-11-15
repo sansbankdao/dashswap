@@ -79,9 +79,9 @@ const System = useSystemStore()
 const epoch = ref(0)
 const dashUsdTickerDisplay = ref('$0.00')
 
-/* Swap-engine heartbeat: the engine's own API base for THIS host (the
- * same base the swap store uses — network-aware, baked per host).
- * ok = 200+success; degraded = answered but not success; down = no answer. */
+/* Swap-engine heartbeat (API-HANDOFF-CHAT-INVENTORY-RESEND-ACK §3):
+ * GET /v1/status on the engine's own host-aware base. ok = 200 + success
+ * + engine:"ok"; degraded = answered but unhealthy; down = no answer. */
 const engineState = ref(null as string | null)
 const pollEngine = async () => {
     try {
@@ -89,11 +89,13 @@ const pollEngine = async () => {
         const Swap = useSwapStore()
         Swap.init()
 
-        const response = await fetch(`${Swap.base}/v1/market`, {
+        const response = await fetch(`${Swap.base}/v1/status`, {
             signal: AbortSignal.timeout(8000),
         })
         const json = await response.json().catch(() => null)
-        engineState.value = (response.ok && json?.success === true) ? 'ok' : 'degraded'
+        engineState.value = (response.ok && json?.success === true && json?.engine === 'ok')
+            ? 'ok'
+            : 'degraded'
     } catch {
         engineState.value = 'down'
     }
