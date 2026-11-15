@@ -18,6 +18,7 @@ import {
     listSwaps,
     fetchSwap,
     SwapApiError,
+    request,
 } from '../libs/swap-api/client.js'
 
 import { useDashConnectStore } from '@/stores/dashconnect'
@@ -31,43 +32,26 @@ export const SWAP_PAIRS = [
     { direction: 'DASH->DUSD', from: 'DASH', to: 'DUSD', label: 'Dash → DUSD' },
 ] as const
 
-/** The engine phase the API currently settles on. ONE Worker serves ONE
- * network (FRONTEND-HANDOFF-2 §0: mainnet live); production base
- * dashswap.xyz/v1 IS mainnet today.
- * TODO: read from the API once the phase is exposed publicly (a field on
- * the create response or a public endpoint) instead of this constant. */
-export const SWAP_PHASE = 'MAINNET' as const
+/** The engine phase the API currently settles on — read LIVE from the
+ * public quote (GET /v1/quote → network) and swap responses
+ * (FRONTEND-HANDOFF-2-ACK §3.3). ONE Worker serves ONE network; the value
+ * below is only the pre-fetch default for the very first paint. */
+export const DEFAULT_ENGINE_NETWORK = 'mainnet' as const
 
 /** Destination display decimals (FRONTEND-HANDOFF-2 §1: /10^8 SANS,
  * /10^6 DUSD). */
 export const TOKEN_DECIMALS = { SANS: 8, DUSD: 6 } as const
 
 /** Platform fee: 30 bps OF THE BASE (DASH), taken before pricing
- * (FRONTEND-HANDOFF-2 §1 — do not re-derive the payout math; the API's
- * expected_out/amount_out already carry it. This is for the FEE LINE
- * display only). */
-export const FEE_BPS = 30
-
-export const feeDuffs = (amountInDuffs: number): number =>
-    Math.floor((amountInDuffs * FEE_BPS) / 10_000)
-
-/** The bootstrap promo ladder, mirrored from FRONTEND-HANDOFF-2 §1 (SANS
- * in DASH terms, doubles weekly). The API exposes NO public rate endpoint
- * yet — a swap quote is the only live source — so this mirror feeds the
- * season display until one ships.
- * TODO: drop once a public quote/rate endpoint exists (§7). */
-export const PROMO_LADDER = [0.0004, 0.0008, 0.0016, 0.0032, 0.0064, 0.0128, 0.0256, 0.0512] as const
+ * (FRONTEND-HANDOFF-2 §1). Swap objects now carry fee_bps/fee_duffs
+ * (FRONTEND-HANDOFF-2-ACK §3.2) — the API is the source of truth. This
+ * derivation remains ONLY as a fallback for legacy rows that predate the
+ * fee columns (their fee_duffs may be null). */
+export const feeDuffs = (amountInDuffs: number, feeBps = 30): number =>
+    Math.floor((amountInDuffs * feeBps) / 10_000)
 
 /** DASH per 1 destination token, from the API's base-per-duff rate. */
 export const dashPerToken = (rate: number): number => (rate > 0 ? 1 / rate : 0)
-
-/** Season index from a base-per-duff SANS rate (exact ladder match;
- * 0 = no match). */
-export const seasonFromRate = (rate: number): number => {
-    const dashPer = dashPerToken(rate)
-    const idx = PROMO_LADDER.findIndex((entry) => Math.abs(entry - dashPer) < entry * 1e-9)
-    return idx + 1
-}
 
 /** Format destination base units for display (FRONTEND-HANDOFF-2 §1). */
 export const formatTokenUnits = (symbol: string, baseUnits: number | string | null | undefined): string => {
@@ -106,6 +90,11 @@ export const useSwapStore = defineStore('swap', {
         _activeSwapId: null as string | null,
         _activeSwap: null as Record<string, any> | null,
 
+        /* LIVE public quote (GET /v1/quote — no key; FRONTEND-HANDOFF-2-ACK
+         * §3.1): rate/season/fee_bps/network for the selected destination. */
+        _quote: null as Record<string, any> | null,
+        _engineNetwork: DEFAULT_ENGINE_NETWORK as string,
+
         /* Flow. */
         _creating: false,
         _loading: false,
@@ -116,6 +105,17 @@ export const useSwapStore = defineStore('swap', {
     }),
 
     getters: {
+        /** LIVE public quote for the selected destination. */
+        quote(_state) {
+            return _state._quote
+        },
+
+        /** The engine's settlement phase, read live (quote → network;
+         * create/fetch responses may carry it too — read opportunistically). */
+        enginePhase(_state) {
+            return _state._engineNetwork.toUpperCase()
+        },
+
         base(_state) {
             return _state._base
         },
@@ -215,6 +215,26 @@ export const useSwapStore = defineStore('swap', {
         },
 
         /**
+         * Fetch Quote (PUBLIC — no key; FRONTEND-HANDOFF-2-ACK §3.1)
+         *
+         * GET /v1/quote?Dest=<symbol>[&AmountIn=<duffs>] — the engine's own
+         * rate/season/fee_bps/network. AmountIn is optional; pass it to also
+         * receive fee_duffs + expected_out (NET of fee).
+         */
+        async fetchQuote(destSymbol: string, amountInDuffs?: number) {
+            const search = new URLSearchParams({ Dest: destSymbol })
+            if (amountInDuffs !== undefined && amountInDuffs > 0) {
+                search.set('AmountIn', String(amountInDuffs))
+            }
+            const payload = await request(this._base, '', `/quote?${search.toString()}`)
+            this._quote = payload
+            if (typeof payload?.network === 'string' && payload.network) {
+                this._engineNetwork = payload.network
+            }
+            return payload
+        },
+
+        /**
          * Load Swaps
          *
          * Lists the caller's swaps (platformid filter — required for dev keys).
@@ -281,6 +301,11 @@ export const useSwapStore = defineStore('swap', {
                 this._activeSwap = swap
                 this._activeSwapId = swap?.swapid ?? null
 
+                /* Engine phase (ACK §3.3) — read opportunistically. */
+                if (typeof swap?.network === 'string' && swap.network) {
+                    this._engineNetwork = swap.network
+                }
+
                 /* Track locally (bounded, newest last) so the list survives reloads. */
                 this._trackSwapId(swap.swapid)
 
@@ -313,6 +338,11 @@ export const useSwapStore = defineStore('swap', {
                     apiKey: this._apiKey,
                     swapid: this._activeSwapId,
                 })
+
+                /* Engine phase (ACK §3.3) — read opportunistically. */
+                if (typeof this._activeSwap?.network === 'string' && this._activeSwap.network) {
+                    this._engineNetwork = this._activeSwap.network
+                }
             } catch (err) {
                 if (err instanceof SwapApiError && err.status === 404) {
                     this._error = 'That swap id no longer exists.'

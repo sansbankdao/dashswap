@@ -26,7 +26,7 @@ export class SwapApiError extends Error {
 
 const joinBase = (base, path) => `${(base || '').replace(/\/+$/, '')}${path}`
 
-async function request(base, apiKey, path, options = {}) {
+export async function request(base, apiKey, path, options = {}) {
     const headers = { 'content-type': 'application/json' }
     if (apiKey) headers['x-api-key'] = apiKey
 

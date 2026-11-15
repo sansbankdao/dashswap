@@ -4,9 +4,9 @@
         <div class="flex items-center gap-2.5 rounded-xl bg-amber-400/10 ring-1 ring-amber-400/40 px-4 py-2.5 text-xs text-amber-300 animate-fade-in">
             <InformationCircleIcon class="size-4 shrink-0" />
             <span>
-                <span class="font-bold uppercase">{{ SWAP_PHASE }} LIVE</span> — swaps settle
+                <span class="font-bold uppercase">{{ Swap.enginePhase }} LIVE</span> — swaps settle
                 <span class="font-semibold">real DASH → real SANS / DUSD</span>.
-                Deposit addresses are Dash <span class="font-mono">{{ SWAP_PHASE }}</span> L1 addresses —
+                Deposit addresses are Dash <span class="font-mono">{{ Swap.enginePhase }}</span> L1 addresses —
                 double-check every detail before sending.
             </span>
         </div>
@@ -163,12 +163,15 @@
                     <div class="rounded-xl bg-surface ring-1 ring-line p-4 flex items-center gap-4">
                         <img v-if="depositQr" :src="depositQr" class="size-24 rounded-lg bg-white p-1.5" alt="Deposit address QR code" />
                         <div class="min-w-0 flex-1">
-                            <p class="text-[10px] uppercase tracking-widest text-ink3">Send DASH to ({{ SWAP_PHASE }})</p>
+                            <p class="text-[10px] uppercase tracking-widest text-ink3">Send DASH to ({{ Swap.enginePhase }})</p>
                             <p class="mt-1 font-mono text-sm text-ink1 break-all">{{ Swap.activeSwap.deposit_address }}</p>
                             <button
                                 class="mt-1.5 text-xs font-semibold text-dash-400 hover:text-dash-300 transition-colors"
                                 @click="copyDeposit"
                             >{{ copied ? 'Copied ✓' : 'Copy address' }}</button>
+                            <p class="mt-1 text-[11px] text-ink3">
+                                Single-use deposit address — watch-only for you; settlement is custodied on the platform side.
+                            </p>
                         </div>
                     </div>
 
@@ -204,12 +207,21 @@
                         </div>
                     </div>
                     <p class="text-[11px] text-ink3">
-                        Includes <span class="font-semibold text-ink2">0.30% platform fee</span><template v-if="feeDisplay"> — fee ≈ {{ feeDisplay }} DASH</template>.
+                        Includes <span class="font-semibold text-ink2">{{ Swap.activeSwap.fee_bps ? (Swap.activeSwap.fee_bps / 100) : 0.30 }}% platform fee</span><template v-if="feeDisplay"> — fee ≈ {{ feeDisplay }} DASH</template>.
                         The FINAL rate is fixed at settlement
                         <template v-if="Swap.activeSwap.amount_out">
                             — settled output: <span class="font-semibold text-ink1">{{ formatTokenUnits(destSymbol, Swap.activeSwap.amount_out) }}</span>
                         </template>.
                     </p>
+
+                    <!-- Settled on-chain proof (ACK Q3: dest_txid) -->
+                    <div v-if="settledTxid" class="rounded-lg bg-surface ring-1 ring-line p-3">
+                        <p class="text-[10px] uppercase tracking-widest text-ink3">Settled on-chain — state transition</p>
+                        <p class="mt-0.5 font-mono text-xs text-ink1 break-all">{{ settledTxid }}</p>
+                        <button class="mt-1 text-xs font-semibold text-dash-400 hover:text-dash-300 transition-colors" @click="copyTxid">
+                            {{ copiedTxid ? 'Copied ✓' : 'Copy hash' }}
+                        </button>
+                    </div>
 
                     <!-- Live poll indicator -->
                     <p v-if="isPolling" class="flex items-center gap-2 text-[11px] text-ink3">
@@ -260,10 +272,7 @@
 
 import QRCode from 'qrcode'
 import {
-    SWAP_PHASE,
-    PROMO_LADDER,
     feeDuffs,
-    seasonFromRate,
     formatTokenUnits,
 } from '@/stores/swap'
 import {
@@ -338,22 +347,53 @@ const destSymbol = computed(() =>
 
 /* §1: the API's rate is base-units-per-duff of the destination — display
  * it in customer terms. SANS: the promo ladder ("1 SANS = 0.0016 DASH —
- * Season 3"); DUSD: the $1.00 peg. */
+ * Season 3"; season read LIVE from the public quote — ACK §3.1);
+ * DUSD: the $1.00 peg. */
 const rateDisplay = computed(() => {
     const rate = Swap.activeSwap?.rate
     if (!rate || rate <= 0) return '—'
     if (destSymbol.value === 'DUSD') return '1 DUSD = $1.00 (USD peg)'
-    const season = seasonFromRate(rate)
-    const dashPer = season > 0 ? PROMO_LADDER[season - 1] : Number((1 / rate).toPrecision(3))
-    return `1 SANS = ${dashPer} DASH${season > 0 ? ` — Season ${season}` : ' (×2 weekly ladder)'}`
+    const quoteSeason = (destSymbol.value === Swap.quote?.dest && Number.isInteger(Swap.quote?.season))
+        ? Swap.quote.season
+        : null
+    const dashPer = Number((1 / rate).toPrecision(3))
+    return `1 SANS = ${dashPer} DASH${quoteSeason ? ` — Season ${quoteSeason}` : ''}`
 })
 
-/* §3 fee line: 30 bps of the base, shown in DASH when the amount is known. */
+/* §3 fee line: the swap object's fee_duffs (ACK §3.2 — the API is the
+ * source of truth); derived ONLY as a fallback for legacy rows whose
+ * fee_duffs is null. Shown in DASH. */
 const feeDisplay = computed(() => {
-    const amountIn = Swap.activeSwap?.amount_in
+    const swap = Swap.activeSwap
+    const amountIn = swap?.amount_in
     if (!amountIn || amountIn <= 0) return ''
-    return (feeDuffs(amountIn) / 1e8).toLocaleString('en-US', { maximumFractionDigits: 8 })
+    const duffs = (swap?.fee_duffs !== null && swap?.fee_duffs !== undefined)
+        ? Number(swap.fee_duffs)
+        : feeDuffs(amountIn, swap?.fee_bps ?? 30)
+    return (duffs / 1e8).toLocaleString('en-US', { maximumFractionDigits: 8 })
 })
+
+/* ACK Q3: the settled on-chain movement (DPP state transition hash) —
+ * shown + copyable in the tracker once settled. */
+const settledTxid = computed(() => Swap.activeSwap?.dest_txid ?? '')
+const copiedTxid = ref(false)
+const copyTxid = async () => {
+    if (!settledTxid.value) return
+    await navigator.clipboard.writeText(settledTxid.value).catch((err) => console.error(err))
+    copiedTxid.value = true
+    setTimeout(() => {
+        copiedTxid.value = false
+    }, 1600)
+}
+
+/* Live public quote (rate/season/network — no key) for the selected dest. */
+watch(destSymbol, async (symbol) => {
+    try {
+        await Swap.fetchQuote(symbol)
+    } catch (err) {
+        console.error('Swap: public quote unavailable', err)
+    }
+}, { immediate: true })
 
 /* Deposit QR — dash:<deposit_address> (FRONTEND-HANDOFF §2). */
 watch(() => Swap.activeSwap?.deposit_address, async (address) => {
