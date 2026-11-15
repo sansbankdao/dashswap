@@ -7,9 +7,12 @@ units for `btcpay-dash-evolution`, `dash-intents`, `evonext-desktop`, plus a
 Gitea act-runner for evonext-mobile. Self-hosted runner minutes are FREE, so
 the billing block never applies. This repo gets the same pattern.
 
-**Target**: `testnet.dashswap.xyz` (Cloudflare Pages project +
-custom-domain binding). Production (`dashswap.xyz`) follows later with the
-same workflow pattern — a separate Pages project + branch protection.
+**Target**: a SINGLE Cloudflare Pages project bound to BOTH hostnames —
+`dashswap.xyz` (mainnet) and `testnet.dashswap.xyz` (testnet). Hostname
+detection in `stores/system.ts` picks the network at runtime; the
+per-network Worker routes + dev keys are BAKED into the single build
+(nuxt.config: `swapApiBaseTestnet` = `https://testnet.dashswap.xyz/v1`,
+live per HANDOFF-3-ACK; keys via CI secrets). One push deploys both.
 
 ---
 
@@ -64,14 +67,20 @@ runners if any are ever converted to org-level).
 3. Repo secrets (Settings → Secrets and variables → Actions):
    - `CLOUDFLARE_API_TOKEN` — token with **Cloudflare Pages: Edit**.
    - `CLOUDFLARE_ACCOUNT_ID`.
-   - `PAGES_PROJECT_TESTNET` — the project name from step 1.
-   - `TESTNET_SWAP_API_KEY` — the dev key **issued against the testnet
-     Worker instance** (fresh D1; ask the API team — see
-     `docs/FRONTEND-HANDOFF-3-TESTNET-WORKER.md`). The production key is
-     NOT valid on a separate instance.
-4. Repo VARIABLE: `TESTNET_SWAP_API_BASE` — the testnet Worker's public
-   route (empty until the API team confirms HANDOFF-3).
-5. Optional VARIABLE: `NITRO_PRESET` — default `cloudflare-pages`.
+   - `PAGES_PROJECT` — the single Pages project bound to both hostnames.
+   - `MAINNET_SWAP_API_KEY` — the production dev key
+     (`dsw_dev_2a05…`, raw at sansbank VM
+     `~/.cloudflare/dashswap-frontend-devkey.txt`).
+   - `TESTNET_SWAP_API_KEY` — the testnet-instance dev key
+     (`dsw_dev_e25c…`, raw at sansbank VM
+     `~/.cloudflare/dashswap-frontend-testnet-devkey.txt`; fresh D1 per
+     HANDOFF-3-ACK).
+4. Optional VARIABLE: `NITRO_PRESET` — default `cloudflare-pages`.
+
+SAFETY: while the testnet Worker route is baked, the testnet host creates
+swaps ONLY against the testnet instance (no fallback to mainnet — the
+store's `testnetWorkerMissing` guard blocks creation if the route is ever
+removed).
 
 > Hosting-model note: `dashswap.xyz` production is SSR Nuxt behind
 > Cloudflare (`x-powered-by: Nuxt`, DYNAMIC caching — headers alone cannot

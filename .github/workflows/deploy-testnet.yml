@@ -1,6 +1,9 @@
 # .github/workflows/deploy-testnet.yml
 #
-# Deploy dashswap.xyz to testnet.dashswap.xyz (Cloudflare Pages).
+# Deploy dashswap.xyz to Cloudflare Pages — a SINGLE project serves
+# dashswap.xyz (mainnet) AND testnet.dashswap.xyz (testnet); hostname
+# detection in stores/system.ts picks the network. The per-network Worker
+# routes + dev keys are baked into the build (both instances are live).
 #
 # Runs on the SELF-HOSTED runner (evorunner VPS) — GitHub-hosted runners
 # are unavailable (billing block); self-hosted minutes are free. This
@@ -12,9 +15,9 @@
 #      label, running as a systemd service.
 #   2. >=3 GB free disk on evorunner (the build needs node_modules + output).
 #   3. Repo SECRETS: CLOUDFLARE_API_TOKEN (Pages:Edit), CLOUDFLARE_ACCOUNT_ID,
-#      PAGES_PROJECT_TESTNET; repo VARIABLE: TESTNET_SWAP_API_BASE (the
-#      testnet Worker's public URL — pending the API team, HANDOFF-3);
-#      SECRET: TESTNET_SWAP_API_KEY (issued against the testnet instance).
+#      PAGES_PROJECT (the single Pages project bound to both hostnames),
+#      MAINNET_SWAP_API_KEY (dsw_dev_2a05…, production instance),
+#      TESTNET_SWAP_API_KEY (dsw_dev_e25c…, testnet instance).
 # The workflow SKIPS (no failure) until the secrets exist.
 
 name: deploy-testnet
@@ -37,12 +40,12 @@ jobs:
       - name: Guard — deploy secrets present?
         id: guard
         env:
-          PAGES_PROJECT_TESTNET: ${{ secrets.PAGES_PROJECT_TESTNET }}
+          PAGES_PROJECT: ${{ secrets.PAGES_PROJECT }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          if [ -z "$PAGES_PROJECT_TESTNET" ] || [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "::notice::Deploy secrets missing (PAGES_PROJECT_TESTNET / CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID) — skipping. See docs/DEPLOYMENT.md."
+          if [ -z "$PAGES_PROJECT" ] || [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::notice::Deploy secrets missing (PAGES_PROJECT / CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID) — skipping. See docs/DEPLOYMENT.md."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
@@ -54,12 +57,11 @@ jobs:
       - name: Build (pnpm frozen install + nuxt build)
         if: steps.guard.outputs.skip != 'true'
         env:
-          # The testnet Worker's public route (HANDOFF-3); empty until the
-          # API team confirms it, in which case the legacy single base is
-          # used. NUXT_PUBLIC_ env vars are read at BUILD time.
-          NUXT_PUBLIC_SWAP_API_BASE_TESTNET: ${{ vars.TESTNET_SWAP_API_BASE }}
-          # The dev key ISSUED AGAINST THE TESTNET INSTANCE (fresh D1).
-          NUXT_PUBLIC_SWAP_API_KEY: ${{ secrets.TESTNET_SWAP_API_KEY }}
+          # Both Worker routes are BAKED in nuxt.config (testnet instance
+          # live per HANDOFF-3-ACK); NUXT_PUBLIC_ env vars are read at
+          # BUILD time. One build serves both hostnames.
+          NUXT_PUBLIC_SWAP_API_KEY_MAINNET: ${{ secrets.MAINNET_SWAP_API_KEY }}
+          NUXT_PUBLIC_SWAP_API_KEY_TESTNET: ${{ secrets.TESTNET_SWAP_API_KEY }}
           # Nitro preset: cloudflare-pages for the Pages target (flip only
           # if the hosting model changes — see docs/DEPLOYMENT.md).
           NITRO_PRESET: ${{ vars.NITRO_PRESET || 'cloudflare-pages' }}
@@ -75,9 +77,9 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          PAGES_PROJECT_TESTNET: ${{ secrets.PAGES_PROJECT_TESTNET }}
+          PAGES_PROJECT: ${{ secrets.PAGES_PROJECT }}
         run: |
           # The cloudflare-pages preset outputs to ./dist (_worker.js +
           # _nuxt + _routes.json) — verified by the dry-run build.
           export PATH=/mnt/runner-data/node24/bin:$PATH
-          npx wrangler@3 pages deploy dist --project-name="$PAGES_PROJECT_TESTNET" --branch=main --commit-dirty=true
+          npx wrangler@3 pages deploy dist --project-name="$PAGES_PROJECT" --branch=main --commit-dirty=true

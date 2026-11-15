@@ -101,6 +101,13 @@
                     />
                 </div>
 
+                <!-- Testnet Worker not wired (safety guard) -->
+                <div v-if="Swap.testnetWorkerMissing" class="rounded-xl bg-amber-400/10 ring-1 ring-amber-400/40 px-4 py-3 text-xs text-amber-300 animate-fade-in">
+                    <span class="font-semibold">Swap creation is disabled on this host</span> —
+                    the testnet Worker route is not baked into this build, and falling back to the
+                    mainnet Worker would move real value. Wire it and rebuild.
+                </div>
+
                 <!-- Create -->
                 <button
                     class="group relative w-full rounded-xl px-5 py-3.5 font-bold text-white overflow-hidden transition-all duration-300 enabled:hover:scale-[1.01] enabled:active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"

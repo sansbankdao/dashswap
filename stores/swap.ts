@@ -79,6 +79,13 @@ export const useSwapStore = defineStore('swap', {
         _base: 'https://dashswap.xyz/v1' as string,
         _apiKey: '' as string,
 
+        /* SINGLE-PAGE-PROJECT model: one build serves dashswap.xyz AND
+         * testnet.dashswap.xyz (host detection in stores/system.ts picks
+         * the network). When the testnet Worker route is not yet baked in,
+         * the testnet host MUST NOT create swaps — it would silently hit
+         * the mainnet Worker (real money). */
+        _testnetWorkerMissing: false,
+
         /* Form. */
         _direction: 'DASH->SANS' as 'DASH->SANS' | 'DASH->DUSD',
         _amount: '' as string,
@@ -159,9 +166,17 @@ export const useSwapStore = defineStore('swap', {
             return _state._apiKey !== ''
         },
 
-        /** A create is possible: identity bound + (amount or open swap). */
+        /** The testnet host has no testnet Worker route baked in — swap
+         * creation is BLOCKED there rather than silently hitting mainnet. */
+        testnetWorkerMissing(_state) {
+            return _state._testnetWorkerMissing
+        },
+
+        /** A create is possible: identity bound + (amount or open swap) +
+         * the network's Worker actually wired. */
         canCreate(): boolean {
             return this.platformid !== null
+                && !this._testnetWorkerMissing
                 && (this._amount !== '' || true) // open swaps allowed when amount omitted
         },
     },
@@ -188,7 +203,20 @@ export const useSwapStore = defineStore('swap', {
                 this._base = System.network === 'mainnet'
                     ? (baseMainnet || baseLegacy)
                     : (baseTestnet || baseLegacy)
-                this._apiKey = (runtimeConfig.public.swapApiKey as string) || ''
+                /* SAFETY GUARD: a testnet host without its own Worker route
+                 * must never fall back to the mainnet Worker (real money). */
+                this._testnetWorkerMissing = (
+                    System.network === 'testnet' && baseTestnet === ''
+                )
+                /* Network-aware dev key: one build bakes BOTH instances'
+                 * keys; each Worker instance's D1 knows only its own. The
+                 * legacy single `swapApiKey` remains the fallback. */
+                const keyTestnet = (runtimeConfig.public.swapApiKeyTestnet as string) || ''
+                const keyMainnet = (runtimeConfig.public.swapApiKeyMainnet as string) || ''
+                const keyLegacy = (runtimeConfig.public.swapApiKey as string) || ''
+                this._apiKey = System.network === 'mainnet'
+                    ? (keyMainnet || keyLegacy)
+                    : (keyTestnet || keyLegacy)
             } catch (err) {
                 console.error('Swap: runtime config unavailable', err)
             }
