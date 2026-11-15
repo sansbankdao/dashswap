@@ -20,16 +20,19 @@ Follow the existing per-repo pattern (repo-scoped registration):
 ```bash
 ssh evorunner
 cd ~
-# From GitHub → repo Settings → Actions → Runners → New self-hosted runner
-# (Linux x64) — copy the config command with a fresh REG_TOKEN:
+# From GitHub → repo Settings (sansbankdao/dashswap) → Actions → Runners →
+# New self-hosted runner (Linux x64) — copy the config command with a fresh
+# REG_TOKEN:
 mkdir actions-runner-dashswap && cd actions-runner-dashswap
-./config.sh --url https://github.com/nyusternie/dashswap \
+curl -sLO https://github.com/actions/runner/releases/download/v2.338.2/actions-runner-linux-x64-2.338.2.tar.gz
+tar xzf actions-runner-linux-x64-2.338.2.tar.gz
+./config.sh --url https://github.com/sansbankdao/dashswap \
     --token <REG_TOKEN> \
     --name evorunner-dashswap \
     --labels self-hosted,linux,x64,evorunner \
-    --work _work
-sudo ./svc.sh install evorunner-dashswap   # systemd unit:
-sudo ./svc.sh start                        #   actions.runner.nyusternie-dashswap.evorunner-dashswap.service
+    --work /mnt/runner-data/_work-dashswap     # work dir ON the volume
+sudo ./svc.sh install ubuntu && sudo ./svc.sh start
+# systemd unit: actions.runner.sansbankdao-dashswap.evorunner-dashswap.service
 ```
 
 The workflow matches `runs-on: [self-hosted, evorunner]` — the `evorunner`
@@ -38,13 +41,19 @@ runners if any are ever converted to org-level).
 
 ## 2. evorunner prerequisites
 
-- **DISK: currently 880 MB free of 121 G (100% full).** One build needs
-  ~2 GB (node_modules + .nuxt + .output). Clean ≥3 GB before the first
-  run — candidates: stale `_work` artifact caches of the other runners,
-  old `act-runner` caches, journal logs. (Owner decision — nothing here
-  touches other repos' files.)
-- node v20.20.2 ✓, corepack (`corepack enable`, one-time) — the workflow
-  activates the pinned pnpm@9.15.4 via corepack.
+- **DISK: SOLVED 2026-11-15** — a 100 GB volume mounted at
+  `/mnt/runner-data` (nofail); the regenerable masses relocated there
+  (`~/builds` → volume, `~/evonext-bundle-test` → volume); root now ~58%
+  with 52 G free. Runner `_work` dirs live on the volume too.
+- **NODE: the runner uses Node 24 at `/mnt/runner-data/node24/bin`**
+  (installed 2026-11-15; the system node 20 is kept untouched for the
+  other repos' runners — the modern toolchain needs `node:module`
+  `findPackageJSON` ≥22.14). The workflow prepends that PATH; pnpm is the
+  system 10.34.5 (reads the pnpm-9 lockfile ✓ — validated by the dry-run).
+- **DRY-RUN VALIDATED 2026-11-15**: full `pnpm install --frozen-lockfile`
+  + `NITRO_PRESET=cloudflare-pages pnpm build` on evorunner with node
+  24.22.3 — build ✓, output at `./dist` (`_worker.js` + `_nuxt` +
+  `_routes.json` — the shape `wrangler pages deploy dist` consumes).
 
 ## 3. Cloudflare Pages + secrets
 
@@ -78,8 +87,8 @@ runners if any are ever converted to org-level).
 - `pnpm install --frozen-lockfile` + `pnpm build` with
   `NITRO_PRESET=cloudflare-pages`, `NUXT_PUBLIC_SWAP_API_BASE_TESTNET`,
   `NUXT_PUBLIC_SWAP_API_KEY` (build-time `runtimeConfig.public`).
-- `wrangler pages deploy .output/client` — the static client assets +
-  the `_worker.js` SSR bundle (cloudflare-pages preset shape).
+- `wrangler pages deploy dist` — the cloudflare-pages preset's output
+  (`_worker.js` SSR bundle + static client + `_routes.json`).
 - Concurrency-grouped; every push to `master` deploys testnet. Production
   deploys: copy the job, rename (secrets `PAGES_PROJECT` /
   `MAINNET_*`), protect the branch.
