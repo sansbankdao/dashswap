@@ -35,5 +35,17 @@
             </p>
         </section>
 
+        <section class="text-slate-200">
+            <h3 class="text-lg font-bold text-amber-300">
+                Contact
+            </h3>
+
+            <p>
+                The in-app assistant (bottom-right) answers instantly.
+                For anything it can't resolve, reach the team at
+                <a href="mailto:hello@sansbank.org" class="font-bold text-dash-300 hover:text-amber-300 transition-colors">hello@sansbank.org</a>.
+            </p>
+        </section>
+
     </main>
 </template>
