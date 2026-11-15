@@ -176,7 +176,18 @@ export const useSwapStore = defineStore('swap', {
         init() {
             try {
                 const runtimeConfig = useRuntimeConfig()
-                this._base = (runtimeConfig.public.swapApiBase as string) || this._base
+                const System = useSystemStore()
+                /* Network-aware base (one Worker serves one network):
+                 * testnet.dashswap.xyz hits the testnet Worker instance;
+                 * production hits the mainnet one. The legacy single
+                 * `swapApiBase` remains the fallback for both until the
+                 * API team confirms the testnet route. */
+                const baseTestnet = (runtimeConfig.public.swapApiBaseTestnet as string) || ''
+                const baseMainnet = (runtimeConfig.public.swapApiBaseMainnet as string) || ''
+                const baseLegacy = (runtimeConfig.public.swapApiBase as string) || this._base
+                this._base = System.network === 'mainnet'
+                    ? (baseMainnet || baseLegacy)
+                    : (baseTestnet || baseLegacy)
                 this._apiKey = (runtimeConfig.public.swapApiKey as string) || ''
             } catch (err) {
                 console.error('Swap: runtime config unavailable', err)

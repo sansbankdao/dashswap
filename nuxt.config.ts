@@ -74,6 +74,12 @@ export default defineNuxtConfig({
              * a dev key is a Phase-1 interim (localStorage-overridable), Phase
              * 2 replaces it with App Connect signature headers. */
             swapApiBase: 'https://dashswap.xyz/v1',
+            /* Per-network Worker instances (one Worker = one network). The
+             * testnet route is set once the API team confirms where their
+             * testnet Worker instance lives; empty falls back to the legacy
+             * single base. */
+            swapApiBaseTestnet: '',
+            swapApiBaseMainnet: 'https://dashswap.xyz/v1',
             swapApiKey: '',
         },
     },
