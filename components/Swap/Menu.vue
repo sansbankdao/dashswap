@@ -64,41 +64,66 @@
                     </div>
                 </div>
 
-                <!-- Destination -->
+                <!-- Destination (prominent: who receives the swapped tokens) -->
                 <div class="flex flex-col gap-2.5">
-                    <label class="text-xs font-medium tracking-widest uppercase text-ink3">Receiving destination</label>
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-medium tracking-widest uppercase text-ink3">Deliver the tokens to</label>
+                        <span
+                            class="text-[10px] uppercase tracking-widest font-semibold px-2 py-0.5 rounded-full"
+                            :class="Swap._sendToSelf ? 'bg-dash-500/15 text-dash-300' : 'bg-violet-500/15 text-violet-300'"
+                        >{{ Swap._sendToSelf ? 'self' : 'third party' }}</span>
+                    </div>
 
                     <button
                         class="flex items-center gap-3 rounded-xl bg-surface-sunken ring-1 p-3.5 text-left transition-all"
-                        :class="Swap._sendToSelf ? 'ring-dash-400/50' : 'ring-line hover:ring-dash-300/40'"
+                        :class="Swap._sendToSelf ? 'ring-dash-400/60 bg-dash-500/10' : 'ring-line hover:ring-dash-300/40'"
                         @click="Swap.setSendToSelf(true)"
                     >
-                        <UserCircleIcon class="size-8 text-dash-400 shrink-0" />
+                        <UserCircleIcon class="size-9 text-dash-400 shrink-0" />
                         <span class="min-w-0">
-                            <span class="block text-sm font-semibold text-ink1">This identity</span>
+                            <span class="block text-sm font-semibold text-ink1">My identity</span>
                             <span class="block font-mono text-xs text-ink3 truncate">{{ shortPlatformid || 'connect a wallet to swap' }}</span>
                         </span>
+                        <CheckCircleIcon
+                            v-if="Swap._sendToSelf"
+                            class="ml-auto size-5 text-dash-300 shrink-0"
+                        />
                     </button>
 
                     <button
                         class="flex items-center gap-3 rounded-xl bg-surface-sunken ring-1 p-3.5 text-left transition-all"
-                        :class="!Swap._sendToSelf ? 'ring-dash-400/50' : 'ring-line hover:ring-dash-300/40'"
+                        :class="!Swap._sendToSelf ? 'ring-violet-400/60 bg-violet-500/10' : 'ring-line hover:ring-violet-300/40'"
                         @click="Swap.setSendToSelf(false)"
                     >
-                        <PaperAirplaneIcon class="size-8 text-violet-400 shrink-0" />
+                        <PaperAirplaneIcon class="size-9 text-violet-400 shrink-0" />
                         <span class="min-w-0">
                             <span class="block text-sm font-semibold text-ink1">Someone else</span>
-                            <span class="block text-xs text-ink3">username.dash, bare label or identity id</span>
+                            <span class="block text-xs text-ink3">A `.dash` name, bare label or identity id —
+                                perfect for gifts and invoices</span>
                         </span>
+                        <CheckCircleIcon
+                            v-if="!Swap._sendToSelf"
+                            class="ml-auto size-5 text-violet-300 shrink-0"
+                        />
                     </button>
 
-                    <input
+                    <div
                         v-if="!Swap._sendToSelf"
-                        type="text"
-                        placeholder="alice.dash — or a bare identity id"
-                        v-model="customDestDisplay"
-                        class="w-full rounded-xl bg-surface-sunken ring-1 ring-line px-4 py-2.5 font-mono text-sm text-ink1 focus:ring-2 focus:ring-dash-400 outline-none transition-all"
-                    />
+                        class="rounded-xl bg-violet-500/5 ring-1 ring-violet-400/40 p-3 flex flex-col gap-2 animate-fade-in"
+                    >
+                        <label class="text-[10px] uppercase tracking-widest text-violet-300 font-semibold">Recipient</label>
+                        <input
+                            ref="customDestInput"
+                            type="text"
+                            placeholder="alice.dash · alice · or a bare identity id"
+                            v-model="customDestDisplay"
+                            class="w-full rounded-lg bg-surface ring-1 ring-violet-400/40 px-3 py-2.5 font-mono text-sm text-ink1 focus:ring-2 focus:ring-violet-400 outline-none transition-all"
+                        />
+                        <p class="text-[11px] text-ink3">
+                            The name resolves to its identity on the platform when the swap is created
+                            — the tokens land there the moment the deposit confirms.
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Testnet Worker not wired (safety guard) -->
@@ -287,6 +312,7 @@ import {
     ArrowRightIcon,
     ArrowsRightLeftIcon,
     BoltIcon,
+    CheckCircleIcon,
     InformationCircleIcon,
     PaperAirplaneIcon,
     UserCircleIcon,
@@ -422,6 +448,15 @@ watch(() => Swap.activeSwap?.deposit_address, async (address) => {
 }, { immediate: true })
 
 const onCreate = async () => {
+    /* Guard: a third-party delivery needs a recipient (the API would 422
+     * with a refine error; fail fast with a clear message instead). */
+    if (!Swap._sendToSelf && !Swap._customDest.trim()) {
+        Swap.setSendToSelf(true)
+        Swap.setSendToSelf(false)
+        Swap._error = 'Enter the recipient — a .dash name, bare label or identity id.'
+        return
+    }
+
     await Swap.create()
     await Swap.loadSwaps()
 }
