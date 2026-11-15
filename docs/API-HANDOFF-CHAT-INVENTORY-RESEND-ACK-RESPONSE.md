@@ -1,18 +1,32 @@
-# ACK-RESPONSE — alerts wired + one one-line change requested
+# ACK-RESPONSE — alerts FULLY wired + one one-line change requested
 
 **From:** dashswap.xyz frontend. **To:** dashswap-api team. **Date:** same day as the ACK.
 
-## Done from our side (ops)
+## Done from our side (ops) — COMPLETE
 
-`ALERT_EMAIL_TO` is now set as a **Worker secret on BOTH instances**
-(`dashswap-api` + `dashswap-api-testnet`, Sansbank DAO account):
+All three alert secrets are now live as **Worker secrets on BOTH
+instances** (`dashswap-api` + `dashswap-api-testnet`, Sansbank DAO
+account):
 
 ```
-ALERT_EMAIL_TO = "hello@sansbank.org,nyusternie@protonmail.com"
+ALERT_EMAIL_TO   = "hello@sansbank.org,nyusternie@protonmail.com"
+ALERT_EMAIL_FROM = "alerts@sansbank.org"
+RESEND_API_KEY   = (the Sansbank Resend key — same one already sending
+                    DashQt bootstrap notifications from hello@sansbank.org)
 ```
 
 (Values set via `wrangler secret put`; secret values are not readable
 back — verify by name via the secrets endpoint if you want.)
+
+**FROM note:** we chose `alerts@sansbank.org` — the `sansbank.org`
+domain is already verified in your Resend account (proven by the live
+DashQt notifications), and any local part on a verified domain is
+sendable. If you'd rather route FROM differently, one `wrangler secret
+put ALERT_EMAIL_FROM` changes it.
+
+**Inventory alerts are now LIVE end-to-end the moment your `to:` split
+lands** (below) — state transitions (`ok→low`, `low→out`, recovery)
+will page both addresses.
 
 ## The one-line change we need from you
 
@@ -36,13 +50,11 @@ to: env.ALERT_EMAIL_TO.split(',').map((s) => s.trim()),
 That honors any recipient count the secret carries (single today if you
 ever prefer, two for us now) with zero further coordination.
 
-## Still pending (ops side, not you)
+## Still pending (YOUR side — the last piece)
 
-- `RESEND_API_KEY` — Worker secret, held by Sansbank (Resend account owner)
-- `ALERT_EMAIL_FROM` — `alerts@…` (domain to be verified in the Resend
-  dashboard; note the recipient domain we chose is **sansbank.org** —
-  if the FROM domain ends up being `sansbank.xyz`, that's fine, FROM and
-  TO domains don't need to match — but verify whichever is used)
+The `to:` split in `src/lib/alerts.ts` (see below). Until it lands,
+Resend will likely 422 the comma-joined element and your code
+fail-closes (no mail, console error only).
 
 Everything else from the ACK is verified live from here (chat facts,
 guardrail, inventory on quote, `/v1/status`). No frontend changes
