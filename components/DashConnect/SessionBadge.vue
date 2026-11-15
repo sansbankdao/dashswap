@@ -30,12 +30,12 @@
                 alt="Session avatar"
             />
             <div class="relative flex-1 min-w-0">
-                <p class="text-[10px] uppercase tracking-widest text-ink3">DashConnect session</p>
+                <p class="text-[10px] uppercase tracking-widest text-ink3">{{ viaExtension ? 'Extension wallet' : 'DashConnect session' }}</p>
                 <p class="font-mono text-xs text-ink1 truncate">{{ shortId }}</p>
             </div>
             <button
                 class="relative rounded-lg p-2 text-ink3 hover:text-rose-300 hover:bg-surface-sunken transition-colors"
-                title="Sign out (wipes the in-memory session)"
+                :title="viaExtension ? 'Disconnect the extension wallet' : 'Sign out (wipes the in-memory session)'"
                 @click="logout"
             >
                 <ArrowRightStartOnRectangleIcon class="size-5" />
@@ -61,7 +61,9 @@ const isOpen = useState('dashconnect:login-open', () => false)
 
 const isAuthenticated = computed(() => DashConnect.isAuthenticated)
 
-const identityId = computed(() => DashConnect.session?.identityId ?? '')
+const identityId = computed(() => DashConnect.session?.identityId ?? DashConnect.extensionIdentityId ?? '')
+
+const viaExtension = computed(() => !DashConnect.session && !!DashConnect.extensionIdentityId)
 
 const shortId = computed(() => {
     const id = identityId.value
@@ -84,8 +86,13 @@ const openLogin = () => {
 }
 
 const logout = () => {
-    /* Wipe the DashConnect key ring, then reset the legacy identity state. */
-    DashConnect.logout()
+    /* Wipe the DashConnect key ring (or the extension binding), then reset
+     * the legacy identity state. */
+    if (viaExtension.value) {
+        DashConnect.disconnectExtension()
+    } else {
+        DashConnect.logout()
+    }
     Identity.destroy()
 }
 </script>

@@ -148,10 +148,11 @@ export const useSwapStore = defineStore('swap', {
             return _state._error
         },
 
-        /** The caller identity: the DashConnect session identity. */
+        /** The caller identity: the DashConnect session identity, or the
+         * Pshenmic browser-extension identity when that is what connected. */
         platformid() {
             const DashConnect = useDashConnectStore()
-            return DashConnect.session?.identityId ?? null
+            return DashConnect.session?.identityId ?? DashConnect.extensionIdentityId ?? null
         },
 
         hasApiKey(_state) {

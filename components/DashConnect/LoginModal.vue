@@ -50,6 +50,37 @@
                         <!-- Body -->
                         <div class="relative px-6 py-6 min-h-[22rem] flex flex-col items-center justify-center gap-4">
 
+                            <!-- BROWSER WALLET (Pshenmic Dash Platform Extension) —
+                                 available independently of the QR flow; it needs
+                                 no anchor contract. -->
+                            <div v-if="extensionAvailable" class="w-full animate-fade-in">
+                                <div class="rounded-2xl bg-surface-sunken ring-1 ring-line p-4 flex flex-col gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="size-10 rounded-xl bg-dash-500/15 text-dash-400 flex items-center justify-center text-xs font-bold">DEX</div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-semibold text-ink1">Browser wallet</p>
+                                            <p class="text-[11px] text-ink3">Dash Platform Extension detected</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="w-full rounded-xl px-4 py-2.5 font-semibold text-white bg-brand-gradient hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                        :disabled="extensionConnecting"
+                                        @click="connectExtension"
+                                    >
+                                        {{ extensionConnecting ? 'Approve in the extension…' : 'Connect Browser Wallet' }}
+                                    </button>
+                                    <p v-if="extensionError" class="text-xs text-rose-300 break-words">{{ extensionError }}</p>
+                                    <p v-else class="text-[11px] text-ink3">
+                                        Approves this site once — every send is approved individually in the wallet.
+                                    </p>
+                                </div>
+                                <div class="flex items-center gap-3 mt-4 mb-1" aria-hidden="true">
+                                    <span class="h-px flex-1 bg-line"></span>
+                                    <span class="text-[10px] uppercase tracking-widest text-ink3">or scan with a phone wallet</span>
+                                    <span class="h-px flex-1 bg-line"></span>
+                                </div>
+                            </div>
+
                             <!-- SETUP REQUIRED (anchor contract not deployed on this network) -->
                             <template v-if="!configured">
                                 <div class="flex flex-col items-center gap-4 animate-fade-in text-center">
@@ -250,6 +281,23 @@ const status = computed(() => DashConnect.status)
 const configured = computed(() => DashConnect.configured)
 const uris = computed(() => DashConnect.uris ?? [])
 const error = computed(() => DashConnect.error)
+
+/* Browser wallet (Pshenmic extension) section. */
+const extensionAvailable = computed(() => DashConnect.extensionAvailable)
+const extensionConnecting = computed(() => DashConnect.extensionConnecting)
+const extensionError = computed(() => DashConnect.extensionError)
+const extensionIdentityId = computed(() => DashConnect.extensionIdentityId)
+
+const connectExtension = () => {
+    DashConnect.connectExtension()
+}
+
+/* Close on a successful extension connection. */
+watch(extensionIdentityId, (value) => {
+    if (value && isOpen.value) {
+        isOpen.value = false
+    }
+})
 
 const activeCarrier = ref('dash-key')
 const qrDataUrl = ref(null)

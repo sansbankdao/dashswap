@@ -40,6 +40,7 @@ import {
 import { useSystemStore } from '@/stores/system'
 import { DASHSWAP_APP_ID as DASHSWAP_APP_ID_TESTNET, DASHSWAP_GROUP_ID as DASHSWAP_GROUP_ID_TESTNET } from '../libs/dashconnect/config'
 import { useIdentityStore } from '@/stores/identity'
+import { connectExtensionWallet, hasExtensionWallet } from '../libs/dashconnect/extension'
 
 /**
  * Login flow states:
@@ -127,6 +128,12 @@ export const useDashConnectStore = defineStore('dashconnect', {
         /* The verified session (key ring). */
         _session: null as AppConnectSession | null,
 
+        /* Pshenmic browser extension (signer wallet) — the approved identity
+         * id (not a secret; persisted per network) + connect flow state. */
+        _extensionIdentityId: null as string | null,
+        _extensionConnecting: false,
+        _extensionError: null as string | null,
+
         /**
          * Connection ID
          *
@@ -159,6 +166,22 @@ export const useDashConnectStore = defineStore('dashconnect', {
 
         isAuthenticated(_state) {
             return _state._session !== null
+        },
+
+        extensionIdentityId(_state) {
+            return _state._extensionIdentityId
+        },
+
+        extensionConnecting(_state) {
+            return _state._extensionConnecting
+        },
+
+        extensionError(_state) {
+            return _state._extensionError
+        },
+
+        extensionAvailable() {
+            return hasExtensionWallet()
         },
 
         /** The parked grant's identity, shown by the "Continue as" prompt. */
@@ -219,6 +242,14 @@ export const useDashConnectStore = defineStore('dashconnect', {
                 this._connectionId = hex(crypto.getRandomValues(new Uint8Array(16)))
                 if (typeof localStorage !== 'undefined') {
                     localStorage.setItem(storageKey, this._connectionId)
+                }
+            }
+
+            /* Restore a previously-approved extension identity (not a secret). */
+            if (typeof localStorage !== 'undefined') {
+                const extSaved = localStorage.getItem(`dashswap_dc_extid_${network}`)
+                if (extSaved) {
+                    this._extensionIdentityId = extSaved
                 }
             }
         },
@@ -445,6 +476,63 @@ export const useDashConnectStore = defineStore('dashconnect', {
                     return handle
                 },
             })
+        },
+
+        /**
+         * Connect Browser Wallet (Pshenmic Dash Platform Extension)
+         *
+         * The extension is a signer wallet, not an App Connect v2 wallet:
+         * its origin-scoped approval yields the identity list; the dApp binds
+         * it as the session identity. Transfers are approved per-ST in the
+         * extension popup (see stores/identity/transfer.ts); App Connect v2
+         * session keys are orchestrated by us on top of the same signer.
+         */
+        async connectExtension() {
+            if (this._extensionConnecting) return
+            if (!hasExtensionWallet()) {
+                this._extensionError = 'Dash Platform Extension not detected in this browser.'
+                return
+            }
+
+            this._extensionConnecting = true
+            this._extensionError = null
+
+            try {
+                const info = await connectExtensionWallet()
+                const identityId = info?.currentIdentity
+                    ?? info?.identities?.[0]?.identifier
+                    ?? null
+                if (!identityId) {
+                    throw new Error('The wallet has no identity selected yet — open the extension and choose one.')
+                }
+
+                const System = useSystemStore()
+                const network = System.network === 'mainnet' ? 'mainnet' : 'testnet'
+
+                /* The approved identity id is NOT a secret; persist per
+                 * network so the session survives reloads. */
+                if (typeof localStorage !== 'undefined') {
+                    localStorage.setItem(`dashswap_dc_extid_${network}`, identityId)
+                }
+                this._extensionIdentityId = identityId
+
+                await this._activateIdentity(identityId)
+            } catch (err) {
+                this._extensionError = err instanceof Error ? err.message : String(err)
+            } finally {
+                this._extensionConnecting = false
+            }
+        },
+
+        /** Disconnect the extension identity (keeps the QR session intact). */
+        disconnectExtension() {
+            const System = useSystemStore()
+            const network = System.network === 'mainnet' ? 'mainnet' : 'testnet'
+            if (typeof localStorage !== 'undefined') {
+                localStorage.removeItem(`dashswap_dc_extid_${network}`)
+            }
+            this._extensionIdentityId = null
+            this._extensionError = null
         },
 
         /** Point the Identity store at the authenticated identity. */
