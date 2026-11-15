@@ -165,7 +165,9 @@ export const useDashConnectStore = defineStore('dashconnect', {
         },
 
         isAuthenticated(_state) {
-            return _state._session !== null
+            /* Both session kinds count: a DashConnect key-ring session AND
+             * a connected browser-wallet (Pshenmic extension) identity. */
+            return _state._session !== null || _state._extensionIdentityId !== null
         },
 
         extensionIdentityId(_state) {
@@ -615,6 +617,16 @@ export const useDashConnectStore = defineStore('dashconnect', {
             }
             this._session = null
             this._pendingGrant = null
+
+            /* Also disconnect a browser-wallet session (and its persisted
+             * identity id for this network). */
+            this._extensionIdentityId = null
+            if (typeof localStorage !== 'undefined') {
+                const System = useSystemStore()
+                const network = System.network === 'mainnet' ? 'mainnet' : 'testnet'
+                localStorage.removeItem(`dashswap_dc_extid_${network}`)
+            }
+
             this._wipeRequest()
             this._status = 'idle'
         },

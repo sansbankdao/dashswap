@@ -4,7 +4,7 @@
         <section class="flex flex-col items-center text-center gap-4 animate-fade-up">
             <span class="inline-flex items-center gap-2 rounded-full bg-surface-sunken ring-1 ring-line px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-dash-400">
                 <span class="size-1.5 rounded-full bg-dash-400 animate-pulse" aria-hidden="true"></span>
-                Pre-Alpha Preview
+                Instant swaps · Dash Platform
             </span>
 
             <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-text-gradient bg-clip-text text-transparent">
@@ -12,7 +12,7 @@
             </h1>
 
             <p class="max-w-2xl text-ink2 leading-relaxed">
-                Introducing the <span class="font-bold text-ink1">Pre-Alpha Preview</span> for the soon to be released DashSwap decentralized exchange (DEX).
+                Introducing <span class="font-bold text-ink1">DashSwap</span> — the decentralized exchange (DEX) for Dash and Platform tokens. Swap in seconds; the network settles on-chain.
             </p>
         </section>
 

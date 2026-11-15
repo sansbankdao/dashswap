@@ -64,12 +64,16 @@
                                     </div>
                                     <button
                                         class="w-full rounded-xl px-4 py-2.5 font-semibold text-white bg-brand-gradient hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                        :disabled="extensionConnecting"
+                                        :class="extensionSuccess ? 'bg-emerald-500 hover:brightness-100' : ''"
+                                        :disabled="extensionConnecting || extensionSuccess"
                                         @click="connectExtension"
                                     >
-                                        {{ extensionConnecting ? 'Approve in the extension…' : 'Connect Browser Wallet' }}
+                                        {{ extensionSuccess ? 'Connected ✓' : extensionConnecting ? 'Approve in the extension…' : 'Connect Browser Wallet' }}
                                     </button>
-                                    <p v-if="extensionError" class="text-xs text-rose-300 break-words">{{ extensionError }}</p>
+                                    <p v-if="extensionSuccess" class="text-xs font-medium text-emerald-300 break-words">
+                                        Connected — identity {{ extensionShortId }} loaded. Your assets are on the dashboard.
+                                    </p>
+                                    <p v-else-if="extensionError" class="text-xs text-rose-300 break-words">{{ extensionError }}</p>
                                     <p v-else class="text-[11px] text-ink3">
                                         Approves this site once — every send is approved individually in the wallet.
                                     </p>
@@ -287,15 +291,37 @@ const extensionAvailable = computed(() => DashConnect.extensionAvailable)
 const extensionConnecting = computed(() => DashConnect.extensionConnecting)
 const extensionError = computed(() => DashConnect.extensionError)
 const extensionIdentityId = computed(() => DashConnect.extensionIdentityId)
+const extensionConnecting = computed(() => DashConnect.extensionConnecting)
+const extensionError = computed(() => DashConnect.extensionError)
+const extensionSuccess = ref(false)
+const extensionShortId = computed(() => {
+    const id = extensionIdentityId.value || ''
+    return id ? `${id.slice(0, 6)}…${id.slice(-4)}` : ''
+})
 
 const connectExtension = () => {
     DashConnect.connectExtension()
 }
 
-/* Close on a successful extension connection. */
+/* On a successful extension connection: confirm visibly (the button and
+ * a success line) for a beat, THEN close — the user must SEE that the
+ * connect worked, not just have the modal vanish. */
+let extensionCloseTimer = null
 watch(extensionIdentityId, (value) => {
-    if (value && isOpen.value) {
-        isOpen.value = false
+    if (value && isOpen.value && !extensionSuccess.value) {
+        extensionSuccess.value = true
+        extensionCloseTimer = setTimeout(() => close(), 1600)
+    }
+})
+
+/* Reset the success state whenever the modal (re)opens or closes. */
+watch(isOpen, (open) => {
+    if (!open) {
+        extensionSuccess.value = false
+        if (extensionCloseTimer) {
+            clearTimeout(extensionCloseTimer)
+            extensionCloseTimer = null
+        }
     }
 })
 

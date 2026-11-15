@@ -6,7 +6,7 @@
         </h1>
 
         <p class="text-slate-200">
-            Introducing the <span class="text-lg font-bold text-amber-300">Pre-Alpha Preview</span> for the soon to be released DashSwap decentralized exchange (DEX).
+            <span class="text-lg font-bold text-amber-300">DashSwap</span> — the decentralized exchange (DEX) for Dash and Platform tokens.
         </p>
 
         <section class="text-slate-200">
@@ -22,7 +22,7 @@
         </section>
 
         <p class="text-slate-200">
-            DashSwap will offer full 1st-class support for all <span class="font-bold">DASH $TOKENS</span>; following the Dash Platform v2.0 upgrade and the introduction of <span class="font-bold">"Native" Fungible Tokens</span>.
+            DashSwap offers full 1st-class support for all <span class="font-bold">DASH $TOKENS</span>; built on the Dash Platform v2.0 upgrade and <span class="font-bold">"Native" Fungible Tokens</span>.
         </p>
 
         <section class="text-slate-200">
