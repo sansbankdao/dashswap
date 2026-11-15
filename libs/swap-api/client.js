@@ -82,6 +82,11 @@ export async function createSwap(params) {
         body: JSON.stringify(body),
     })
 
+    /* `network` sits at the RESPONSE TOP LEVEL ({success, swap, network} —
+     * FRONTEND-HANDOFF-2-ACK appendix); carry it onto the swap object so
+     * callers read one shape. */
+    if (payload?.swap && payload?.network) payload.swap.network = payload.network
+
     return payload?.swap
 }
 
@@ -107,6 +112,9 @@ export async function fetchSwap(params) {
     const { base, apiKey, swapid } = params
 
     const payload = await request(base, apiKey, `/swap/${encodeURIComponent(swapid)}`)
+
+    /* Same top-level `network` carry (see createSwap). */
+    if (payload?.swap && payload?.network) payload.swap.network = payload.network
 
     return payload?.swap
 }
