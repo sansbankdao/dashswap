@@ -245,11 +245,18 @@ export const useDashConnectStore = defineStore('dashconnect', {
                 }
             }
 
-            /* Restore a previously-approved extension identity (not a secret). */
+            /* Restore a previously-approved extension identity (not a
+             * secret) and RE-ACTIVATE it — reloads otherwise land on an
+             * un-activated identity store. */
             if (typeof localStorage !== 'undefined') {
                 const extSaved = localStorage.getItem(`dashswap_dc_extid_${network}`)
-                if (extSaved) {
+                if (extSaved && extSaved !== this._extensionIdentityId) {
                     this._extensionIdentityId = extSaved
+
+                    /* Fire-and-forget: pages render immediately; assets
+                     * populate when the identity init resolves. */
+                    this._activateIdentity(extSaved)
+                        .catch((err) => console.error('DashConnect: extension identity re-activation failed', err))
                 }
             }
         },

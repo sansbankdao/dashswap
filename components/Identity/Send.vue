@@ -98,7 +98,9 @@
             </section>
 
             <div class="flex flex-col gap-6 text-slate-200">
-                <section v-if="addressBalance">
+                <!-- Legacy L1 wallet features — hidden for browser-extension
+                     sessions (their identity has no dApp-held L1 wallet). -->
+                <section v-if="addressBalance && !viaExtension">
                     <h2 class="text-xl font-medium tracking-widest">
                         Address Balance
                     </h2>
@@ -120,7 +122,7 @@
                     <pre>{{addressFirstUse}}</pre>
                 </section> -->
 
-                <section v-if="firstTx?.blocktime">
+                <section v-if="firstTx?.blocktime && !viaExtension">
                     <h2 class="text-xl font-medium tracking-widest">
                         First Transaction
                     </h2>
@@ -144,7 +146,7 @@
                     Manage Assets
                 </h1>
 
-                <section>
+                <section v-if="!viaExtension">
                     <button
                         @click="consolidate"
                         class="w-fit cursor-pointer my-5 block px-5 py-2 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
@@ -186,6 +188,12 @@ import { useSystemStore } from '@/stores/system'
 import { useIdentityStore } from '@/stores/identity'
 const System = useSystemStore()
 const Identity = useIdentityStore()
+const DashConnect = useDashConnectStore()
+
+/* A browser-extension session: no dApp-held L1 wallet — legacy wallet
+ * widgets are hidden and sends route through the extension signer. */
+const viaExtension = computed(() =>
+    !Identity.wif && !!DashConnect.extensionIdentityId)
 
 
 const amount = ref(null)

@@ -73,6 +73,31 @@ export default async function (_receiver, _satoshis) {
          * unsigned transition here and let the user approve it. */
         const walletSdk = new DashPlatformSDK({ network: System.network })
 
+        /* Resolve the recipient: identity ids pass through; `.dash` names
+         * and bare labels resolve via DPNS (same UX as the legacy flow).
+         * A name must point to an identity for platform transfers. */
+        let recipient = String(_receiver)
+
+        if (!recipient.includes('.')) {
+            /* Base58 identity ids are 43-44 chars; short dotless strings are
+             * bare DPNS labels — append the TLD. */
+            if (recipient.length <= 19) {
+                recipient = `${recipient}.dash`
+            }
+        }
+
+        if (recipient.includes('.')) {
+            const nameDocs = await walletSdk.names.searchByName(recipient)
+            const nameDoc = nameDocs?.[0]
+            const resolved = nameDoc?.data?.records?.identity ?? nameDoc?.records?.identity
+
+            if (!resolved) {
+                throw new Error(`The name ${recipient} does not resolve to an identity on ${System.network}.`)
+            }
+
+            recipient = String(resolved)
+        }
+
         /* CREDIT transfer. */
         if (this.assetid === '0') {
             /* Identity-scoped nonce (live from DAPI). */
@@ -81,7 +106,7 @@ export default async function (_receiver, _satoshis) {
             const transition = new IdentityCreditTransferWASM(
                 this.id,
                 BigInt(_satoshis),
-                _receiver,
+                recipient,
                 nonce,
                 0,
             )
@@ -112,7 +137,7 @@ export default async function (_receiver, _satoshis) {
 
         const tokenTransfer = new TokenTransferTransitionWASM(
             tokenBase,
-            _receiver,
+            recipient,
             BigInt(_satoshis),
         )
 

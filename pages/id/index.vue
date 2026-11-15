@@ -154,6 +154,7 @@ import { useIdentityStore } from '@/stores/identity'
 const Profile = useProfileStore()
 const System = useSystemStore()
 const Identity = useIdentityStore()
+const DashConnect = useDashConnectStore()
 
 const tokens = ref(null)
 
@@ -339,8 +340,23 @@ console.log('IDENTITY (asset)', Identity.asset)
 // })
 }
 
-onMounted(() => {
-    // init()
+onMounted(async () => {
+    /* A bound session (DashConnect key ring or the Pshenmic browser
+     * extension) has ALREADY activated the identity — render its assets
+     * directly. The legacy entropy-wallet search applies only when no
+     * session identity is bound. */
+    const DashConnect = useDashConnectStore()
+    const boundId = DashConnect.session?.identityId ?? DashConnect.extensionIdentityId
+
+    if (boundId) {
+        if (Identity.id !== boundId) {
+            Identity.setIdentity(boundId)
+            await Identity.init().catch((err) => console.error('Id page: identity init failed', err))
+        }
+        setTab('assets')
+        return
+    }
+
     Identity.findIdentity()
 })
 
