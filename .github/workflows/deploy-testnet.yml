@@ -1,0 +1,79 @@
+# .github/workflows/deploy-testnet.yml
+#
+# Deploy dashswap.xyz to testnet.dashswap.xyz (Cloudflare Pages).
+#
+# Runs on the SELF-HOSTED runner (evorunner VPS) — GitHub-hosted runners
+# are unavailable (billing block); self-hosted minutes are free. This
+# follows the org's existing per-repo runner pattern
+# (actions.runner.<org>-<repo>.<runner>.service on evorunner).
+#
+# Prerequisites (see docs/DEPLOYMENT.md):
+#   1. A runner registered for THIS repo on evorunner with the `evorunner`
+#      label, running as a systemd service.
+#   2. >=3 GB free disk on evorunner (the build needs node_modules + output).
+#   3. Repo SECRETS: CLOUDFLARE_API_TOKEN (Pages:Edit), CLOUDFLARE_ACCOUNT_ID,
+#      PAGES_PROJECT_TESTNET; repo VARIABLE: TESTNET_SWAP_API_BASE (the
+#      testnet Worker's public URL — pending the API team, HANDOFF-3);
+#      SECRET: TESTNET_SWAP_API_KEY (issued against the testnet instance).
+# The workflow SKIPS (no failure) until the secrets exist.
+
+name: deploy-testnet
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-testnet
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: build + deploy (testnet)
+    runs-on: [self-hosted, evorunner]
+
+    steps:
+      - name: Guard — deploy secrets present?
+        id: guard
+        env:
+          PAGES_PROJECT_TESTNET: ${{ secrets.PAGES_PROJECT_TESTNET }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$PAGES_PROJECT_TESTNET" ] || [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::notice::Deploy secrets missing (PAGES_PROJECT_TESTNET / CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID) — skipping. See docs/DEPLOYMENT.md."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.guard.outputs.skip != 'true'
+
+      - name: Build (pnpm frozen install + nuxt build)
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          # The testnet Worker's public route (HANDOFF-3); empty until the
+          # API team confirms it, in which case the legacy single base is
+          # used. NUXT_PUBLIC_ env vars are read at BUILD time.
+          NUXT_PUBLIC_SWAP_API_BASE_TESTNET: ${{ vars.TESTNET_SWAP_API_BASE }}
+          # The dev key ISSUED AGAINST THE TESTNET INSTANCE (fresh D1).
+          NUXT_PUBLIC_SWAP_API_KEY: ${{ secrets.TESTNET_SWAP_API_KEY }}
+          # Nitro preset: cloudflare-pages for the Pages target (flip only
+          # if the hosting model changes — see docs/DEPLOYMENT.md).
+          NITRO_PRESET: ${{ vars.NITRO_PRESET || 'cloudflare-pages' }}
+        run: |
+          corepack enable 2>/dev/null || true
+          corepack prepare pnpm@9.15.4 --activate
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Deploy (wrangler pages)
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PAGES_PROJECT_TESTNET: ${{ secrets.PAGES_PROJECT_TESTNET }}
+        run: |
+          npx wrangler@3 pages deploy .output/client --project-name="$PAGES_PROJECT_TESTNET" --branch=main --commit-dirty=true
